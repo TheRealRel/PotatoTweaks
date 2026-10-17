@@ -21,6 +21,7 @@
 - **Double dragon bed** (section 13): two players can claim and sleep in the dragon bed, each respawning on their own half, with blankets. Ported from Double Dragon Bed; beds claimed with it keep their owners.
 - **Trophy pity** (section 14): each kill without a trophy raises that creature's next trophy chance until it drops; the Trophies tab shows the chances and, spoiler-free, the trophies still missing.
 - Switching from Double Dragon Bed, Dimmer Combat Particle Effects or TrophyAssister: remove them; their settings (and TrophyAssister's pity counts) are copied over on first launch.
+- New icon: the viking potato.
 - Everyone, including the server, needs 1.3.0; 1.2.x can't join a 1.3.0 server.
 
 ## 1.2.0 — update needed
