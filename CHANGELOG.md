@@ -1,14 +1,13 @@
 # Changelog
 
 ## 1.5.0 — update needed
-- **Loot and items** (section 22, server): multipliers for creature, resource (trees, rocks, ore, destroyed objects, dungeon loot) and pickable drops, item weight, stack size, auto-pickup range and items that float in water. Replaces DropMoreLoot, now set by the server for everyone:
+- **Loot and items** (section 22, server): multipliers for creature, resource (trees, rocks, ore, destroyed objects, dungeon loot) and pickable drops, item weight, stack size, auto-pickup range and items that float in water. Replaces DropMoreLoot (its settings carry over), now set by the server for everyone:
   - The game's own drop rules (stars, world modifiers) stay in charge; only the result is multiplied. Items dropped once per player and Hildir's quest chests aren't multiplied; trophies only if you turn that on.
   - Weight and stack size apply to every copy of an item, so crafted items and items loaded with your character are lighter and stack higher too, not only items picked up from the ground.
   - Fractions work: 1.5 gives one and a half times as much on average.
 - **Inventory rows** (section 23, server): Haldor's two inventory rows unlock after the Elder and Bonemass instead of Moder and the Queen, and he sells a third, Roomier pockets, after Yagluth for 3,000 coins, as EpicLoot Progression Fix did. A character that already bought Roomier pockets there can't buy it twice.
 - **Inventory Slots Visibility** (section 11, personal, on): no inventory slot stays hidden. When a window covers mod-added slots (equipment, quick slots, quiver, backpack, extra rows) or pushes them past the screen edge, that window moves just enough to show them, at any resolution and aspect ratio, ultrawide included, and moves back when no longer needed. It only looks again when the inventory's layout changes, so it costs next to nothing. Each move is written once to the log, which helps track down which mods clash.
-- Switching from DropMoreLoot: remove it; its settings are copied over on first launch (including multiplying trophies, as it did).
-- The mod page's feature list and settings are sorted into groups, Epic Loot together, with who sets each one (server or player).
+- Reorganized mod page.
 - The mod page links a ready-made `common.sell.csv` with the trader sell prices for servers running Traders Extended; both links explain themselves when you hover over them.
 - Everyone, including the server, needs 1.5.0; 1.4.x can't join a 1.5.0 server.
 
