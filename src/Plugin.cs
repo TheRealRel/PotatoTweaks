@@ -21,6 +21,9 @@ namespace PotatoTweaks
     [BepInDependency(EpicLootFeatures.EpicLootId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(EpicLootFeatures.StarLevelSystemId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(QualityOfLife.EquipmentAndQuickSlotsId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(DimmerModId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(DoubleBed.DoubleDragonBed.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(Trophies.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInIncompatibility("valheim.epiclootprogressionfix")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     public sealed class Plugin : BaseUnityPlugin
@@ -37,6 +40,15 @@ namespace PotatoTweaks
         internal static ConfigEntry<float> ShipZoomDistance, LandZoomMultiplier;
         internal static ConfigEntry<bool> GlowEnabled;
         internal static ConfigEntry<float> GlowStrength;
+        internal static ConfigEntry<bool> DimEnabled, DimStatus, DimCreatureHits, DimWeapons, DimImpacts, DimOnPlayers;
+        internal static ConfigEntry<float> DimOpacity, DimBrightness, DimSize;
+        internal static ConfigEntry<bool> BedEnabled, BedBlankets;
+        internal static ConfigEntry<bool> TrophyPity, TrophyFlatMode, TrophyOnlyMine, TrophyOnlyUncollected, TrophyShowChances, TrophyShowMissing,
+            TrophySpoilerFree, TrophyNotify, TrophyShowProgress;
+        internal static ConfigEntry<float> TrophyChanceMultiplier, TrophyGrowth, TrophyRareThreshold, TrophyRareGrowth, TrophyFlatBonus;
+        internal static ConfigEntry<int> TrophyGuarantee, TrophyExtraKillsPerStar;
+        internal static ConfigEntry<string> TrophyHidden;
+        internal const string DimmerModId = "wheeze.valheim.dimmercombatparticleeffects";
 
         // Server-controlled settings.
         internal static ConfigEntry<bool> DroppedItemsEnabled, ShipRemovalEnabled, TombEnabled;
@@ -90,11 +102,34 @@ namespace PotatoTweaks
 
             SkillSettings.Bind(Config, (text, range) => Synced(text, range));
 
-            GlowEnabled = Config.Bind("7 - Upgrade glow", "Enabled", true,
-                "Use the glow strength below for gear upgraded past its normal max level (the game makes such gear glow brighter with every extra level).");
-            GlowStrength = Config.Bind("7 - Upgrade glow", "Glow strength", 1f,
-                new ConfigDescription("Strength of that glow: its particles, colour and light. 1 = the game's normal glow, 0.5 = half, 0 = no glow at all, 2 = twice as strong. Only changes what you see.",
+            const string visual = "7 - Visual effects";
+            var before = ConfigText.Read(Config.ConfigFilePath);
+            GlowEnabled = Config.Bind(visual, "Upgrade glow", true,
+                "Use the glow strength below for gear upgraded past its normal max level (the game makes such gear glow brighter with every extra level). Personal.");
+            GlowStrength = Config.Bind(visual, "Upgrade glow strength", 1f,
+                new ConfigDescription("Strength of that glow: its particles, colour and light. 1 = the game's normal glow, 0.5 = half, 0 = no glow at all, 2 = twice as strong. Personal.",
                     new AcceptableValueRange<float>(0f, 2f)));
+            QolTreeDust = Config.Bind(visual, "Tree-felling dust", 1f,
+                new ConfigDescription("Dust and debris from trees and logs being hit, falling, landing and breaking. 1 = the game's normal amount, 0.5 = half, 0 = none. Sounds stay. Personal.",
+                    new AcceptableValueRange<float>(0f, 1f)));
+            DimEnabled = Config.Bind(visual, "Combat effects dimmer", true,
+                "Make the particles that cover creatures in a fight fainter, so their attack wind-ups stay visible: set how much with the three values below (all 1 = the game's normal). Applies from the next hit. Personal.");
+            DimOpacity = Config.Bind(visual, "Combat effects opacity", 1f,
+                new ConfigDescription("1 = fully visible (the game's normal), 0.35 = faint, 0 = invisible. Personal.", new AcceptableValueRange<float>(0f, 1f)));
+            DimBrightness = Config.Bind(visual, "Combat effects brightness", 1f,
+                new ConfigDescription("1 = the game's normal, lower = darker. Personal.", new AcceptableValueRange<float>(0f, 1f)));
+            DimSize = Config.Bind(visual, "Combat effects size", 1f,
+                new ConfigDescription("1 = the game's normal, lower = smaller particles. Personal.", new AcceptableValueRange<float>(0.1f, 1f)));
+            DimStatus = Config.Bind(visual, "Dim status effects on creatures", true,
+                "The flames of a burning creature, frost and poison clouds and the burst on every damage tick. Personal.");
+            DimCreatureHits = Config.Bind(visual, "Dim creature hit bursts", true, "Blood, sparks and the critical and sneak-attack bursts when a creature is hit. Personal.");
+            DimWeapons = Config.Bind(visual, "Dim weapon impacts", true, "What a player's weapon throws off where it hits, elemental bursts included. Personal.");
+            DimImpacts = Config.Bind(visual, "Dim projectile and area impacts", true, "Arrows, bolts, staff shots, bombs and area attacks from players where they hit. Personal.");
+            DimOnPlayers = Config.Bind(visual, "Also dim effects on players", false, "Also dim status effects and hit bursts on players, yourself included. Personal.");
+            ConfigText.CarryOver(Config, before, "7 - Upgrade glow", "Enabled", GlowEnabled);
+            ConfigText.CarryOver(Config, before, "7 - Upgrade glow", "Glow strength", GlowStrength);
+            if (!Chainloader.PluginInfos.ContainsKey(DimmerModId) && !before.ContainsKey(visual + "|Combat effects opacity"))
+                ConfigText.ImportDimmer(Config);
             AttackCancelEnabled = Config.Bind("8 - Attack cancel", "Enabled", true,
                 Synced("Pressing block during an attack's windup or recovery abandons the attack and raises the guard at once, so you can parry mid-swing. A hit the swing hasn't reached never lands; stamina already paid and a hit already dealt stay. Cancelling never lets you attack faster."));
 
@@ -140,9 +175,6 @@ namespace PotatoTweaks
                 "Recovering your own tombstone returns every item to the slot it had when you died; items picked up since then move aside. Personal.");
             QolAutoPickupKey = Config.Bind(qol, "Auto-pickup key with Equipment & Quick Slots", true,
                 "When a quick slot uses V, auto-pickup moves to ] (right bracket), so pressing V on an empty quick slot can't switch auto-pickup off. Read at startup. Personal.");
-            QolTreeDust = Config.Bind(qol, "Tree-felling dust", 1f,
-                new ConfigDescription("Dust and debris from trees and logs being hit, falling, landing and breaking. 1 = the game's normal amount, 0.5 = half, 0 = none. Sounds stay. Personal.",
-                    new AcceptableValueRange<float>(0f, 1f)));
             QolTamedCrops = Config.Bind(qol, "Tamed animals spare crops", true,
                 Synced("Your tamed animals walking through farm crops and planted bushes don't trample them. Wild animals and attacks still do damage."));
             QolSwimSpeed = Config.Bind(qol, "Swim skill raises swim speed", true,
@@ -179,6 +211,46 @@ namespace PotatoTweaks
                 Synced("New boats (raft, karve, longship, drakkar) get extra health the same way: 1 = +100% at Crafting 100, +50% at 50. Changing it rescales existing crafted boats. 0 = off.",
                     new AcceptableValueRange<float>(0f, 10f)));
 
+            const string bed = "13 - Double dragon bed";
+            BedEnabled = Config.Bind(bed, "Enabled", true,
+                "Each half of the dragon bed is a bed of its own: two players can claim it, sleep side by side and respawn on their own half. One player owning both halves sleeps in the middle. Shift+E on your half gives it up. Read at startup; keep it the same on the server and every player's game.");
+            BedBlankets = Config.Bind(bed, "Blankets", true,
+                "The fur draped over each half's edge rolls up at the sleeper's feet and unrolls over them, shaped to what they wear. Only looks. Personal.");
+            if (!before.ContainsKey(bed + "|Blankets")) ConfigText.CopyBool(Config, "hansenbansen.doublebed.cfg", "Blankets", "Enabled", BedBlankets);
+
+            const string trophies = "14 - Trophies";
+            TrophyPity = Config.Bind(trophies, "Pity", true,
+                Synced("Every kill that drops no trophy makes that creature's next trophy more likely; the count resets when it drops."));
+            TrophyFlatMode = Config.Bind(trophies, "Flat growth", false,
+                Synced("Off: each dry kill multiplies the chance (10% -> 11% -> 12.1% with 0.1 growth). On: each dry kill adds the flat bonus below."));
+            TrophyGrowth = Config.Bind(trophies, "Growth per dry kill", 0.1f,
+                Synced("Multiplying growth per dry kill: 0.1 = +10% of the current chance.", new AcceptableValueRange<float>(0f, 2f)));
+            TrophyRareThreshold = Config.Bind(trophies, "Rare trophy threshold", 0.05f,
+                Synced("Trophies whose normal chance is at or below this (0.05 = 5%) use the rare growth below.", new AcceptableValueRange<float>(0f, 1f)));
+            TrophyRareGrowth = Config.Bind(trophies, "Rare growth per dry kill", 0.2f,
+                Synced("Multiplying growth per dry kill for rare trophies.", new AcceptableValueRange<float>(0f, 2f)));
+            TrophyFlatBonus = Config.Bind(trophies, "Flat bonus per dry kill", 0.05f,
+                Synced("With flat growth: chance added per dry kill, 0.05 = +5 percentage points.", new AcceptableValueRange<float>(0f, 1f)));
+            TrophyGuarantee = Config.Bind(trophies, "Guarantee after dry kills", 0,
+                Synced("A trophy always drops after this many dry kills. 0 = off.", new AcceptableValueRange<int>(0, 1000)));
+            TrophyExtraKillsPerStar = Config.Bind(trophies, "Extra dry kills per star", 1,
+                Synced("A starred creature that drops no trophy counts as this many extra dry kills per star. 0 = one kill each.", new AcceptableValueRange<int>(0, 10)));
+            TrophyChanceMultiplier = Config.Bind(trophies, "Chance multiplier", 1f,
+                Synced("Multiplies the normal trophy chance before pity. 1 = the game's normal.", new AcceptableValueRange<float>(0f, 10f)));
+            TrophyOnlyMine = Config.Bind(trophies, "Only count my kills", true,
+                Synced("Only your kills add pity: your last hit (burning and poison after your hit count), or your tames and summons following you."));
+            TrophyOnlyUncollected = Config.Bind(trophies, "Only uncollected trophies", false,
+                Synced("Pity and the chance multiplier only apply to trophies this character has never picked up."));
+            TrophyShowChances = Config.Bind(trophies, "Show chances in Trophies tab", true, "Each trophy shows its next drop chance and dry kills. Personal.");
+            TrophyShowMissing = Config.Bind(trophies, "Show missing trophies", true, "Trophies you haven't collected yet show greyed out in the place they'll take. Personal.");
+            TrophySpoilerFree = Config.Bind(trophies, "Spoiler-free", true,
+                "Missing trophies of creatures you've never killed show as a dark shape named ??????; after your first kill they show greyed out with their name. Personal.");
+            TrophyHidden = Config.Bind(trophies, "Hidden trophies", "TrophyDeerWhite",
+                "Trophy prefab names, separated by commas, never shown as missing. TrophyDeerWhite is unfinished game content. Personal.");
+            TrophyNotify = Config.Bind(trophies, "Message on drop", false, "Show a message when a trophy drops. Personal.");
+            TrophyShowProgress = Config.Bind(trophies, "Message on dry kill", false, "After a kill without a trophy, show the dry kills and the new chance. Personal.");
+            if (!before.ContainsKey(trophies + "|Pity")) ConfigText.ImportTrophyAssister(Config);
+
             GlowEnabled.SettingChanged += (_, __) => UpgradeGlow.RefreshAll();
             GlowStrength.SettingChanged += (_, __) => UpgradeGlow.RefreshAll();
 
@@ -198,6 +270,12 @@ namespace PotatoTweaks
                 typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal) })
                 Patch(type);
             Run("Auto-pickup key", AutoPickupKey.Initialize);
+            EnableUnlessInstalled(DimmerModId, "Dimmer Combat Particle Effects", "combat effects dimmer", () => { foreach (var type in CombatEffects.Patches) Patch(type); });
+            EnableUnlessInstalled(DoubleBed.DoubleDragonBed.OriginalModId, "Double Dragon Bed", "double dragon bed", () =>
+            {
+                if (BedEnabled.Value) DoubleBed.DoubleDragonBed.Enable(Patch);
+            });
+            EnableUnlessInstalled(Trophies.OriginalModId, "TrophyAssister", "trophy pity", () => { foreach (var type in Trophies.Patches) Patch(type); });
             Run("Tombstone items back in their slots", () =>
             {
                 // Looks up Equipment & Quick Slots' slot layout first, so a changed layout turns this feature off cleanly.
@@ -223,6 +301,14 @@ namespace PotatoTweaks
                 Patch(typeof(SkillSettings.DeathLoss));
                 Patch(typeof(SkillSettings.XpGain));
             }
+        }
+
+        // A feature that another installed mod already provides stays off, with a note in the log.
+        private void EnableUnlessInstalled(string otherId, string otherName, string feature, Action enable)
+        {
+            if (Chainloader.PluginInfos.ContainsKey(otherId))
+                Log.LogWarning($"{otherName} is installed, so Potato Tweaks' {feature} stays off. Remove {otherName} to use it.");
+            else Run(feature, enable);
         }
 
         // Kept in its own method so Epic Loot's types are only looked at when Epic Loot is installed.

@@ -9,7 +9,6 @@
   - Combat health bars stay visible through mist, trees and buildings; an enemy attacking you within 15 m shows through anything.
   - Taming progress shows from health-bar range, and big animals can be petted or renamed while standing beside them.
   - With Equipment & Quick Slots, auto-pickup moves to ] when a quick slot uses V, so V can't switch it off by accident.
-  - Tree-felling dust slider.
   - Tamed animals don't trample farm crops (server).
   - Swim skill raises swim speed, up to +25% at level 100 (server).
 - **Stations, vehicles and map** (section 12, server):
@@ -18,6 +17,10 @@
   - Fermenters: speed and output.
   - Crafting station range and map reveal radius multipliers.
   - Carts and boats built from now on get more health the higher their builder's Crafting skill: carts up to +400%, boats up to +100% at Crafting 100 (adjustable, 0 = off).
+- **Visual effects** (section 7, personal): the upgrade glow, tree-felling dust and a new combat effects dimmer now sit together. The dimmer makes burning, frost and poison effects, hit bursts and impact effects on creatures fainter, darker or smaller. Your upgrade glow settings carry over.
+- **Double dragon bed** (section 13): two players can claim and sleep in the dragon bed, each respawning on their own half, with blankets. Ported from Double Dragon Bed; beds claimed with it keep their owners.
+- **Trophy pity** (section 14): each kill without a trophy raises that creature's next trophy chance until it drops; the Trophies tab shows the chances and, spoiler-free, the trophies still missing.
+- Switching from Double Dragon Bed, Dimmer Combat Particle Effects or TrophyAssister: remove them; their settings (and TrophyAssister's pity counts) are copied over on first launch.
 - Everyone, including the server, needs 1.3.0; 1.2.x can't join a 1.3.0 server.
 
 ## 1.2.0 — update needed
