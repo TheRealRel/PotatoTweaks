@@ -1,8 +1,8 @@
 {
     "name": "PotatoTweaks",
-    "version_number": "1.2.0",
+    "version_number": "1.3.0",
     "website_url": "https://github.com/TheRealRel/PotatoTweaks",
-    "description": "Camera zoom, 3-hour dropped items, Ctrl+remove ships and carts, tombstone retrieval, skill loss/XP, upgrade glow slider, attack cancel, Epic Loot bounty fixes, bug fixes.",
+    "description": "QoL and fixes for Valheim servers: camera zoom, longer item drops, tombstone retrieval, skill loss/XP, attack cancel, Epic Loot bounty and enchantment fixes, smelter and fermenter tweaks, and more.",
     "dependencies": [
         "denikson-BepInExPack_Valheim-5.4.2351",
         "ValheimModding-Jotunn-2.30.2"

@@ -3,7 +3,7 @@
 ## References
 
 From the Valheim install (`Valheim/valheim_Data/Managed`):
-mscorlib, netstandard, System, System.Core, assembly_valheim, assembly_utils, assembly_guiutils, UnityEngine, UnityEngine.CoreModule, UnityEngine.InputLegacyModule, UnityEngine.PhysicsModule, UnityEngine.TextRenderingModule, UnityEngine.ParticleSystemModule, UnityEngine.AnimationModule, UnityEngine.AIModule, Unity.TextMeshPro, UnityEngine.UI
+mscorlib, netstandard, System, System.Core, assembly_valheim, assembly_utils, assembly_guiutils, UnityEngine, UnityEngine.CoreModule, UnityEngine.InputLegacyModule, UnityEngine.PhysicsModule, UnityEngine.TextRenderingModule, UnityEngine.ParticleSystemModule, UnityEngine.AnimationModule, UnityEngine.AIModule, Unity.Collections, Unity.TextMeshPro, UnityEngine.UI
 
 From a BepInEx profile (r2modman / Gale):
 - `BepInEx/core/BepInEx.dll`
@@ -11,7 +11,8 @@ From a BepInEx profile (r2modman / Gale):
 - `BepInEx/plugins/ValheimModding-Jotunn/Jotunn.dll`
 - `BepInEx/plugins/RandyKnapp-EpicLoot/EpicLoot.dll` (compile time only; Epic Loot stays optional when the mod runs)
 
-StarLevelSystem is used through reflection, so it isn't needed to build.
+StarLevelSystem and Equipment & Quick Slots are used through reflection, so they aren't needed to build.
+
 
 ## Compile
 
