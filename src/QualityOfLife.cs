@@ -7,7 +7,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Reflection.Emit;
 using BepInEx.Bootstrap;
 using BepInEx.Configuration;
 using HarmonyLib;

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.2
+- Clearer settings table on the mod page: each section says what its settings do.
+- Code cleanup. No gameplay changes; 1.5.x players can play together.
+
 ## 1.5.1
 - **Inventory rows** (section 23, server): Haldor's two inventory rows unlock after the Elder and Bonemass instead of Moder and the Queen, and he sells a third, Roomier pockets, after Yagluth for 3,000 coins. Bought once per character.
 - **Inventory Slots Visibility** (section 11, personal, on): no inventory slot stays hidden. When a window covers mod-added slots (equipment, quick slots, quiver, backpack, extra rows) or pushes them past the screen edge, that window moves just enough to show them, at any resolution and aspect ratio, ultrawide included, and moves back when no longer needed. Checks only when the inventory's layout changes. Each move is noted once in the log.

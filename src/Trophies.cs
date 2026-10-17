@@ -1,7 +1,6 @@
 // Potato Tweaks - trophy pity and trophy list, written from scratch.
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using BepInEx;
