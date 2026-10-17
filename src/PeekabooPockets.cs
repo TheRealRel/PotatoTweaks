@@ -1,7 +1,6 @@
-// Potato Tweaks - keep every inventory slot visible, written for this mod.
+// Potato Tweaks - Peekaboo Pockets: no inventory slot stays hidden. Written for this mod.
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using HarmonyLib;
 using UnityEngine;
@@ -10,16 +9,20 @@ using UnityEngine.UI;
 namespace PotatoTweaks
 {
     // Several mods add slots to the inventory screen (Equipment & Quick Slots' equipment, quick and quiver slots, Adventure
-    // Backpacks' backpack in the chest window, larger inventories from Haldor's rows) and each places its windows on its
-    // own. On some screen sizes or with a taller inventory one window can end up over another's slots, or partly off the
-    // screen. While the inventory is open, check where every slot of your inventory and the open chest or backpack really
-    // is on screen; when one is off screen or under another window, move that window just far enough, staying inside
-    // the screen, and put it back once it isn't needed. Works in screen pixels of the game's own UI canvas, so it follows
-    // any resolution, aspect ratio (16:9 to 32:9) and the game's GUI scale. Only moves windows; never changes items.
+    // Backpacks' backpack in the chest window, more rows from Haldor) and each places its windows on its own. On some
+    // screens, or with a taller inventory, a window can end up over another's slots or partly off the screen. When the
+    // inventory's layout changes (opening it, opening a chest or backpack, a new row, a new resolution or GUI scale), look
+    // where every slot of your inventory and the open chest really is on screen; if one is off screen or under another
+    // window, move that window just far enough, staying on screen, and put it back once it isn't needed. Works in the
+    // game UI's own screen pixels, so it follows any resolution, aspect ratio (16:9 to 32:9) and GUI scale.
+    //
+    // Kept light: with the inventory closed it does nothing but one visibility check per frame. While it is open it reads a
+    // small layout fingerprint (screen size, GUI scale, the screen's windows and slot counts) four times a second, without
+    // allocating, and only when that changes does it look at the slots themselves.
     [HarmonyPatch(typeof(InventoryGui), "Update")]
-    internal static class InventoryLayout
+    internal static class PeekabooPockets
     {
-        private const float Interval = 0.15f, Margin = 4f;
+        private const float Interval = 0.25f, Margin = 4f;
         private static readonly AccessTools.FieldRef<InventoryGrid, List<InventoryElement>> Elements =
             AccessTools.FieldRefAccess<InventoryGrid, List<InventoryElement>>("m_elements");
         private static readonly AccessTools.FieldRef<InventoryGui, GameObject> DragItem = AccessTools.FieldRefAccess<InventoryGui, GameObject>("m_dragGo");
@@ -32,83 +35,126 @@ namespace PotatoTweaks
 
         private static readonly ConditionalWeakTable<RectTransform, Moved> MovedWindows = new ConditionalWeakTable<RectTransform, Moved>();
         private static readonly List<RectTransform> Touched = new List<RectTransform>();
+        private static readonly List<RectTransform> Scratch = new List<RectTransform>();
+        private static readonly List<RectTransform> Windows = new List<RectTransform>();
+        private static readonly Dictionary<(RectTransform holder, RectTransform cover), Rect> Hidden = new Dictionary<(RectTransform, RectTransform), Rect>();
         private static readonly Vector3[] Corners = new Vector3[4];
         private static readonly HashSet<string> Reported = new HashSet<string>();
+        private static Canvas canvas;
+        private static Transform canvasFor;
         private static float nextCheck;
+        private static int lastFingerprint;
 
         [HarmonyPriority(Priority.Last)]
         private static void Postfix(InventoryGui __instance)
         {
-            if (!Plugin.InventoryLayoutGuard.Value)
+            if (!InventoryGui.IsVisible() || !Plugin.PeekabooPockets.Value)
             {
                 if (Touched.Count > 0) RestoreAll();
+                lastFingerprint = 0;
                 return;
             }
             if (Time.unscaledTime < nextCheck) return;
             nextCheck = Time.unscaledTime + Interval;
-            if (!InventoryGui.IsVisible() || !__instance.m_inventoryRoot || DragItem(__instance))
+            var root = __instance.m_inventoryRoot;
+            if (!root || DragItem(__instance)) return;
+            if (canvasFor != root)
             {
-                if (Touched.Count > 0 && !InventoryGui.IsVisible()) RestoreAll();
-                return;
+                canvasFor = root;
+                canvas = root.GetComponentInParent<Canvas>()?.rootCanvas;
             }
-            try { Check(__instance); }
+            if (!canvas) return;
+            int fingerprint = Fingerprint(__instance, root);
+            if (fingerprint == lastFingerprint) return;
+            try
+            {
+                Check(__instance, root);
+                lastFingerprint = Fingerprint(__instance, root);
+            }
             catch (Exception e)
             {
-                Plugin.Log.LogWarning($"Inventory layout check stopped: {e.Message}");
-                Plugin.InventoryLayoutGuard.Value = false;
+                Plugin.Log.LogWarning($"Peekaboo Pockets stopped: {e.Message}");
+                Plugin.PeekabooPockets.Value = false;
             }
         }
 
-        private static void Check(InventoryGui gui)
+        // Changes whenever something that decides where slots end up changes; reading it allocates nothing.
+        private static int Fingerprint(InventoryGui gui, Transform root)
         {
-            var root = gui.m_inventoryRoot;
-            var canvas = root.GetComponentInParent<Canvas>()?.rootCanvas;
-            if (!canvas) return;
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 31 + Screen.width;
+                hash = hash * 31 + Screen.height;
+                hash = hash * 31 + canvas.scaleFactor.GetHashCode();
+                for (int i = 0; i < root.childCount; i++)
+                {
+                    var child = root.GetChild(i);
+                    if (!child.gameObject.activeSelf) continue;
+                    hash = hash * 31 + i;
+                    if (child is RectTransform rect)
+                    {
+                        hash = hash * 31 + rect.anchoredPosition.GetHashCode();
+                        hash = hash * 31 + rect.sizeDelta.GetHashCode();
+                    }
+                }
+                var player = gui.m_playerGrid;
+                if (player) hash = hash * 31 + Elements(player).Count;
+                var container = gui.ContainerGrid;
+                if (container && container.gameObject.activeInHierarchy) hash = hash * 31 + Elements(container).Count + 7;
+                return hash == 0 ? 1 : hash;
+            }
+        }
+
+        private static void Check(InventoryGui gui, Transform root)
+        {
             var camera = canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera;
             // The area the game's UI is drawn in, in screen pixels: the whole window at any aspect ratio.
             var screen = canvas.pixelRect;
             screen = new Rect(screen.x + Margin, screen.y + Margin, screen.width - 2 * Margin, screen.height - 2 * Margin);
 
-            // Windows already moved by us go back home first, so each check starts from the mods' own layout.
-            foreach (var window in Touched.ToList())
+            // Windows we moved go back home first, so each check starts from the mods' own layout.
+            Scratch.Clear();
+            Scratch.AddRange(Touched);
+            foreach (var window in Scratch)
                 if (window && MovedWindows.TryGetValue(window, out var moved))
                 {
                     if (window.anchoredPosition != moved.Placed) Forget(window);
                     else window.anchoredPosition = moved.Home;
                 }
 
-            var windows = Windows(root, screen, camera);
+            FindWindows(root, screen, camera);
             for (int pass = 0; pass < 3; pass++)
-            {
-                if (!FixOnce(gui, root, windows, screen, camera)) break;
-            }
+                if (!FixOnce(gui, root, screen, camera)) break;
 
-            // Windows home again and not needed elsewhere this time are no longer ours.
-            foreach (var window in Touched.ToList())
+            // Windows that are home again aren't ours any more.
+            Scratch.Clear();
+            Scratch.AddRange(Touched);
+            foreach (var window in Scratch)
                 if (!window || (MovedWindows.TryGetValue(window, out var moved) && window.anchoredPosition == moved.Home)) Forget(window);
         }
 
         // The inventory screen's top-level windows: crafting, your inventory, the chest or backpack, and anything mods add
-        // beside them. Screen-wide overlays don't count as windows.
-        private static List<RectTransform> Windows(Transform root, Rect screen, Camera camera)
+        // beside them. Screen-wide overlays and invisible holders don't count.
+        private static void FindWindows(Transform root, Rect screen, Camera camera)
         {
-            var windows = new List<RectTransform>();
-            foreach (Transform child in root)
+            Windows.Clear();
+            for (int i = 0; i < root.childCount; i++)
             {
-                if (!(child is RectTransform window) || !child.gameObject.activeInHierarchy) continue;
+                if (!(root.GetChild(i) is RectTransform window) || !window.gameObject.activeInHierarchy) continue;
                 var rect = ScreenRect(window, camera);
                 if (rect.width <= 1f || rect.height <= 1f || rect.width * rect.height > 0.6f * screen.width * screen.height || !Visible(window)) continue;
-                windows.Add(window);
+                Windows.Add(window);
             }
-            return windows;
         }
 
-        private static bool FixOnce(InventoryGui gui, Transform root, List<RectTransform> windows, Rect screen, Camera camera)
+        private static bool FixOnce(InventoryGui gui, Transform root, Rect screen, Camera camera)
         {
-            foreach (var grid in new[] { gui.m_playerGrid, gui.ContainerGrid })
+            for (int g = 0; g < 2; g++)
             {
+                var grid = g == 0 ? gui.m_playerGrid : gui.ContainerGrid;
                 if (!grid || !grid.gameObject.activeInHierarchy) continue;
-                var hidden = new Dictionary<(RectTransform holder, RectTransform cover), Rect>();
+                Hidden.Clear();
                 foreach (var element in Elements(grid))
                 {
                     if (!element || !element.gameObject.activeInHierarchy) continue;
@@ -120,28 +166,27 @@ namespace PotatoTweaks
                     RectTransform cover = null;
                     if (!screen.Contains(center)) cover = holder;
                     else
-                        foreach (var window in windows)
-                            if (window != holder && DrawnAbove(window, holder) && ScreenRect(window, camera).Contains(center)) { cover = window; break; }
+                        foreach (var window in Windows)
+                            if (window != holder && window.GetSiblingIndex() > holder.GetSiblingIndex() && ScreenRect(window, camera).Contains(center)) { cover = window; break; }
                     if (cover == null) continue;
                     var key = (holder, cover);
-                    hidden[key] = hidden.TryGetValue(key, out var area) ? Union(area, slot) : slot;
+                    Hidden[key] = Hidden.TryGetValue(key, out var area) ? Union(area, slot) : slot;
                 }
 
-                foreach (var pair in hidden)
+                foreach (var pair in Hidden)
                 {
                     var (holder, cover) = pair.Key;
                     var slots = pair.Value;
                     if (cover == holder)
                     {
-                        // Off screen: bring the window holding these slots back inside.
                         if (Move(holder, Inside(slots, screen), camera, $"slots of {holder.name} were off screen")) return true;
                         continue;
                     }
                     // Under another window: move the one that isn't your inventory; your inventory stays put if it can.
                     var mover = holder == gui.m_player ? cover : holder;
-                    var still = mover == holder ? ScreenRect(cover, camera) : slots;
-                    var moving = ScreenRect(mover, camera);
-                    var shift = Apart(moving, mover == holder ? slots : moving, still, screen);
+                    var shift = mover == holder
+                        ? Apart(ScreenRect(holder, camera), slots, ScreenRect(cover, camera), screen)
+                        : Apart(ScreenRect(cover, camera), ScreenRect(cover, camera), slots, screen);
                     if (shift == Vector2.zero && mover != holder)
                     {
                         mover = holder;
@@ -151,30 +196,38 @@ namespace PotatoTweaks
                 }
             }
 
-            // Finally, no window of the inventory screen sticks out of the screen.
-            foreach (var window in windows)
+            // Finally, no window of the inventory screen sticks out past the screen edge.
+            foreach (var window in Windows)
                 if (Move(window, Inside(ScreenRect(window, camera), screen), camera, $"{window.name} reached past the screen edge")) return true;
             return false;
         }
 
-        // A window counts only if something of it is drawn: a background or content that isn't fully transparent.
+        // A window counts only if something of it is drawn: its own background or that of a direct child.
         private static bool Visible(RectTransform window)
         {
-            foreach (var group in window.GetComponentsInParent<CanvasGroup>())
-                if (group.alpha < 0.05f) return false;
-            foreach (var graphic in window.GetComponentsInChildren<Graphic>())
-                if (graphic.enabled && graphic.color.a > 0.05f) return true;
+            for (var parent = window; parent; parent = parent.parent as RectTransform)
+            {
+                var group = parent.GetComponent<CanvasGroup>();
+                if (group && group.alpha < 0.05f) return false;
+            }
+            if (Drawn(window)) return true;
+            for (int i = 0; i < window.childCount; i++)
+                if (Drawn(window.GetChild(i))) return true;
             return false;
+        }
+
+        private static bool Drawn(Transform transform)
+        {
+            var graphic = transform.GetComponent<Graphic>();
+            return graphic && graphic.enabled && transform.gameObject.activeInHierarchy && graphic.color.a > 0.05f;
         }
 
         // A slot scrolled out of its list's view is hidden on purpose, not by another window.
         private static bool Clipped(Transform element, Vector2 center, Camera camera)
         {
             for (var parent = element.parent; parent; parent = parent.parent)
-            {
-                bool masks = parent.GetComponent<RectMask2D>() || parent.GetComponent<Mask>();
-                if (masks && parent is RectTransform view && !ScreenRect(view, camera).Contains(center)) return true;
-            }
+                if ((parent.GetComponent<RectMask2D>() || parent.GetComponent<Mask>()) && parent is RectTransform view && !ScreenRect(view, camera).Contains(center))
+                    return true;
             return false;
         }
 
@@ -184,15 +237,13 @@ namespace PotatoTweaks
             return transform as RectTransform;
         }
 
-        private static bool DrawnAbove(Transform a, Transform b) => a.GetSiblingIndex() > b.GetSiblingIndex();
-
         private static Rect ScreenRect(RectTransform rect, Camera camera)
         {
             rect.GetWorldCorners(Corners);
             Vector2 min = new Vector2(float.MaxValue, float.MaxValue), max = new Vector2(float.MinValue, float.MinValue);
-            foreach (var corner in Corners)
+            for (int i = 0; i < 4; i++)
             {
-                var point = RectTransformUtility.WorldToScreenPoint(camera, corner);
+                var point = RectTransformUtility.WorldToScreenPoint(camera, Corners[i]);
                 min = Vector2.Min(min, point);
                 max = Vector2.Max(max, point);
             }
@@ -216,15 +267,14 @@ namespace PotatoTweaks
         // while the whole window stays on screen; zero when none fits.
         private static Vector2 Apart(Rect window, Rect part, Rect still, Rect screen)
         {
-            var options = new[]
-            {
-                new Vector2(still.xMin - part.xMax - Margin, 0f), new Vector2(still.xMax - part.xMin + Margin, 0f),
-                new Vector2(0f, still.yMin - part.yMax - Margin), new Vector2(0f, still.yMax - part.yMin + Margin),
-            };
             Vector2 best = Vector2.zero;
             float bestLength = float.MaxValue;
-            foreach (var option in options)
+            for (int i = 0; i < 4; i++)
             {
+                var option = i == 0 ? new Vector2(still.xMin - part.xMax - Margin, 0f)
+                    : i == 1 ? new Vector2(still.xMax - part.xMin + Margin, 0f)
+                    : i == 2 ? new Vector2(0f, still.yMin - part.yMax - Margin)
+                    : new Vector2(0f, still.yMax - part.yMin + Margin);
                 var moved = new Rect(window.position + option, window.size);
                 if (moved.xMin < screen.xMin || moved.xMax > screen.xMax || moved.yMin < screen.yMin || moved.yMax > screen.yMax) continue;
                 if (option.sqrMagnitude < bestLength) { best = option; bestLength = option.sqrMagnitude; }
@@ -243,7 +293,7 @@ namespace PotatoTweaks
             moved.Placed = window.anchoredPosition;
             if (!Touched.Contains(window)) Touched.Add(window);
             string report = $"{reason}; moved {window.name} by {Mathf.RoundToInt(screenShift.x)}, {Mathf.RoundToInt(screenShift.y)} px (screen {Screen.width}x{Screen.height})";
-            if (Reported.Add(report)) Plugin.Log.LogInfo("Inventory layout: " + report);
+            if (Reported.Add(report)) Plugin.Log.LogInfo("Peekaboo Pockets: " + report);
             return true;
         }
 
