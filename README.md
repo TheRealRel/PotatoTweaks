@@ -16,7 +16,8 @@ A Valheim mod made for the Potato Server. It consolidates, fixes and adds things
 - Epic Loot bounty fixes (only with Epic Loot)
 - Fixes for Valheim bugs and Epic Loot enchantments
 - Quality of life: tombstone items back in their slots, live hammer menu, better health bars, taming info, tree dust slider, and more
-- Optional smelter, fermenter, crafting station range, map reveal and crafted cart/boat health settings (normal by default)
+- Carts and boats get more health from their builder's Crafting skill
+- Optional smelter, fermenter, crafting station range and map reveal settings (normal by default)
 
 The full description, settings and requirements are in [package/README.md](package/README.md). Changes per version: [CHANGELOG.md](CHANGELOG.md).
 

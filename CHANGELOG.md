@@ -12,11 +12,12 @@
   - Tree-felling dust slider.
   - Tamed animals don't trample farm crops (server).
   - Swim skill raises swim speed, up to +25% at level 100 (server).
-- **Stations, vehicles and map** (section 12, server; every value starts at the game's normal, so nothing changes until you set it):
+- **Stations, vehicles and map** (section 12, server):
+  - Station, fermenter, range and map settings start at the game's normal values, so they change nothing until you set them.
   - Smelter-type stations (smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel, windmill): ore capacity, fuel capacity, speed, fuel per product and output, with a list of stations to leave alone.
   - Fermenters: speed and output.
   - Crafting station range and map reveal radius multipliers.
-  - Carts and boats built by skilled crafters can get extra health from the builder's Crafting skill.
+  - Carts and boats built from now on get more health the higher their builder's Crafting skill: carts up to +400%, boats up to +100% at Crafting 100 (adjustable, 0 = off).
 - Everyone, including the server, needs 1.3.0; 1.2.x can't join a 1.3.0 server.
 
 ## 1.2.0 — update needed

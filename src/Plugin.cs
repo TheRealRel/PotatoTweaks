@@ -172,10 +172,10 @@ namespace PotatoTweaks
                     new AcceptableValueRange<float>(1f, 5f)));
             MapRevealRadius = Config.Bind(stations, "Map reveal radius", 1f,
                 Synced("Multiplies how far around you the map is revealed as you explore (game: 100 m). 1 = the game's normal; 1.5 = 150 m.", new AcceptableValueRange<float>(1f, 5f)));
-            CartHealthBonus = Config.Bind(stations, "Cart health from Crafting skill", 0f,
+            CartHealthBonus = Config.Bind(stations, "Cart health from Crafting skill", 4f,
                 Synced("New carts get extra health from their builder's Crafting skill: this value times the skill share, so 4 = +400% at Crafting 100, +200% at 50. Changing it rescales existing crafted carts. 0 = off.",
                     new AcceptableValueRange<float>(0f, 10f)));
-            BoatHealthBonus = Config.Bind(stations, "Boat health from Crafting skill", 0f,
+            BoatHealthBonus = Config.Bind(stations, "Boat health from Crafting skill", 1f,
                 Synced("New boats (raft, karve, longship, drakkar) get extra health the same way: 1 = +100% at Crafting 100, +50% at 50. Changing it rescales existing crafted boats. 0 = off.",
                     new AcceptableValueRange<float>(0f, 10f)));
 
