@@ -20,12 +20,13 @@ namespace PotatoTweaks
     [BepInDependency(SkillLossId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(EpicLootFeatures.EpicLootId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(EpicLootFeatures.StarLevelSystemId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(QualityOfLife.EquipmentAndQuickSlotsId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInIncompatibility("valheim.epiclootprogressionfix")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.2.0";
+        public const string Version = "1.3.0";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -46,6 +47,11 @@ namespace PotatoTweaks
         internal static ConfigEntry<float> BountySpacing;
         internal static ConfigEntry<int> BountyExtraCopies;
         internal static ConfigEntry<bool> GameFixesEnabled, EpicLootFixesEnabled;
+        internal static ConfigEntry<bool> QolNoAutoEquip, QolLiveBuildMenu, QolBuildToolHealthBars, QolCombatHealthBars, QolTamingHover,
+            QolGraveSlots, QolAutoPickupKey, QolTamedCrops, QolSwimSpeed;
+        internal static ConfigEntry<float> QolAttackerRange, QolTreeDust;
+        internal static ConfigEntry<float> SmelterCapacity, SmelterSpeed, FermenterSpeed, FermenterOutput, StationRange, MapRevealRadius,
+            CartHealthBonus, BoatHealthBonus;
 
         internal static Harmony HarmonyInstance;
 
@@ -116,6 +122,53 @@ namespace PotatoTweaks
                     "Show a small name and health bar above bounty targets, as on ordinary creatures, besides the boss bar at the top of the screen. Personal.");
             }
 
+            const string qol = "11 - Quality of life";
+            QolNoAutoEquip = Config.Bind(qol, "No auto-equip on pickup", true,
+                "Walking over a club, pickaxe or torch with empty hands doesn't put it in your hands. Personal.");
+            QolLiveBuildMenu = Config.Bind(qol, "Live hammer menu", true,
+                "Hammer piece icons update as you walk in and out of workbench or chest range, without reopening the menu. Personal.");
+            QolBuildToolHealthBars = Config.Bind(qol, "Health bars with build tools", true,
+                "Creature health bars still show while you hold the hammer, hoe or cultivator. Personal.");
+            QolCombatHealthBars = Config.Bind(qol, "Combat health bars", true,
+                "Alerted enemies and animals being tamed (or tamed) keep their health bars through mist, trees and buildings; the ground and rock still hide them. Personal.");
+            QolAttackerRange = Config.Bind(qol, "Attacker health bar range", 15f,
+                new ConfigDescription("An enemy attacking you within this many meters shows its health bar through anything. Personal.", new AcceptableValueRange<float>(0f, 100f)));
+            QolTamingHover = Config.Bind(qol, "Taming info at range", true,
+                "See an animal's taming progress from health-bar range, and pet or rename big animals while standing beside them. Personal.");
+            QolGraveSlots = Config.Bind(qol, "Tombstone items back in their slots", true,
+                "Recovering your own tombstone returns every item to the slot it had when you died; items picked up since then move aside. Personal.");
+            QolAutoPickupKey = Config.Bind(qol, "Auto-pickup key with Equipment & Quick Slots", true,
+                "When a quick slot uses V, auto-pickup moves to ] (right bracket), so pressing V on an empty quick slot can't switch auto-pickup off. Read at startup. Personal.");
+            QolTreeDust = Config.Bind(qol, "Tree-felling dust", 1f,
+                new ConfigDescription("Dust and debris from trees and logs being hit, falling, landing and breaking. 1 = the game's normal amount, 0.5 = half, 0 = none. Sounds stay. Personal.",
+                    new AcceptableValueRange<float>(0f, 1f)));
+            QolTamedCrops = Config.Bind(qol, "Tamed animals spare crops", true,
+                Synced("Your tamed animals walking through farm crops and planted bushes don't trample them. Wild animals and attacks still do damage."));
+            QolSwimSpeed = Config.Bind(qol, "Swim skill raises swim speed", true,
+                Synced("Swimming speed rises with the Swim skill the way running speed rises with Run: up to +25% at level 100."));
+
+            const string stations = "12 - Stations, vehicles and map";
+            SmelterCapacity = Config.Bind(stations, "Smelter capacity", 2f,
+                Synced("Multiplies how much ore and fuel smelter-type stations hold: smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel and windmill. 1 = the game's normal. Applies as stations load.",
+                    new AcceptableValueRange<float>(0.5f, 10f)));
+            SmelterSpeed = Config.Bind(stations, "Smelter speed", 1f,
+                Synced("Speeds up those same stations: 2 = twice as fast. 1 = the game's normal. Applies as stations load.", new AcceptableValueRange<float>(0.5f, 10f)));
+            FermenterSpeed = Config.Bind(stations, "Fermenter speed", 1f,
+                Synced("Speeds up fermenting: 2 = half the time. 1 = the game's normal. Applies as fermenters load.", new AcceptableValueRange<float>(0.5f, 10f)));
+            FermenterOutput = Config.Bind(stations, "Fermenter output", 1.5f,
+                Synced("Multiplies the meads each batch gives, rounded: 1.5 turns 6 into 9. 1 = the game's normal. Applies as fermenters load.", new AcceptableValueRange<float>(0.5f, 5f)));
+            StationRange = Config.Bind(stations, "Crafting station range", 1f,
+                Synced("Multiplies the build range around workbenches, forges and other crafting stations, extension bonuses included. 1 = the game's normal; 1.5 = half again as far.",
+                    new AcceptableValueRange<float>(1f, 5f)));
+            MapRevealRadius = Config.Bind(stations, "Map reveal radius", 1f,
+                Synced("Multiplies how far around you the map is revealed as you explore (game: 100 m). 1 = the game's normal; 1.5 = 150 m.", new AcceptableValueRange<float>(1f, 5f)));
+            CartHealthBonus = Config.Bind(stations, "Cart health from Crafting skill", 4f,
+                Synced("New carts get extra health from their builder's Crafting skill: this value times the skill share, so 4 = +400% at Crafting 100, +200% at 50. Changing it rescales existing crafted carts. 0 = off.",
+                    new AcceptableValueRange<float>(0f, 10f)));
+            BoatHealthBonus = Config.Bind(stations, "Boat health from Crafting skill", 1f,
+                Synced("New boats (raft, karve, longship, drakkar) get extra health the same way: 1 = +100% at Crafting 100, +50% at 50. Changing it rescales existing crafted boats. 0 = off.",
+                    new AcceptableValueRange<float>(0f, 10f)));
+
             GlowEnabled.SettingChanged += (_, __) => UpgradeGlow.RefreshAll();
             GlowStrength.SettingChanged += (_, __) => UpgradeGlow.RefreshAll();
 
@@ -130,6 +183,17 @@ namespace PotatoTweaks
                 Patch(type);
             if (GameFixesEnabled.Value)
                 foreach (var type in GameFixes.Patches) Patch(type);
+            foreach (var type in QualityOfLife.Patches) Patch(type);
+            foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings),
+                typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal) })
+                Patch(type);
+            Run("Auto-pickup key", AutoPickupKey.Initialize);
+            Run("Tombstone items back in their slots", () =>
+            {
+                // Looks up Equipment & Quick Slots' slot layout first, so a changed layout turns this feature off cleanly.
+                System.Runtime.CompilerServices.RuntimeHelpers.RunClassConstructor(typeof(GraveSlotRecovery).TypeHandle);
+                foreach (var type in QualityOfLife.GravePatches) Patch(type);
+            });
             if (epicLoot) EnableEpicLoot();
 
             if (Chainloader.PluginInfos.ContainsKey(TombRetrieverId))

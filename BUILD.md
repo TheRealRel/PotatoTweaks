@@ -11,7 +11,8 @@ From a BepInEx profile (r2modman / Gale):
 - `BepInEx/plugins/ValheimModding-Jotunn/Jotunn.dll`
 - `BepInEx/plugins/RandyKnapp-EpicLoot/EpicLoot.dll` (compile time only; Epic Loot stays optional when the mod runs)
 
-StarLevelSystem is used through reflection, so it isn't needed to build.
+StarLevelSystem and Equipment & Quick Slots are used through reflection, so they aren't needed to build.
+
 
 ## Compile
 

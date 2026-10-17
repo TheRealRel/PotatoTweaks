@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.3.0 — update needed
+- **Quality of life** (section 11, personal unless noted):
+  - Recovering your tombstone puts every item back in the slot it had when you died.
+  - Walking over a weapon or tool with empty hands no longer equips it.
+  - The hammer menu updates live as you move in and out of workbench or chest range.
+  - Creature health bars show while holding the hammer, hoe or cultivator.
+  - Combat health bars stay visible through mist, trees and buildings; an enemy attacking you within 15 m shows through anything.
+  - Taming progress shows from health-bar range, and big animals can be petted or renamed while standing beside them.
+  - With Equipment & Quick Slots, auto-pickup moves to ] when a quick slot uses V, so V can't switch it off by accident.
+  - Tree-felling dust slider.
+  - Tamed animals don't trample farm crops (server).
+  - Swim skill raises swim speed, up to +25% at level 100 (server).
+- **Stations, vehicles and map** (section 12, server):
+  - Smelter-type stations (smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel, windmill) hold twice as much ore and fuel; speed adjustable.
+  - Fermenters give 1.5× the meads per batch; speed adjustable.
+  - Crafting station range and map reveal radius multipliers (normal by default).
+  - Carts and boats built by skilled crafters get more health: carts up to +400%, boats up to +100% at Crafting 100.
+- Everyone, including the server, needs 1.3.0; 1.2.x can't join a 1.3.0 server.
+
 ## 1.2.0 — update needed
 - **Cancel an attack into a block:** pressing block mid-swing drops the attack and raises your guard, so you can parry. Server setting, on by default.
 - **Epic Loot bounty fixes** (only when Epic Loot is installed; server settings):
