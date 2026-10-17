@@ -100,36 +100,36 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 
 | Section | Settings | Set by |
 |---|---|---|
-| **1 - Camera** | Enabled, Land zoom multiplier (1.5), Ship zoom distance (24 m) | Player |
-| **2 - Dropped items** | Enabled, Lifetime hours (3) | Server |
-| **3 - Ship and cart removal** | Enabled | Server |
-| **4 - Tombstone retrieval** | Enabled, Cooldown seconds (10) | Server |
-| **5 - Skill loss on death** | Enabled, one value per skill, *Other skills* for modded skills | Server |
-| **6 - Skill XP** | Enabled, one multiplier per skill, *Other skills* | Server |
-| **7 - Visual effects** | Upgrade glow and its strength; Tree-felling dust; Combat effects dimmer (opacity, brightness, size) and what to dim; with Epic Loot: Hide Glowing enchantment, Hide all enchantment effects, Hide legendary looks | Player |
-| **8 - Attack cancel** | Enabled | Server |
-| **9 - Epic Loot bounties** | Complete on main target, Spread out new bounties, Spacing (300 m), Extra enchanted copies (1), Guaranteed enchanted item, Normal star scaling | Server |
-| | Overhead health bar | Player |
-| **10 - Bug fixes** | Game bug fixes; Epic Loot enchantment fixes (read at startup; keep them the same everywhere) | Every game alike |
-| | Epic Loot faster chest loading | Player |
-| **11 - Quality of life** | No auto-equip on pickup, Live hammer menu, Health bars with build tools, Combat health bars, Attacker health bar range (15 m), Taming info at range, Tombstone items back in their slots, Auto-pickup key with Equipment & Quick Slots, Inventory Slots Visibility | Player |
-| | Tamed animals spare crops, Swim skill raises swim speed | Server |
-| **12 - Smelters and kilns** | Ore capacity, Fuel capacity, Speed, Fuel per product, Output (all 1 = normal), Excluded stations | Server |
-| **13 - Fermenters** | Speed, Output (1 = normal) | Server |
-| **14 - Crafting stations** | Build range (1 = normal) | Server |
-| **15 - Carts and boats** | Cart health from Crafting skill (4 = up to +400%), Boat health from Crafting skill (1 = up to +100%); 0 = off | Server |
-| **16 - Map** | Reveal radius (1 = normal, 100 m) | Server |
-| **17 - Double dragon bed** | Enabled (read at startup; keep it the same everywhere) | Every game alike |
-| | Blankets | Player |
-| **18 - Trophies** | Pity, Flat growth, Growth per dry kill, Rare trophy threshold and growth, Flat bonus, Guarantee after dry kills, Extra dry kills per star, Chance multiplier, Only count my kills, Only uncollected trophies | Server |
-| | Show chances, Show missing trophies, Spoiler-free, Hidden trophies, Message on drop, Message on dry kill | Player |
-| **19 - Spearfishing** | Spears, Harpoons, Bows, Crossbows | Server |
-| **20 - Epic Loot enchanting table** | Materials from nearby chests, Chest range (50 m), Double output per item | Server |
-| | Chest trophies in Sacrifice (on), Chest shardstones in Sacrifice (off) | Player |
-| **21 - Epic Loot enchantments** | Damage enchantments stack, Double and Triple Shot normal cost, Double Magic Shot doubles the summon limit, Shardstones ignore effect clashes, Lucky Loot on birds | Server |
-| | Lucky Loot message and its position, Eitr cost in tooltips | Player |
-| **22 - Loot and items** | Creature drops, Resource drops, Pickable drops (1 = normal), Multiply trophies too, Never multiplied, Only multiply these, Item weight (1 = normal), Stack size (1 = normal), Auto-pickup range (2 m), Items float in water | Server |
-| **23 - Inventory rows** | Extra inventory rows bought from Haldor (8 slots each, once per character). **Earlier rows from Haldor** (on): the game's two rows unlock after the Elder (1,000 coins) and Bonemass (2,000) instead of Moder and the Queen. **Third row from Haldor** (on): he also sells a third row, Roomier pockets. **Third row price**: 3,000 coins. **Third row unlock**: the boss that must be beaten first, Yagluth by default. | Server |
+| **1 - Camera** | How far the camera zooms out: on land (1.5 = 12 m, game: 8 m) and on a ship (24 m). | Player |
+| **2 - Dropped items** | How long dropped items last: 3 hours of world time (game: 1). | Server |
+| **3 - Ship and cart removal** | Ctrl + hammer remove takes apart ships and carts, refunding everything. | Server |
+| **4 - Tombstone retrieval** | The `retrievetomb` command, with 10 seconds between uses. | Server |
+| **5 - Skill loss on death** | How much of each skill you lose on death: 0 = none, 1 = the game's normal. *Other skills* covers modded skills. | Server |
+| **6 - Skill XP** | XP multiplier per skill: 1 = normal, up to 10. | Server |
+| **7 - Visual effects** | Strength of the glow on over-upgraded gear (0–2); amount of tree-felling dust (0–1); combat effects dimmer: how faint, dark and small fight particles are, and which ones. With Epic Loot: hide the Glowing aura, all enchantment effects, or legendary textures. | Player |
+| **8 - Attack cancel** | Block during a swing to cancel it. | Server |
+| **9 - Epic Loot bounties** | Bounties complete on the main kill; new bounties spread out (300 m apart); 1 extra enchanted copy per drop; at least one enchanted item; with StarLevelSystem, targets scale like normal creatures. | Server |
+| | Small health bar over bounty targets. | Player |
+| **10 - Bug fixes** | Fixes for game bugs and Epic Loot enchantments. Restart after changing; keep them the same everywhere. | Every game alike |
+| | Epic Loot skips re-reading unchanged chests (faster). | Player |
+| **11 - Quality of life** | No auto-equip on pickup; hammer menu updates live; health bars with build tools and through mist and trees in a fight (enemies attacking you within 15 m always show); taming progress from afar; tombstone items back in their slots; auto-pickup moves off V when a quick slot uses it; Inventory Slots Visibility. | Player |
+| | Tamed animals don't trample crops; Swim skill raises swim speed. | Server |
+| **12 - Smelters and kilns** | Multipliers (1 = normal) for ore capacity, fuel capacity, speed, fuel used per bar and output, plus stations to leave alone. | Server |
+| **13 - Fermenters** | Speed and output multipliers (1 = normal). | Server |
+| **14 - Crafting stations** | Build range multiplier (1 = normal). | Server |
+| **15 - Carts and boats** | Extra health from the builder's Crafting skill: carts up to +400%, boats up to +100% at skill 100. 0 = off. | Server |
+| **16 - Map** | How far around you the map is revealed (1 = normal, 100 m). | Server |
+| **17 - Double dragon bed** | Two players can each claim half of the dragon bed. Restart after changing; keep it the same everywhere. | Every game alike |
+| | Blankets roll over sleepers. | Player |
+| **18 - Trophies** | Pity: each kill without a trophy raises that creature's next trophy chance (+10%, or +20% for rare trophies), until it drops. Optional: flat growth instead, a guaranteed drop after X kills, extra pity for starred creatures, a chance multiplier, only your own kills, only trophies you don't have yet. | Server |
+| | Trophies tab: show chances and missing trophies (spoiler-free), hide chosen trophies, messages on drop or dry kill. | Player |
+| **19 - Spearfishing** | Which weapons catch fish: spears, harpoons, bows, crossbows. | Server |
+| **20 - Epic Loot enchanting table** | The table takes materials from chests within 50 m; double output is rolled per item. | Server |
+| | Sacrifice tab also lists trophies (on) and shardstones (off) from those chests. | Player |
+| **21 - Epic Loot enchantments** | Damage enchantments can stack; Double and Triple Shot cost normal eitr or stamina; Double Magic Shot doubles the summon limit; shardstones ignore effect clashes; Lucky Loot works on birds. | Server |
+| | Lucky Loot message (and where it shows); eitr cost in tooltips. | Player |
+| **22 - Loot and items** | Drop multipliers for creatures, resources and pickables (1 = normal; trophies only if turned on), with lists of items to never or only multiply. Item weight and stack size multipliers (1 = normal), auto-pickup range (2 m), items float in water. | Server |
+| **23 - Inventory rows** | Haldor's two extra rows unlock after the Elder (1,000 coins) and Bonemass (2,000) instead of Moder and the Queen. He also sells a third row after Yagluth for 3,000 (price and boss adjustable). Each is bought once per character. | Server |
 
 Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`.
 
