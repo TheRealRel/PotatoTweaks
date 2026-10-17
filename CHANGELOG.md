@@ -1,5 +1,24 @@
 # Changelog
 
+## 1.4.0 — update needed
+- **Spearfishing** (section 19, server): catch fish with spears, harpoons, bows and crossbows. A hit fish floats up to be picked up; a harpoon pulls it straight into your inventory. Modded spears, bows and crossbows count too. Ported from Spearfishing.
+- **Epic Loot enchanting table** (section 20, only with Epic Loot):
+  - The table takes its costs from built chests within 50 m that you can open and nobody else has open (server).
+  - The Sacrifice tab can list trophies and shardstones from those chests, with checkboxes in the tab (personal).
+  - The double-output chance is rolled per sacrificed item instead of all or nothing (server).
+- **Epic Loot enchantments** (section 21, only with Epic Loot):
+  - Damage enchantments can roll together on one weapon; Double Magic Shot and Triple Shot keep their odds (server).
+  - Double Magic Shot and Triple Shot cost the normal eitr or stamina instead of three times as much (server).
+  - Double Magic Shot doubles a summoning staff's summon limit (server).
+  - Shardstones can be socketed even when their effect clashes with one the item has (server).
+  - Lucky Loot works on birds (server) and shows a message when it triggers (personal).
+  - Enchanted staffs show their eitr cost in the tooltip (personal).
+- **Visual effects** (section 7, personal, only with Epic Loot): hide the Glowing aura, all enchantment effects, or legendary textures on your screen.
+- **Bug fixes** (section 10, personal, only with Epic Loot): Epic Loot no longer goes through every item of every loaded chest each second when nothing changed.
+- The stations, carts and boats and map settings have their own sections (12 Smelters and kilns, 13 Fermenters, 14 Crafting stations, 15 Carts and boats, 16 Map), and the bed and trophies are 17 and 18. Values set in 1.3.0's combined section carry over.
+- Switching from Spearfishing or Epic Loot Add-ons: remove them; their settings are copied over on first launch.
+- Everyone, including the server, needs 1.4.0; 1.3.x can't join a 1.4.0 server.
+
 ## 1.3.0 — update needed
 - **Quality of life** (section 11, personal unless noted):
   - Recovering your tombstone puts every item back in the slot it had when you died.

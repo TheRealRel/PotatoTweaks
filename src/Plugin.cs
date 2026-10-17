@@ -24,12 +24,14 @@ namespace PotatoTweaks
     [BepInDependency(DimmerModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(DoubleBed.DoubleDragonBed.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Trophies.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(EpicLootAddons.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(Spearfishing.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInIncompatibility("valheim.epiclootprogressionfix")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.3.0";
+        public const string Version = "1.4.0";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -49,6 +51,9 @@ namespace PotatoTweaks
         internal static ConfigEntry<int> TrophyGuarantee, TrophyExtraKillsPerStar;
         internal static ConfigEntry<string> TrophyHidden;
         internal const string DimmerModId = "wheeze.valheim.dimmercombatparticleeffects";
+        internal static ConfigEntry<bool> HideGlowing, HideEnchantEffects, HideLegendaryLooks, FasterChestLoading, ChestTrophies, ChestShardstones,
+            LuckyLootMessage, EitrTooltip;
+        internal static ConfigEntry<MessageHud.MessageType> LuckyLootPosition;
 
         // Server-controlled settings.
         internal static ConfigEntry<bool> DroppedItemsEnabled, ShipRemovalEnabled, TombEnabled;
@@ -65,6 +70,9 @@ namespace PotatoTweaks
         internal static ConfigEntry<string> SmelterExcluded;
         internal static ConfigEntry<float> SmelterOreCapacity, SmelterFuelCapacity, SmelterFuelPerProduct, SmelterOutput, SmelterSpeed, FermenterSpeed, FermenterOutput, StationRange, MapRevealRadius,
             CartHealthBonus, BoatHealthBonus;
+        internal static ConfigEntry<bool> FishSpears, FishHarpoons, FishBows, FishCrossbows;
+        internal static ConfigEntry<bool> ChestMaterialsEnabled, SacrificePerItem, DamageStacking, ShotNormalCost, ShotSummonLimit, ShardsIgnoreClashes, LuckyLootBirds;
+        internal static ConfigEntry<float> ChestMaterialsRange;
 
         internal static Harmony HarmonyInstance;
 
@@ -126,6 +134,16 @@ namespace PotatoTweaks
             DimWeapons = Config.Bind(visual, "Dim weapon impacts", true, "What a player's weapon throws off where it hits, elemental bursts included. Personal.");
             DimImpacts = Config.Bind(visual, "Dim projectile and area impacts", true, "Arrows, bolts, staff shots, bombs and area attacks from players where they hit. Personal.");
             DimOnPlayers = Config.Bind(visual, "Also dim effects on players", false, "Also dim status effects and hit bursts on players, yourself included. Personal.");
+            bool epicLoot = Chainloader.PluginInfos.ContainsKey(EpicLootFeatures.EpicLootId);
+            if (epicLoot)
+            {
+                HideGlowing = Config.Bind(visual, "Hide Glowing enchantment", false,
+                    "Hide the light and sparkles of Epic Loot's Glowing enchantment, on everyone. Only on your screen; the enchantment still works. Personal.");
+                HideEnchantEffects = Config.Bind(visual, "Hide all enchantment effects", false,
+                    "Hide every visual effect of Epic Loot enchantments and legendary items (auras, flames, sparkles), on everyone. Only on your screen. Personal.");
+                HideLegendaryLooks = Config.Bind(visual, "Hide legendary looks", false,
+                    "Show Epic Loot legendary items with their normal look instead of their special texture (like the blue Heimdall armor). Only on your screen. Personal.");
+            }
             ConfigText.CarryOver(Config, before, "7 - Upgrade glow", "Enabled", GlowEnabled);
             ConfigText.CarryOver(Config, before, "7 - Upgrade glow", "Glow strength", GlowStrength);
             if (!Chainloader.PluginInfos.ContainsKey(DimmerModId) && !before.ContainsKey(visual + "|Combat effects opacity"))
@@ -133,12 +151,14 @@ namespace PotatoTweaks
             AttackCancelEnabled = Config.Bind("8 - Attack cancel", "Enabled", true,
                 Synced("Pressing block during an attack's windup or recovery abandons the attack and raises the guard at once, so you can parry mid-swing. A hit the swing hasn't reached never lands; stamina already paid and a hit already dealt stay. Cancelling never lets you attack faster."));
 
-            bool epicLoot = Chainloader.PluginInfos.ContainsKey(EpicLootFeatures.EpicLootId);
             GameFixesEnabled = Config.Bind("10 - Bug fixes", "Game bug fixes", true,
                 "Fixes for bugs in Valheim: dropped fast bow shots, swings stopped by the deck of the ship you stand on, broken fuling shaman shields still blocking, plants that stop growing, buried ore veins losing support, berry bushes slow to regrow. Takes effect after a restart; keep it the same on the server and every player's game.");
             if (epicLoot)
                 EpicLootFixesEnabled = Config.Bind("10 - Bug fixes", "Epic Loot enchantment fixes", true,
                     "Fixes for Epic Loot enchantments: Riches, Fire Rate, Noise, +Ranged Skills, Meads Cooldown, Indestructible, Bountiful Harvest, Quick Draw crossbow reload and Air Jump near the ground. Takes effect after a restart; keep it the same on the server and every player's game.");
+            if (epicLoot)
+                FasterChestLoading = Config.Bind("10 - Bug fixes", "Epic Loot faster chest loading", true,
+                    "Epic Loot goes through every item of every loaded chest each time the game checks it for changes (once a second, more often with crafting-from-chests mods), even when nothing changed. On: it only does so when the chest's items really changed, with the same result. Personal.");
             if (epicLoot)
             {
                 const string bounties = "9 - Epic Loot bounties";
@@ -212,12 +232,31 @@ namespace PotatoTweaks
                 Synced("New boats (raft, karve, longship, drakkar) get extra health the same way: 1 = +100% at Crafting 100, +50% at 50. Changing it rescales existing crafted boats. 0 = off.",
                     new AcceptableValueRange<float>(0f, 10f)));
 
+            // 1.3.0 as first uploaded kept these in one "12 - Stations, vehicles and map" section, with the bed and trophies
+            // in 13 and 14. Move any values set there.
+            const string oldStations = "12 - Stations, vehicles and map";
+            ConfigText.CarryOver(Config, before, oldStations, "Smelter ore capacity", SmelterOreCapacity);
+            ConfigText.CarryOver(Config, before, oldStations, "Smelter capacity", SmelterOreCapacity);
+            ConfigText.CarryOver(Config, before, oldStations, "Smelter fuel capacity", SmelterFuelCapacity);
+            ConfigText.CarryOver(Config, before, oldStations, "Smelter speed", SmelterSpeed);
+            ConfigText.CarryOver(Config, before, oldStations, "Smelter fuel per product", SmelterFuelPerProduct);
+            ConfigText.CarryOver(Config, before, oldStations, "Smelter output", SmelterOutput);
+            ConfigText.CarryOver(Config, before, oldStations, "Smelter excluded stations", SmelterExcluded);
+            ConfigText.CarryOver(Config, before, oldStations, "Fermenter speed", FermenterSpeed);
+            ConfigText.CarryOver(Config, before, oldStations, "Fermenter output", FermenterOutput);
+            ConfigText.CarryOver(Config, before, oldStations, "Crafting station range", StationRange);
+            ConfigText.CarryOver(Config, before, oldStations, "Map reveal radius", MapRevealRadius);
+            ConfigText.CarryOver(Config, before, oldStations, "Cart health from Crafting skill", CartHealthBonus);
+            ConfigText.CarryOver(Config, before, oldStations, "Boat health from Crafting skill", BoatHealthBonus);
+
             const string bed = "17 - Double dragon bed";
             BedEnabled = Config.Bind(bed, "Enabled", true,
                 "Each half of the dragon bed is a bed of its own: two players can claim it, sleep side by side and respawn on their own half. One player owning both halves sleeps in the middle. Shift+E on your half gives it up. Read at startup; keep it the same on the server and every player's game.");
             BedBlankets = Config.Bind(bed, "Blankets", true,
                 "The fur draped over each half's edge rolls up at the sleeper's feet and unrolls over them, shaped to what they wear. Only looks. Personal.");
-            if (!before.ContainsKey(bed + "|Blankets")) ConfigText.CopyBool(Config, "hansenbansen.doublebed.cfg", "Blankets", "Enabled", BedBlankets);
+            ConfigText.CarryOver(Config, before, "13 - Double dragon bed", "Enabled", BedEnabled);
+            ConfigText.CarryOver(Config, before, "13 - Double dragon bed", "Blankets", BedBlankets);
+            if (!before.ContainsKey(bed + "|Blankets") && !before.ContainsKey("13 - Double dragon bed|Blankets")) ConfigText.CopyBool(Config, "hansenbansen.doublebed.cfg", "Blankets", "Enabled", BedBlankets);
 
             const string trophies = "18 - Trophies";
             TrophyPity = Config.Bind(trophies, "Pity", true,
@@ -250,7 +289,53 @@ namespace PotatoTweaks
                 "Trophy prefab names, separated by commas, never shown as missing. TrophyDeerWhite is unfinished game content. Personal.");
             TrophyNotify = Config.Bind(trophies, "Message on drop", false, "Show a message when a trophy drops. Personal.");
             TrophyShowProgress = Config.Bind(trophies, "Message on dry kill", false, "After a kill without a trophy, show the dry kills and the new chance. Personal.");
-            if (!before.ContainsKey(trophies + "|Pity")) ConfigText.ImportTrophyAssister(Config);
+            foreach (var entry in new ConfigEntryBase[] { TrophyPity, TrophyFlatMode, TrophyGrowth, TrophyRareThreshold, TrophyRareGrowth, TrophyFlatBonus,
+                TrophyGuarantee, TrophyExtraKillsPerStar, TrophyChanceMultiplier, TrophyOnlyMine, TrophyOnlyUncollected, TrophyShowChances,
+                TrophyShowMissing, TrophySpoilerFree, TrophyHidden, TrophyNotify, TrophyShowProgress })
+                ConfigText.CarryOver(Config, before, "14 - Trophies", entry.Definition.Key, entry);
+            if (!before.ContainsKey(trophies + "|Pity") && !before.ContainsKey("14 - Trophies|Pity")) ConfigText.ImportTrophyAssister(Config);
+
+            const string fishing = "19 - Spearfishing";
+            FishSpears = Config.Bind(fishing, "Spears", true,
+                Synced("A thrown spear that hits a fish in the water kills it; the fish floats up to be picked up. Modded spears count too."));
+            FishHarpoons = Config.Bind(fishing, "Harpoons", true,
+                Synced("A harpoon that hits a fish in the water pulls it straight into your inventory (or leaves it floating when there's no room)."));
+            FishBows = Config.Bind(fishing, "Bows", true, Synced("Arrows kill fish in the water the same way."));
+            FishCrossbows = Config.Bind(fishing, "Crossbows", true, Synced("Crossbow bolts kill fish in the water the same way."));
+            if (!before.ContainsKey(fishing + "|Spears")) ConfigText.ImportSpearfishing(Config);
+
+            if (epicLoot)
+            {
+                const string table = "20 - Epic Loot enchanting table", enchantments = "21 - Epic Loot enchantments";
+                ChestMaterialsEnabled = Config.Bind(table, "Materials from nearby chests", true,
+                    Synced("The enchanting table also takes its costs (enchanting, augmenting, upgrading, sacrificing...) from built chests near you that you can open and nobody else has open."));
+                ChestMaterialsRange = Config.Bind(table, "Chest range", 50f,
+                    Synced("Meters around you that chests are used from.", new AcceptableValueRange<float>(5f, 100f)));
+                ChestTrophies = Config.Bind(table, "Chest trophies in Sacrifice", true,
+                    "The Sacrifice tab also lists trophies from those chests. The same as the \"Include trophies from chests\" checkbox in that tab. Personal.");
+                ChestShardstones = Config.Bind(table, "Chest shardstones in Sacrifice", false,
+                    "The Sacrifice tab also lists shardstones from those chests (they turn into shards). Off by default so \"Select All\" can't sacrifice stored shardstones by accident. The same as the \"Include shardstones from chests\" checkbox. Personal.");
+                SacrificePerItem = Config.Bind(table, "Double output per item", true,
+                    Synced("The table's chance of double output is rolled for every sacrificed item instead of once for the whole batch (all doubled or nothing). Same average, no all-or-nothing gamble."));
+
+                DamageStacking = Config.Bind(enchantments, "Damage enchantments stack", true,
+                    Synced("A weapon can roll several damage enchantments together (fire and frost and +% damage, even the same one twice); Epic Loot normally allows only one. Double Magic Shot and Triple Shot are then weighted twice as much, so they stay as likely as before. Only changes new rolls (drops, enchanting, augmenting)."));
+                ShotNormalCost = Config.Bind(enchantments, "Double and Triple Shot normal cost", true,
+                    Synced("When Double Magic Shot (staffs) or Triple Shot (bows, crossbows) fires its extra projectiles, Epic Loot charges three times the eitr or stamina. On: just the normal cost, so these enchantments are an upgrade, not a trade. Triple Shot still uses 3 arrows."));
+                ShotSummonLimit = Config.Bind(enchantments, "Double Magic Shot doubles the summon limit", true,
+                    Synced("A summoning staff (the Staff of the Wild's roots) allows a set number of summons at once. Double Magic Shot fires two per cast, so with it the limit doubles."));
+                ShardsIgnoreClashes = Config.Bind(enchantments, "Shardstones ignore effect clashes", true,
+                    Synced("A shardstone can be socketed even when its effect normally clashes with an effect the item already has (a damage shard on a weapon with a damage enchantment). Runestones, enchanting and loot keep the normal rules."));
+                LuckyLootBirds = Config.Bind(enchantments, "Lucky Loot on birds", true,
+                    Synced("Birds (crows, seagulls) can get Lucky Loot too, with the same chance and drop multiplier as creatures. Epic Loot itself only does creatures."));
+                LuckyLootMessage = Config.Bind(enchantments, "Lucky Loot message", true,
+                    "Show a message when the Lucky Loot shard multiplies drops near you, like \"Lucky Loot! Boar: 6x drops, +2 magic item rolls\". Personal.");
+                LuckyLootPosition = Config.Bind(enchantments, "Lucky Loot message position", MessageHud.MessageType.Center,
+                    "Center: a big message in the middle of the screen. TopLeft: a small line in the top left corner. Personal.");
+                EitrTooltip = Config.Bind(enchantments, "Eitr cost in tooltips", true,
+                    "Show the eitr cost of enchanted staffs and Spellsword weapons in their tooltip (Epic Loot shows it only for Spellsword). Personal.");
+                if (!before.ContainsKey(table + "|Materials from nearby chests")) ConfigText.ImportEpicLootAddons(Config);
+            }
 
             GlowEnabled.SettingChanged += (_, __) => UpgradeGlow.RefreshAll();
             GlowStrength.SettingChanged += (_, __) => UpgradeGlow.RefreshAll();
@@ -277,6 +362,7 @@ namespace PotatoTweaks
                 if (BedEnabled.Value) DoubleBed.DoubleDragonBed.Enable(Patch);
             });
             EnableUnlessInstalled(Trophies.OriginalModId, "TrophyAssister", "trophy pity", () => { foreach (var type in Trophies.Patches) Patch(type); });
+            EnableUnlessInstalled(Spearfishing.OriginalModId, "Spearfishing", "spearfishing", () => Patch(typeof(Spearfishing)));
             Run("Tombstone items back in their slots", () =>
             {
                 // Looks up Equipment & Quick Slots' slot layout first, so a changed layout turns this feature off cleanly.
@@ -317,6 +403,10 @@ namespace PotatoTweaks
         {
             EpicLootFeatures.Enable(Patch, Run);
             if (EpicLootFixesEnabled.Value) EpicLootFixes.Enable(Patch, Run);
+            string addons = EpicLootAddons.InstalledOriginal();
+            if (addons != null)
+                Log.LogWarning($"{addons} is installed, so Potato Tweaks' Epic Loot add-ons (enchanting table chests, damage stacking, shot cost, Lucky Loot, shard clashes, eitr tooltip, faster chest loading, hiding enchantment looks) stay off. Remove {addons} to use them.");
+            else EpicLootAddons.Enable(Patch, Run);
         }
 
         private void Run(string name, Action initialize)

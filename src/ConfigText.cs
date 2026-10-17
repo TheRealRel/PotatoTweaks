@@ -77,6 +77,58 @@ namespace PotatoTweaks
             Plugin.Log.LogInfo("Copied the combat effects dimmer settings from Dimmer Combat Particle Effects.");
         }
 
+        // Only when switching from Spearfishing: its settings file is still in the config folder.
+        internal static void ImportSpearfishing(ConfigFile config)
+        {
+            var other = Read(Path.Combine(Paths.ConfigPath, Spearfishing.OriginalModId + ".cfg"));
+            if (other.Count == 0) return;
+            Copy(other, "General", "EnableSpears", Plugin.FishSpears);
+            Copy(other, "General", "EnableHarpoons", Plugin.FishHarpoons);
+            Copy(other, "General", "EnableBows", Plugin.FishBows);
+            Copy(other, "General", "EnableCrossbows", Plugin.FishCrossbows);
+            Plugin.Log.LogInfo("Copied the spearfishing settings from Spearfishing.");
+        }
+
+        // Only when switching from Epic Loot Add-ons: its settings file is still in the config folder. A part switched off
+        // there ("0 - Sub-mods") switches its features off here.
+        internal static void ImportEpicLootAddons(ConfigFile config)
+        {
+            var other = Read(Path.Combine(Paths.ConfigPath, EpicLootAddons.OriginalModId + ".cfg"));
+            if (other.Count == 0) return;
+            bool On(string part) => !other.TryGetValue("0 - Sub-mods|" + part, out var value) || !string.Equals(value, "false", StringComparison.OrdinalIgnoreCase);
+
+            const string storage = "Epic Loot Storage Materials - ", fixes = "Epic Loot Fixes - ";
+            Copy(other, storage + "General", "Enabled", Plugin.ChestMaterialsEnabled);
+            Copy(other, storage + "General", "Range (m)", Plugin.ChestMaterialsRange);
+            Copy(other, storage + "General", "Chest trophies in Sacrifice", Plugin.ChestTrophies);
+            Copy(other, storage + "General", "Chest shardstones in Sacrifice", Plugin.ChestShardstones);
+            Copy(other, storage + "Sacrifice", "Roll double output per item", Plugin.SacrificePerItem);
+            if (!On("Epic Loot Storage Materials")) Plugin.ChestMaterialsEnabled.Value = Plugin.SacrificePerItem.Value = false;
+
+            Copy(other, fixes + "Damage stacking", "Damage effects stack", Plugin.DamageStacking);
+            Copy(other, fixes + "Double and Triple Shot", "Normal cost", Plugin.ShotNormalCost);
+            Copy(other, fixes + "Double and Triple Shot", "Double Magic Shot doubles the summon limit", Plugin.ShotSummonLimit);
+            Copy(other, fixes + "Lucky Loot", "Show Lucky Loot message", Plugin.LuckyLootMessage);
+            Copy(other, fixes + "Lucky Loot", "Message position", Plugin.LuckyLootPosition);
+            Copy(other, fixes + "Lucky Loot", "Lucky Loot on birds", Plugin.LuckyLootBirds);
+            Copy(other, fixes + "Performance", "Faster chest loading", Plugin.FasterChestLoading);
+            Copy(other, fixes + "Tooltips", "Show eitr cost on enchanted items", Plugin.EitrTooltip);
+            if (!On("Epic Loot Fixes"))
+                Plugin.DamageStacking.Value = Plugin.ShotNormalCost.Value = Plugin.ShotSummonLimit.Value = Plugin.LuckyLootMessage.Value =
+                    Plugin.LuckyLootBirds.Value = Plugin.FasterChestLoading.Value = Plugin.EitrTooltip.Value = false;
+
+            if (On("Enchant Glow Toggle"))
+            {
+                Copy(other, "Enchant Glow Toggle - Always", "Hide Glowing aura", Plugin.HideGlowing);
+                Copy(other, "Enchant Glow Toggle - Always", "Hide all enchantment effects", Plugin.HideEnchantEffects);
+                Copy(other, "Enchant Glow Toggle - Always", "Hide legendary textures", Plugin.HideLegendaryLooks);
+            }
+
+            Copy(other, "Shard Exclusivity - General", "Ignore effect exclusions for shards", Plugin.ShardsIgnoreClashes);
+            if (!On("Shard Exclusivity")) Plugin.ShardsIgnoreClashes.Value = false;
+            Plugin.Log.LogInfo("Copied the settings from Epic Loot Add-ons.");
+        }
+
         // Only when switching from TrophyAssister: its settings file is still in the config folder.
         internal static void ImportTrophyAssister(ConfigFile config)
         {
