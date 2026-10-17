@@ -180,45 +180,46 @@ namespace PotatoTweaks
             QolSwimSpeed = Config.Bind(qol, "Swim skill raises swim speed", true,
                 Synced("Swimming speed rises with the Swim skill the way running speed rises with Run: up to +25% at level 100."));
 
-            const string stations = "12 - Stations, vehicles and map";
-            SmelterOreCapacity = Config.Bind(stations, "Smelter ore capacity", 1f,
+            const string smelters = "12 - Smelters and kilns", fermenters = "13 - Fermenters", craftingStations = "14 - Crafting stations",
+                vehicles = "15 - Carts and boats", map = "16 - Map";
+            SmelterOreCapacity = Config.Bind(smelters, "Ore capacity", 1f,
                 Synced("Multiplies how much ore (or wood, flax, barley, sap...) smelter-type stations hold: smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel, windmill. 1 = the game's normal, 2 = twice as much. Applies as stations load.",
                     new AcceptableValueRange<float>(0.5f, 10f)));
-            SmelterFuelCapacity = Config.Bind(stations, "Smelter fuel capacity", 1f,
-                Synced("Multiplies how much fuel (coal, wood) those stations hold. 1 = the game's normal. Applies as stations load.", new AcceptableValueRange<float>(0.5f, 10f)));
-            SmelterSpeed = Config.Bind(stations, "Smelter speed", 1f,
-                Synced("Speeds up those stations: 2 = twice as fast. 1 = the game's normal. Applies as stations load.", new AcceptableValueRange<float>(0.5f, 10f)));
-            SmelterFuelPerProduct = Config.Bind(stations, "Smelter fuel per product", 1f,
+            SmelterFuelCapacity = Config.Bind(smelters, "Fuel capacity", 1f,
+                Synced("Multiplies how much fuel (coal, wood) these stations hold. 1 = the game's normal. Applies as stations load.", new AcceptableValueRange<float>(0.5f, 10f)));
+            SmelterSpeed = Config.Bind(smelters, "Speed", 1f,
+                Synced("Speeds up these stations: 2 = twice as fast. 1 = the game's normal. Applies as stations load.", new AcceptableValueRange<float>(0.5f, 10f)));
+            SmelterFuelPerProduct = Config.Bind(smelters, "Fuel per product", 1f,
                 Synced("Multiplies the fuel used for each product, rounded and never below 1 where the game uses fuel: 0.5 makes the smelter use 1 coal per bar instead of 2. 1 = the game's normal. Applies as stations load.",
                     new AcceptableValueRange<float>(0.1f, 5f)));
-            SmelterOutput = Config.Bind(stations, "Smelter output", 1f,
+            SmelterOutput = Config.Bind(smelters, "Output", 1f,
                 Synced("Multiplies what each product gives: 2 = two bars per ore, 1.5 = a 50% chance of a second one. 1 = the game's normal.", new AcceptableValueRange<float>(1f, 10f)));
-            SmelterExcluded = Config.Bind(stations, "Smelter excluded stations", "",
-                Synced("Stations the smelter settings above leave alone, by prefab name, separated by commas: smelter, blastfurnace, charcoal_kiln, eitrrefinery, piece_spinningwheel, windmill (or a modded station's prefab name)."));
-            FermenterSpeed = Config.Bind(stations, "Fermenter speed", 1f,
+            SmelterExcluded = Config.Bind(smelters, "Excluded stations", "",
+                Synced("Stations these settings leave alone, by prefab name, separated by commas: smelter, blastfurnace, charcoal_kiln, eitrrefinery, piece_spinningwheel, windmill (or a modded station's prefab name)."));
+            FermenterSpeed = Config.Bind(fermenters, "Speed", 1f,
                 Synced("Speeds up fermenting: 2 = half the time. 1 = the game's normal. Applies as fermenters load.", new AcceptableValueRange<float>(0.5f, 10f)));
-            FermenterOutput = Config.Bind(stations, "Fermenter output", 1f,
+            FermenterOutput = Config.Bind(fermenters, "Output", 1f,
                 Synced("Multiplies the meads each batch gives, rounded: 1.5 turns 6 into 9. 1 = the game's normal. Applies as fermenters load. (A fermenter always holds one batch, so there's no capacity setting.)", new AcceptableValueRange<float>(0.5f, 5f)));
-            StationRange = Config.Bind(stations, "Crafting station range", 1f,
+            StationRange = Config.Bind(craftingStations, "Build range", 1f,
                 Synced("Multiplies the build range around workbenches, forges and other crafting stations, extension bonuses included. 1 = the game's normal; 1.5 = half again as far.",
                     new AcceptableValueRange<float>(1f, 5f)));
-            MapRevealRadius = Config.Bind(stations, "Map reveal radius", 1f,
+            MapRevealRadius = Config.Bind(map, "Reveal radius", 1f,
                 Synced("Multiplies how far around you the map is revealed as you explore (game: 100 m). 1 = the game's normal; 1.5 = 150 m.", new AcceptableValueRange<float>(1f, 5f)));
-            CartHealthBonus = Config.Bind(stations, "Cart health from Crafting skill", 4f,
+            CartHealthBonus = Config.Bind(vehicles, "Cart health from Crafting skill", 4f,
                 Synced("New carts get extra health from their builder's Crafting skill: this value times the skill share, so 4 = +400% at Crafting 100, +200% at 50. Changing it rescales existing crafted carts. 0 = off.",
                     new AcceptableValueRange<float>(0f, 10f)));
-            BoatHealthBonus = Config.Bind(stations, "Boat health from Crafting skill", 1f,
+            BoatHealthBonus = Config.Bind(vehicles, "Boat health from Crafting skill", 1f,
                 Synced("New boats (raft, karve, longship, drakkar) get extra health the same way: 1 = +100% at Crafting 100, +50% at 50. Changing it rescales existing crafted boats. 0 = off.",
                     new AcceptableValueRange<float>(0f, 10f)));
 
-            const string bed = "13 - Double dragon bed";
+            const string bed = "17 - Double dragon bed";
             BedEnabled = Config.Bind(bed, "Enabled", true,
                 "Each half of the dragon bed is a bed of its own: two players can claim it, sleep side by side and respawn on their own half. One player owning both halves sleeps in the middle. Shift+E on your half gives it up. Read at startup; keep it the same on the server and every player's game.");
             BedBlankets = Config.Bind(bed, "Blankets", true,
                 "The fur draped over each half's edge rolls up at the sleeper's feet and unrolls over them, shaped to what they wear. Only looks. Personal.");
             if (!before.ContainsKey(bed + "|Blankets")) ConfigText.CopyBool(Config, "hansenbansen.doublebed.cfg", "Blankets", "Enabled", BedBlankets);
 
-            const string trophies = "14 - Trophies";
+            const string trophies = "18 - Trophies";
             TrophyPity = Config.Bind(trophies, "Pity", true,
                 Synced("Every kill that drops no trophy makes that creature's next trophy more likely; the count resets when it drops."));
             TrophyFlatMode = Config.Bind(trophies, "Flat growth", false,
