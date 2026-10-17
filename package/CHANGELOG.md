@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.4.1
+- The mod page links to the Potato Server's trader sell prices: a searchable list of what the traders pay for every item. No changes to the mod itself; you don't need to update from 1.4.0, and 1.4.0 and 1.4.1 players can play together.
+
 ## 1.4.0 — update needed
 - **Spearfishing** (section 19, server): catch fish with spears, harpoons, bows and crossbows. A hit fish floats up to be picked up; a harpoon pulls it straight into your inventory. Modded spears, bows and crossbows count too. Ported from Spearfishing.
 - **Epic Loot enchanting table** (section 20, only with Epic Loot):
@@ -16,7 +19,6 @@
 - **Visual effects** (section 7, personal, only with Epic Loot): hide the Glowing aura, all enchantment effects, or legendary textures on your screen.
 - **Bug fixes** (section 10, personal, only with Epic Loot): Epic Loot no longer goes through every item of every loaded chest each second when nothing changed.
 - The stations, carts and boats and map settings have their own sections (12 Smelters and kilns, 13 Fermenters, 14 Crafting stations, 15 Carts and boats, 16 Map), and the bed and trophies are 17 and 18. Values set in 1.3.0's combined section carry over.
-- The mod page links to the Potato Server's trader sell prices, a searchable list of what the traders pay for every item.
 - Switching from Spearfishing or Epic Loot Add-ons: remove them; their settings are copied over on first launch.
 - Everyone, including the server, needs 1.4.0; 1.3.x can't join a 1.4.0 server.
 
