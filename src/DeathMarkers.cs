@@ -56,9 +56,13 @@ namespace PotatoTweaks
             int count = 0;
             if (pins != null)
                 foreach (var pin in pins)
-                    if (pin != null && pin.m_type == Minimap.PinType.Death) count++;
+                    if (IsDeathMarker(pin)) count++;
             return count;
         }
+
+        // The game's death markers are saved with the character. Mods such as ShipPins and Valheim Plus draw their ship
+        // and cart icons as unsaved pins of the same type, so those are left alone.
+        private static bool IsDeathMarker(Minimap.PinData pin) => pin != null && pin.m_type == Minimap.PinType.Death && pin.m_save;
 
         // A copy of the inventory's Take all button, so it looks like the game's own, without its gamepad key or
         // translation helper (the text is set here).
@@ -136,7 +140,7 @@ namespace PotatoTweaks
             var pins = Pins(map);
             if (pins != null)
                 foreach (var pin in pins)
-                    if (pin != null && pin.m_type == Minimap.PinType.Death) Removing.Add(pin);
+                    if (IsDeathMarker(pin)) Removing.Add(pin);
             foreach (var pin in Removing) map.RemovePin(pin);
             if (Removing.Count > 0)
                 MessageHud.instance?.ShowMessage(MessageHud.MessageType.TopLeft, Removing.Count == 1 ? "Removed 1 death marker" : $"Removed {Removing.Count} death markers");
