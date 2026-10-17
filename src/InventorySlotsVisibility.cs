@@ -1,4 +1,4 @@
-// Potato Tweaks - Peekaboo Pockets: no inventory slot stays hidden. Written for this mod.
+// Potato Tweaks - Inventory Slots Visibility: no inventory slot stays hidden. Written for this mod.
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -20,7 +20,7 @@ namespace PotatoTweaks
     // small layout fingerprint (screen size, GUI scale, the screen's windows and slot counts) four times a second, without
     // allocating, and only when that changes does it look at the slots themselves.
     [HarmonyPatch(typeof(InventoryGui), "Update")]
-    internal static class PeekabooPockets
+    internal static class InventorySlotsVisibility
     {
         private const float Interval = 0.25f, Margin = 4f;
         private static readonly AccessTools.FieldRef<InventoryGrid, List<InventoryElement>> Elements =
@@ -48,7 +48,7 @@ namespace PotatoTweaks
         [HarmonyPriority(Priority.Last)]
         private static void Postfix(InventoryGui __instance)
         {
-            if (!InventoryGui.IsVisible() || !Plugin.PeekabooPockets.Value)
+            if (!InventoryGui.IsVisible() || !Plugin.InventorySlotsVisibility.Value)
             {
                 if (Touched.Count > 0) RestoreAll();
                 lastFingerprint = 0;
@@ -73,8 +73,8 @@ namespace PotatoTweaks
             }
             catch (Exception e)
             {
-                Plugin.Log.LogWarning($"Peekaboo Pockets stopped: {e.Message}");
-                Plugin.PeekabooPockets.Value = false;
+                Plugin.Log.LogWarning($"Inventory Slots Visibility stopped: {e.Message}");
+                Plugin.InventorySlotsVisibility.Value = false;
             }
         }
 
@@ -293,7 +293,7 @@ namespace PotatoTweaks
             moved.Placed = window.anchoredPosition;
             if (!Touched.Contains(window)) Touched.Add(window);
             string report = $"{reason}; moved {window.name} by {Mathf.RoundToInt(screenShift.x)}, {Mathf.RoundToInt(screenShift.y)} px (screen {Screen.width}x{Screen.height})";
-            if (Reported.Add(report)) Plugin.Log.LogInfo("Peekaboo Pockets: " + report);
+            if (Reported.Add(report)) Plugin.Log.LogInfo("Inventory Slots Visibility: " + report);
             return true;
         }
 

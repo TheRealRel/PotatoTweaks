@@ -29,7 +29,7 @@ Every feature can be switched off on its own. **Server** means the server's sett
 | **Double dragon bed** | Each half of the dragon bed is its own bed: two players can claim it, sleep side by side and respawn on their own half. Blankets roll over the sleepers. | Server and every player alike (blankets: Player) |
 | **Trophy pity** | Every kill without a trophy makes that creature's next trophy more likely, until it drops. The Trophies tab shows each trophy's next chance and, spoiler-free, the trophies you haven't collected yet. | Server (Trophies tab: Player) |
 | **Quality of life** | Tombstone items go back to the slots they had when you died; no auto-equip when walking over weapons and tools; the hammer menu updates live; health bars show while holding the hammer and stay visible through mist, trees and buildings in a fight; taming progress shows from health-bar range; with Equipment & Quick Slots, V no longer switches auto-pickup off by accident. | Player |
-| **Peekaboo Pockets** | No inventory slot stays hidden. When mods add slots (equipment, quick slots, quiver, backpack, extra rows) and a window ends up over them or past the screen edge, that window scoots over just enough to show them, at any resolution from 16:9 to 32:9 ultrawide and any GUI scale, and scoots back when no longer in the way. Featherweight: it only takes a look when the inventory's layout changes. Each move is noted once in the log. | Player |
+| **Inventory Slots Visibility** | No inventory slot stays hidden. When mods add slots (equipment, quick slots, quiver, backpack, extra rows) and a window ends up over them or past the screen edge, that window moves just enough to show them, at any resolution from 16:9 to 32:9 ultrawide and any GUI scale, and moves back when no longer in the way. Lightweight: it only checks when the inventory's layout changes. Each move is noted once in the log. | Player |
 | **Farming and swimming** | Tamed animals don't trample crops; the Swim skill raises swim speed. | Server |
 
 ### World and economy
@@ -112,7 +112,7 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 | | Overhead health bar | Player |
 | **10 - Bug fixes** | Game bug fixes; Epic Loot enchantment fixes (read at startup; keep them the same everywhere) | Every game alike |
 | | Epic Loot faster chest loading | Player |
-| **11 - Quality of life** | No auto-equip on pickup, Live hammer menu, Health bars with build tools, Combat health bars, Attacker health bar range (15 m), Taming info at range, Tombstone items back in their slots, Auto-pickup key with Equipment & Quick Slots, Peekaboo Pockets | Player |
+| **11 - Quality of life** | No auto-equip on pickup, Live hammer menu, Health bars with build tools, Combat health bars, Attacker health bar range (15 m), Taming info at range, Tombstone items back in their slots, Auto-pickup key with Equipment & Quick Slots, Inventory Slots Visibility | Player |
 | | Tamed animals spare crops, Swim skill raises swim speed | Server |
 | **12 - Smelters and kilns** | Ore capacity, Fuel capacity, Speed, Fuel per product, Output (all 1 = normal), Excluded stations | Server |
 | **13 - Fermenters** | Speed, Output (1 = normal) | Server |

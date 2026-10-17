@@ -21,7 +21,7 @@ A Valheim mod made for the Potato Server. It consolidates, fixes and adds things
 - Quality of life: tombstone items back in their slots, live hammer menu, better health bars, taming info, tree dust slider, and more
 - Carts and boats get more health from their builder's Crafting skill
 - Haldor inventory rows: earlier unlocks and a third row (Roomier pockets)
-- Peekaboo Pockets: no inventory slot stays hidden behind another mod's window or off screen (any resolution, ultrawide included)
+- Inventory Slots Visibility: no inventory slot stays hidden behind another mod's window or off screen (any resolution, ultrawide included)
 - Loot and item settings: drop multipliers, item weight, stack size, auto-pickup range, floating items (server-controlled)
 - Optional smelter, fermenter, crafting station range and map reveal settings (normal by default)
 
