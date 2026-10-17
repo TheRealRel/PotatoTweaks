@@ -78,6 +78,9 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> LootTrophies, ItemsFloat;
         internal static ConfigEntry<string> LootNever, LootOnly;
         internal static ConfigEntry<int> ItemStackSize;
+        internal static ConfigEntry<bool> RowsEarlier, RowsThird;
+        internal static ConfigEntry<int> RowsThirdPrice;
+        internal static ConfigEntry<string> RowsThirdBoss;
 
         internal static Harmony HarmonyInstance;
 
@@ -334,6 +337,16 @@ namespace PotatoTweaks
                 Synced("Every dropped item floats instead of sinking. Applies to items dropped from now on."));
             if (!before.ContainsKey(loot + "|Creature drops")) ConfigText.ImportDropMoreLoot(Config);
 
+            const string rows = "23 - Inventory rows";
+            RowsEarlier = Config.Bind(rows, "Earlier rows from Haldor", true,
+                Synced("Haldor's two inventory rows unlock after the Elder (1,000 coins) and Bonemass (2,000) instead of Moder and the Queen. Off: the game's own timing."));
+            RowsThird = Config.Bind(rows, "Third row from Haldor", true,
+                Synced("Haldor also sells a third row, Roomier pockets, once per character. A character that bought it with EpicLoot Progression Fix keeps it and can't buy it again."));
+            RowsThirdPrice = Config.Bind(rows, "Third row price", 3000,
+                Synced("Coins for Roomier pockets.", new AcceptableValueRange<int>(1, 100000)));
+            RowsThirdBoss = Config.Bind(rows, "Third row unlock", "defeated_goblinking",
+                Synced("World key that must be set before Haldor offers Roomier pockets: defeated_goblinking = Yagluth, defeated_queen = the Queen, defeated_fader = Fader; empty = always."));
+
             if (epicLoot)
             {
                 const string table = "20 - Epic Loot enchanting table", enchantments = "21 - Epic Loot enchantments";
@@ -382,6 +395,7 @@ namespace PotatoTweaks
             if (GameFixesEnabled.Value)
                 foreach (var type in GameFixes.Patches) Patch(type);
             foreach (var type in QualityOfLife.Patches) Patch(type);
+            Patch(typeof(InventoryRows));
             foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings), typeof(SmelterSettings.Output),
                 typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal) })
                 Patch(type);

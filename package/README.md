@@ -33,7 +33,7 @@ Every feature can be switched off on its own. **Server** means the server's sett
 
 ### World and economy
 
-All of these start at the game's normal values, except cart and boat health.
+All of these start at the game's normal values, except cart and boat health and the inventory rows.
 
 | Feature | What it does | Set by |
 |---|---|---|
@@ -42,6 +42,7 @@ All of these start at the game's normal values, except cart and boat health.
 | **Smelters, fermenters and stations** | Smelter, kiln and furnace capacity, speed, fuel use and output; fermenter speed and output; crafting station build range. | Server |
 | **Carts and boats** | Carts and boats get more health the higher their builder's Crafting skill: carts up to +400%, boats up to +100%. | Server |
 | **Map** | How far around you the map is revealed as you explore. | Server |
+| **Inventory rows** | Haldor's two inventory rows unlock after the Elder and Bonemass instead of Moder and the Queen, and he sells a third, Roomier pockets, after Yagluth for 3,000 coins. Each is bought once per character. | Server |
 
 ### Looks
 
@@ -127,6 +128,7 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 | **21 - Epic Loot enchantments** | Damage enchantments stack, Double and Triple Shot normal cost, Double Magic Shot doubles the summon limit, Shardstones ignore effect clashes, Lucky Loot on birds | Server |
 | | Lucky Loot message and its position, Eitr cost in tooltips | Player |
 | **22 - Loot and items** | Creature drops, Resource drops, Pickable drops (1 = normal), Multiply trophies too, Never multiplied, Only multiply these, Item weight (1 = normal), Stack size (1 = normal), Auto-pickup range (2 m), Items float in water | Server |
+| **23 - Inventory rows** | Earlier rows from Haldor, Third row from Haldor, Third row price (3,000), Third row unlock (Yagluth) | Server |
 
 Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`.
 

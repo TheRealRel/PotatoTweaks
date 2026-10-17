@@ -5,6 +5,7 @@
   - The game's own drop rules (stars, world modifiers) stay in charge; only the result is multiplied. Items dropped once per player and Hildir's quest chests aren't multiplied; trophies only if you turn that on.
   - Weight and stack size apply to every copy of an item, so crafted items and items loaded with your character are lighter and stack higher too, not only items picked up from the ground.
   - Fractions work: 1.5 gives one and a half times as much on average.
+- **Inventory rows** (section 23, server): Haldor's two inventory rows unlock after the Elder and Bonemass instead of Moder and the Queen, and he sells a third, Roomier pockets, after Yagluth for 3,000 coins, as EpicLoot Progression Fix did. A character that already bought Roomier pockets there can't buy it twice.
 - Switching from DropMoreLoot: remove it; its settings are copied over on first launch (including multiplying trophies, as it did).
 - The mod page's feature list and settings are sorted into groups, Epic Loot together, with who sets each one (server or player).
 - The mod page links a ready-made `common.sell.csv` with the trader sell prices for servers running Traders Extended; both links explain themselves when you hover over them.
