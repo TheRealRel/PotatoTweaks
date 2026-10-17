@@ -6,6 +6,8 @@
 
 🛠️ Source code and bug reports: [github.com/TheRealRel/PotatoTweaks](https://github.com/TheRealRel/PotatoTweaks)
 
+💰 **Trader sell prices:** what the Potato Server's traders pay for every item, materials to Epic Loot gear: [open the searchable list](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/sell-prices.csv)
+
 ---
 
 ## Features

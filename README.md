@@ -22,6 +22,8 @@ A Valheim mod made for the Potato Server. It consolidates, fixes and adds things
 - Carts and boats get more health from their builder's Crafting skill
 - Optional smelter, fermenter, crafting station range and map reveal settings (normal by default)
 
+**Trader sell prices:** [docs/sell-prices.csv](docs/sell-prices.csv) lists what the Potato Server's traders (Traders Extended) pay for every item. GitHub shows it as a table you can search.
+
 The full description, settings and requirements are in [package/README.md](package/README.md). Changes per version: [CHANGELOG.md](CHANGELOG.md).
 
 ## Bug reports

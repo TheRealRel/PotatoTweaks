@@ -16,6 +16,7 @@
 - **Visual effects** (section 7, personal, only with Epic Loot): hide the Glowing aura, all enchantment effects, or legendary textures on your screen.
 - **Bug fixes** (section 10, personal, only with Epic Loot): Epic Loot no longer goes through every item of every loaded chest each second when nothing changed.
 - The stations, carts and boats and map settings have their own sections (12 Smelters and kilns, 13 Fermenters, 14 Crafting stations, 15 Carts and boats, 16 Map), and the bed and trophies are 17 and 18. Values set in 1.3.0's combined section carry over.
+- The mod page links to the Potato Server's trader sell prices, a searchable list of what the traders pay for every item.
 - Switching from Spearfishing or Epic Loot Add-ons: remove them; their settings are copied over on first launch.
 - Everyone, including the server, needs 1.4.0; 1.3.x can't join a 1.4.0 server.
 

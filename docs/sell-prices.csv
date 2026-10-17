@@ -1,0 +1,1956 @@
+Category,Item,Stack,Price,Price each
+Materials,Acorn,2,1,0.5
+Materials,Amber,1,5,5
+Materials,AmberPearl,1,10,10
+Materials,Amethyst_TW,1,4,4
+Materials,AncientArtifact_TW,1,6,6
+Materials,AncientCoin,1,3,3
+Materials,AncientGemstoneBlack,1,10,10
+Materials,AncientGemstoneGreen,1,10,10
+Materials,AncientGemstoneOrange,1,10,10
+Materials,AncientGemstonePurple,1,10,10
+Materials,AncientScroll_TW,1,3,3
+Materials,AncientSeed,1,4,4
+Materials,ArcaneScroll_BlackForest_TW,1,2,2
+Materials,ArcaneScroll_DamageBuff_TW,1,8,8
+Materials,ArcaneScroll_Mistlands_TW,1,8,8
+Materials,ArcaneScroll_Mountain_TW,1,4,4
+Materials,ArcaneScroll_Plains_TW,1,6,6
+Materials,ArcaneScroll_Swamp_TW,1,3,3
+Materials,AskBladder,1,8,8
+Materials,AskHide,1,8,8
+Materials,AsksvinCarrionNeck,1,10,10
+Materials,AsksvinCarrionPelvic,1,10,10
+Materials,AsksvinCarrionRibcage,1,10,10
+Materials,AsksvinCarrionSkull,1,10,10
+Materials,AsksvinEgg,1,10,10
+Materials,AsksvinMeat,1,6,6
+Materials,AxeHead1,1,5,5
+Materials,AxeHead2,1,8,8
+Materials,BarkaBranch,1,3,3
+Materials,Barley,1,1,1
+Materials,BarleyFlour,1,2,2
+Materials,BarrelRings,1,25,25
+Materials,BeechSeeds,5,1,0.2
+Materials,Bell,1,60,60
+Materials,BellFragment,1,35,35
+Materials,Bilebag,1,7,7
+Materials,BirchSeeds,5,2,0.4
+Materials,BjornHide,1,5,5
+Materials,BjornMeat,1,3,3
+Materials,BjornPaw,1,4,4
+Materials,BlackCore,1,20,20
+Materials,BlackMarble,1,2,2
+Materials,BlackMetal,1,10,10
+Materials,BlackMetalScrap,1,4,4
+Materials,Blackwood,1,2,2
+Materials,BlobVial,1,3,3
+Materials,Bloodbag,1,2,2
+Materials,BloodGoldKey,1,50,50
+Materials,Blueberries,2,1,0.5
+Materials,BoneFragments,2,1,0.5
+Materials,BoneMawSerpentMeat,1,7,7
+Materials,BonemawSerpentScale,1,10,10
+Materials,BonemawSerpentTooth,1,8,8
+Materials,Bronze,1,7,7
+Materials,BronzeNails,2,1,0.5
+Materials,BronzeScrap,1,3,3
+Materials,BugMeat,1,4,4
+Materials,CandleWick,1,3,3
+Materials,Carapace,1,5,5
+Materials,Carrot,1,1,1
+Materials,CarrotSeeds,2,1,0.5
+Materials,CelestialFeather,1,12,12
+Materials,CeramicPlate,1,8,8
+Materials,Chain,1,10,10
+Materials,CharcoalResin,1,5,5
+Materials,CharredBone,1,2,2
+Materials,CharredCogwheel,1,6,6
+Materials,Charredskull,1,10,10
+Materials,ChickenEgg,1,2,2
+Materials,ChickenMeat,1,2,2
+Materials,Chitin,1,5,5
+Materials,Cloudberry,1,2,2
+Materials,Coal,5,2,0.4
+Materials,CoalPaste,1,3,3
+Materials,Copper,1,3,3
+Materials,CopperOre,1,2,2
+Materials,CopperScrap,1,2,2
+Materials,CrownJewel,1,60,60
+Materials,CryptKey,1,75,75
+Materials,Crystal,1,3,3
+Materials,CuredSquirrelHamstring,1,5,5
+Materials,CWS_Cold_Steel,1,20,20
+Materials,CWS_Crucible_Finished,1,25,25
+Materials,CWS_Crucible_Full,1,20,20
+Materials,CWS_Hot_Steel,1,25,25
+Materials,CWS_Hot_Steel_Finished,1,30,30
+Materials,CWS_SurtlingCoal,1,3,3
+Materials,Dandelion,5,2,0.4
+Materials,DarkCrystal_TW,1,4,4
+Materials,DeerHide,1,2,2
+Materials,DeerMeat,1,2,2
+Materials,Diamond_TW,1,25,25
+Materials,DragonEgg,1,150,150
+Materials,DragonTear,1,30,30
+Materials,DvergrKey,1,80,80
+Materials,DvergrKeyFragment,1,15,15
+Materials,DvergrNeedle,1,12,12
+Materials,DyeBlack,1,2,2
+Materials,DyrnwynBladeFragment,1,60,60
+Materials,DyrnwynHiltFragment,1,60,60
+Materials,DyrnwynTipFragment,1,60,60
+Materials,Ectoplasm,1,6,6
+Materials,Eitr,1,10,10
+Materials,EitrPlateBlackForest_TW,1,8,8
+Materials,EitrPlateMountain_TW,1,8,8
+Materials,EitrPlatePlains_TW,1,8,8
+Materials,EitrPlateSwamp_TW,1,8,8
+Materials,ElakingHairBundle,1,15,15
+Materials,ElderBark,2,1,0.5
+Materials,Emerald_TW,1,4,4
+Materials,EnchantedWoodBlackForest_TW,1,2,2
+Materials,EnchantedWoodMistlands_TW,1,8,8
+Materials,EnchantedWoodMountain_TW,1,4,4
+Materials,EnchantedWoodPlains_TW,1,6,6
+Materials,EnchantedWoodSwamp_TW,1,3,3
+Materials,Entrails,2,1,0.5
+Materials,FabricBundle_Blackforest_TW,1,2,2
+Materials,FabricBundle_Mistlands_TW,1,8,8
+Materials,FabricBundle_Mountain_TW,1,4,4
+Materials,FabricBundle_Plains_TW,1,6,6
+Materials,FabricBundle_Swamp_TW,1,3,3
+Materials,FaderDrop,1,140,140
+Materials,FaderEmber,1,10,10
+Materials,Feathers,2,1,0.5
+Materials,Fiddleheadfern,1,3,3
+Materials,FineWood,2,1,0.5
+Materials,FirCone,5,1,0.2
+Materials,FirConeFrost,1,1,1
+Materials,FishingBait,1,1,1
+Materials,FishingBaitAshlands,1,3,3
+Materials,FishingBaitCave,1,3,3
+Materials,FishingBaitDeepNorth,1,3,3
+Materials,FishingBaitForest,1,3,3
+Materials,FishingBaitMistlands,1,3,3
+Materials,FishingBaitOcean,1,3,3
+Materials,FishingBaitPlains,1,3,3
+Materials,FishingBaitSwamp,1,3,3
+Materials,FishRaw,1,2,2
+Materials,Flametal,1,22,22
+Materials,FlametalNew,1,22,22
+Materials,FlametalOre,1,10,10
+Materials,FlametalOreNew,1,10,10
+Materials,Flax,1,1,1
+Materials,Flint,2,1,0.5
+Materials,FoxMeat_TW,1,2,2
+Materials,FoxPelt_TW,1,2,2
+Materials,FragrantBundle,1,5,5
+Materials,FreezeGland,1,3,3
+Materials,FreshSeaweed,1,2,2
+Materials,FreyjaEssence_TW,1,40,40
+Materials,FrostCore,1,30,30
+Materials,Frostwood,1,2,2
+Materials,FrozenFuel,1,4,4
+Materials,FrozenKingDrop,1,180,180
+Materials,GemstoneBlue,1,45,45
+Materials,GemstoneGreen,1,45,45
+Materials,GemstoneRed,1,45,45
+Materials,GiantBloodSack,1,4,4
+Materials,GlowWorm,1,3,3
+Materials,GoblinScraps_TW,1,6,6
+Materials,GoblinTotem,1,12,12
+Materials,Gold,1,25,25
+Materials,GoldOre,1,11,11
+Materials,Grausten,1,1,1
+Materials,GreatClub_TW,1,4,4
+Materials,GreydwarfEye,2,1,0.5
+Materials,GrizzlyBearPelt_TW,1,4,4
+Materials,Guck,1,2,2
+Materials,HardAntler,1,40,40
+Materials,HareMeat,1,4,4
+Materials,HatefulBlood,1,8,8
+Materials,Honey,1,2,2
+Materials,Ice,1,1,1
+Materials,IceHornMountain_TW,1,4,4
+Materials,Iron,1,6,6
+Materials,IronNails,2,1,0.5
+Materials,IronOre,1,2,2
+Materials,IronScrap,1,2,2
+Materials,JuteBlack_TW,1,4,4
+Materials,JuteBlue,1,4,4
+Materials,JuteRed,1,3,3
+Materials,Kale,1,3,3
+Materials,KaleSeeds,1,1,1
+Materials,Larva,1,2,2
+Materials,LeatherScraps,2,1,0.5
+Materials,Leatherstraps,2,2,1
+Materials,LinenThread,1,2,2
+Materials,Lingonberry,1,3,3
+Materials,LoxBone_TW,1,6,6
+Materials,LoxMeat,1,4,4
+Materials,LoxPelt,1,6,6
+Materials,Mandible,1,8,8
+Materials,MechanicalSpring,1,15,15
+Materials,MemorialCoal,1,5,5
+Materials,MoldArmorGoldChest,1,8,8
+Materials,MoldArmorGoldHelmet,1,8,8
+Materials,MoldArmorGoldLegs,1,8,8
+Materials,MoldArmorMageChest,1,8,8
+Materials,MoldArmorMageHelmet,1,8,8
+Materials,MoldArmorMageLegs,1,8,8
+Materials,MoldArmormediumChest,1,8,8
+Materials,MoldArmorMediumHelmet,1,8,8
+Materials,MoldArmorMediumLegs,1,8,8
+Materials,MoldAtgeir,1,8,8
+Materials,MoldAxe,1,8,8
+Materials,MoldAxe2H,1,8,8
+Materials,MoldBow,1,8,8
+Materials,MoldCrossbow,1,8,8
+Materials,MoldFistweapon,1,8,8
+Materials,MoldKeys,1,8,8
+Materials,MoldKnife,1,8,8
+Materials,MoldMace,1,8,8
+Materials,MoldMace2H,1,8,8
+Materials,MoldShieldBuckler,1,8,8
+Materials,MoldShieldRound,1,8,8
+Materials,MoldShieldTower,1,8,8
+Materials,MoldSmallParts,1,8,8
+Materials,MoldSpear,1,8,8
+Materials,MoldStafffrostorbs,1,8,8
+Materials,MoldStaffOrbofAhri,1,8,8
+Materials,MoldStaffspiritcaller,1,8,8
+Materials,MoldStaffthunderblood,1,8,8
+Materials,MoldSword,1,8,8
+Materials,MoldSword2H,1,8,8
+Materials,MoltenCore,1,25,25
+Materials,MooseHide,1,9,9
+Materials,MooseMeat,1,7,7
+Materials,MooseSinew,1,12,12
+Materials,MorgenHeart,1,30,30
+Materials,MorgenSinew,1,12,12
+Materials,Mushroom,2,1,0.5
+Materials,MushroomBlue,1,4,4
+Materials,MushroomBzerker,1,2,2
+Materials,MushroomDeathcap_TW,2,2,1
+Materials,MushroomDevilstongue_TW,2,2,1
+Materials,MushroomJotunPuffs,1,2,2
+Materials,MushroomMagecap,1,2,2
+Materials,MushroomSmokePuff,1,3,3
+Materials,MushroomWitcheye_TW,2,2,1
+Materials,MushroomWizardbutter_TW,2,2,1
+Materials,MushroomYellow,1,1,1
+Materials,NeckTail,1,1,1
+Materials,Needle,1,1,1
+Materials,NornThread,1,10,10
+Materials,Oat,1,2,2
+Materials,OatFlour,1,3,3
+Materials,OatSeeds,1,1,1
+Materials,Obsidian,1,1,1
+Materials,Onion,1,1,1
+Materials,OnionSeeds,2,1,0.5
+Materials,Onyx_TW,1,25,25
+Materials,Ooze,1,1,1
+Materials,OozeMork,1,3,3
+Materials,OrbFrostFire,1,14,14
+Materials,OrbThunderBlood,1,14,14
+Materials,PineCone,5,2,0.4
+Materials,Pot_Shard_Green,1,2,2
+Materials,Pot_Shard_Red,1,2,2
+Materials,Poteitr,1,3,3
+Materials,PoteitrSeeds,1,1,1
+Materials,PowderedDragonEgg,1,10,10
+Materials,ProustitePowder,1,7,7
+Materials,ProwlerFang_TW,1,4,4
+Materials,Pukeberries,1,2,2
+Materials,PungentPebbles,1,5,5
+Materials,QueenBee,1,15,15
+Materials,QueenDrop,1,90,90
+Materials,rae_HorseHide,1,4,4
+Materials,rae_HorseMeat,1,3,3
+Materials,Raspberry,5,2,0.4
+Materials,RawMeat,1,2,2
+Materials,RazorbackLeather_TW,1,3,3
+Materials,RazorbackTusk_TW,1,3,3
+Materials,Resin,5,2,0.4
+Materials,Root,1,3,3
+Materials,RottenMeat,2,1,0.5
+Materials,RottenPelt_TW,1,3,3
+Materials,RottingElkMeat_TW,1,2,2
+Materials,RoundLog,2,1,0.5
+Materials,RoyalJelly,1,5,5
+Materials,Ruby,1,20,20
+Materials,RuneAlgiz_TW,1,15,15
+Materials,RuneBer_TW,1,15,15
+Materials,RuneDagaz_TW,1,15,15
+Materials,RuneEihwaz_TW,1,15,15
+Materials,RuneFehu_TW,1,15,15
+Materials,RuneJara_TW,1,15,15
+Materials,RuneMannaz_TW,1,15,15
+Materials,RuneOthala_TW,1,15,15
+Materials,RunePerth_TW,1,15,15
+Materials,RuneRaidho_TW,1,15,15
+Materials,RuneThurisaz_TW,1,15,15
+Materials,SailInk,1,5,5
+Materials,Sap,1,2,2
+Materials,Sapphire_TW,1,8,8
+Materials,ScaleHide,1,5,5
+Materials,ScytheHandle,1,10,10
+Materials,SealBlubber,1,7,7
+Materials,SealHide,1,9,9
+Materials,SerpentMeat,1,5,5
+Materials,SerpentScale,1,5,5
+Materials,ShardBonemass_TW,1,3,3
+Materials,ShardElder_TW,1,3,3
+Materials,ShardModer_TW,1,4,4
+Materials,ShardQueen_TW,1,8,8
+Materials,ShardYagluth_TW,1,6,6
+Materials,SharkFin_TW,1,3,3
+Materials,SharkMeat_TW,1,3,3
+Materials,SharpeningStone,2,2,1
+Materials,Silver,1,8,8
+Materials,SilverNecklace,1,30,30
+Materials,SilverOre,1,4,4
+Materials,Softtissue,1,6,6
+Materials,Stone,10,1,0.1
+Materials,StoneChisel,2,2,1
+Materials,SulfurStone,1,3,3
+Materials,SurtlingCore,1,5,5
+Materials,Tar,1,2,2
+Materials,Thistle,2,1,0.5
+Materials,Thunderstone,1,10,10
+Materials,Tin,1,3,3
+Materials,TinOre,1,2,2
+Materials,Topaz_TW,1,25,25
+Materials,TrollBone_TW,1,2,2
+Materials,TrollHide,1,5,5
+Materials,Turnip,1,1,1
+Materials,TurnipSeeds,2,1,0.5
+Materials,VenomousFang_TW,1,4,4
+Materials,Vineberry,1,3,3
+Materials,VineberrySeeds,1,2,2
+Materials,VineGreenSeeds,1,1,1
+Materials,Voidplasm,1,10,10
+Materials,VoltureEgg,1,6,6
+Materials,VoltureMeat,1,6,6
+Materials,Wishbone,1,120,120
+Materials,Wisp,1,4,4
+Materials,WitheredBone,1,2,2
+Materials,WolfClaw,1,3,3
+Materials,WolfFang,1,2,2
+Materials,WolfHairBundle,1,4,4
+Materials,WolfMeat,1,3,3
+Materials,WolfPelt,1,4,4
+Materials,Wood,5,1,0.2
+Materials,WoolScraps_TW,1,3,3
+Materials,WoolYarn_Black_TW,1,4,4
+Materials,WoolYarn_Blue_TW,1,4,4
+Materials,WoolYarn_Brown_TW,1,4,4
+Materials,WoolYarn_Green_TW,1,4,4
+Materials,WoolYarn_Red_TW,1,4,4
+Materials,WoolYarn_Teal_TW,1,4,4
+Materials,WoolYarn_White_TW,1,4,4
+Materials,WoolYarn_Yellow_TW,1,4,4
+Materials,WrithanRoots,1,6,6
+Materials,YagluthDrop,1,60,60
+Materials,YggdrasilWood,1,2,2
+Materials,YmirRemains,1,30,30
+"Food, meads & potions",BakedPoteitr,1,28,28
+"Food, meads & potions",BakedPoteitrUncooked,1,28,28
+"Food, meads & potions",BarleyWine,1,5,5
+"Food, meads & potions",BarleyWineBase,1,25,25
+"Food, meads & potions",BearJerky_TW,1,3,3
+"Food, meads & potions",BearSteak_TW,1,11,11
+"Food, meads & potions",BerryCakePlains_TW,1,15,15
+"Food, meads & potions",BerryCandyBlackForest_TW,1,5,5
+"Food, meads & potions",BlackSoup,1,5,5
+"Food, meads & potions",BloodPudding,1,12,12
+"Food, meads & potions",BoarJerky,1,2,2
+"Food, meads & potions",Bread,1,10,10
+"Food, meads & potions",BreadDough,1,8,8
+"Food, meads & potions",CarrotSoup,1,4,4
+"Food, meads & potions",CookedAsksvinMeat,1,8,8
+"Food, meads & potions",CookedBearSteak_TW,1,11,11
+"Food, meads & potions",CookedBjornMeat,1,4,4
+"Food, meads & potions",CookedBoneMawSerpentMeat,1,10,10
+"Food, meads & potions",CookedBugMeat,1,6,6
+"Food, meads & potions",CookedChickenMeat,1,3,3
+"Food, meads & potions",CookedDeerMeat,1,2,2
+"Food, meads & potions",CookedEgg,1,3,3
+"Food, meads & potions",CookedFoxMeat_TW,1,5,5
+"Food, meads & potions",CookedHareMeat,1,6,6
+"Food, meads & potions",CookedLoxMeat,1,6,6
+"Food, meads & potions",CookedMeat,1,2,2
+"Food, meads & potions",CookedMooseMeat,1,28,28
+"Food, meads & potions",CookedSealBlubber,1,28,28
+"Food, meads & potions",CookedSharkMeat_TW,1,8,8
+"Food, meads & potions",CookedVoltureMeat,1,8,8
+"Food, meads & potions",CookedWolfMeat,1,4,4
+"Food, meads & potions",DeerStew,1,5,5
+"Food, meads & potions",Eyescream,1,5,5
+"Food, meads & potions",FeastAshlands,1,96,96
+"Food, meads & potions",FeastAshlands_Material,1,96,96
+"Food, meads & potions",FeastBlackforest,1,20,20
+"Food, meads & potions",FeastBlackforest_Material,1,20,20
+"Food, meads & potions",FeastDeepNorth,1,112,112
+"Food, meads & potions",FeastDeepNorth_Material,1,112,112
+"Food, meads & potions",FeastMeadows,1,12,12
+"Food, meads & potions",FeastMeadows_Material,1,12,12
+"Food, meads & potions",FeastMistlands,1,76,76
+"Food, meads & potions",FeastMistlands_Material,1,76,76
+"Food, meads & potions",FeastMountains,1,44,44
+"Food, meads & potions",FeastMountains_Material,1,44,44
+"Food, meads & potions",FeastOceans,1,44,44
+"Food, meads & potions",FeastOceans_Material,1,44,44
+"Food, meads & potions",FeastPlains,1,60,60
+"Food, meads & potions",FeastPlains_Material,1,60,60
+"Food, meads & potions",FeastSwamps,1,32,32
+"Food, meads & potions",FeastSwamps_Material,1,32,32
+"Food, meads & potions",FierySvinstew,1,29,29
+"Food, meads & potions",Fish1,1,8,8
+"Food, meads & potions",Fish10,1,26,26
+"Food, meads & potions",Fish11,1,28,28
+"Food, meads & potions",Fish12,1,30,30
+"Food, meads & potions",Fish2,1,10,10
+"Food, meads & potions",Fish3,1,12,12
+"Food, meads & potions",Fish4_cave,1,14,14
+"Food, meads & potions",Fish5,1,16,16
+"Food, meads & potions",Fish6,1,18,18
+"Food, meads & potions",Fish7,1,20,20
+"Food, meads & potions",Fish8,1,22,22
+"Food, meads & potions",Fish9,1,24,24
+"Food, meads & potions",FishAndBread,1,24,24
+"Food, meads & potions",FishAndBreadUncooked,1,17,17
+"Food, meads & potions",FishAnglerRaw,1,18,18
+"Food, meads & potions",FishCooked,1,3,3
+"Food, meads & potions",FishSoup,1,11,11
+"Food, meads & potions",FishWraps,1,12,12
+"Food, meads & potions",FoxJerky_TW,1,5,5
+"Food, meads & potions",GenericMoldUncooked,1,28,28
+"Food, meads & potions",HoneyGlazedChicken,1,15,15
+"Food, meads & potions",HoneyGlazedChickenUncooked,1,10,10
+"Food, meads & potions",JellyCakeSwamp_TW,1,15,15
+"Food, meads & potions",KaleChips,1,28,28
+"Food, meads & potions",KaleChipsUncooked,1,28,28
+"Food, meads & potions",KeysGoldUncooked,1,28,28
+"Food, meads & potions",Lingondricka,1,28,28
+"Food, meads & potions",LoxPie,1,28,28
+"Food, meads & potions",LoxPieUncooked,1,20,20
+"Food, meads & potions",MagicallyStuffedShroom,1,32,32
+"Food, meads & potions",MagicallyStuffedShroomUncooked,1,23,23
+"Food, meads & potions",MarinatedGreens,1,22,22
+"Food, meads & potions",MashedMeat,1,25,25
+"Food, meads & potions",MeadBaseBugRepellent,1,45,45
+"Food, meads & potions",MeadBaseBzerker,1,11,11
+"Food, meads & potions",MeadBaseEitrBlackForest_TW,1,19,19
+"Food, meads & potions",MeadBaseEitrLingering,1,60,60
+"Food, meads & potions",MeadBaseEitrMinor,1,50,50
+"Food, meads & potions",MeadBaseEitrMountain_TW,1,19,19
+"Food, meads & potions",MeadBaseFrostResist,1,21,21
+"Food, meads & potions",MeadBaseHasty,1,22,22
+"Food, meads & potions",MeadBaseHealthLingering,1,80,80
+"Food, meads & potions",MeadBaseHealthMajor,1,49,49
+"Food, meads & potions",MeadBaseHealthMedium,1,24,24
+"Food, meads & potions",MeadBaseHealthMinor,1,21,21
+"Food, meads & potions",MeadBaseLightFoot,1,23,23
+"Food, meads & potions",MeadBaseLightningResist_TW,1,11,11
+"Food, meads & potions",MeadBaseLingeringStaminaMedium_TW,1,11,11
+"Food, meads & potions",MeadBaseLingeringStaminaMinor_TW,1,11,11
+"Food, meads & potions",MeadBasePoisonResist,1,22,22
+"Food, meads & potions",MeadBaseStaminaLingering,1,55,55
+"Food, meads & potions",MeadBaseStaminaMedium,1,40,40
+"Food, meads & potions",MeadBaseStaminaMinor,1,28,28
+"Food, meads & potions",MeadBaseStrength,1,23,23
+"Food, meads & potions",MeadBaseSwimmer,1,22,22
+"Food, meads & potions",MeadBaseTamer,1,11,11
+"Food, meads & potions",MeadBaseTasty,1,23,23
+"Food, meads & potions",MeadBugRepellent,1,9,9
+"Food, meads & potions",MeadBzerker,1,11,11
+"Food, meads & potions",MeadEitrBlackForest_TW,1,19,19
+"Food, meads & potions",MeadEitrLingering,1,12,12
+"Food, meads & potions",MeadEitrMinor,1,10,10
+"Food, meads & potions",MeadEitrMountain_TW,1,19,19
+"Food, meads & potions",MeadFrostResist,1,4,4
+"Food, meads & potions",MeadHasty,1,4,4
+"Food, meads & potions",MeadHealthLingering,1,16,16
+"Food, meads & potions",MeadHealthMajor,1,10,10
+"Food, meads & potions",MeadHealthMedium,1,5,5
+"Food, meads & potions",MeadHealthMinor,1,4,4
+"Food, meads & potions",MeadLightfoot,1,5,5
+"Food, meads & potions",MeadLightningResist_TW,1,11,11
+"Food, meads & potions",MeadPoisonResist,1,4,4
+"Food, meads & potions",MeadStaminaLingering,1,11,11
+"Food, meads & potions",MeadStaminaLingeringMedium_TW,1,11,11
+"Food, meads & potions",MeadStaminaLingeringMinor_TW,1,11,11
+"Food, meads & potions",MeadStaminaMedium,1,8,8
+"Food, meads & potions",MeadStaminaMinor,1,6,6
+"Food, meads & potions",MeadStrength,1,5,5
+"Food, meads & potions",MeadSwimmer,1,4,4
+"Food, meads & potions",MeadTamer,1,11,11
+"Food, meads & potions",MeadTasty,1,5,5
+"Food, meads & potions",MeadTrollPheromones,1,5,5
+"Food, meads & potions",MeatballsMashedPoteitr,1,28,28
+"Food, meads & potions",MeatPlatter,1,17,17
+"Food, meads & potions",MeatPlatterUncooked,1,12,12
+"Food, meads & potions",MinceMeatSauce,1,4,4
+"Food, meads & potions",MisthareSupreme,1,17,17
+"Food, meads & potions",MisthareSupremeUncooked,1,12,12
+"Food, meads & potions",MixedGrill_TW,1,11,11
+"Food, meads & potions",MooseKebab,1,28,28
+"Food, meads & potions",MushroomOmelette,1,14,14
+"Food, meads & potions",NeckTailGrilled,1,1,1
+"Food, meads & potions",OatmealLingonberryJam,1,28,28
+"Food, meads & potions",OatMilk,1,28,28
+"Food, meads & potions",OnionSoup,1,4,4
+"Food, meads & potions",OvenPancake,1,15,15
+"Food, meads & potions",OvenPancakeUncooked,1,15,15
+"Food, meads & potions",Pancakes,1,15,15
+"Food, meads & potions",PiquantPie,1,38,38
+"Food, meads & potions",PiquantPieUncooked,1,27,27
+"Food, meads & potions",PotionAquatic_TW,1,40,40
+"Food, meads & potions",PotionLumberjack_TW,1,17,17
+"Food, meads & potions",PotionMiner_TW,1,18,18
+"Food, meads & potions",PotionOx_TW,1,26,26
+"Food, meads & potions",PotionRejuvenationMedium_TW,1,47,47
+"Food, meads & potions",PotionRejuvenationMinor_TW,1,40,40
+"Food, meads & potions",PotionSkills_TW,1,29,29
+"Food, meads & potions",PotionSneak_TW,1,16,16
+"Food, meads & potions",PotionSpeed_TW,1,40,40
+"Food, meads & potions",PotionStoneskin_TW,1,45,45
+"Food, meads & potions",PulledBear,1,11,11
+"Food, meads & potions",QueensJam,1,2,2
+"Food, meads & potions",rae_CookedHorseMeat,1,11,11
+"Food, meads & potions",rae_HorseMeatSkewer,1,11,11
+"Food, meads & potions",rae_HorseSoup,1,11,11
+"Food, meads & potions",rae_HorseSticks,1,19,19
+"Food, meads & potions",RoastedCrustPie,1,25,25
+"Food, meads & potions",RoastedCrustPieUncooked,1,18,18
+"Food, meads & potions",Salad,1,5,5
+"Food, meads & potions",Sausages,1,2,2
+"Food, meads & potions",ScorchingMedley,1,22,22
+"Food, meads & potions",SealSoup,1,28,28
+"Food, meads & potions",SeekerAspic,1,16,16
+"Food, meads & potions",SerpentMeatCooked,1,7,7
+"Food, meads & potions",SerpentStew,1,15,15
+"Food, meads & potions",SharkFinSoup_TW,1,8,8
+"Food, meads & potions",ShocklateSmoothie,1,5,5
+"Food, meads & potions",ShroomSoupBlackForest_TW,1,5,5
+"Food, meads & potions",ShroomSoupMountain_TW,1,11,11
+"Food, meads & potions",ShroomSoupPlains_TW,1,15,15
+"Food, meads & potions",ShroomSoupSwamp_TW,1,8,8
+"Food, meads & potions",SizzlingBerryBroth,1,17,17
+"Food, meads & potions",SmallPartsGoldUncooked,1,28,28
+"Food, meads & potions",SmokedFish,1,11,11
+"Food, meads & potions",SmokedMooseMeat,1,28,28
+"Food, meads & potions",SparklingShroomshake,1,6,6
+"Food, meads & potions",SpiceAshlands,1,24,24
+"Food, meads & potions",SpiceDeepNorth,1,28,28
+"Food, meads & potions",SpiceForests,1,11,11
+"Food, meads & potions",SpiceMistlands,1,19,19
+"Food, meads & potions",SpiceMountains,1,11,11
+"Food, meads & potions",SpiceOceans,1,11,11
+"Food, meads & potions",SpicePlains,1,15,15
+"Food, meads & potions",SpicyMarmalade,1,14,14
+"Food, meads & potions",TurnipStew,1,5,5
+"Food, meads & potions",UncookedBerryCakePlains_TW,1,15,15
+"Food, meads & potions",VikingCupcake,1,15,15
+"Food, meads & potions",VikingCupcakeUncooked,1,15,15
+"Food, meads & potions",WolfJerky,1,3,3
+"Food, meads & potions",WolfMeatSkewer,1,6,6
+"Food, meads & potions",YggdrasilPorridge,1,32,32
+Ammo,ArrowBloodGold,1,5,5
+Ammo,ArrowBone_TW,5,1,0.2
+Ammo,ArrowBronze,2,1,0.5
+Ammo,ArrowCarapace,1,3,3
+Ammo,ArrowCharred,1,4,4
+Ammo,ArrowExplosiveLightning_TW,1,1,1
+Ammo,ArrowExplosivePoison_TW,1,1,1
+Ammo,ArrowFire,1,1,1
+Ammo,ArrowFlint,1,1,1
+Ammo,ArrowFrost,1,2,2
+Ammo,ArrowIron,1,1,1
+Ammo,ArrowNeedle,1,2,2
+Ammo,ArrowObsidian,1,2,2
+Ammo,ArrowPickaxe_TW,2,1,0.5
+Ammo,ArrowPoison,1,1,1
+Ammo,ArrowSilver,1,2,2
+Ammo,ArrowWood,1,1,1
+Ammo,BoltAntler_TW,1,2,2
+Ammo,BoltBlackmetal,1,2,2
+Ammo,BoltBloodGold,1,5,5
+Ammo,BoltBlunt_TW,5,2,0.4
+Ammo,BoltBone,2,1,0.5
+Ammo,BoltBronze_TW,5,2,0.4
+Ammo,BoltCarapace,1,3,3
+Ammo,BoltCharred,1,4,4
+Ammo,BoltExplosiveLightning_TW,1,1,1
+Ammo,BoltExplosivePoison_TW,1,1,1
+Ammo,BoltFire_TW,5,1,0.2
+Ammo,BoltFrost_TW,5,2,0.4
+Ammo,BoltIron,1,1,1
+Ammo,BoltPickaxe_TW,2,1,0.5
+Ammo,BoltPoison_TW,5,2,0.4
+Ammo,BoltSilver_TW,2,1,0.5
+Ammo,BoltWood_TW,20,2,0.1
+Ammo,BombBile,1,14,14
+Ammo,BombBlob_Frost,1,6,6
+Ammo,BombBlob_Lava,1,4,4
+Ammo,BombBlob_Morkhalla,1,4,4
+Ammo,BombBlob_Poison,1,4,4
+Ammo,BombBlob_PoisonElite,1,4,4
+Ammo,BombBlob_Tar,1,8,8
+Ammo,BombDynamite,1,4,4
+Ammo,BombLava,1,14,14
+Ammo,BombOoze,1,4,4
+Ammo,BombSiege,1,4,4
+Ammo,BombSmoke,1,4,4
+Ammo,BombSpirit_TW,1,18,18
+Ammo,Catapult_ammo,1,4,4
+Ammo,Catapult_Ammo_BloodGold,1,5,5
+Ammo,CWS_Arrow_1,1,2,2
+Ammo,CWS_Arrow_2,1,2,2
+Ammo,CWS_Arrow_3,1,2,2
+Ammo,CWS_Arrow_4,1,2,2
+Ammo,CWS_Arrow_5,1,2,2
+Ammo,TurretBolt,1,1,1
+Ammo,TurretBoltBloodgold,1,5,5
+Ammo,TurretBoltBone,2,1,0.5
+Ammo,TurretBoltFlametal,1,4,4
+Ammo,TurretBoltWood,1,1,1
+"Weapons, armor & tools",ArmorAshlandsMediumChest,1,194,194
+"Weapons, armor & tools",ArmorAshlandsMediumlegs,1,194,194
+"Weapons, armor & tools",ArmorBerserkerChest,1,52,52
+"Weapons, armor & tools",ArmorBerserkerLegs,1,52,52
+"Weapons, armor & tools",ArmorBerserkerUndeadChest,1,129,129
+"Weapons, armor & tools",ArmorBerserkerUndeadLegs,1,142,142
+"Weapons, armor & tools",ArmorBoldCarapaceChest_TW,1,168,168
+"Weapons, armor & tools",ArmorBoldCarapaceLegs_TW,1,168,168
+"Weapons, armor & tools",ArmorBoldChest_TW,1,142,142
+"Weapons, armor & tools",ArmorBoldFlametalChest_TW,1,207,207
+"Weapons, armor & tools",ArmorBoldFlametalLegs_TW,1,207,207
+"Weapons, armor & tools",ArmorBoldLegs_TW,1,142,142
+"Weapons, armor & tools",ArmorBronzeChest,1,52,52
+"Weapons, armor & tools",ArmorBronzeLegs,1,52,52
+"Weapons, armor & tools",ArmorCarapaceChest,1,155,155
+"Weapons, armor & tools",ArmorCarapaceLegs,1,155,155
+"Weapons, armor & tools",ArmorDeepNorthHeavyChest,1,246,246
+"Weapons, armor & tools",ArmorDeepNorthHeavylegs,1,246,246
+"Weapons, armor & tools",ArmorDeepNorthMageChest,1,246,246
+"Weapons, armor & tools",ArmorDeepNorthMagelegs,1,246,246
+"Weapons, armor & tools",ArmorDeepNorthMediumChest,1,246,246
+"Weapons, armor & tools",ArmorDeepNorthMediumlegs,1,246,246
+"Weapons, armor & tools",ArmorDress1,1,6,6
+"Weapons, armor & tools",ArmorDress10,1,6,6
+"Weapons, armor & tools",ArmorDress2,1,6,6
+"Weapons, armor & tools",ArmorDress3,1,6,6
+"Weapons, armor & tools",ArmorDress4,1,6,6
+"Weapons, armor & tools",ArmorDress5,1,6,6
+"Weapons, armor & tools",ArmorDress6,1,6,6
+"Weapons, armor & tools",ArmorDress7,1,6,6
+"Weapons, armor & tools",ArmorDress8,1,6,6
+"Weapons, armor & tools",ArmorDress9,1,6,6
+"Weapons, armor & tools",ArmorFenringChest,1,103,103
+"Weapons, armor & tools",ArmorFenringLegs,1,103,103
+"Weapons, armor & tools",ArmorFenrirBMChest_TW,1,142,142
+"Weapons, armor & tools",ArmorFenrirBMLegs_TW,1,142,142
+"Weapons, armor & tools",ArmorFenrirCarapaceChest_TW,1,168,168
+"Weapons, armor & tools",ArmorFenrirCarapaceLegs_TW,1,168,168
+"Weapons, armor & tools",ArmorFenrirChest_TW,1,270,270
+"Weapons, armor & tools",ArmorFenrirLegs_TW,1,270,270
+"Weapons, armor & tools",ArmorFlametalChest,1,194,194
+"Weapons, armor & tools",ArmorFlametalLegs,1,194,194
+"Weapons, armor & tools",ArmorGoldHeavyChestUncooked,1,145,145
+"Weapons, armor & tools",ArmorGoldHeavyHelmetUncooked,1,145,145
+"Weapons, armor & tools",ArmorGoldHeavyLegsUncooked,1,145,145
+"Weapons, armor & tools",ArmorGoldMageChestUncooked,1,145,145
+"Weapons, armor & tools",ArmorGoldMageHelmetUncooked,1,145,145
+"Weapons, armor & tools",ArmorGoldMageLegsUncooked,1,145,145
+"Weapons, armor & tools",ArmorGoldMediumChestUncooked,1,145,145
+"Weapons, armor & tools",ArmorGoldMediumHelmetUncooked,1,145,145
+"Weapons, armor & tools",ArmorGoldMediumLegsUncooked,1,145,145
+"Weapons, armor & tools",ArmorHarvester1,1,20,20
+"Weapons, armor & tools",ArmorHarvester2,1,20,20
+"Weapons, armor & tools",ArmorHorseClothChest_T1,1,13,13
+"Weapons, armor & tools",ArmorHorseClothChest_T2,1,78,78
+"Weapons, armor & tools",ArmorHorseClothHelmet_T1,1,13,13
+"Weapons, armor & tools",ArmorHorseClothHelmet_T2,1,78,78
+"Weapons, armor & tools",ArmorHorseClothLegs_T1,1,13,13
+"Weapons, armor & tools",ArmorHorseClothLegs_T2,1,78,78
+"Weapons, armor & tools",ArmorHunterChest_TW,1,85,85
+"Weapons, armor & tools",ArmorHunterChestBM_TW,1,330,330
+"Weapons, armor & tools",ArmorHunterChestCarapace_TW,1,390,390
+"Weapons, armor & tools",ArmorHunterChestIron_TW,1,180,180
+"Weapons, armor & tools",ArmorHunterChestSilver_TW,1,270,270
+"Weapons, armor & tools",ArmorHunterLegs_TW,1,76,76
+"Weapons, armor & tools",ArmorHunterLegsBM_TW,1,270,270
+"Weapons, armor & tools",ArmorHunterLegsCarapace_TW,1,390,390
+"Weapons, armor & tools",ArmorHunterLegsIron_TW,1,148,148
+"Weapons, armor & tools",ArmorHunterLegsSilver_TW,1,270,270
+"Weapons, armor & tools",ArmorIronChest,1,78,78
+"Weapons, armor & tools",ArmorIronLegs,1,78,78
+"Weapons, armor & tools",ArmorLeatherChest,1,26,26
+"Weapons, armor & tools",ArmorLeatherChest_TW,1,30,30
+"Weapons, armor & tools",ArmorLeatherLegs,1,26,26
+"Weapons, armor & tools",ArmorLeatherLegs_TW,1,30,30
+"Weapons, armor & tools",ArmorLegionChest_TW,1,168,168
+"Weapons, armor & tools",ArmorLegionFlametalChest_TW,1,207,207
+"Weapons, armor & tools",ArmorLegionFlametalLegs_TW,1,207,207
+"Weapons, armor & tools",ArmorLegionLegs_TW,1,168,168
+"Weapons, armor & tools",ArmorLoxChest,1,116,116
+"Weapons, armor & tools",ArmorLoxLegs,1,116,116
+"Weapons, armor & tools",ArmorMageChest,1,155,155
+"Weapons, armor & tools",ArmorMageChest_Ashlands,1,194,194
+"Weapons, armor & tools",ArmorMageLegs,1,155,155
+"Weapons, armor & tools",ArmorMageLegs_Ashlands,1,194,194
+"Weapons, armor & tools",ArmorPaddedCuirass,1,129,129
+"Weapons, armor & tools",ArmorPaddedGreaves,1,129,129
+"Weapons, armor & tools",ArmorRagsChest,1,13,13
+"Weapons, armor & tools",ArmorRagsLegs,1,13,13
+"Weapons, armor & tools",ArmorRazorbackChest_TW,1,84,84
+"Weapons, armor & tools",ArmorRazorbackLegs_TW,1,72,72
+"Weapons, armor & tools",ArmorRogueBMChest_TW,1,142,142
+"Weapons, armor & tools",ArmorRogueBMLegs_TW,1,142,142
+"Weapons, armor & tools",ArmorRogueCarapaceChest_TW,1,168,168
+"Weapons, armor & tools",ArmorRogueCarapaceLegs_TW,1,168,168
+"Weapons, armor & tools",ArmorRogueChest_TW,1,52,52
+"Weapons, armor & tools",ArmorRogueIronChest_TW,1,78,78
+"Weapons, armor & tools",ArmorRogueIronLegs_TW,1,78,78
+"Weapons, armor & tools",ArmorRogueLegs_TW,1,52,52
+"Weapons, armor & tools",ArmorRogueSilverChest_TW,1,116,116
+"Weapons, armor & tools",ArmorRogueSilverLegs_TW,1,116,116
+"Weapons, armor & tools",ArmorRootChest,1,78,78
+"Weapons, armor & tools",ArmorRootLegs,1,78,78
+"Weapons, armor & tools",ArmorSpellSlingerChest_BlackForest_TW,1,52,52
+"Weapons, armor & tools",ArmorSpellSlingerChest_Mistlands_TW,1,142,142
+"Weapons, armor & tools",ArmorSpellSlingerChest_Mountain_TW,1,116,116
+"Weapons, armor & tools",ArmorSpellSlingerChest_Plains_TW,1,142,142
+"Weapons, armor & tools",ArmorSpellSlingerChest_Swamp_TW,1,78,78
+"Weapons, armor & tools",ArmorSpellslingerLegs_BlackForest_TW,1,13,13
+"Weapons, armor & tools",ArmorSpellslingerLegs_Mistlands_TW,1,217,217
+"Weapons, armor & tools",ArmorSpellslingerLegs_Mountain_TW,1,78,78
+"Weapons, armor & tools",ArmorSpellslingerLegs_Plains_TW,1,118,118
+"Weapons, armor & tools",ArmorSpellslingerLegs_Swamp_TW,1,33,33
+"Weapons, armor & tools",ArmorTrollLeatherChest,1,39,39
+"Weapons, armor & tools",ArmorTrollLeatherLegs,1,39,39
+"Weapons, armor & tools",ArmorTunic1,1,6,6
+"Weapons, armor & tools",ArmorTunic10,1,6,6
+"Weapons, armor & tools",ArmorTunic2,1,6,6
+"Weapons, armor & tools",ArmorTunic3,1,6,6
+"Weapons, armor & tools",ArmorTunic4,1,6,6
+"Weapons, armor & tools",ArmorTunic5,1,6,6
+"Weapons, armor & tools",ArmorTunic6,1,6,6
+"Weapons, armor & tools",ArmorTunic7,1,6,6
+"Weapons, armor & tools",ArmorTunic8,1,6,6
+"Weapons, armor & tools",ArmorTunic9,1,6,6
+"Weapons, armor & tools",ArmorVidarBMChest_TW,1,142,142
+"Weapons, armor & tools",ArmorVidarBMLegs_TW,1,142,142
+"Weapons, armor & tools",ArmorVidarCarapaceChest_TW,1,168,168
+"Weapons, armor & tools",ArmorVidarCarapaceLegs_TW,1,168,168
+"Weapons, armor & tools",ArmorVidarChest_TW,1,270,270
+"Weapons, armor & tools",ArmorVidarFlametalChest_TW,1,207,207
+"Weapons, armor & tools",ArmorVidarFlametalLegs_TW,1,207,207
+"Weapons, armor & tools",ArmorVidarLegs_TW,1,270,270
+"Weapons, armor & tools",ArmorVigorousBMChest_TW,1,142,142
+"Weapons, armor & tools",ArmorVigorousBMLegs_TW,1,142,142
+"Weapons, armor & tools",ArmorVigorousCarapaceChest_TW,1,168,168
+"Weapons, armor & tools",ArmorVigorousCarapaceLegs_TW,1,168,168
+"Weapons, armor & tools",ArmorVigorousChest_TW,1,52,52
+"Weapons, armor & tools",ArmorVigorousIronChest_TW,1,78,78
+"Weapons, armor & tools",ArmorVigorousIronLegs_TW,1,78,78
+"Weapons, armor & tools",ArmorVigorousLegs_TW,1,52,52
+"Weapons, armor & tools",ArmorVigorousSilverChest_TW,1,116,116
+"Weapons, armor & tools",ArmorVigorousSilverLegs_TW,1,116,116
+"Weapons, armor & tools",ArmorWarriorBMChest_TW,1,142,142
+"Weapons, armor & tools",ArmorWarriorBMLegs_TW,1,142,142
+"Weapons, armor & tools",ArmorWarriorCarapaceChest_TW,1,168,168
+"Weapons, armor & tools",ArmorWarriorCarapaceLegs_TW,1,168,168
+"Weapons, armor & tools",ArmorWarriorChest_TW,1,78,78
+"Weapons, armor & tools",ArmorWarriorFlametalChest_TW,1,207,207
+"Weapons, armor & tools",ArmorWarriorFlametalLegs_TW,1,207,207
+"Weapons, armor & tools",ArmorWarriorLegs_TW,1,78,78
+"Weapons, armor & tools",ArmorWarriorSilverChest_TW,1,116,116
+"Weapons, armor & tools",ArmorWarriorSilverLegs_TW,1,116,116
+"Weapons, armor & tools",ArmorWolfChest,1,103,103
+"Weapons, armor & tools",ArmorWolfLegs,1,103,103
+"Weapons, armor & tools",AtgeirBlackmetal,1,129,129
+"Weapons, armor & tools",AtgeirBronze,1,52,52
+"Weapons, armor & tools",AtgeirFlint_TW,1,8,8
+"Weapons, armor & tools",AtgeirGold,1,246,246
+"Weapons, armor & tools",AtgeirGold_BloodLightning,1,246,246
+"Weapons, armor & tools",AtgeirGold_FrostFire,1,246,246
+"Weapons, armor & tools",AtgeirGoldUncooked,1,188,188
+"Weapons, armor & tools",AtgeirHimminAfl,1,155,155
+"Weapons, armor & tools",AtgeirIron,1,78,78
+"Weapons, armor & tools",AtgeirSilver_TW,1,270,270
+"Weapons, armor & tools",AtgeirWood,1,6,6
+"Weapons, armor & tools",ATM_Shovel,1,78,78
+"Weapons, armor & tools",AxeBerzerkr,1,194,194
+"Weapons, armor & tools",AxeBerzerkrBlood,1,207,207
+"Weapons, armor & tools",AxeBerzerkrLightning,1,207,207
+"Weapons, armor & tools",AxeBerzerkrNature,1,207,207
+"Weapons, armor & tools",AxeBlackMetal,1,129,129
+"Weapons, armor & tools",AxeBronze,1,52,52
+"Weapons, armor & tools",AxeDvergr_TW,1,235,235
+"Weapons, armor & tools",AxeEarly,1,13,13
+"Weapons, armor & tools",AxeFlametal_TW,1,462,462
+"Weapons, armor & tools",AxeFlint,1,13,13
+"Weapons, armor & tools",AxeGold,1,246,246
+"Weapons, armor & tools",AxeGold_BloodLightning,1,246,246
+"Weapons, armor & tools",AxeGold_FrostFire,1,246,246
+"Weapons, armor & tools",AxeGoldUncooked,1,145,145
+"Weapons, armor & tools",AxeIron,1,78,78
+"Weapons, armor & tools",AxeJotunBane,1,155,155
+"Weapons, armor & tools",AxeSilver_TW,1,239,239
+"Weapons, armor & tools",AxeStone,1,6,6
+"Weapons, armor & tools",AxeWood,1,6,6
+"Weapons, armor & tools",BackpackBlackForest,1,52,52
+"Weapons, armor & tools",BackpackMeadows,1,13,13
+"Weapons, armor & tools",BackpackMistlands,1,168,168
+"Weapons, armor & tools",BackpackMountains,1,116,116
+"Weapons, armor & tools",BackpackPlains,1,142,142
+"Weapons, armor & tools",BackpackSwamp,1,78,78
+"Weapons, armor & tools",BarberKit,1,20,20
+"Weapons, armor & tools",BastardBlackmetal_TW,1,330,330
+"Weapons, armor & tools",BastardBone_TW,1,39,39
+"Weapons, armor & tools",BastardChitin_TW,1,180,180
+"Weapons, armor & tools",BastardDvergr_TW,1,390,390
+"Weapons, armor & tools",BastardFlametal_TW,1,480,480
+"Weapons, armor & tools",BastardFlint_TW,1,10,10
+"Weapons, armor & tools",BastardSilver_TW,1,270,270
+"Weapons, armor & tools",Battleaxe,1,78,78
+"Weapons, armor & tools",BattleaxeBlackmetal,1,142,142
+"Weapons, armor & tools",BattleaxeBlackmetal_TW,1,330,330
+"Weapons, armor & tools",BattleaxeBronze_TW,1,104,104
+"Weapons, armor & tools",BattleaxeCrystal,1,270,270
+"Weapons, armor & tools",BattleaxeCrystal_TW,1,101,101
+"Weapons, armor & tools",BattleaxeCrystalAmethyst_TW,1,168,168
+"Weapons, armor & tools",BattleaxeCrystalEmerald_TW,1,142,142
+"Weapons, armor & tools",BattleaxeDvergr_TW,1,390,390
+"Weapons, armor & tools",BattleaxeFlametal_TW,1,207,207
+"Weapons, armor & tools",BattleaxeFlint_TW,1,9,9
+"Weapons, armor & tools",BattleaxeGold,1,246,246
+"Weapons, armor & tools",BattleaxeGold_BloodLightning,1,246,246
+"Weapons, armor & tools",BattleaxeGold_FrostFire,1,246,246
+"Weapons, armor & tools",BattleaxeGoldUncooked,1,188,188
+"Weapons, armor & tools",BattleaxeIron_TW,1,180,180
+"Weapons, armor & tools",BattleaxeSilver_TW,1,270,270
+"Weapons, armor & tools",BattleaxeSkullSplittur,1,168,168
+"Weapons, armor & tools",BattleaxeWood,1,6,6
+"Weapons, armor & tools",BattlehammerBlackmetal_TW,1,330,330
+"Weapons, armor & tools",BattlehammerDvergr_TW,1,371,371
+"Weapons, armor & tools",BattlehammerElder_TW,1,180,180
+"Weapons, armor & tools",BattlehammerIron_TW,1,180,180
+"Weapons, armor & tools",BattlehammerSilver_TW,1,270,270
+"Weapons, armor & tools",BattlehammerTrollbone_TW,1,109,109
+"Weapons, armor & tools",BeltStrength,1,200,200
+"Weapons, armor & tools",BeltYmir_TW,1,168,168
+"Weapons, armor & tools",BladeYagluth_TW,1,390,390
+"Weapons, armor & tools",Bow,1,13,13
+"Weapons, armor & tools",BowAshlands,1,194,194
+"Weapons, armor & tools",BowAshlandsBlood,1,207,207
+"Weapons, armor & tools",BowAshlandsRoot,1,207,207
+"Weapons, armor & tools",BowAshlandsStorm,1,207,207
+"Weapons, armor & tools",BowBlackmetal_TW,1,315,315
+"Weapons, armor & tools",BowDraugrFang,1,129,129
+"Weapons, armor & tools",BowFineWood,1,52,52
+"Weapons, armor & tools",BowGold,1,246,246
+"Weapons, armor & tools",BowGold_BloodLightning,1,246,246
+"Weapons, armor & tools",BowGold_FrostFire,1,246,246
+"Weapons, armor & tools",BowGoldUncooked,1,145,145
+"Weapons, armor & tools",BowHuntsman,1,78,78
+"Weapons, armor & tools",BowSpineSnap,1,155,155
+"Weapons, armor & tools",BowTrollBone_TW,1,52,52
+"Weapons, armor & tools",CapeAsh,1,194,194
+"Weapons, armor & tools",CapeAsksvin,1,194,194
+"Weapons, armor & tools",CapeDeepNorth,1,246,246
+"Weapons, armor & tools",CapeDeepNorthMage,1,246,246
+"Weapons, armor & tools",CapeDeerHide,1,26,26
+"Weapons, armor & tools",CapeFeather,1,155,155
+"Weapons, armor & tools",CapeIronBackpack,1,47,47
+"Weapons, armor & tools",CapeLinen,1,129,129
+"Weapons, armor & tools",CapeLox,1,129,129
+"Weapons, armor & tools",CapeOdin,1,50,50
+"Weapons, armor & tools",CapeRotten_TW,1,49,49
+"Weapons, armor & tools",CapeSailor,1,78,78
+"Weapons, armor & tools",CapeSilverBackpack,1,70,70
+"Weapons, armor & tools",CapeSpellslinger_Blackforest_TW,1,12,12
+"Weapons, armor & tools",CapeSpellslinger_Mistlands_TW,1,136,136
+"Weapons, armor & tools",CapeSpellslinger_Mountain_TW,1,48,48
+"Weapons, armor & tools",CapeSpellslinger_Plains_TW,1,106,106
+"Weapons, armor & tools",CapeSpellslinger_Swamp_TW,1,25,25
+"Weapons, armor & tools",CapeTrollBlack_TW,1,52,52
+"Weapons, armor & tools",CapeTrollHide,1,39,39
+"Weapons, armor & tools",CapeWolf,1,103,103
+"Weapons, armor & tools",ClaymoreBlackmetal_TW,1,330,330
+"Weapons, armor & tools",ClaymoreBone_TW,1,39,39
+"Weapons, armor & tools",ClaymoreBronze_TW,1,101,101
+"Weapons, armor & tools",ClaymoreChitin_TW,1,180,180
+"Weapons, armor & tools",ClaymoreDvergr_TW,1,346,346
+"Weapons, armor & tools",ClaymoreIron_TW,1,180,180
+"Weapons, armor & tools",ClaymoreSilver_TW,1,270,270
+"Weapons, armor & tools",Club,1,13,13
+"Weapons, armor & tools",CrossbowArbalest,1,453,453
+"Weapons, armor & tools",CrossbowBlackmetal_TW,1,330,330
+"Weapons, armor & tools",CrossbowBronze_TW,1,102,102
+"Weapons, armor & tools",CrossbowChitin_TW,1,180,180
+"Weapons, armor & tools",CrossbowEikthyr_TW,1,120,120
+"Weapons, armor & tools",CrossbowGold,1,246,246
+"Weapons, armor & tools",CrossbowGold_BloodLightning,1,246,246
+"Weapons, armor & tools",CrossbowGold_FrostFire,1,246,246
+"Weapons, armor & tools",CrossbowGoldUncooked,1,145,145
+"Weapons, armor & tools",CrossbowIron_TW,1,165,165
+"Weapons, armor & tools",CrossbowRipper,1,207,207
+"Weapons, armor & tools",CrossbowRipperBlood,1,207,207
+"Weapons, armor & tools",CrossbowRipperLightning,1,207,207
+"Weapons, armor & tools",CrossbowRipperNature,1,207,207
+"Weapons, armor & tools",CrossbowSilver_TW,1,270,270
+"Weapons, armor & tools",CrossbowWood_TW,1,11,11
+"Weapons, armor & tools",CudgelBronze_TW,1,69,69
+"Weapons, armor & tools",CudgelIron_TW,1,137,137
+"Weapons, armor & tools",Cultivator,1,52,52
+"Weapons, armor & tools",CWS_Atgeir_1,1,52,52
+"Weapons, armor & tools",CWS_Atgeir_10,1,63,63
+"Weapons, armor & tools",CWS_Atgeir_2,1,63,63
+"Weapons, armor & tools",CWS_Atgeir_3,1,63,63
+"Weapons, armor & tools",CWS_Atgeir_4,1,63,63
+"Weapons, armor & tools",CWS_Atgeir_5,1,63,63
+"Weapons, armor & tools",CWS_Atgeir_6,1,63,63
+"Weapons, armor & tools",CWS_Atgeir_7,1,63,63
+"Weapons, armor & tools",CWS_Atgeir_8,1,63,63
+"Weapons, armor & tools",CWS_Atgeir_9,1,63,63
+"Weapons, armor & tools",CWS_Axe_1,1,63,63
+"Weapons, armor & tools",CWS_Axe_10,1,63,63
+"Weapons, armor & tools",CWS_Axe_2,1,63,63
+"Weapons, armor & tools",CWS_Axe_3,1,63,63
+"Weapons, armor & tools",CWS_Axe_4,1,63,63
+"Weapons, armor & tools",CWS_Axe_5,1,63,63
+"Weapons, armor & tools",CWS_Axe_6,1,63,63
+"Weapons, armor & tools",CWS_Axe_7,1,63,63
+"Weapons, armor & tools",CWS_Axe_8,1,63,63
+"Weapons, armor & tools",CWS_Axe_9,1,63,63
+"Weapons, armor & tools",CWS_Bow_1,1,63,63
+"Weapons, armor & tools",CWS_Bow_10,1,63,63
+"Weapons, armor & tools",CWS_Bow_11,1,63,63
+"Weapons, armor & tools",CWS_Bow_2,1,63,63
+"Weapons, armor & tools",CWS_Bow_3,1,63,63
+"Weapons, armor & tools",CWS_Bow_4,1,63,63
+"Weapons, armor & tools",CWS_Bow_5,1,63,63
+"Weapons, armor & tools",CWS_Bow_6,1,63,63
+"Weapons, armor & tools",CWS_Bow_7,1,63,63
+"Weapons, armor & tools",CWS_Bow_8,1,63,63
+"Weapons, armor & tools",CWS_Bow_9,1,63,63
+"Weapons, armor & tools",CWS_Buckler_Shield_1,1,63,63
+"Weapons, armor & tools",CWS_Buckler_Shield_2,1,63,63
+"Weapons, armor & tools",CWS_Crossbow_1,1,63,63
+"Weapons, armor & tools",CWS_Crossbow_2,1,63,63
+"Weapons, armor & tools",CWS_Crossbow_3,1,63,63
+"Weapons, armor & tools",CWS_Crossbow_4,1,63,63
+"Weapons, armor & tools",CWS_Crossbow_5,1,63,63
+"Weapons, armor & tools",CWS_Crossbow_6,1,63,63
+"Weapons, armor & tools",CWS_Crossbow_7,1,63,63
+"Weapons, armor & tools",CWS_Crossbow_8,1,63,63
+"Weapons, armor & tools",CWS_Crossbow_9,1,63,63
+"Weapons, armor & tools",CWS_Dagger_1,1,63,63
+"Weapons, armor & tools",CWS_Dagger_10,1,63,63
+"Weapons, armor & tools",CWS_Dagger_11,1,63,63
+"Weapons, armor & tools",CWS_Dagger_2,1,63,63
+"Weapons, armor & tools",CWS_Dagger_3,1,63,63
+"Weapons, armor & tools",CWS_Dagger_4,1,63,63
+"Weapons, armor & tools",CWS_Dagger_5,1,63,63
+"Weapons, armor & tools",CWS_Dagger_6,1,63,63
+"Weapons, armor & tools",CWS_Dagger_7,1,63,63
+"Weapons, armor & tools",CWS_Dagger_8,1,63,63
+"Weapons, armor & tools",CWS_Dagger_9,1,63,63
+"Weapons, armor & tools",CWS_Heater_Shield_1,1,63,63
+"Weapons, armor & tools",CWS_Heater_Shield_2,1,63,63
+"Weapons, armor & tools",CWS_Heater_Shield_3,1,63,63
+"Weapons, armor & tools",CWS_Heater_Shield_4,1,63,63
+"Weapons, armor & tools",CWS_Heater_Shield_5,1,63,63
+"Weapons, armor & tools",CWS_Mace_1,1,63,63
+"Weapons, armor & tools",CWS_Mace_10,1,63,63
+"Weapons, armor & tools",CWS_Mace_2,1,63,63
+"Weapons, armor & tools",CWS_Mace_3,1,63,63
+"Weapons, armor & tools",CWS_Mace_4,1,63,63
+"Weapons, armor & tools",CWS_Mace_5,1,63,63
+"Weapons, armor & tools",CWS_Mace_6,1,63,63
+"Weapons, armor & tools",CWS_Mace_7,1,63,63
+"Weapons, armor & tools",CWS_Mace_8,1,63,63
+"Weapons, armor & tools",CWS_Mace_9,1,63,63
+"Weapons, armor & tools",CWS_Round_Shield_1,1,63,63
+"Weapons, armor & tools",CWS_Round_Shield_2,1,63,63
+"Weapons, armor & tools",CWS_Round_Shield_3,1,63,63
+"Weapons, armor & tools",CWS_Round_Shield_4,1,63,63
+"Weapons, armor & tools",CWS_Round_Shield_5,1,63,63
+"Weapons, armor & tools",CWS_Round_Shield_6,1,63,63
+"Weapons, armor & tools",CWS_Round_Shield_7,1,63,63
+"Weapons, armor & tools",CWS_Sledge_1,1,63,63
+"Weapons, armor & tools",CWS_Sledge_10,1,63,63
+"Weapons, armor & tools",CWS_Sledge_11,1,63,63
+"Weapons, armor & tools",CWS_Sledge_2,1,63,63
+"Weapons, armor & tools",CWS_Sledge_3,1,63,63
+"Weapons, armor & tools",CWS_Sledge_4,1,63,63
+"Weapons, armor & tools",CWS_Sledge_5,1,63,63
+"Weapons, armor & tools",CWS_Sledge_6,1,63,63
+"Weapons, armor & tools",CWS_Sledge_7,1,63,63
+"Weapons, armor & tools",CWS_Sledge_8,1,63,63
+"Weapons, armor & tools",CWS_Sledge_9,1,63,63
+"Weapons, armor & tools",CWS_Spear_1,1,63,63
+"Weapons, armor & tools",CWS_Spear_2,1,63,63
+"Weapons, armor & tools",CWS_Spear_3,1,63,63
+"Weapons, armor & tools",CWS_Spear_4,1,63,63
+"Weapons, armor & tools",CWS_Spear_5,1,63,63
+"Weapons, armor & tools",CWS_Spear_6,1,63,63
+"Weapons, armor & tools",CWS_Spear_7,1,63,63
+"Weapons, armor & tools",CWS_Spear_8,1,63,63
+"Weapons, armor & tools",CWS_Spear_9,1,63,63
+"Weapons, armor & tools",CWS_Sword_1,1,63,63
+"Weapons, armor & tools",CWS_Sword_10,1,63,63
+"Weapons, armor & tools",CWS_Sword_11,1,63,63
+"Weapons, armor & tools",CWS_Sword_12,1,52,52
+"Weapons, armor & tools",CWS_Sword_13,1,63,63
+"Weapons, armor & tools",CWS_Sword_14,1,63,63
+"Weapons, armor & tools",CWS_Sword_2,1,63,63
+"Weapons, armor & tools",CWS_Sword_3,1,63,63
+"Weapons, armor & tools",CWS_Sword_4,1,63,63
+"Weapons, armor & tools",CWS_Sword_5,1,63,63
+"Weapons, armor & tools",CWS_Sword_6,1,63,63
+"Weapons, armor & tools",CWS_Sword_7,1,63,63
+"Weapons, armor & tools",CWS_Sword_8,1,63,63
+"Weapons, armor & tools",CWS_Sword_9,1,63,63
+"Weapons, armor & tools",CWS_TH_Axe_1,1,63,63
+"Weapons, armor & tools",CWS_TH_Axe_10,1,63,63
+"Weapons, armor & tools",CWS_TH_Axe_2,1,63,63
+"Weapons, armor & tools",CWS_TH_Axe_3,1,63,63
+"Weapons, armor & tools",CWS_TH_Axe_4,1,63,63
+"Weapons, armor & tools",CWS_TH_Axe_5,1,63,63
+"Weapons, armor & tools",CWS_TH_Axe_6,1,63,63
+"Weapons, armor & tools",CWS_TH_Axe_7,1,63,63
+"Weapons, armor & tools",CWS_TH_Axe_8,1,63,63
+"Weapons, armor & tools",CWS_TH_Axe_9,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_1,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_10,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_11,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_2,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_3,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_4,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_5,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_6,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_7,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_8,1,63,63
+"Weapons, armor & tools",CWS_TH_Sword_9,1,63,63
+"Weapons, armor & tools",CWS_Tower_Shield_1,1,63,63
+"Weapons, armor & tools",CWS_Tower_Shield_2,1,63,63
+"Weapons, armor & tools",CWS_Tower_Shield_3,1,63,63
+"Weapons, armor & tools",CWS_Tower_Shield_4,1,63,63
+"Weapons, armor & tools",CWS_Tower_Shield_5,1,63,63
+"Weapons, armor & tools",Demister,1,155,155
+"Weapons, armor & tools",DualAxeDemonic_TW,1,78,78
+"Weapons, armor & tools",DualKnifeBM_TW,1,142,142
+"Weapons, armor & tools",DualKnifeBone_TW,1,52,52
+"Weapons, armor & tools",DualKnifeChitin_TW,1,78,78
+"Weapons, armor & tools",DualKnifeFlametal_TW,1,207,207
+"Weapons, armor & tools",DualKnifeIron_TW,1,78,78
+"Weapons, armor & tools",DualKnifeSilver_TW,1,116,116
+"Weapons, armor & tools",DualScytheBloodthirst_TW,1,78,78
+"Weapons, armor & tools",DualSwordScimitar_TW,1,142,142
+"Weapons, armor & tools",DvergerArbalest_shoot,1,168,168
+"Weapons, armor & tools",DvergerArbalest_shootAshlands,1,168,168
+"Weapons, armor & tools",FishingRod,1,52,52
+"Weapons, armor & tools",FistBjornClaw,1,39,39
+"Weapons, armor & tools",FistBjornUndeadClaw,1,129,129
+"Weapons, armor & tools",FistBlackmetal_TW,1,328,328
+"Weapons, armor & tools",FistBronze_TW,1,96,96
+"Weapons, armor & tools",FistChitin_TW,1,165,165
+"Weapons, armor & tools",FistDvergr_TW,1,355,355
+"Weapons, armor & tools",FistFenrirClaw,1,103,103
+"Weapons, armor & tools",FistFlametal_TW,1,480,480
+"Weapons, armor & tools",FistFlint_TW,1,9,9
+"Weapons, armor & tools",FistGold,1,246,246
+"Weapons, armor & tools",FistGold_BloodLightning,1,246,246
+"Weapons, armor & tools",FistGold_FrostFire,1,246,246
+"Weapons, armor & tools",FistGoldUncooked,1,145,145
+"Weapons, armor & tools",FistIron_TW,1,179,179
+"Weapons, armor & tools",FistQueen_TW,1,390,390
+"Weapons, armor & tools",FistSilver_TW,1,270,270
+"Weapons, armor & tools",FW_ArmorBronzeChest,1,52,52
+"Weapons, armor & tools",FW_ArmorBronzeLegs,1,52,52
+"Weapons, armor & tools",FW_ArmorFenringChest,1,103,103
+"Weapons, armor & tools",FW_ArmorFenringLegs,1,103,103
+"Weapons, armor & tools",FW_ArmorMageChest,1,155,155
+"Weapons, armor & tools",FW_ArmorMageChest_Ashlands,1,194,194
+"Weapons, armor & tools",FW_ArmorMageLegs,1,155,155
+"Weapons, armor & tools",FW_ArmorMageLegs_Ashlands,1,194,194
+"Weapons, armor & tools",FW_ArmorPaddedCuirass,1,129,129
+"Weapons, armor & tools",FW_ArmorPaddedGreaves,1,129,129
+"Weapons, armor & tools",FW_ArmorTrollLeatherChest,1,39,39
+"Weapons, armor & tools",FW_ArmorTrollLeatherLegs,1,39,39
+"Weapons, armor & tools",FW_AxeBronze,1,52,52
+"Weapons, armor & tools",FW_BattleaxeCrystal,1,116,116
+"Weapons, armor & tools",FW_BowDraugrFang,1,129,129
+"Weapons, armor & tools",FW_CapeLinen,1,129,129
+"Weapons, armor & tools",FW_CapeTrollHide,1,39,39
+"Weapons, armor & tools",FW_CapeWolf,1,103,103
+"Weapons, armor & tools",FW_HelmetBronze,1,52,52
+"Weapons, armor & tools",FW_KnifeSilver,1,103,103
+"Weapons, armor & tools",FW_KnifeSkollAndHati,1,155,155
+"Weapons, armor & tools",FW_ShieldBlackmetalTower,1,129,129
+"Weapons, armor & tools",FW_StaffFireball,1,155,155
+"Weapons, armor & tools",FW_StaffLightning,1,194,194
+"Weapons, armor & tools",FW_SwordBlackmetal,1,129,129
+"Weapons, armor & tools",GoldRubyRing,1,45,45
+"Weapons, armor & tools",GrapplingHook,1,168,168
+"Weapons, armor & tools",GreatbowBlackmetal_TW,1,330,330
+"Weapons, armor & tools",GreatbowDvergr_TW,1,335,335
+"Weapons, armor & tools",GreatbowModer_TW,1,270,270
+"Weapons, armor & tools",Hammer,1,13,13
+"Weapons, armor & tools",HelmetAshlandsMediumHood,1,194,194
+"Weapons, armor & tools",HelmetBerserkerHood,1,52,52
+"Weapons, armor & tools",HelmetBerserkerUndead,1,129,129
+"Weapons, armor & tools",HelmetBold_TW,1,142,142
+"Weapons, armor & tools",HelmetBoldCarapace_TW,1,168,168
+"Weapons, armor & tools",HelmetBoldFlametal_TW,1,207,207
+"Weapons, armor & tools",HelmetBronze,1,52,52
+"Weapons, armor & tools",HelmetCarapace,1,155,155
+"Weapons, armor & tools",HelmetCelebration,1,52,52
+"Weapons, armor & tools",HelmetCircletBM_Elemental_TW,1,142,142
+"Weapons, armor & tools",HelmetCircletBM_Hunter_TW,1,142,142
+"Weapons, armor & tools",HelmetCircletBM_Sneak_TW,1,142,142
+"Weapons, armor & tools",HelmetCircletBM_Stamina_TW,1,142,142
+"Weapons, armor & tools",HelmetCircletBM_TW,1,142,142
+"Weapons, armor & tools",HelmetCircletBronze_Elemental_TW,1,52,52
+"Weapons, armor & tools",HelmetCircletBronze_Hunter_TW,1,52,52
+"Weapons, armor & tools",HelmetCircletBronze_Sneak_TW,1,52,52
+"Weapons, armor & tools",HelmetCircletBronze_Stamina_TW,1,52,52
+"Weapons, armor & tools",HelmetCircletBronze_TW,1,52,52
+"Weapons, armor & tools",HelmetCircletCarapace_Elemental_TW,1,168,168
+"Weapons, armor & tools",HelmetCircletCarapace_Hunter_TW,1,168,168
+"Weapons, armor & tools",HelmetCircletCarapace_Sneak_TW,1,168,168
+"Weapons, armor & tools",HelmetCircletCarapace_Stamina_TW,1,168,168
+"Weapons, armor & tools",HelmetCircletCarapace_TW,1,168,168
+"Weapons, armor & tools",HelmetCircletIron_Elemental_TW,1,78,78
+"Weapons, armor & tools",HelmetCircletIron_Hunter_TW,1,78,78
+"Weapons, armor & tools",HelmetCircletIron_Sneak_TW,1,78,78
+"Weapons, armor & tools",HelmetCircletIron_Stamina_TW,1,78,78
+"Weapons, armor & tools",HelmetCircletIron_TW,1,78,78
+"Weapons, armor & tools",HelmetCircletSilver_Elemental_TW,1,116,116
+"Weapons, armor & tools",HelmetCircletSilver_Hunter_TW,1,116,116
+"Weapons, armor & tools",HelmetCircletSilver_Sneak_TW,1,116,116
+"Weapons, armor & tools",HelmetCircletSilver_Stamina_TW,1,116,116
+"Weapons, armor & tools",HelmetCircletSilver_TW,1,116,116
+"Weapons, armor & tools",HelmetCrownofValheim,1,246,246
+"Weapons, armor & tools",HelmetDNHeavy,1,246,246
+"Weapons, armor & tools",HelmetDNMage,1,246,246
+"Weapons, armor & tools",HelmetDNMediumHood,1,246,246
+"Weapons, armor & tools",HelmetDrake,1,103,103
+"Weapons, armor & tools",HelmetDverger,1,150,150
+"Weapons, armor & tools",HelmetFenring,1,103,103
+"Weapons, armor & tools",HelmetFenrir_TW,1,270,270
+"Weapons, armor & tools",HelmetFenrirBM_TW,1,142,142
+"Weapons, armor & tools",HelmetFenrirCarapace_TW,1,168,168
+"Weapons, armor & tools",HelmetFishingHat,1,6,6
+"Weapons, armor & tools",HelmetFlametal,1,194,194
+"Weapons, armor & tools",HelmetHat1,1,6,6
+"Weapons, armor & tools",HelmetHat10,1,6,6
+"Weapons, armor & tools",HelmetHat2,1,6,6
+"Weapons, armor & tools",HelmetHat3,1,6,6
+"Weapons, armor & tools",HelmetHat4,1,6,6
+"Weapons, armor & tools",HelmetHat5,1,6,6
+"Weapons, armor & tools",HelmetHat6,1,6,6
+"Weapons, armor & tools",HelmetHat7,1,6,6
+"Weapons, armor & tools",HelmetHat8,1,6,6
+"Weapons, armor & tools",HelmetHat9,1,6,6
+"Weapons, armor & tools",HelmetHunter_TW,1,106,106
+"Weapons, armor & tools",HelmetHunterBM_TW,1,330,330
+"Weapons, armor & tools",HelmetHunterCarapace_TW,1,390,390
+"Weapons, armor & tools",HelmetHunterIron_TW,1,180,180
+"Weapons, armor & tools",HelmetHunterSilver_TW,1,270,270
+"Weapons, armor & tools",HelmetIron,1,78,78
+"Weapons, armor & tools",HelmetLeather,1,26,26
+"Weapons, armor & tools",HelmetLeather_TW,1,30,30
+"Weapons, armor & tools",HelmetLegion_TW,1,168,168
+"Weapons, armor & tools",HelmetLegionFlametal_TW,1,207,207
+"Weapons, armor & tools",HelmetLox,1,78,78
+"Weapons, armor & tools",HelmetMage,1,155,155
+"Weapons, armor & tools",HelmetMage_Ashlands,1,194,194
+"Weapons, armor & tools",HelmetMidsummerCrown,1,10,10
+"Weapons, armor & tools",HelmetOdin,1,50,50
+"Weapons, armor & tools",HelmetPadded,1,129,129
+"Weapons, armor & tools",HelmetPirateBandana,1,13,13
+"Weapons, armor & tools",HelmetPirateHat,1,6,6
+"Weapons, armor & tools",HelmetPointyHat,1,6,6
+"Weapons, armor & tools",HelmetRazorback_TW,1,50,50
+"Weapons, armor & tools",HelmetRogue_TW,1,52,52
+"Weapons, armor & tools",HelmetRogueBM_TW,1,142,142
+"Weapons, armor & tools",HelmetRogueCarapace_TW,1,168,168
+"Weapons, armor & tools",HelmetRogueIron_TW,1,78,78
+"Weapons, armor & tools",HelmetRogueSilver_TW,1,116,116
+"Weapons, armor & tools",HelmetRoot,1,78,78
+"Weapons, armor & tools",HelmetRootCrown,1,30,30
+"Weapons, armor & tools",HelmetSpellslinger_BlackForest_TW,1,12,12
+"Weapons, armor & tools",HelmetSpellslinger_Mistlands_TW,1,320,320
+"Weapons, armor & tools",HelmetSpellslinger_Mountain_TW,1,102,102
+"Weapons, armor & tools",HelmetSpellslinger_Plains_TW,1,149,149
+"Weapons, armor & tools",HelmetSpellslinger_Swamp_TW,1,39,39
+"Weapons, armor & tools",HelmetStrawHat,1,6,6
+"Weapons, armor & tools",HelmetSweatBand,1,6,6
+"Weapons, armor & tools",HelmetTrollLeather,1,39,39
+"Weapons, armor & tools",HelmetVidar_TW,1,270,270
+"Weapons, armor & tools",HelmetVidarBM_TW,1,142,142
+"Weapons, armor & tools",HelmetVidarCarapace_TW,1,168,168
+"Weapons, armor & tools",HelmetVidarFlametal_TW,1,207,207
+"Weapons, armor & tools",HelmetVigorous_TW,1,52,52
+"Weapons, armor & tools",HelmetVigorousBM_TW,1,142,142
+"Weapons, armor & tools",HelmetVigorousCarapace_TW,1,168,168
+"Weapons, armor & tools",HelmetVigorousIron_TW,1,78,78
+"Weapons, armor & tools",HelmetVigorousSilver_TW,1,116,116
+"Weapons, armor & tools",HelmetWarrior_TW,1,78,78
+"Weapons, armor & tools",HelmetWarriorBM_TW,1,142,142
+"Weapons, armor & tools",HelmetWarriorCarapace_TW,1,168,168
+"Weapons, armor & tools",HelmetWarriorFlametal_TW,1,207,207
+"Weapons, armor & tools",HelmetWarriorSilver_TW,1,116,116
+"Weapons, armor & tools",HelmetYule,1,20,20
+"Weapons, armor & tools",Hoe,1,13,13
+"Weapons, armor & tools",IceShoes,1,60,60
+"Weapons, armor & tools",IceSkates,1,60,60
+"Weapons, armor & tools",KnifeBlackMetal,1,129,129
+"Weapons, armor & tools",KnifeBronze_TW,1,84,84
+"Weapons, armor & tools",KnifeButcher,1,52,52
+"Weapons, armor & tools",KnifeChitin,1,78,78
+"Weapons, armor & tools",KnifeCopper,1,39,39
+"Weapons, armor & tools",KnifeFlint,1,13,13
+"Weapons, armor & tools",KnifeGold,1,246,246
+"Weapons, armor & tools",KnifeGold_BloodLightning,1,246,246
+"Weapons, armor & tools",KnifeGold_FrostFire,1,246,246
+"Weapons, armor & tools",KnifeGoldUncooked,1,116,116
+"Weapons, armor & tools",KnifeIron_TW,1,139,139
+"Weapons, armor & tools",KnifeSilver,1,103,103
+"Weapons, armor & tools",KnifeSkollAndHati,1,155,155
+"Weapons, armor & tools",KnifeViper_TW,1,120,120
+"Weapons, armor & tools",KnifeVoid,1,246,246
+"Weapons, armor & tools",KnifeWood,1,6,6
+"Weapons, armor & tools",KnifeWrench_TW,1,159,159
+"Weapons, armor & tools",LanceBlackmetal_TW,1,215,215
+"Weapons, armor & tools",LanceDvergr_TW,1,326,326
+"Weapons, armor & tools",Lantern,1,168,168
+"Weapons, armor & tools",Lantern_DN,1,207,207
+"Weapons, armor & tools",Lantern_hooded,1,142,142
+"Weapons, armor & tools",LeatherBelt,1,32,32
+"Weapons, armor & tools",LeatherQuiver,1,6,6
+"Weapons, armor & tools",LMTY_TamingTool,1,20,20
+"Weapons, armor & tools",MaceBronze,1,52,52
+"Weapons, armor & tools",MaceChitin_TW,1,162,162
+"Weapons, armor & tools",MaceDvergr_TW,1,332,332
+"Weapons, armor & tools",MaceEldner,1,194,194
+"Weapons, armor & tools",MaceEldnerBlood,1,207,207
+"Weapons, armor & tools",MaceEldnerLightning,1,207,207
+"Weapons, armor & tools",MaceEldnerNature,1,207,207
+"Weapons, armor & tools",MaceFlint_TW,1,5,5
+"Weapons, armor & tools",MaceGold,1,246,246
+"Weapons, armor & tools",MaceGold_BloodLightning,1,246,246
+"Weapons, armor & tools",MaceGold_FrostFire,1,246,246
+"Weapons, armor & tools",MaceGoldUncooked,1,145,145
+"Weapons, armor & tools",MaceIron,1,78,78
+"Weapons, armor & tools",MaceNeedle,1,129,129
+"Weapons, armor & tools",MaceSilver,1,103,103
+"Weapons, armor & tools",MaceWood,1,6,6
+"Weapons, armor & tools",PickaxeAntler,1,13,13
+"Weapons, armor & tools",PickaxeBlackMetal,1,129,129
+"Weapons, armor & tools",PickaxeBronze,1,52,52
+"Weapons, armor & tools",PickaxeFader_TW,1,480,480
+"Weapons, armor & tools",PickaxeIron,1,78,78
+"Weapons, armor & tools",PickaxeSilver_TW,1,86,86
+"Weapons, armor & tools",PickaxeStone,1,4,4
+"Weapons, armor & tools",rae_CapeHorseHide,1,52,52
+"Weapons, armor & tools",rae_Horseaker,1,78,78
+"Weapons, armor & tools",rae_iron_HorseArmor,1,52,52
+"Weapons, armor & tools",Rae_OdinBlackmetal_Lance,1,142,142
+"Weapons, armor & tools",Rae_OdinBone_Lance,1,207,207
+"Weapons, armor & tools",Rae_OdinBronzepine_Lance,1,52,52
+"Weapons, armor & tools",Rae_OdinCarapace_Lance,1,168,168
+"Weapons, armor & tools",Rae_OdinFrost_Lance,1,246,246
+"Weapons, armor & tools",rae_OdinHorse_Helmet,1,52,52
+"Weapons, armor & tools",rae_OdinHorse_Trophy,1,40,40
+"Weapons, armor & tools",Rae_OdinLance,1,78,78
+"Weapons, armor & tools",Rae_OdinMoonsilver_Lance,1,116,116
+"Weapons, armor & tools",Rae_OdinObsidian_Lance,1,116,116
+"Weapons, armor & tools",Rae_OdinSerpent_Lance,1,78,78
+"Weapons, armor & tools",Rae_OdinWildwood_Lance,1,13,13
+"Weapons, armor & tools",rae_SaddleHorse,1,40,40
+"Weapons, armor & tools",RingBlackForest_TW,1,52,52
+"Weapons, armor & tools",RingMistlands_TW,1,91,91
+"Weapons, armor & tools",RingMountain_TW,1,56,56
+"Weapons, armor & tools",RingPlains_TW,1,118,118
+"Weapons, armor & tools",RingSwamp_TW,1,40,40
+"Weapons, armor & tools",SaddleAsksvin,1,168,168
+"Weapons, armor & tools",SaddleBear_TW,1,65,65
+"Weapons, armor & tools",SaddleBoar_TW,1,30,30
+"Weapons, armor & tools",SaddleLox,1,116,116
+"Weapons, armor & tools",SaddleMoose,1,207,207
+"Weapons, armor & tools",SaddleProwler_TW,1,72,72
+"Weapons, armor & tools",SaddleT0,1,20,20
+"Weapons, armor & tools",SaddleT1,1,40,40
+"Weapons, armor & tools",SaddleT2,1,60,60
+"Weapons, armor & tools",SaddleT3,1,90,90
+"Weapons, armor & tools",SaddleT4,1,120,120
+"Weapons, armor & tools",SaddleT5,1,160,160
+"Weapons, armor & tools",SaddleT6,1,200,200
+"Weapons, armor & tools",SaddleT7,1,250,250
+"Weapons, armor & tools",SaddleT8,1,300,300
+"Weapons, armor & tools",Scythe,1,116,116
+"Weapons, armor & tools",ScytheVampiric_TW,1,180,180
+"Weapons, armor & tools",ShieldBanded,1,78,78
+"Weapons, armor & tools",ShieldBlackmetal,1,129,129
+"Weapons, armor & tools",ShieldBlackmetalBuckler_TW,1,142,142
+"Weapons, armor & tools",ShieldBlackmetalTower,1,129,129
+"Weapons, armor & tools",ShieldBoneTower,1,39,39
+"Weapons, armor & tools",ShieldBronzeBanded_TW,1,52,52
+"Weapons, armor & tools",ShieldBronzeBuckler,1,52,52
+"Weapons, armor & tools",ShieldBronzeTower_TW,1,52,52
+"Weapons, armor & tools",ShieldBucklerGoldUncooked,1,145,145
+"Weapons, armor & tools",ShieldCarapace,1,155,155
+"Weapons, armor & tools",ShieldCarapaceBuckler,1,155,155
+"Weapons, armor & tools",ShieldCarapaceTower_TW,1,168,168
+"Weapons, armor & tools",ShieldChitin_TW,1,152,152
+"Weapons, armor & tools",ShieldChitinBuckler_TW,1,78,78
+"Weapons, armor & tools",ShieldChitinTower_TW,1,78,78
+"Weapons, armor & tools",ShieldCore,1,13,13
+"Weapons, armor & tools",ShieldFlametal,1,194,194
+"Weapons, armor & tools",ShieldFlametalTower,1,194,194
+"Weapons, armor & tools",ShieldGold,1,246,246
+"Weapons, armor & tools",ShieldGoldBuckler,1,246,246
+"Weapons, armor & tools",ShieldGoldTower,1,246,246
+"Weapons, armor & tools",ShieldIronBuckler,1,78,78
+"Weapons, armor & tools",ShieldIronSquare,1,52,52
+"Weapons, armor & tools",ShieldIronTower,1,78,78
+"Weapons, armor & tools",ShieldKnight,1,116,116
+"Weapons, armor & tools",ShieldRoots,1,78,78
+"Weapons, armor & tools",ShieldRoundGoldUncooked,1,145,145
+"Weapons, armor & tools",ShieldSerpentscale,1,78,78
+"Weapons, armor & tools",ShieldSilver,1,103,103
+"Weapons, armor & tools",ShieldSilverBuckler_TW,1,116,116
+"Weapons, armor & tools",ShieldSteering,1,78,78
+"Weapons, armor & tools",ShieldTowerGoldUncooked,1,145,145
+"Weapons, armor & tools",ShieldWood,1,13,13
+"Weapons, armor & tools",ShieldWoodTower,1,13,13
+"Weapons, armor & tools",Shovel,1,207,207
+"Weapons, armor & tools",SilverRing,1,110,110
+"Weapons, armor & tools",SledgeAnchor,1,78,78
+"Weapons, armor & tools",SledgeBlackmetal_TW,1,330,330
+"Weapons, armor & tools",SledgeBonemass_TW,1,180,180
+"Weapons, armor & tools",SledgeBronze_TW,1,101,101
+"Weapons, armor & tools",SledgeDemolisher,1,155,155
+"Weapons, armor & tools",SledgeDemolisher_TW,1,265,265
+"Weapons, armor & tools",SledgeFlametal_TW,1,207,207
+"Weapons, armor & tools",SledgeGold,1,246,246
+"Weapons, armor & tools",SledgeGold_BloodLightning,1,246,246
+"Weapons, armor & tools",SledgeGold_FrostFire,1,246,246
+"Weapons, armor & tools",SledgeGoldUncooked,1,188,188
+"Weapons, armor & tools",SledgeIron,1,180,180
+"Weapons, armor & tools",SledgeIron_TW,1,67,67
+"Weapons, armor & tools",SledgeSilver_TW,1,270,270
+"Weapons, armor & tools",SledgeStagbreaker,1,52,52
+"Weapons, armor & tools",SledgeStagbreaker_TW,1,90,90
+"Weapons, armor & tools",SledgeWood,1,6,6
+"Weapons, armor & tools",SP_ArmorBronzeChest,1,52,52
+"Weapons, armor & tools",SP_ArmorBronzeLegs,1,52,52
+"Weapons, armor & tools",SP_ArmorDress1,1,6,6
+"Weapons, armor & tools",SP_ArmorFenringChest,1,103,103
+"Weapons, armor & tools",SP_ArmorFenringLegs,1,103,103
+"Weapons, armor & tools",SP_ArmorLeatherLegs,1,26,26
+"Weapons, armor & tools",SP_ArmorMageChest,1,155,155
+"Weapons, armor & tools",SP_ArmorMageChest_Ashlands,1,194,194
+"Weapons, armor & tools",SP_ArmorMageLegs,1,155,155
+"Weapons, armor & tools",SP_ArmorMageLegs_Ashlands,1,194,194
+"Weapons, armor & tools",SP_ArmorPaddedCuirass,1,129,129
+"Weapons, armor & tools",SP_ArmorPaddedGreaves,1,129,129
+"Weapons, armor & tools",SP_ArmorTrollLeatherChest,1,39,39
+"Weapons, armor & tools",SP_ArmorTrollLeatherLegs,1,39,39
+"Weapons, armor & tools",SP_ArmorTunic5,1,6,6
+"Weapons, armor & tools",SP_AxeBronze,1,52,52
+"Weapons, armor & tools",SP_BattleaxeCrystal,1,116,116
+"Weapons, armor & tools",SP_BowDraugrFang,1,129,129
+"Weapons, armor & tools",SP_CapeLinen,1,129,129
+"Weapons, armor & tools",SP_CapeTrollHide,1,39,39
+"Weapons, armor & tools",SP_CapeWolf,1,103,103
+"Weapons, armor & tools",SP_HelmetBronze,1,52,52
+"Weapons, armor & tools",SP_KnifeSilver,1,103,103
+"Weapons, armor & tools",SP_KnifeSkollAndHati,1,155,155
+"Weapons, armor & tools",SP_ShieldBlackmetalTower,1,129,129
+"Weapons, armor & tools",SP_StaffFireball,1,155,155
+"Weapons, armor & tools",SP_StaffLightning,1,194,194
+"Weapons, armor & tools",SP_SwordBlackmetal,1,129,129
+"Weapons, armor & tools",SpearBlackmetal_TW,1,262,262
+"Weapons, armor & tools",SpearBronze,1,52,52
+"Weapons, armor & tools",SpearCarapace,1,155,155
+"Weapons, armor & tools",SpearChitin,1,78,78
+"Weapons, armor & tools",SpearElderbark,1,78,78
+"Weapons, armor & tools",SpearFlint,1,13,13
+"Weapons, armor & tools",SpearGold,1,246,246
+"Weapons, armor & tools",SpearGold_BloodLightning,1,246,246
+"Weapons, armor & tools",SpearGold_FrostFire,1,246,246
+"Weapons, armor & tools",SpearGoldUncooked,1,145,145
+"Weapons, armor & tools",SpearSplitner,1,194,194
+"Weapons, armor & tools",SpearSplitner_Blood,1,207,207
+"Weapons, armor & tools",SpearSplitner_Lightning,1,207,207
+"Weapons, armor & tools",SpearSplitner_Nature,1,207,207
+"Weapons, armor & tools",SpearWolfFang,1,103,103
+"Weapons, armor & tools",SpearWood,1,6,6
+"Weapons, armor & tools",Staffbase_BlackForest_TW,1,30,30
+"Weapons, armor & tools",Staffbase_Mistlands_TW,1,285,285
+"Weapons, armor & tools",Staffbase_Mountain_TW,1,173,173
+"Weapons, armor & tools",Staffbase_Plains_TW,1,244,244
+"Weapons, armor & tools",Staffbase_Swamp_TW,1,102,102
+"Weapons, armor & tools",StaffBlackforest_TW,1,30,30
+"Weapons, armor & tools",StaffClusterbomb,1,194,194
+"Weapons, armor & tools",Staffcore_BlackForest_TW,1,13,13
+"Weapons, armor & tools",Staffcore_Mistlands_TW,1,142,142
+"Weapons, armor & tools",Staffcore_Mountain_TW,1,78,78
+"Weapons, armor & tools",Staffcore_Plains_TW,1,116,116
+"Weapons, armor & tools",Staffcore_Swamp_TW,1,52,52
+"Weapons, armor & tools",StaffFireball,1,155,155
+"Weapons, armor & tools",StaffFrostOrbs,1,246,246
+"Weapons, armor & tools",StaffFrostOrbsUncooked,1,145,145
+"Weapons, armor & tools",StaffGolem_TW,1,180,180
+"Weapons, armor & tools",StaffGreenRoots,1,194,194
+"Weapons, armor & tools",StaffIceShards,1,155,155
+"Weapons, armor & tools",StaffLightning,1,194,194
+"Weapons, armor & tools",StaffMistlands_TW,1,292,292
+"Weapons, armor & tools",StaffMountain_TW,1,178,178
+"Weapons, armor & tools",StaffOrbofAhri,1,246,246
+"Weapons, armor & tools",StaffOrbofAhriUncooked,1,145,145
+"Weapons, armor & tools",StaffPlains_TW,1,250,250
+"Weapons, armor & tools",StaffRedTroll,1,194,194
+"Weapons, armor & tools",StaffShield,1,155,155
+"Weapons, armor & tools",StaffSkeleton,1,155,155
+"Weapons, armor & tools",StaffSpiritCaller,1,246,246
+"Weapons, armor & tools",StaffSpiritCallerUncooked,1,145,145
+"Weapons, armor & tools",StaffSurtling_TW,1,93,93
+"Weapons, armor & tools",StaffSwamp_TW,1,105,105
+"Weapons, armor & tools",StaffThunderBlood,1,246,246
+"Weapons, armor & tools",StaffThunderbloodUncooked,1,145,145
+"Weapons, armor & tools",SwordBlackmetal,1,129,129
+"Weapons, armor & tools",SwordBone_TW,1,33,33
+"Weapons, armor & tools",SwordBronze,1,52,52
+"Weapons, armor & tools",SwordChitin_TW,1,180,180
+"Weapons, armor & tools",SwordDyrnwyn,1,207,207
+"Weapons, armor & tools",SwordFlint_TW,1,7,7
+"Weapons, armor & tools",SwordGold,1,246,246
+"Weapons, armor & tools",SwordGold_BloodLightning,1,246,246
+"Weapons, armor & tools",SwordGold_FrostFire,1,246,246
+"Weapons, armor & tools",SwordGoldUncooked,1,145,145
+"Weapons, armor & tools",SwordIron,1,78,78
+"Weapons, armor & tools",SwordIronFire,1,52,52
+"Weapons, armor & tools",SwordMistwalker,1,155,155
+"Weapons, armor & tools",SwordNiedhogg,1,194,194
+"Weapons, armor & tools",SwordNiedhoggBlood,1,207,207
+"Weapons, armor & tools",SwordNiedhoggLightning,1,207,207
+"Weapons, armor & tools",SwordNiedhoggNature,1,207,207
+"Weapons, armor & tools",SwordSaber,1,78,78
+"Weapons, armor & tools",SwordScimitar_TW,1,302,302
+"Weapons, armor & tools",SwordSilver,1,103,103
+"Weapons, armor & tools",SwordWood,1,6,6
+"Weapons, armor & tools",Tankard,1,6,6
+"Weapons, armor & tools",Tankard_dvergr,1,20,20
+"Weapons, armor & tools",TankardAnniversary,1,6,6
+"Weapons, armor & tools",TankardOdin,1,6,6
+"Weapons, armor & tools",ThrowAxeBlackmetal_TW,1,37,37
+"Weapons, armor & tools",ThrowAxeBronze_TW,1,18,18
+"Weapons, armor & tools",ThrowAxeDvergr_TW,1,55,55
+"Weapons, armor & tools",ThrowAxeFlint_TW,1,3,3
+"Weapons, armor & tools",ThrowAxeIron_TW,1,23,23
+"Weapons, armor & tools",ThrowAxeSilver_TW,1,28,28
+"Weapons, armor & tools",THSwordGold,1,246,246
+"Weapons, armor & tools",THSwordGold_BloodLightning,1,246,246
+"Weapons, armor & tools",THSwordGold_FrostFire,1,246,246
+"Weapons, armor & tools",THSwordGoldUncooked,1,188,188
+"Weapons, armor & tools",THSwordKrom,1,168,168
+"Weapons, armor & tools",THSwordSlayer,1,207,207
+"Weapons, armor & tools",THSwordSlayerBlood,1,207,207
+"Weapons, armor & tools",THSwordSlayerLightning,1,207,207
+"Weapons, armor & tools",THSwordSlayerNature,1,207,207
+"Weapons, armor & tools",THSwordWood,1,6,6
+"Weapons, armor & tools",Torch,1,13,13
+"Weapons, armor & tools",TridentBlackmetal_TW,1,330,330
+"Weapons, armor & tools",TrinketBlackDamageHealth,1,129,129
+"Weapons, armor & tools",TrinketBlackStamina,1,129,129
+"Weapons, armor & tools",TrinketBloodGoldHealth,1,246,246
+"Weapons, armor & tools",TrinketBloodGoldStamina,1,246,246
+"Weapons, armor & tools",TrinketBronzeHealth,1,52,52
+"Weapons, armor & tools",TrinketBronzeStamina,1,52,52
+"Weapons, armor & tools",TrinketCarapaceEitr,1,155,155
+"Weapons, armor & tools",TrinketChitinSwim,1,52,52
+"Weapons, armor & tools",TrinketFlametalEitr,1,194,194
+"Weapons, armor & tools",TrinketFlametalStaminaHealth,1,194,194
+"Weapons, armor & tools",TrinketIronHealth,1,78,78
+"Weapons, armor & tools",TrinketIronStamina,1,78,78
+"Weapons, armor & tools",TrinketScaleStaminaDamage,1,155,155
+"Weapons, armor & tools",TrinketSilverDamage,1,103,103
+"Weapons, armor & tools",TrinketSilverResist,1,103,103
+"Weapons, armor & tools",WarpikeBlackmetal_TW,1,330,330
+"Weapons, armor & tools",WarpikeBone_TW,1,46,46
+"Weapons, armor & tools",WarpikeChitin_TW,1,164,164
+"Weapons, armor & tools",WarpikeDvergr_TW,1,250,250
+"Weapons, armor & tools",WarpikeElder_TW,1,180,180
+"Weapons, armor & tools",WarpikeFlametal_TW,1,480,480
+"Weapons, armor & tools",WarpikeObsidian_TW,1,181,181
+"Weapons, armor & tools",Zephyrfit_BjornSaddle,1,13,13
+"Weapons, armor & tools",Zephyrfit_MountSaddlebags,1,30,30
+Trophies,TrophyAbomination,1,35,35
+Trophies,TrophyAsksvin,1,55,55
+Trophies,TrophyAsmodeus_TW,1,30,30
+Trophies,TrophyBarka,1,20,20
+Trophies,TrophyBjorn,1,20,20
+Trophies,TrophyBjornUndead,1,30,30
+Trophies,TrophyBlob,1,15,15
+Trophies,TrophyBlob_Frost,1,30,30
+Trophies,TrophyBlob_Lava,1,20,20
+Trophies,TrophyBlob_Morkhalla,1,20,20
+Trophies,TrophyBoar,1,4,4
+Trophies,TrophyBonemawSerpent,1,90,90
+Trophies,TrophyCharredArcher,1,55,55
+Trophies,TrophyCharredMage,1,65,65
+Trophies,TrophyCharredMelee,1,55,55
+Trophies,TrophyCrawler_TW,1,20,20
+Trophies,TrophyCultist,1,40,40
+Trophies,TrophyCultist_Hildir,1,60,60
+Trophies,TrophyDeathsquito,1,30,30
+Trophies,TrophyDeer,1,4,4
+Trophies,TrophyDeerWhite,1,6,6
+Trophies,TrophyDraugr,1,15,15
+Trophies,TrophyDraugrElite,1,25,25
+Trophies,TrophyDraugrFem,1,15,15
+Trophies,TrophyDvergr,1,50,50
+Trophies,TrophyElaking,1,95,95
+Trophies,TrophyFallenValkyrie,1,90,90
+Trophies,TrophyFenring,1,35,35
+Trophies,TrophyForestTroll,1,15,15
+Trophies,TrophyFox_TW,1,15,15
+Trophies,TrophyFrostTroll,1,30,30
+Trophies,TrophyGhost,1,15,15
+Trophies,TrophyGjall,1,80,80
+Trophies,TrophyGoblin,1,25,25
+Trophies,TrophyGoblinBrute,1,40,40
+Trophies,TrophyGoblinBruteBrosBrute,1,70,70
+Trophies,TrophyGoblinBruteBrosShaman,1,70,70
+Trophies,TrophyGoblinShaman,1,35,35
+Trophies,TrophyGreydwarf,1,6,6
+Trophies,TrophyGreydwarfBrute,1,12,12
+Trophies,TrophyGreydwarfShaman,1,12,12
+Trophies,TrophyGrizzlyBear_TW,1,30,30
+Trophies,TrophyGrowth,1,30,30
+Trophies,TrophyHare,1,40,40
+Trophies,TrophyHatchling,1,20,20
+Trophies,TrophyJotunWarrior,1,95,95
+Trophies,TrophyJotunWitch,1,95,95
+Trophies,TrophyKvastur,1,40,40
+Trophies,TrophyLeech,1,12,12
+Trophies,TrophyLox,1,35,35
+Trophies,TrophyMole,1,95,95
+Trophies,TrophyMoose,1,95,95
+Trophies,TrophyMorgen,1,90,90
+Trophies,TrophyNeck,1,4,4
+Trophies,TrophyObsidianGolem_TW,1,30,30
+Trophies,TrophyProwler_TW,1,30,30
+Trophies,TrophyRazorback_TW,1,20,20
+Trophies,TrophyRottingElk_TW,1,15,15
+Trophies,TrophySeal,1,95,95
+Trophies,TrophySeeker,1,40,40
+Trophies,TrophySeekerBrute,1,60,60
+Trophies,TrophySerpent,1,60,60
+Trophies,TrophySGolem,1,50,50
+Trophies,TrophyShark_TW,1,20,20
+Trophies,TrophySheep_TW,1,6,6
+Trophies,TrophySkeleton,1,8,8
+Trophies,TrophySkeletonHildir,1,40,40
+Trophies,TrophySkeletonPoison,1,15,15
+Trophies,TrophySurtling,1,15,15
+Trophies,TrophySvalt_TW,1,30,30
+Trophies,TrophyTick,1,40,40
+Trophies,TrophyUlv,1,30,30
+Trophies,TrophyVolture,1,55,55
+Trophies,TrophyVrykolathas_TW,1,20,20
+Trophies,TrophyWolf,1,20,20
+Trophies,TrophyWraith,1,25,25
+Trophies,TrophyWrithan,1,95,95
+Trophies (boss),TrophyBonemass,1,250,250
+Trophies (boss),TrophyDragonQueen,1,300,300
+Trophies (boss),TrophyEikthyr,1,150,150
+Trophies (boss),TrophyFader,1,550,550
+Trophies (boss),TrophyGoblinKing,1,350,350
+Trophies (boss),TrophySeekerQueen,1,450,450
+Trophies (boss),TrophyTheElder,1,200,200
+Epic Loot materials,DustAncient,1,200,200
+Epic Loot materials,DustEpic,1,20,20
+Epic Loot materials,DustLegendary,1,60,60
+Epic Loot materials,DustMagic,1,1,1
+Epic Loot materials,DustMythic,1,120,120
+Epic Loot materials,DustRare,1,5,5
+Epic Loot materials,EssenceAncient,1,200,200
+Epic Loot materials,EssenceEpic,1,20,20
+Epic Loot materials,EssenceLegendary,1,60,60
+Epic Loot materials,EssenceMagic,1,1,1
+Epic Loot materials,EssenceMythic,1,120,120
+Epic Loot materials,EssenceRare,1,5,5
+Epic Loot materials,EtchedRunestoneAncient,1,800,800
+Epic Loot materials,EtchedRunestoneEpic,1,80,80
+Epic Loot materials,EtchedRunestoneLegendary,1,240,240
+Epic Loot materials,EtchedRunestoneMagic,1,4,4
+Epic Loot materials,EtchedRunestoneMythic,1,480,480
+Epic Loot materials,EtchedRunestoneRare,1,20,20
+Epic Loot materials,ReagentAncient,1,200,200
+Epic Loot materials,ReagentEpic,1,20,20
+Epic Loot materials,ReagentLegendary,1,60,60
+Epic Loot materials,ReagentMagic,1,1,1
+Epic Loot materials,ReagentMythic,1,120,120
+Epic Loot materials,ReagentRare,1,5,5
+Epic Loot materials,RunestoneAncient,1,600,600
+Epic Loot materials,RunestoneEpic,1,60,60
+Epic Loot materials,RunestoneLegendary,1,180,180
+Epic Loot materials,RunestoneMagic,1,3,3
+Epic Loot materials,RunestoneMythic,1,360,360
+Epic Loot materials,RunestoneRare,1,15,15
+Epic Loot materials,ShardAncient,1,200,200
+Epic Loot materials,ShardEpic,1,20,20
+Epic Loot materials,ShardLegendary,1,60,60
+Epic Loot materials,ShardMagic,1,1,1
+Epic Loot materials,ShardMythic,1,120,120
+Epic Loot materials,ShardRare,1,5,5
+Epic Loot materials,ShardSlotChiselAncient,1,150,150
+Epic Loot materials,ShardSlotChiselLegendary,1,60,60
+Epic Loot materials,ShardSlotChiselMythic,1,100,100
+Epic Loot shardstones,Black_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Black_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Black_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Black_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Black_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Black_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Bonemass_Ancient_ShardStone,1,450,450
+Epic Loot shardstones,Bonemass_Epic_ShardStone,1,90,90
+Epic Loot shardstones,Bonemass_Legendary_ShardStone,1,180,180
+Epic Loot shardstones,Bonemass_Mythic_ShardStone,1,300,300
+Epic Loot shardstones,Cyan_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Cyan_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Cyan_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Cyan_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Cyan_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Cyan_Rare_ShardStone,1,25,25
+Epic Loot shardstones,DarkBlue_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,DarkBlue_Epic_ShardStone,1,60,60
+Epic Loot shardstones,DarkBlue_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,DarkBlue_Magic_ShardStone,1,10,10
+Epic Loot shardstones,DarkBlue_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,DarkBlue_Rare_ShardStone,1,25,25
+Epic Loot shardstones,DarkGreen_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,DarkGreen_Epic_ShardStone,1,60,60
+Epic Loot shardstones,DarkGreen_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,DarkGreen_Magic_ShardStone,1,10,10
+Epic Loot shardstones,DarkGreen_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,DarkGreen_Rare_ShardStone,1,25,25
+Epic Loot shardstones,DarkPurple_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,DarkPurple_Epic_ShardStone,1,60,60
+Epic Loot shardstones,DarkPurple_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,DarkPurple_Magic_ShardStone,1,10,10
+Epic Loot shardstones,DarkPurple_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,DarkPurple_Rare_ShardStone,1,25,25
+Epic Loot shardstones,DarkRed_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,DarkRed_Epic_ShardStone,1,60,60
+Epic Loot shardstones,DarkRed_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,DarkRed_Magic_ShardStone,1,10,10
+Epic Loot shardstones,DarkRed_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,DarkRed_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Eikthyr_Ancient_ShardStone,1,450,450
+Epic Loot shardstones,Eikthyr_Epic_ShardStone,1,90,90
+Epic Loot shardstones,Eikthyr_Legendary_ShardStone,1,180,180
+Epic Loot shardstones,Eikthyr_Mythic_ShardStone,1,300,300
+Epic Loot shardstones,Eikthyr_Rare_ShardStone,1,38,38
+Epic Loot shardstones,Elder_Ancient_ShardStone,1,450,450
+Epic Loot shardstones,Elder_Epic_ShardStone,1,90,90
+Epic Loot shardstones,Elder_Legendary_ShardStone,1,180,180
+Epic Loot shardstones,Elder_Mythic_ShardStone,1,300,300
+Epic Loot shardstones,Elder_Rare_ShardStone,1,38,38
+Epic Loot shardstones,Firewalker_Ancient_ShardStone,1,450,450
+Epic Loot shardstones,Firewalker_Epic_ShardStone,1,90,90
+Epic Loot shardstones,Firewalker_Legendary_ShardStone,1,180,180
+Epic Loot shardstones,Firewalker_Mythic_ShardStone,1,300,300
+Epic Loot shardstones,Golden_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Golden_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Golden_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Golden_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Golden_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Golden_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Green_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Green_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Green_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Green_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Green_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Green_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Grey_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Grey_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Grey_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Grey_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Grey_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Grey_Rare_ShardStone,1,25,25
+Epic Loot shardstones,LightBlue_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,LightBlue_Epic_ShardStone,1,60,60
+Epic Loot shardstones,LightBlue_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,LightBlue_Magic_ShardStone,1,10,10
+Epic Loot shardstones,LightBlue_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,LightBlue_Rare_ShardStone,1,25,25
+Epic Loot shardstones,LightGreen_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,LightGreen_Epic_ShardStone,1,60,60
+Epic Loot shardstones,LightGreen_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,LightGreen_Magic_ShardStone,1,10,10
+Epic Loot shardstones,LightGreen_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,LightGreen_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Moder_Ancient_ShardStone,1,450,450
+Epic Loot shardstones,Moder_Epic_ShardStone,1,90,90
+Epic Loot shardstones,Moder_Legendary_ShardStone,1,180,180
+Epic Loot shardstones,Moder_Mythic_ShardStone,1,300,300
+Epic Loot shardstones,Orange_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Orange_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Orange_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Orange_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Orange_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Orange_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Peach_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Peach_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Peach_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Peach_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Peach_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Peach_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Pink_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Pink_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Pink_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Pink_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Pink_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Pink_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Purple_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Purple_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Purple_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Purple_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Purple_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Purple_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Queen_Ancient_ShardStone,1,450,450
+Epic Loot shardstones,Queen_Legendary_ShardStone,1,180,180
+Epic Loot shardstones,Queen_Mythic_ShardStone,1,300,300
+Epic Loot shardstones,Red_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Red_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Red_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Red_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Red_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Red_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Stormcaller_Ancient_ShardStone,1,450,450
+Epic Loot shardstones,Stormcaller_Epic_ShardStone,1,90,90
+Epic Loot shardstones,Stormcaller_Legendary_ShardStone,1,180,180
+Epic Loot shardstones,Stormcaller_Mythic_ShardStone,1,300,300
+Epic Loot shardstones,White_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,White_Epic_ShardStone,1,60,60
+Epic Loot shardstones,White_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,White_Magic_ShardStone,1,10,10
+Epic Loot shardstones,White_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,White_Rare_ShardStone,1,25,25
+Epic Loot shardstones,Yagluth_Ancient_ShardStone,1,450,450
+Epic Loot shardstones,Yagluth_Legendary_ShardStone,1,180,180
+Epic Loot shardstones,Yagluth_Mythic_ShardStone,1,300,300
+Epic Loot shardstones,Yellow_Ancient_ShardStone,1,300,300
+Epic Loot shardstones,Yellow_Epic_ShardStone,1,60,60
+Epic Loot shardstones,Yellow_Legendary_ShardStone,1,120,120
+Epic Loot shardstones,Yellow_Magic_ShardStone,1,10,10
+Epic Loot shardstones,Yellow_Mythic_ShardStone,1,200,200
+Epic Loot shardstones,Yellow_Rare_ShardStone,1,25,25
+Epic Loot unidentified,AshLands_Ancient_Unidentified,1,336,336
+Epic Loot unidentified,AshLands_Epic_Unidentified,1,143,143
+Epic Loot unidentified,AshLands_Legendary_Unidentified,1,185,185
+Epic Loot unidentified,AshLands_Magic_Unidentified,1,84,84
+Epic Loot unidentified,AshLands_Mythic_Unidentified,1,252,252
+Epic Loot unidentified,AshLands_Rare_Unidentified,1,109,109
+Epic Loot unidentified,BlackForest_Ancient_Unidentified,1,26,26
+Epic Loot unidentified,BlackForest_Epic_Unidentified,1,11,11
+Epic Loot unidentified,BlackForest_Legendary_Unidentified,1,14,14
+Epic Loot unidentified,BlackForest_Magic_Unidentified,1,6,6
+Epic Loot unidentified,BlackForest_Mythic_Unidentified,1,19,19
+Epic Loot unidentified,BlackForest_Rare_Unidentified,1,8,8
+Epic Loot unidentified,DeepNorth_Ancient_Unidentified,1,414,414
+Epic Loot unidentified,DeepNorth_Epic_Unidentified,1,176,176
+Epic Loot unidentified,DeepNorth_Legendary_Unidentified,1,228,228
+Epic Loot unidentified,DeepNorth_Magic_Unidentified,1,103,103
+Epic Loot unidentified,DeepNorth_Mythic_Unidentified,1,310,310
+Epic Loot unidentified,DeepNorth_Rare_Unidentified,1,134,134
+Epic Loot unidentified,Land_Ancient_Unidentified,1,103,103
+Epic Loot unidentified,Land_Epic_Unidentified,1,44,44
+Epic Loot unidentified,Land_Legendary_Unidentified,1,57,57
+Epic Loot unidentified,Land_Magic_Unidentified,1,26,26
+Epic Loot unidentified,Land_Mythic_Unidentified,1,78,78
+Epic Loot unidentified,Land_Rare_Unidentified,1,34,34
+Epic Loot unidentified,Meadows_Ancient_Unidentified,1,13,13
+Epic Loot unidentified,Meadows_Epic_Unidentified,1,5,5
+Epic Loot unidentified,Meadows_Legendary_Unidentified,1,7,7
+Epic Loot unidentified,Meadows_Magic_Unidentified,1,3,3
+Epic Loot unidentified,Meadows_Mythic_Unidentified,1,10,10
+Epic Loot unidentified,Meadows_Rare_Unidentified,1,4,4
+Epic Loot unidentified,Mistlands_Ancient_Unidentified,1,284,284
+Epic Loot unidentified,Mistlands_Epic_Unidentified,1,121,121
+Epic Loot unidentified,Mistlands_Legendary_Unidentified,1,156,156
+Epic Loot unidentified,Mistlands_Magic_Unidentified,1,71,71
+Epic Loot unidentified,Mistlands_Mythic_Unidentified,1,213,213
+Epic Loot unidentified,Mistlands_Rare_Unidentified,1,92,92
+Epic Loot unidentified,Mountain_Ancient_Unidentified,1,155,155
+Epic Loot unidentified,Mountain_Epic_Unidentified,1,66,66
+Epic Loot unidentified,Mountain_Legendary_Unidentified,1,85,85
+Epic Loot unidentified,Mountain_Magic_Unidentified,1,39,39
+Epic Loot unidentified,Mountain_Mythic_Unidentified,1,116,116
+Epic Loot unidentified,Mountain_Rare_Unidentified,1,50,50
+Epic Loot unidentified,Ocean_Ancient_Unidentified,1,155,155
+Epic Loot unidentified,Ocean_Epic_Unidentified,1,66,66
+Epic Loot unidentified,Ocean_Legendary_Unidentified,1,85,85
+Epic Loot unidentified,Ocean_Magic_Unidentified,1,39,39
+Epic Loot unidentified,Ocean_Mythic_Unidentified,1,116,116
+Epic Loot unidentified,Ocean_Rare_Unidentified,1,50,50
+Epic Loot unidentified,Plains_Ancient_Unidentified,1,233,233
+Epic Loot unidentified,Plains_Epic_Unidentified,1,99,99
+Epic Loot unidentified,Plains_Legendary_Unidentified,1,128,128
+Epic Loot unidentified,Plains_Magic_Unidentified,1,58,58
+Epic Loot unidentified,Plains_Mythic_Unidentified,1,175,175
+Epic Loot unidentified,Plains_Rare_Unidentified,1,76,76
+Epic Loot unidentified,Swamp_Ancient_Unidentified,1,103,103
+Epic Loot unidentified,Swamp_Epic_Unidentified,1,44,44
+Epic Loot unidentified,Swamp_Legendary_Unidentified,1,57,57
+Epic Loot unidentified,Swamp_Magic_Unidentified,1,26,26
+Epic Loot unidentified,Swamp_Mythic_Unidentified,1,78,78
+Epic Loot unidentified,Swamp_Rare_Unidentified,1,34,34
+Misc,ArcaneScroll_JumpBuff_TW,1,20,20
+Misc,ArcaneScroll_SlowfallBuff_TW,1,20,20
+Misc,ArcaneScroll_SpeedBuff_TW,1,20,20
+Misc,BBA_LargeHull,1,40,40
+Misc,BBA_Mast,1,20,20
+Misc,BBA_SmallHull,1,25,25
+Misc,BBA_SturdyHull,1,40,40
+Misc,DyeBlack_TW,1,2,2
+Misc,DyeBlue,1,2,2
+Misc,DyeGreen,1,2,2
+Misc,DyeOrange,1,2,2
+Misc,DyePurple,1,2,2
+Misc,DyeRed,1,2,2
+Misc,DyeWhite,1,2,2
+Misc,DyeYellow,1,2,2
+Misc,FireworksRocket_Blue,1,2,2
+Misc,FireworksRocket_Cyan,1,2,2
+Misc,FireworksRocket_Green,1,2,2
+Misc,FireworksRocket_Purple,1,2,2
+Misc,FireworksRocket_Red,1,2,2
+Misc,FireworksRocket_White,1,2,2
+Misc,FireworksRocket_Yellow,1,2,2
+Misc,SchematicAshlandsDrakkarAnchor,1,10,10
+Misc,SchematicAshlandsDrakkarCrates,1,10,10
+Misc,SchematicAshlandsDrakkarLights,1,10,10
+Misc,SchematicAshlandsDrakkarNamePlate,1,10,10
+Misc,SchematicAshlandsDrakkarOar,1,10,10
+Misc,SchematicAshlandsDrakkarRopes,1,10,10
+Misc,SchematicAshlandsDrakkarSailBlack,1,10,10
+Misc,SchematicAshlandsDrakkarSailBlue,1,10,10
+Misc,SchematicAshlandsDrakkarSailDefault,1,10,10
+Misc,SchematicAshlandsDrakkarSailDruid,1,10,10
+Misc,SchematicAshlandsDrakkarSailGreen,1,10,10
+Misc,SchematicAshlandsDrakkarSailHound,1,10,10
+Misc,SchematicAshlandsDrakkarSailRaven,1,10,10
+Misc,SchematicAshlandsDrakkarSailTransparent,1,10,10
+Misc,SchematicAshlandsDrakkarSailWhite,1,10,10
+Misc,SchematicAshlandsDrakkarSailWolf,1,10,10
+Misc,SchematicAshlandsDrakkarShields,1,10,10
+Misc,SchematicAshlandsDrakkarTent,1,10,10
+Misc,SchematicDrakkarAnchor,1,10,10
+Misc,SchematicDrakkarArmor,1,10,10
+Misc,SchematicDrakkarBarrels,1,10,10
+Misc,SchematicDrakkarCrates,1,10,10
+Misc,SchematicDrakkarHeadCernyx,1,10,10
+Misc,SchematicDrakkarHeadDragon,1,10,10
+Misc,SchematicDrakkarHeadOsberg,1,10,10
+Misc,SchematicDrakkarHeadSkull,1,10,10
+Misc,SchematicDrakkarLights,1,10,10
+Misc,SchematicDrakkarNamePlate,1,10,10
+Misc,SchematicDrakkarOar,1,10,10
+Misc,SchematicDrakkarSailBlack,1,10,10
+Misc,SchematicDrakkarSailBlue,1,10,10
+Misc,SchematicDrakkarSailDefault,1,10,10
+Misc,SchematicDrakkarSailDruid,1,10,10
+Misc,SchematicDrakkarSailGreen,1,10,10
+Misc,SchematicDrakkarSailHound,1,10,10
+Misc,SchematicDrakkarSailRaven,1,10,10
+Misc,SchematicDrakkarSailTransparent,1,10,10
+Misc,SchematicDrakkarSailWhite,1,10,10
+Misc,SchematicDrakkarSailWolf,1,10,10
+Misc,SchematicDrakkarShields,1,10,10
+Misc,SchematicDrakkarTent,1,10,10
+Misc,SchematicHolkAnchor,1,10,10
+Misc,SchematicHolkArmor,1,10,10
+Misc,SchematicHolkBag,1,10,10
+Misc,SchematicHolkLights,1,10,10
+Misc,SchematicHolkNamePlate,1,10,10
+Misc,SchematicHolkOars,1,10,10
+Misc,SchematicHolkRopes,1,10,10
+Misc,SchematicHolkSailBlack,1,10,10
+Misc,SchematicHolkSailBlue,1,10,10
+Misc,SchematicHolkSailDefault,1,10,10
+Misc,SchematicHolkSailDruid,1,10,10
+Misc,SchematicHolkSailGreen,1,10,10
+Misc,SchematicHolkSailHound,1,10,10
+Misc,SchematicHolkSailRaven,1,10,10
+Misc,SchematicHolkSailTransparent,1,10,10
+Misc,SchematicHolkSailWhite,1,10,10
+Misc,SchematicHolkSailWolf,1,10,10
+Misc,SchematicHolkShields,1,10,10
+Misc,SchematicHolkTent,1,10,10
+Misc,SchematicKarveAnchor,1,10,10
+Misc,SchematicKarveArmor,1,10,10
+Misc,SchematicKarveBag,1,10,10
+Misc,SchematicKarveLights,1,10,10
+Misc,SchematicKarveNamePlate,1,10,10
+Misc,SchematicKarveOars,1,10,10
+Misc,SchematicKarveSailBlack,1,10,10
+Misc,SchematicKarveSailBlue,1,10,10
+Misc,SchematicKarveSailDefault,1,10,10
+Misc,SchematicKarveSailDruid,1,10,10
+Misc,SchematicKarveSailGreen,1,10,10
+Misc,SchematicKarveSailHound,1,10,10
+Misc,SchematicKarveSailRaven,1,10,10
+Misc,SchematicKarveSailTransparent,1,10,10
+Misc,SchematicKarveSailWhite,1,10,10
+Misc,SchematicKarveSailWolf,1,10,10
+Misc,SchematicKarveShields,1,10,10
+Misc,SchematicKnarrAnchor,1,10,10
+Misc,SchematicKnarrArmor,1,10,10
+Misc,SchematicKnarrBag,1,10,10
+Misc,SchematicKnarrLights,1,10,10
+Misc,SchematicKnarrNamePlate,1,10,10
+Misc,SchematicKnarrOars,1,10,10
+Misc,SchematicKnarrSailBlack,1,10,10
+Misc,SchematicKnarrSailBlue,1,10,10
+Misc,SchematicKnarrSailDefault,1,10,10
+Misc,SchematicKnarrSailDruid,1,10,10
+Misc,SchematicKnarrSailGreen,1,10,10
+Misc,SchematicKnarrSailHound,1,10,10
+Misc,SchematicKnarrSailRaven,1,10,10
+Misc,SchematicKnarrSailTransparent,1,10,10
+Misc,SchematicKnarrSailWhite,1,10,10
+Misc,SchematicKnarrSailWolf,1,10,10
+Misc,SchematicKnarrShields,1,10,10
+Misc,SchematicKnarrTent,1,10,10
+Misc,SchematicSnekkeAnchor,1,10,10
+Misc,SchematicSnekkeArmor,1,10,10
+Misc,SchematicSnekkeBag,1,10,10
+Misc,SchematicSnekkeLights,1,10,10
+Misc,SchematicSnekkeNamePlate,1,10,10
+Misc,SchematicSnekkeOars,1,10,10
+Misc,SchematicSnekkeSailBlack,1,10,10
+Misc,SchematicSnekkeSailBlue,1,10,10
+Misc,SchematicSnekkeSailDefault,1,10,10
+Misc,SchematicSnekkeSailDruid,1,10,10
+Misc,SchematicSnekkeSailGreen,1,10,10
+Misc,SchematicSnekkeSailHound,1,10,10
+Misc,SchematicSnekkeSailRaven,1,10,10
+Misc,SchematicSnekkeSailTransparent,1,10,10
+Misc,SchematicSnekkeSailWhite,1,10,10
+Misc,SchematicSnekkeSailWolf,1,10,10
+Misc,SchematicSnekkeShields,1,10,10
+Misc,SchematicSnekkeTent,1,10,10
+Misc,Sparkler,1,2,2
