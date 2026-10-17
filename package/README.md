@@ -32,6 +32,7 @@ Every feature can be switched off on its own. **Server** means the server's sett
 | **Inventory Slots Visibility** | No inventory slot stays hidden. When mods add slots (equipment, quick slots, quiver, backpack, extra rows) and a window ends up over them or past the screen edge, that window moves just enough to show them, at any resolution from 16:9 to 32:9 ultrawide and any GUI scale, and moves back when no longer in the way. Lightweight: it only checks when the inventory's layout changes. Each move is noted once in the log. | Player |
 | **Remove death markers** | A button by the skull icon on the large map removes every death marker at once (click twice to confirm). Your own pins and other icons stay. | Player |
 | **Farming and swimming** | Tamed animals don't trample crops; the Swim skill raises swim speed. | Server |
+| **Sleeping** | The night is skipped once half the players are in bed or emoting (sitting, or standing still after any emote), with at least one in bed. Only they sleep through it; everyone else keeps playing. Until then, everyone sees how many more are needed. | Server |
 
 ### World and economy
 
@@ -132,6 +133,7 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 | | Lucky Loot message (and where it shows); eitr cost in tooltips. | Player |
 | **22 - Loot and items** | Drop multipliers for creatures, resources and pickables (1 = normal; trophies only if turned on), with lists of items to never or only multiply. Item weight and stack size multipliers (1 = normal), auto-pickup range (2 m), items float in water. | Server |
 | **23 - Inventory rows** | Haldor's two extra rows unlock after the Elder (1,000 coins) and Bonemass (2,000) instead of Moder and the Queen. He also sells a third row after Yagluth for 3,000 (price and boss adjustable). Each is bought once per character. | Server |
+| **24 - Sleeping** | Share of players needed to skip the night (50%); who counts besides players in bed (any emote, sitting only, or beds only); players in bed needed first (1). 100% and beds only = the game's normal. | Server |
 
 Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`.
 
@@ -143,4 +145,4 @@ If a Valheim update changes the game code a feature relies on, that feature swit
 
 ## Credits
 
-Camera zoom, dropped-item lifetime, ship/cart removal, attack cancelling, the Epic Loot bounty and enchantment fixes, the game bug fixes and most quality-of-life features come from **EpicLoot Progression Fix** by the EpicLoot Progression Fix contributors, used under the MIT License. The double dragon bed comes from **Double Dragon Bed** by Hansenbansen and spearfishing from **Spearfishing** by karkkant, both used under the MIT License. The Epic Loot enchanting table and enchantment add-ons were written for Potato Tweaks to replace DigiTeam's Epic Loot Add-ons, and the loot and item settings to replace TastyChickenLegs' DropMoreLoot. Tombstone retrieval, the skill settings, the visual effect sliders and combat effects dimmer, trophy pity, the station, fermenter, range and map settings, the death marker button and boat health were written for Potato Tweaks. See `LICENSE`.
+Camera zoom, dropped-item lifetime, ship/cart removal, attack cancelling, the Epic Loot bounty and enchantment fixes, the game bug fixes and most quality-of-life features come from **EpicLoot Progression Fix** by the EpicLoot Progression Fix contributors, used under the MIT License. The double dragon bed comes from **Double Dragon Bed** by Hansenbansen and spearfishing from **Spearfishing** by karkkant, both used under the MIT License. The Epic Loot enchanting table and enchantment add-ons were written for Potato Tweaks to replace DigiTeam's Epic Loot Add-ons, and the loot and item settings to replace TastyChickenLegs' DropMoreLoot. Tombstone retrieval, the skill settings, the visual effect sliders and combat effects dimmer, trophy pity, the station, fermenter, range and map settings, the death marker button, the sleep vote and boat health were written for Potato Tweaks. See `LICENSE`.

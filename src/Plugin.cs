@@ -81,6 +81,8 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventorySlotsVisibility, DeathMarkerButton;
         internal static ConfigEntry<int> RowsThirdPrice;
         internal static ConfigEntry<string> RowsThirdBoss;
+        internal static ConfigEntry<int> SleepShare, SleepInBed;
+        internal static ConfigEntry<SleepVotes> SleepVoteMode;
 
         internal static Harmony HarmonyInstance;
 
@@ -351,6 +353,15 @@ namespace PotatoTweaks
             RowsThirdBoss = Config.Bind(rows, "Third row unlock", "defeated_goblinking",
                 Synced("World key that must be set before Haldor offers Roomier pockets: defeated_goblinking = Yagluth, defeated_queen = the Queen, defeated_fader = Fader; empty = always."));
 
+            const string sleep = "24 - Sleeping";
+            SleepShare = Config.Bind(sleep, "Share of players needed", 50,
+                Synced("Percent of players who must be in bed or emoting to skip the night. Only they sleep through it; everyone else keeps playing. When everyone is in bed the night is skipped as usual. 100 with Beds only = the game's normal.",
+                    new AcceptableValueRange<int>(1, 100)));
+            SleepVoteMode = Config.Bind(sleep, "Emotes count", SleepVotes.AnyEmote,
+                Synced("Who counts besides players in bed: AnyEmote = anyone using an emote and standing still (moving cancels it); SittingOnly = anyone sitting; BedsOnly = beds only."));
+            SleepInBed = Config.Bind(sleep, "Players in bed needed", 1,
+                Synced("At least this many players must be in an actual bed before emotes count.", new AcceptableValueRange<int>(1, 10)));
+
             if (epicLoot)
             {
                 const string table = "20 - Epic Loot enchanting table", enchantments = "21 - Epic Loot enchantments";
@@ -400,6 +411,7 @@ namespace PotatoTweaks
                 foreach (var type in GameFixes.Patches) Patch(type);
             foreach (var type in QualityOfLife.Patches) Patch(type);
             Patch(typeof(InventoryRows));
+            foreach (var type in SleepVote.Patches) Patch(type);
             Patch(typeof(InventorySlotsVisibility));
             foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings), typeof(SmelterSettings.Output),
                 typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal), typeof(DeathMarkers) })

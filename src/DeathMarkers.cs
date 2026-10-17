@@ -99,7 +99,8 @@ namespace PotatoTweaks
             return true;
         }
 
-        // Just above the map's skull icon (below it if the icons sit in the top half), kept inside the map window.
+        // Level with the map's skull icon, just beside the panel of filter icons it sits in, on the side facing the middle
+        // of the screen (over the map, clear of the icons Epic Loot adds to that panel). Kept inside the map window.
         private static void Place(Minimap map)
         {
             var root = (RectTransform)map.m_largeRoot.transform;
@@ -112,11 +113,12 @@ namespace PotatoTweaks
             if (target)
             {
                 target.GetWorldCorners(Corners);
+                float y = (root.InverseTransformPoint(Corners[0]).y + root.InverseTransformPoint(Corners[2]).y) * 0.5f;
+                if (target.parent is RectTransform panel && panel != root && panel.rect.width < area.width / 3f) panel.GetWorldCorners(Corners);
                 Vector3 low = root.InverseTransformPoint(Corners[0]), high = root.InverseTransformPoint(Corners[2]);
-                float x = (low.x + high.x) * 0.5f;
-                position = (low.y + high.y) * 0.5f < area.center.y
-                    ? new Vector2(x, high.y + Gap + size.y * 0.5f)
-                    : new Vector2(x, low.y - Gap - size.y * 0.5f);
+                position = (low.x + high.x) * 0.5f > area.center.x
+                    ? new Vector2(low.x - Gap - size.x * 0.5f, y)
+                    : new Vector2(high.x + Gap + size.x * 0.5f, y);
             }
             else position = new Vector2(area.center.x, area.yMin + Gap + size.y * 0.5f);
             position.x = Mathf.Clamp(position.x, area.xMin + size.x * 0.5f, area.xMax - size.x * 0.5f);
