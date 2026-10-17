@@ -89,6 +89,28 @@ namespace PotatoTweaks
             Plugin.Log.LogInfo("Copied the spearfishing settings from Spearfishing.");
         }
 
+        // Only when switching from DropMoreLoot: its settings file is still in the config folder. DropMoreLoot also
+        // multiplied trophies, so that stays on for servers switching from it.
+        internal static void ImportDropMoreLoot(ConfigFile config)
+        {
+            var other = Read(Path.Combine(Paths.ConfigPath, LootAndItems.OriginalModId + ".cfg"));
+            if (other.Count == 0) return;
+            bool Is(string key, bool fallback) => other.TryGetValue(key, out var value) ? string.Equals(value, "true", StringComparison.OrdinalIgnoreCase) : fallback;
+            if (!Is("Pickup|Disable Loot Settings", false))
+            {
+                Copy(other, "Loot", "Multiplier for monster drops", Plugin.LootCreatures);
+                Copy(other, "Loot", "Multiplier for resources", Plugin.LootResources);
+                Copy(other, "Loot", "Multiplier for pickable objects", Plugin.LootPickables);
+                Plugin.LootTrophies.Value = true;
+                if (Is("Whitelist|Enable whitelist filter", false)) Copy(other, "Whitelist", "White List Itmes", Plugin.LootOnly);
+            }
+            if (Is("Loot|useWeightReduction", true)) Copy(other, "Loot", "percentofweight", Plugin.ItemWeight);
+            if (Is("Stacking|Enable Stacking", true)) Copy(other, "Stacking", "Item Stack Multiplier", Plugin.ItemStackSize);
+            if (Is("Pickup|Enable Pickup Range", true)) Copy(other, "Pickup", "Pickup Range", Plugin.PickupRangeSetting);
+            Copy(other, "Pickup", "Items Float in Water", Plugin.ItemsFloat);
+            Plugin.Log.LogInfo("Copied the loot and item settings from DropMoreLoot.");
+        }
+
         // Only when switching from Epic Loot Add-ons: its settings file is still in the config folder. A part switched off
         // there ("0 - Sub-mods") switches its features off here.
         internal static void ImportEpicLootAddons(ConfigFile config)

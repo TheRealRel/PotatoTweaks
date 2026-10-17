@@ -26,12 +26,13 @@ namespace PotatoTweaks
     [BepInDependency(Trophies.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(EpicLootAddons.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Spearfishing.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(LootAndItems.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInIncompatibility("valheim.epiclootprogressionfix")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.4.1";
+        public const string Version = "1.5.0";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -73,6 +74,10 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> FishSpears, FishHarpoons, FishBows, FishCrossbows;
         internal static ConfigEntry<bool> ChestMaterialsEnabled, SacrificePerItem, DamageStacking, ShotNormalCost, ShotSummonLimit, ShardsIgnoreClashes, LuckyLootBirds;
         internal static ConfigEntry<float> ChestMaterialsRange;
+        internal static ConfigEntry<float> LootCreatures, LootResources, LootPickables, ItemWeight, PickupRangeSetting;
+        internal static ConfigEntry<bool> LootTrophies, ItemsFloat;
+        internal static ConfigEntry<string> LootNever, LootOnly;
+        internal static ConfigEntry<int> ItemStackSize;
 
         internal static Harmony HarmonyInstance;
 
@@ -304,6 +309,31 @@ namespace PotatoTweaks
             FishCrossbows = Config.Bind(fishing, "Crossbows", true, Synced("Crossbow bolts kill fish in the water the same way."));
             if (!before.ContainsKey(fishing + "|Spears")) ConfigText.ImportSpearfishing(Config);
 
+            const string loot = "22 - Loot and items";
+            LootCreatures = Config.Bind(loot, "Creature drops", 1f,
+                Synced("Multiplies what creatures drop, after the game's own roll (stars and world modifiers included). 1 = the game's normal, 3 = three times as much; 1.5 = one and a half times on average. Items dropped once per player stay as they are.",
+                    new AcceptableValueRange<float>(1f, 10f)));
+            LootResources = Config.Bind(loot, "Resource drops", 1f,
+                Synced("Multiplies what trees, logs, rocks, ore veins, destroyed objects and dungeon loot piles drop. 1 = the game's normal.", new AcceptableValueRange<float>(1f, 10f)));
+            LootPickables = Config.Bind(loot, "Pickable drops", 1f,
+                Synced("Multiplies what you pick: berries, mushrooms, crops, and flint, stones and branches lying on the ground. 1 = the game's normal.", new AcceptableValueRange<float>(1f, 10f)));
+            LootTrophies = Config.Bind(loot, "Multiply trophies too", false,
+                Synced("Off: trophies always drop one at a time. On: the creature multiplier applies to trophies too."));
+            LootNever = Config.Bind(loot, "Never multiplied", "chest_hildir1, chest_hildir2, chest_hildir3",
+                Synced("Item prefab names, separated by commas, that are never multiplied. Hildir's quest chests are in it by default."));
+            LootOnly = Config.Bind(loot, "Only multiply these", "",
+                Synced("Item prefab names, separated by commas. When set, only these items are multiplied; empty = every item."));
+            ItemWeight = Config.Bind(loot, "Item weight", 1f,
+                Synced("Multiplies every item's weight: 0.7 = 30% lighter, 0 = weightless. 1 = the game's normal. Applies to every item at once, carried, crafted or dropped.",
+                    new AcceptableValueRange<float>(0f, 1f)));
+            ItemStackSize = Config.Bind(loot, "Stack size", 1,
+                Synced("Multiplies how many of an item fit in one stack (items that stack at all): 2 = 100 wood per stack instead of 50. 1 = the game's normal.", new AcceptableValueRange<int>(1, 10)));
+            PickupRangeSetting = Config.Bind(loot, "Auto-pickup range", 2f,
+                Synced("Meters around a player that items are picked up automatically. 2 = the game's normal.", new AcceptableValueRange<float>(1f, 10f)));
+            ItemsFloat = Config.Bind(loot, "Items float in water", false,
+                Synced("Every dropped item floats instead of sinking. Applies to items dropped from now on."));
+            if (!before.ContainsKey(loot + "|Creature drops")) ConfigText.ImportDropMoreLoot(Config);
+
             if (epicLoot)
             {
                 const string table = "20 - Epic Loot enchanting table", enchantments = "21 - Epic Loot enchantments";
@@ -363,6 +393,11 @@ namespace PotatoTweaks
             });
             EnableUnlessInstalled(Trophies.OriginalModId, "TrophyAssister", "trophy pity", () => { foreach (var type in Trophies.Patches) Patch(type); });
             EnableUnlessInstalled(Spearfishing.OriginalModId, "Spearfishing", "spearfishing", () => Patch(typeof(Spearfishing)));
+            EnableUnlessInstalled(LootAndItems.OriginalModId, "DropMoreLoot", "loot and item settings", () =>
+            {
+                LootAndItems.Initialize();
+                foreach (var type in LootAndItems.Patches) Patch(type);
+            });
             Run("Tombstone items back in their slots", () =>
             {
                 // Looks up Equipment & Quick Slots' slot layout first, so a changed layout turns this feature off cleanly.
