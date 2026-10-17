@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.4.1
-- The mod page links to the Potato Server's trader sell prices: a searchable list of what the traders pay for every item. No changes to the mod itself; you don't need to update from 1.4.0, and 1.4.0 and 1.4.1 players can play together.
+- The mod page links to the Potato Server's trader sell prices: a searchable list of what the traders pay for every item. A ready-made `common.sell.csv` for Traders Extended can be downloaded from the same page. No changes to the mod itself; you don't need to update from 1.4.0, and 1.4.0 and 1.4.1 players can play together.
 
 ## 1.4.0 — update needed
 - **Spearfishing** (section 19, server): catch fish with spears, harpoons, bows and crossbows. A hit fish floats up to be picked up; a harpoon pulls it straight into your inventory. Modded spears, bows and crossbows count too. Ported from Spearfishing.
