@@ -50,7 +50,8 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> QolNoAutoEquip, QolLiveBuildMenu, QolBuildToolHealthBars, QolCombatHealthBars, QolTamingHover,
             QolGraveSlots, QolAutoPickupKey, QolTamedCrops, QolSwimSpeed;
         internal static ConfigEntry<float> QolAttackerRange, QolTreeDust;
-        internal static ConfigEntry<float> SmelterCapacity, SmelterSpeed, FermenterSpeed, FermenterOutput, StationRange, MapRevealRadius,
+        internal static ConfigEntry<string> SmelterExcluded;
+        internal static ConfigEntry<float> SmelterOreCapacity, SmelterFuelCapacity, SmelterFuelPerProduct, SmelterOutput, SmelterSpeed, FermenterSpeed, FermenterOutput, StationRange, MapRevealRadius,
             CartHealthBonus, BoatHealthBonus;
 
         internal static Harmony HarmonyInstance;
@@ -148,24 +149,33 @@ namespace PotatoTweaks
                 Synced("Swimming speed rises with the Swim skill the way running speed rises with Run: up to +25% at level 100."));
 
             const string stations = "12 - Stations, vehicles and map";
-            SmelterCapacity = Config.Bind(stations, "Smelter capacity", 2f,
-                Synced("Multiplies how much ore and fuel smelter-type stations hold: smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel and windmill. 1 = the game's normal. Applies as stations load.",
+            SmelterOreCapacity = Config.Bind(stations, "Smelter ore capacity", 1f,
+                Synced("Multiplies how much ore (or wood, flax, barley, sap...) smelter-type stations hold: smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel, windmill. 1 = the game's normal, 2 = twice as much. Applies as stations load.",
                     new AcceptableValueRange<float>(0.5f, 10f)));
+            SmelterFuelCapacity = Config.Bind(stations, "Smelter fuel capacity", 1f,
+                Synced("Multiplies how much fuel (coal, wood) those stations hold. 1 = the game's normal. Applies as stations load.", new AcceptableValueRange<float>(0.5f, 10f)));
             SmelterSpeed = Config.Bind(stations, "Smelter speed", 1f,
-                Synced("Speeds up those same stations: 2 = twice as fast. 1 = the game's normal. Applies as stations load.", new AcceptableValueRange<float>(0.5f, 10f)));
+                Synced("Speeds up those stations: 2 = twice as fast. 1 = the game's normal. Applies as stations load.", new AcceptableValueRange<float>(0.5f, 10f)));
+            SmelterFuelPerProduct = Config.Bind(stations, "Smelter fuel per product", 1f,
+                Synced("Multiplies the fuel used for each product, rounded and never below 1 where the game uses fuel: 0.5 makes the smelter use 1 coal per bar instead of 2. 1 = the game's normal. Applies as stations load.",
+                    new AcceptableValueRange<float>(0.1f, 5f)));
+            SmelterOutput = Config.Bind(stations, "Smelter output", 1f,
+                Synced("Multiplies what each product gives: 2 = two bars per ore, 1.5 = a 50% chance of a second one. 1 = the game's normal.", new AcceptableValueRange<float>(1f, 10f)));
+            SmelterExcluded = Config.Bind(stations, "Smelter excluded stations", "",
+                Synced("Stations the smelter settings above leave alone, by prefab name, separated by commas: smelter, blastfurnace, charcoal_kiln, eitrrefinery, piece_spinningwheel, windmill (or a modded station's prefab name)."));
             FermenterSpeed = Config.Bind(stations, "Fermenter speed", 1f,
                 Synced("Speeds up fermenting: 2 = half the time. 1 = the game's normal. Applies as fermenters load.", new AcceptableValueRange<float>(0.5f, 10f)));
-            FermenterOutput = Config.Bind(stations, "Fermenter output", 1.5f,
-                Synced("Multiplies the meads each batch gives, rounded: 1.5 turns 6 into 9. 1 = the game's normal. Applies as fermenters load.", new AcceptableValueRange<float>(0.5f, 5f)));
+            FermenterOutput = Config.Bind(stations, "Fermenter output", 1f,
+                Synced("Multiplies the meads each batch gives, rounded: 1.5 turns 6 into 9. 1 = the game's normal. Applies as fermenters load. (A fermenter always holds one batch, so there's no capacity setting.)", new AcceptableValueRange<float>(0.5f, 5f)));
             StationRange = Config.Bind(stations, "Crafting station range", 1f,
                 Synced("Multiplies the build range around workbenches, forges and other crafting stations, extension bonuses included. 1 = the game's normal; 1.5 = half again as far.",
                     new AcceptableValueRange<float>(1f, 5f)));
             MapRevealRadius = Config.Bind(stations, "Map reveal radius", 1f,
                 Synced("Multiplies how far around you the map is revealed as you explore (game: 100 m). 1 = the game's normal; 1.5 = 150 m.", new AcceptableValueRange<float>(1f, 5f)));
-            CartHealthBonus = Config.Bind(stations, "Cart health from Crafting skill", 4f,
+            CartHealthBonus = Config.Bind(stations, "Cart health from Crafting skill", 0f,
                 Synced("New carts get extra health from their builder's Crafting skill: this value times the skill share, so 4 = +400% at Crafting 100, +200% at 50. Changing it rescales existing crafted carts. 0 = off.",
                     new AcceptableValueRange<float>(0f, 10f)));
-            BoatHealthBonus = Config.Bind(stations, "Boat health from Crafting skill", 1f,
+            BoatHealthBonus = Config.Bind(stations, "Boat health from Crafting skill", 0f,
                 Synced("New boats (raft, karve, longship, drakkar) get extra health the same way: 1 = +100% at Crafting 100, +50% at 50. Changing it rescales existing crafted boats. 0 = off.",
                     new AcceptableValueRange<float>(0f, 10f)));
 
@@ -184,7 +194,7 @@ namespace PotatoTweaks
             if (GameFixesEnabled.Value)
                 foreach (var type in GameFixes.Patches) Patch(type);
             foreach (var type in QualityOfLife.Patches) Patch(type);
-            foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings),
+            foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings), typeof(SmelterSettings.Output),
                 typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal) })
                 Patch(type);
             Run("Auto-pickup key", AutoPickupKey.Initialize);

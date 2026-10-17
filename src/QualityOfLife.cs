@@ -711,18 +711,61 @@ namespace PotatoTweaks
     }
 
     // ------------------------------------------------------------------ smelters, kilns and furnaces
-    // Capacity multiplies how much ore (or wood, flax, barley, sap) and fuel a smelter-type station holds; speed divides the
-    // time per product. Applies to the smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel and windmill as
-    // they load.
+    // For smelter-type stations (smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel, windmill and modded
+    // ones built the same way), as they load: ore capacity, fuel capacity, speed and fuel per product. Output multiplies
+    // what each product gives, on the game that runs the station; a fraction is a chance of one more. Stations listed under
+    // "Excluded stations" keep the game's values.
     [HarmonyPatch(typeof(Smelter), "Awake")]
     internal static class SmelterSettings
     {
+        internal static bool Excluded(Smelter smelter)
+        {
+            string list = Plugin.SmelterExcluded.Value;
+            if (string.IsNullOrWhiteSpace(list)) return false;
+            string name = Utils.GetPrefabName(smelter.gameObject);
+            foreach (var entry in list.Split(','))
+                if (string.Equals(entry.Trim(), name, StringComparison.OrdinalIgnoreCase)) return true;
+            return false;
+        }
+
+        private static int Scale(int value, float factor) => value <= 0 ? value : Mathf.Max(1, Mathf.RoundToInt(value * Mathf.Max(0.01f, factor)));
+
         private static void Prefix(Smelter __instance)
         {
-            float capacity = Mathf.Max(0.1f, Plugin.SmelterCapacity.Value), speed = Mathf.Max(0.1f, Plugin.SmelterSpeed.Value);
-            __instance.m_maxOre = Mathf.Max(1, Mathf.RoundToInt(__instance.m_maxOre * capacity));
-            if (__instance.m_maxFuel > 0) __instance.m_maxFuel = Mathf.Max(1, Mathf.RoundToInt(__instance.m_maxFuel * capacity));
-            __instance.m_secPerProduct /= speed;
+            if (Excluded(__instance)) return;
+            __instance.m_maxOre = Scale(__instance.m_maxOre, Plugin.SmelterOreCapacity.Value);
+            __instance.m_maxFuel = Scale(__instance.m_maxFuel, Plugin.SmelterFuelCapacity.Value);
+            __instance.m_fuelPerProduct = Scale(__instance.m_fuelPerProduct, Plugin.SmelterFuelPerProduct.Value);
+            __instance.m_secPerProduct /= Mathf.Max(0.1f, Plugin.SmelterSpeed.Value);
+        }
+
+        // Every product passes through Spawn, whether it drops at once or is collected in a stack.
+        [HarmonyPatch(typeof(Smelter), "Spawn")]
+        internal static class Output
+        {
+            private static bool extra;
+
+            private static void Prefix(Smelter __instance, string ore, ref int stack)
+            {
+                float factor = Plugin.SmelterOutput.Value;
+                if (extra || stack <= 0 || Mathf.Approximately(factor, 1f) || Excluded(__instance)) return;
+                float wanted = stack * Mathf.Max(1f, factor);
+                int total = Mathf.FloorToInt(wanted) + (UnityEngine.Random.value < wanted - Mathf.Floor(wanted) ? 1 : 0);
+                var product = __instance.m_conversion?.FirstOrDefault(c => c != null && c.m_from && c.m_from.gameObject.name == ore)?.m_to;
+                int max = product ? Mathf.Max(1, product.m_itemData.m_shared.m_maxStackSize) : int.MaxValue;
+                stack = Mathf.Min(total, max);
+                // Anything above one full stack drops as further stacks.
+                extra = true;
+                try
+                {
+                    for (int left = total - stack; left > 0; left -= max)
+                        SpawnMore(__instance, ore, Mathf.Min(left, max));
+                }
+                finally { extra = false; }
+            }
+
+            private static readonly Action<Smelter, string, int> SpawnMore =
+                AccessTools.MethodDelegate<Action<Smelter, string, int>>(AccessTools.Method(typeof(Smelter), "Spawn"));
         }
     }
 
