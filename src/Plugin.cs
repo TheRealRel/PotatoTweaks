@@ -78,7 +78,7 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> LootTrophies, ItemsFloat;
         internal static ConfigEntry<string> LootNever, LootOnly;
         internal static ConfigEntry<int> ItemStackSize;
-        internal static ConfigEntry<bool> RowsEarlier, RowsThird;
+        internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventoryLayoutGuard;
         internal static ConfigEntry<int> RowsThirdPrice;
         internal static ConfigEntry<string> RowsThirdBoss;
 
@@ -203,6 +203,8 @@ namespace PotatoTweaks
                 "Recovering your own tombstone returns every item to the slot it had when you died; items picked up since then move aside. Personal.");
             QolAutoPickupKey = Config.Bind(qol, "Auto-pickup key with Equipment & Quick Slots", true,
                 "When a quick slot uses V, auto-pickup moves to ] (right bracket), so pressing V on an empty quick slot can't switch auto-pickup off. Read at startup. Personal.");
+            InventoryLayoutGuard = Config.Bind(qol, "Keep inventory slots visible", true,
+                "While the inventory is open, any slot (equipment, quick, quiver, backpack, chest or inventory rows) that lands off screen or under another window gets that window moved just enough to show it, at any screen size or aspect ratio. Windows go back when no longer in the way. Each move is noted once in the log. Personal.");
             QolTamedCrops = Config.Bind(qol, "Tamed animals spare crops", true,
                 Synced("Your tamed animals walking through farm crops and planted bushes don't trample them. Wild animals and attacks still do damage."));
             QolSwimSpeed = Config.Bind(qol, "Swim skill raises swim speed", true,
@@ -396,6 +398,7 @@ namespace PotatoTweaks
                 foreach (var type in GameFixes.Patches) Patch(type);
             foreach (var type in QualityOfLife.Patches) Patch(type);
             Patch(typeof(InventoryRows));
+            Patch(typeof(InventoryLayout));
             foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings), typeof(SmelterSettings.Output),
                 typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal) })
                 Patch(type);

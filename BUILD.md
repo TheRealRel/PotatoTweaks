@@ -5,7 +5,7 @@ Source for version 1.4.0 lives next to this file in `potato-tweaks/src/`. Packag
 ## References needed
 
 From the Valheim install (`Valheim/valheim_Data/Managed`):
-mscorlib, netstandard, System, System.Core, assembly_valheim, assembly_utils, UnityEngine, UnityEngine.CoreModule, UnityEngine.InputLegacyModule, UnityEngine.PhysicsModule, UnityEngine.TextRenderingModule, Unity.TextMeshPro, UnityEngine.UI, UnityEngine.ParticleSystemModule, UnityEngine.AnimationModule, UnityEngine.AIModule, Unity.Collections, assembly_guiutils
+mscorlib, netstandard, System, System.Core, assembly_valheim, assembly_utils, UnityEngine, UnityEngine.CoreModule, UnityEngine.InputLegacyModule, UnityEngine.PhysicsModule, UnityEngine.TextRenderingModule, Unity.TextMeshPro, UnityEngine.UI, UnityEngine.UIModule, UnityEngine.ParticleSystemModule, UnityEngine.AnimationModule, UnityEngine.AIModule, Unity.Collections, assembly_guiutils
 
 From a BepInEx profile: `BepInEx/core/BepInEx.dll`, `BepInEx/core/0Harmony.dll`, `BepInEx/plugins/ValheimModding-Jotunn/Jotunn.dll`, `BepInEx/plugins/RandyKnapp-EpicLoot/EpicLoot.dll` (compile-time only; Epic Loot stays optional at runtime)
 
