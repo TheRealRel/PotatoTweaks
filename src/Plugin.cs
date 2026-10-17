@@ -32,7 +32,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.2";
+        public const string Version = "1.5.3";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -78,7 +78,7 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> LootTrophies, ItemsFloat;
         internal static ConfigEntry<string> LootNever, LootOnly;
         internal static ConfigEntry<int> ItemStackSize;
-        internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventorySlotsVisibility;
+        internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventorySlotsVisibility, DeathMarkerButton;
         internal static ConfigEntry<int> RowsThirdPrice;
         internal static ConfigEntry<string> RowsThirdBoss;
 
@@ -235,6 +235,8 @@ namespace PotatoTweaks
                     new AcceptableValueRange<float>(1f, 5f)));
             MapRevealRadius = Config.Bind(map, "Reveal radius", 1f,
                 Synced("Multiplies how far around you the map is revealed as you explore (game: 100 m). 1 = the game's normal; 1.5 = 150 m.", new AcceptableValueRange<float>(1f, 5f)));
+            DeathMarkerButton = Config.Bind(map, "Remove death markers button", true,
+                "Adds a button by the skull icon on the large map that removes all death markers (click twice to confirm). Your own pins stay. Personal.");
             CartHealthBonus = Config.Bind(vehicles, "Cart health from Crafting skill", 4f,
                 Synced("New carts get extra health from their builder's Crafting skill: this value times the skill share, so 4 = +400% at Crafting 100, +200% at 50. Changing it rescales existing crafted carts. 0 = off.",
                     new AcceptableValueRange<float>(0f, 10f)));
@@ -400,7 +402,7 @@ namespace PotatoTweaks
             Patch(typeof(InventoryRows));
             Patch(typeof(InventorySlotsVisibility));
             foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings), typeof(SmelterSettings.Output),
-                typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal) })
+                typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal), typeof(DeathMarkers) })
                 Patch(type);
             Run("Auto-pickup key", AutoPickupKey.Initialize);
             EnableUnlessInstalled(DimmerModId, "Dimmer Combat Particle Effects", "combat effects dimmer", () => { foreach (var type in CombatEffects.Patches) Patch(type); });

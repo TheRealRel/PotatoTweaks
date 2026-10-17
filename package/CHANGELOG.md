@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.3
+- **Remove death markers** (section 16, personal, on): a button by the skull icon on the large map removes every death marker at once. Click it twice to confirm. Your own pins and other icons stay.
+- 1.5.x players can play together; the server doesn't need this update.
+
 ## 1.5.2
 - Clearer settings table on the mod page: each section says what its settings do.
 - Code cleanup. No gameplay changes; 1.5.x players can play together.
