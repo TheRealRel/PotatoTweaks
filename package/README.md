@@ -129,7 +129,7 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 | **21 - Epic Loot enchantments** | Damage enchantments stack, Double and Triple Shot normal cost, Double Magic Shot doubles the summon limit, Shardstones ignore effect clashes, Lucky Loot on birds | Server |
 | | Lucky Loot message and its position, Eitr cost in tooltips | Player |
 | **22 - Loot and items** | Creature drops, Resource drops, Pickable drops (1 = normal), Multiply trophies too, Never multiplied, Only multiply these, Item weight (1 = normal), Stack size (1 = normal), Auto-pickup range (2 m), Items float in water | Server |
-| **23 - Inventory rows** | Earlier rows from Haldor, Third row from Haldor, Third row price (3,000), Third row unlock (Yagluth) | Server |
+| **23 - Inventory rows** | Extra inventory rows bought from Haldor (8 slots each, once per character). **Earlier rows from Haldor** (on): the game's two rows unlock after the Elder (1,000 coins) and Bonemass (2,000) instead of Moder and the Queen. **Third row from Haldor** (on): he also sells a third row, Roomier pockets. **Third row price**: 3,000 coins. **Third row unlock**: the boss that must be beaten first, Yagluth by default. | Server |
 
 Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`.
 
