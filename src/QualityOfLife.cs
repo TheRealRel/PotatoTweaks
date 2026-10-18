@@ -22,7 +22,7 @@ namespace PotatoTweaks
         {
             typeof(NoAutoEquip), typeof(LiveBuildMenu), typeof(BuildToolHealthBars), typeof(TamedCropTrampling), typeof(GrownPlantCreator),
             typeof(CombatHealthBars), typeof(CombatTargets), typeof(CreatureHover), typeof(TamingHoverText), typeof(DistantTamingHover),
-            typeof(SwimSpeed), typeof(CraftedVehicleHealth), typeof(CraftedVehicleHealth.Placement),
+            typeof(SwimSpeed), typeof(SneakSpeed), typeof(CraftedVehicleHealth), typeof(CraftedVehicleHealth.Placement),
         };
 
         internal static readonly Type[] GravePatches =
@@ -382,6 +382,25 @@ namespace PotatoTweaks
 
         private static float WithSkill(Character character) => character.m_swimSpeed *
             (Plugin.QolSwimSpeed.Value && character.IsPlayer() ? 1f + 0.25f * character.GetSkillFactor(Skills.SkillType.Swim) : 1f);
+    }
+
+    // ------------------------------------------------------------------ sneak speed
+    // Sneaking is a fixed slow walk. With the Sneak skill it gets faster, up to the set percentage at level 100
+    // (+50%: 2 m/s becomes 3 m/s, still slower than jogging). Not while over-encumbered, which uses the same slow speed.
+    // The idea is from blacks7ar's SNEAKer; written from scratch.
+    [HarmonyPatch(typeof(Character), "UpdateWalking")]
+    internal static class SneakSpeed
+    {
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) =>
+            Transpilers.CallInstead(instructions, x => x.LoadsField(AccessTools.Field(typeof(Character), nameof(Character.m_crouchSpeed))),
+                AccessTools.Method(typeof(SneakSpeed), nameof(WithSkill)), 1, "Valheim's sneaking speed read changed.");
+
+        private static float WithSkill(Character character)
+        {
+            float bonus = Plugin.QolSneakSpeed.Value;
+            if (bonus <= 0f || !character.IsPlayer() || character.IsEncumbered()) return character.m_crouchSpeed;
+            return character.m_crouchSpeed * (1f + bonus / 100f * character.GetSkillFactor(Skills.SkillType.Sneak));
+        }
     }
 
     // ------------------------------------------------------------------ carts and boats from skilled crafters
