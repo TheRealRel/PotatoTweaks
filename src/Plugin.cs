@@ -27,6 +27,9 @@ namespace PotatoTweaks
     [BepInDependency(EpicLootAddons.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Spearfishing.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(LootAndItems.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(ItemStands.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(Wisplight.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(QuickStackSlots.QuickStackId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInIncompatibility("valheim.epiclootprogressionfix")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     public sealed class Plugin : BaseUnityPlugin
@@ -491,6 +494,7 @@ namespace PotatoTweaks
                 LootAndItems.Initialize();
                 foreach (var type in LootAndItems.Patches) Patch(type);
             });
+            if (QuickStackSlots.Wanted()) Run("Quick Stack Store leaves Equipment and Quick Slots' slots alone", () => QuickStackSlots.Enable(harmony));
             Run("Tombstone items back in their slots", () =>
             {
                 // Looks up Equipment & Quick Slots' slot layout first, so a changed layout turns this feature off cleanly.

@@ -61,6 +61,7 @@ All of these start at the game's normal values, except cart and boat health and 
 | Feature | What it does | Set by |
 |---|---|---|
 | **Game bug fixes** | Fast second bow shots no longer vanish; swings from a ship's deck hit what's on the deck; a broken fuling shaman shield stops blocking arrows; plants no longer stop growing after a lag spike; long buried ore veins keep their support; overdue berry bushes regrow as soon as someone is near. | Every game alike (restart after changing) |
+| **Sorting with Equipment & Quick Slots** | With Quick Stack - Store - Sort - Trash - Restock installed, sorting, quick stacking and storing no longer move items in or out of Equipment and Quick Slots' slots (Z, V, B and the equipment slots). Restock can still top up quick slots. | Automatic |
 
 ### Epic Loot
 
