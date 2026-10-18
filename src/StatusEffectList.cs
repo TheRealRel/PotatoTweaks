@@ -1,4 +1,4 @@
-// Potato Tweaks - a compact status effect list under the minimap.
+// Potato Tweaks - status effect icons under the minimap.
 // Written from scratch for this mod; the idea is from RandyKnapp's Minimal Status Effects.
 using System.Collections.Generic;
 using HarmonyLib;
@@ -7,14 +7,15 @@ using UnityEngine;
 
 namespace PotatoTweaks
 {
-    // The game shows status effects as a row of icons beside the minimap, with the names under them. This turns them into
-    // a list under the minimap, one per line: icon, name, then the time left. It follows the minimap's actual size and
-    // position, so it fits any resolution and GUI scale, and sits in the top-right corner when the world has no map.
-    // While sailing, the wind and speed indicators move aside just enough to stay clear of it. Personal.
+    // The game shows status effects as a row of icons beside the minimap, with the names under them. This moves them under
+    // the minimap as bigger icons in rows, each with only its time left under it (no names, which got cut short). It
+    // follows the minimap's actual size and position, so it fits any resolution and GUI scale, and sits in the top-right
+    // corner when the world has no map. While sailing, the wind and speed indicators move aside just enough to stay
+    // clear of it. Personal.
     [HarmonyPatch(typeof(Hud), "UpdateStatusEffects")]
     internal static class StatusEffectList
     {
-        private const float Gap = 8f, TimeWidth = 70f, MinWidth = 240f;
+        private const float Gap = 8f, MinWidth = 200f;
         private static readonly AccessTools.FieldRef<Hud, List<RectTransform>> Entries = AccessTools.FieldRefAccess<Hud, List<RectTransform>>("m_statusEffects");
         private static readonly Vector3[] Corners = new Vector3[4];
 
@@ -96,9 +97,10 @@ namespace PotatoTweaks
 
         private static void Layout(Hud hud, RectTransform root, List<RectTransform> entries)
         {
-            float icon = Mathf.Clamp(Plugin.StatusEffectIconSize.Value, 16f, 64f);
-            float spacing = Mathf.Max(Plugin.StatusEffectSpacing.Value, icon + 2f);
+            float icon = Mathf.Clamp(Plugin.StatusEffectIconSize.Value, 16f, 96f);
+            float gap = Mathf.Clamp(Plugin.StatusEffectSpacing.Value, 0f, 40f);
             int font = Mathf.Clamp(Plugin.StatusEffectTextSize.Value, 10, 40);
+            float timeHeight = font + 6f, cellHeight = icon + timeHeight;
             iconSize = new Vector2(icon, icon);
 
             var parent = root.parent as RectTransform;
@@ -110,15 +112,18 @@ namespace PotatoTweaks
             {
                 Vector3 local = parent.InverseTransformPoint(corner);
                 float scale = parent.lossyScale.x > 0f ? parent.lossyScale.x : 1f;
-                width = Mathf.Max(MinWidth, mapWidth / scale);
+                width = Mathf.Max(icon, mapWidth / scale);
                 topLeft = new Vector2(local.x, local.y - Gap);
             }
             else topLeft = new Vector2(area.xMax - MinWidth - 2f * Gap, area.yMax - 2f * Gap);
             topLeft.x = Mathf.Clamp(topLeft.x, area.xMin + Gap, area.xMax - width - Gap);
 
+            // As many icons per row as fit the minimap's width.
+            int columns = Mathf.Max(1, Mathf.FloorToInt((width + gap) / (icon + gap)));
+            int rows = (entries.Count + columns - 1) / columns;
             root.anchorMin = root.anchorMax = new Vector2(0.5f, 0.5f);
             root.pivot = new Vector2(0f, 1f);
-            root.sizeDelta = new Vector2(width, Mathf.Max(1f, entries.Count * spacing));
+            root.sizeDelta = new Vector2(width, Mathf.Max(1f, rows * (cellHeight + gap)));
             root.localPosition = new Vector3(topLeft.x, topLeft.y, 0f);
 
             firstIcon = null;
@@ -126,31 +131,26 @@ namespace PotatoTweaks
             {
                 var entry = entries[i];
                 if (!entry) continue;
-                Place(entry, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(width, spacing), new Vector2(0f, -i * spacing));
+                var cell = new Vector2((i % columns) * (icon + gap), -(i / columns) * (cellHeight + gap));
+                Place(entry, new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(0f, 1f), new Vector2(icon, cellHeight), cell);
                 var iconRect = entry.Find("Icon") as RectTransform;
                 if (iconRect)
                 {
-                    Place(iconRect, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), iconSize, Vector2.zero);
+                    Place(iconRect, new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), new Vector2(0.5f, 1f), iconSize, Vector2.zero);
                     if (i == 0) firstIcon = iconRect;
                 }
                 if (entry.Find("Cooldown") is RectTransform cooldown)
-                    Place(cooldown, new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(0.5f, 0.5f), new Vector2(16f, 16f), new Vector2(icon - 4f, 4f - icon * 0.5f));
+                    Place(cooldown, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 0f), new Vector2(icon * 0.35f, icon * 0.35f), new Vector2(0f, -icon));
                 var time = entry.Find("TimeText") as RectTransform;
                 if (time)
                 {
-                    Place(time, new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(1f, 0.5f), new Vector2(TimeWidth, icon), Vector2.zero);
-                    Text(time, font, TextAlignmentOptions.MidlineRight);
+                    // Wider than the icon so longer times aren't cut; centered under it.
+                    Place(time, new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), new Vector2(icon + gap, timeHeight), Vector2.zero);
+                    Text(time, font, TextAlignmentOptions.Center);
                 }
-                var name = entry.Find("Name") as RectTransform;
-                if (name)
-                {
-                    name.anchorMin = new Vector2(0f, 0.5f);
-                    name.anchorMax = new Vector2(1f, 0.5f);
-                    name.pivot = new Vector2(0f, 0.5f);
-                    name.offsetMin = new Vector2(icon + Gap, -icon * 0.5f);
-                    name.offsetMax = new Vector2(-TimeWidth - 4f, icon * 0.5f);
-                    Text(name, font, TextAlignmentOptions.MidlineLeft);
-                }
+                // The game sets the name every frame but never shows the object again once hidden.
+                var name = entry.Find("Name");
+                if (name && name.gameObject.activeSelf) name.gameObject.SetActive(false);
             }
             Ship(hud, root, entries.Count);
         }

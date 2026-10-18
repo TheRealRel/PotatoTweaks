@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.4
+- **Status effect icons**: no more names, which got cut short. Status effects now show as bigger icons in rows under the minimap, each with its time left under it. New settings: icon size (48), timer text size (18) and gap between icons (8).
+- 1.5.x players can play together.
+
 ## 1.5.3
 - **Remove death markers** (section 16, personal, on): a button by the skull icon on the large map removes every death marker at once. Click it twice to confirm. Your own pins and other icons stay.
 - **Sleeping** (section 24, server): the night is skipped once half the players are in bed or emoting (sitting, or standing still after any emote), with at least one in bed. Only they sleep through it; everyone else keeps playing. Until then, everyone sees how many more are needed.

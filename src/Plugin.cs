@@ -32,7 +32,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.3";
+        public const string Version = "1.5.4";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -215,13 +215,13 @@ namespace PotatoTweaks
             InventorySlotsVisibility = Config.Bind(qol, "Inventory Slots Visibility", true,
                 "No inventory slot stays hidden: when a window covers equipment, quick, quiver, backpack, chest or inventory-row slots, or pushes them past the screen edge, that window moves just enough to show them, at any screen size from 16:9 to 32:9 and any GUI scale. It moves back when no longer in the way, and each move is noted once in the log. Only looks again when the layout changes. Personal.");
             StatusEffectListEnabled = Config.Bind(qol, "Status effect list", true,
-                "Status effects show as a list under the minimap, one per line with name and time left, instead of a row of icons beside it. Fits the minimap at any screen size and GUI scale; top-right corner in worlds without a map. While sailing, the wind and speed indicators move aside if the list would cover them. Personal.");
-            StatusEffectIconSize = Config.Bind(qol, "Status effect icon size", 32f,
-                new ConfigDescription("Size of the icons in the status effect list. Personal.", new AcceptableValueRange<float>(16f, 64f)));
-            StatusEffectTextSize = Config.Bind(qol, "Status effect text size", 20,
-                new ConfigDescription("Size of the names and times in the status effect list. Personal.", new AcceptableValueRange<int>(10, 40)));
-            StatusEffectSpacing = Config.Bind(qol, "Status effect spacing", 42f,
-                new ConfigDescription("Height of each line in the status effect list (at least the icon size). Personal.", new AcceptableValueRange<float>(20f, 100f)));
+                "Status effects show as bigger icons in rows under the minimap, each with its time left under it, instead of a row of small icons with names beside it. Fits the minimap at any screen size and GUI scale; top-right corner in worlds without a map. While sailing, the wind and speed indicators move aside if they would be covered. Personal.");
+            StatusEffectIconSize = Config.Bind(qol, "Status icon size", 48f,
+                new ConfigDescription("Size of the status effect icons under the minimap. Personal.", new AcceptableValueRange<float>(16f, 96f)));
+            StatusEffectTextSize = Config.Bind(qol, "Status timer text size", 18,
+                new ConfigDescription("Size of the time left shown under each status effect icon. Personal.", new AcceptableValueRange<int>(10, 40)));
+            StatusEffectSpacing = Config.Bind(qol, "Status icon gap", 8f,
+                new ConfigDescription("Space between the status effect icons. Personal.", new AcceptableValueRange<float>(0f, 40f)));
             QolTamedCrops = Config.Bind(qol, "Tamed animals spare crops", true,
                 Synced("Your tamed animals walking through farm crops and planted bushes don't trample them. Wild animals and attacks still do damage."));
             QolSwimSpeed = Config.Bind(qol, "Swim skill raises swim speed", true,
