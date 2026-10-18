@@ -1,15 +1,12 @@
 # Changelog
 
 ## 1.5.8
+- **Trophy pity in multiplayer**: a kill now counts for the player who made it (or whose tames or summons made it), even when the creature is run by another player's game. Before, only the game running the creature rolled pity, so many kills didn't count. That game now rolls the trophy with the killer's dry kills, and the killer's game counts the kill.
+- "Only count my kills" off no longer counts other players' kills for you; they count for them. Kills with no player behind them count for the player whose game runs the creature.
 - **Essence for everyone** (section 22, server, on): Thunderblood and Frostfire essence always drop from the creatures that carry them, one for each player who was within 200 m when the creature appeared (stars still add the game's extra). The creature drop multiplier leaves them alone. Replaces Koen-H's EssenceForAll.
 - **Comfort helper** (section 27, personal, on): a Comfort tab in the build menu with every comfort piece by group and check marks on what's nearby, comfort in piece descriptions, a message when you start resting with the best pieces to add, and `/comfort` in chat. Replaces Koen-H's ComfortHelper.
 - **Trophy pity** now also works on creatures whose drops Star Level System replaces (by default the Abomination, Oozer, Brute Bros and Tick).
-- 1.5.x players can play together. Every game that runs creatures needs 1.5.8 for essences (as with all drops).
-
-## 1.5.7
-- **Trophy pity in multiplayer**: a kill now counts for the player who made it (or whose tames or summons made it), even when the creature is run by another player's game. Before, only the game running the creature rolled pity, so many kills didn't count. That game now rolls the trophy with the killer's dry kills, and the killer's game counts the kill.
-- "Only count my kills" off no longer counts other players' kills for you; they count for them. Kills with no player behind them count for the player whose game runs the creature.
-- Players on 1.5.6 or older can still play with 1.5.7; their kills just get the plain roll when someone else's game runs the creature.
+- 1.5.x players can play together. Players on older versions still get their trophies and essences, but their kills only count when their own game runs the creature, and essences only drop one per player when the game running the creature has 1.5.8.
 
 ## 1.5.6
 - **Fix**: with a status effect that has no timer (shelter, warmth), the HUD stopped updating: door and other hover prompts didn't show, and the build health bar stayed on screen. Fixed.
