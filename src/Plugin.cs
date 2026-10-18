@@ -81,7 +81,9 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventorySlotsVisibility, DeathMarkerButton;
         internal static ConfigEntry<int> RowsThirdPrice;
         internal static ConfigEntry<string> RowsThirdBoss;
-        internal static ConfigEntry<int> SleepShare, SleepInBed;
+        internal static ConfigEntry<int> SleepShare, SleepInBed, StatusEffectTextSize;
+        internal static ConfigEntry<bool> StatusEffectListEnabled;
+        internal static ConfigEntry<float> StatusEffectIconSize, StatusEffectSpacing;
         internal static ConfigEntry<SleepVotes> SleepVoteMode;
 
         internal static Harmony HarmonyInstance;
@@ -207,6 +209,14 @@ namespace PotatoTweaks
                 "When a quick slot uses V, auto-pickup moves to ] (right bracket), so pressing V on an empty quick slot can't switch auto-pickup off. Read at startup. Personal.");
             InventorySlotsVisibility = Config.Bind(qol, "Inventory Slots Visibility", true,
                 "No inventory slot stays hidden: when a window covers equipment, quick, quiver, backpack, chest or inventory-row slots, or pushes them past the screen edge, that window moves just enough to show them, at any screen size from 16:9 to 32:9 and any GUI scale. It moves back when no longer in the way, and each move is noted once in the log. Only looks again when the layout changes. Personal.");
+            StatusEffectListEnabled = Config.Bind(qol, "Status effect list", true,
+                "Status effects show as a list under the minimap, one per line with name and time left, instead of a row of icons beside it. Fits the minimap at any screen size and GUI scale; top-right corner in worlds without a map. While sailing, the wind and speed indicators move aside if the list would cover them. Personal.");
+            StatusEffectIconSize = Config.Bind(qol, "Status effect icon size", 32f,
+                new ConfigDescription("Size of the icons in the status effect list. Personal.", new AcceptableValueRange<float>(16f, 64f)));
+            StatusEffectTextSize = Config.Bind(qol, "Status effect text size", 20,
+                new ConfigDescription("Size of the names and times in the status effect list. Personal.", new AcceptableValueRange<int>(10, 40)));
+            StatusEffectSpacing = Config.Bind(qol, "Status effect spacing", 42f,
+                new ConfigDescription("Height of each line in the status effect list (at least the icon size). Personal.", new AcceptableValueRange<float>(20f, 100f)));
             QolTamedCrops = Config.Bind(qol, "Tamed animals spare crops", true,
                 Synced("Your tamed animals walking through farm crops and planted bushes don't trample them. Wild animals and attacks still do damage."));
             QolSwimSpeed = Config.Bind(qol, "Swim skill raises swim speed", true,
@@ -413,6 +423,7 @@ namespace PotatoTweaks
             Patch(typeof(InventoryRows));
             foreach (var type in SleepVote.Patches) Patch(type);
             Patch(typeof(InventorySlotsVisibility));
+            Patch(typeof(StatusEffectList));
             foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings), typeof(SmelterSettings.Output),
                 typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal), typeof(DeathMarkers) })
                 Patch(type);

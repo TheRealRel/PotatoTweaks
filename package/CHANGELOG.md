@@ -3,6 +3,7 @@
 ## 1.5.3
 - **Remove death markers** (section 16, personal, on): a button by the skull icon on the large map removes every death marker at once. Click it twice to confirm. Your own pins and other icons stay.
 - **Sleeping** (section 24, server): the night is skipped once half the players are in bed or emoting (sitting, or standing still after any emote), with at least one in bed. Only they sleep through it; everyone else keeps playing. Until then, everyone sees how many more are needed.
+- **Status effect list** (section 11, personal, on): status effects show as a compact list under the minimap, one per line with name and time left. Fits any screen size; while sailing, the wind and speed indicators move aside if needed.
 - 1.5.x players can play together. The server needs 1.5.3 for the sleep vote.
 
 ## 1.5.2
