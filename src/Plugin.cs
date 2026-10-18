@@ -83,7 +83,8 @@ namespace PotatoTweaks
         internal static ConfigEntry<string> RowsThirdBoss;
         internal static ConfigEntry<int> SleepShare, SleepInBed, StatusEffectTextSize;
         internal static ConfigEntry<bool> StatusEffectListEnabled;
-        internal static ConfigEntry<float> QolSneakSpeed;
+        internal static ConfigEntry<float> QolSneakSpeed, WispRangePerLevel;
+        internal static ConfigEntry<int> WispLevels, WispWispsPerLevel, WispSilverPerLevel, WispEitrPerLevel;
         internal static ConfigEntry<float> StatusEffectIconSize, StatusEffectSpacing, ItemStandMaxOffset, ItemStandMaxScale;
         internal static ConfigEntry<ItemStandItems> ItemStandMode;
         internal static ConfigEntry<string> ItemStandIds, ItemStandTransformations;
@@ -399,6 +400,18 @@ namespace PotatoTweaks
             ItemStandCloser = Config.Bind(stands, "Items closer to the wall", false,
                 "Items sit against the stand instead of slightly in front of it. Personal.");
 
+            const string wisp = "26 - Wisplight";
+            WispLevels = Config.Bind(wisp, "Upgrade levels", 5,
+                Synced("Highest level the Wisplight can be upgraded to at the workbench. Level 1 is the game's own; 1 = not upgradeable, the game's normal.", new AcceptableValueRange<int>(1, 10)));
+            WispRangePerLevel = Config.Bind(wisp, "Clearing per level", 5f,
+                Synced("Meters of extra mist clearing around the wisp for each level above 1 (the game's own is about 10 m, so 5 = about 30 m at level 5).", new AcceptableValueRange<float>(0f, 25f)));
+            WispWispsPerLevel = Config.Bind(wisp, "Wisps per level", 5,
+                Synced("Wisps each upgrade costs, rising with the level the way the game's upgrade costs do (level 5 costs four and a half times this).", new AcceptableValueRange<int>(0, 50)));
+            WispSilverPerLevel = Config.Bind(wisp, "Silver per level", 10,
+                Synced("Silver each upgrade costs, rising the same way.", new AcceptableValueRange<int>(0, 100)));
+            WispEitrPerLevel = Config.Bind(wisp, "Eitr per level", 0,
+                Synced("Refined eitr each upgrade costs, rising the same way. 0 = none.", new AcceptableValueRange<int>(0, 50)));
+
             if (epicLoot)
             {
                 const string table = "20 - Epic Loot enchanting table", enchantments = "21 - Epic Loot enchantments";
@@ -462,6 +475,11 @@ namespace PotatoTweaks
             });
             EnableUnlessInstalled(Trophies.OriginalModId, "TrophyAssister", "trophy pity", () => { foreach (var type in Trophies.Patches) Patch(type); });
             EnableUnlessInstalled(Spearfishing.OriginalModId, "Spearfishing", "spearfishing", () => Patch(typeof(Spearfishing)));
+            EnableUnlessInstalled(Wisplight.OriginalModId, "Better Wisps", "Wisplight upgrades", () =>
+            {
+                Wisplight.Initialize();
+                foreach (var type in Wisplight.Patches) Patch(type);
+            });
             EnableUnlessInstalled(ItemStands.OriginalModId, "Item Stand All Items", "item stand settings", () =>
             {
                 ItemStands.Initialize();
