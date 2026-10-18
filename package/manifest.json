@@ -1,8 +1,8 @@
 {
     "name": "PotatoTweaks",
-    "version_number": "1.5.8",
+    "version_number": "1.5.7",
     "website_url": "https://github.com/TheRealRel/PotatoTweaks",
-    "description": "QoL and fixes for Valheim servers: camera zoom, longer item drops, tombstone retrieval, skill loss/XP, attack cancel, Epic Loot bounty, enchantment and enchanting-table add-ons, spearfishing, smelter and fermenter tweaks, and more.",
+    "description": "QoL and fixes for Valheim servers: sleep vote, trophy pity, essence for everyone, comfort helper, item stands, Wisplight upgrades, death marker cleanup, tombstone retrieval, camera zoom, skill and loot settings, Epic Loot add-ons and more.",
     "dependencies": [
         "denikson-BepInExPack_Valheim-5.4.2351",
         "ValheimModding-Jotunn-2.30.2"
