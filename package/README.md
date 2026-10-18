@@ -36,6 +36,7 @@ Every feature can be switched off on its own. **Server** means the server's sett
 | **Remove death markers** | A button by the skull icon on the large map removes every death marker at once (click twice to confirm). Your own pins and other icons stay. | Player |
 | **Farming, swimming and sneaking** | Tamed animals don't trample crops; the Swim skill raises swim speed (up to +25%); the Sneak skill raises sneak speed (up to jogging speed at level 100, but quiet). | Server |
 | **Sleeping** | The night is skipped once half the players are in bed or emoting (sitting, or standing still after any emote), with at least one in bed. Only they sleep through it; everyone else keeps playing. Until then, everyone sees how many more are needed. | Server |
+| **Comfort helper** | A Comfort tab in the build menu lists every comfort piece by group (only the best of each group within 10 m counts), with check marks on what's nearby. Comfort pieces say what they'd add where you stand, a message when you start resting names the best pieces to add, and `/comfort` in chat lists them all. | Player |
 
 ### World and economy
 
@@ -45,6 +46,7 @@ All of these start at the game's normal values, except cart and boat health and 
 |---|---|---|
 | **Skill loss and XP** | How much of each skill is lost on death (0 = nothing, 1 = normal) and an XP multiplier per skill (up to 10). | Server |
 | **Loot and items** | Multipliers for creature, resource and pickable drops (trophies only if you want); item weight; stack size; auto-pickup range; items that float in water. Weight and stack size apply to every copy of an item, crafted, carried or dropped. | Server |
+| **Essence for everyone** | Thunderblood and Frostfire essence always drop from the creatures that carry them, one for each player who was nearby when the creature appeared. | Server |
 | **Smelters, fermenters and stations** | Smelter, kiln and furnace capacity, speed, fuel use and output; fermenter speed and output; crafting station build range. | Server |
 | **Carts and boats** | Carts and boats get more health the higher their builder's Crafting skill: carts up to +400%, boats up to +100%. | Server |
 | **Map** | How far around you the map is revealed as you explore. | Server |
@@ -86,7 +88,7 @@ Not compatible with EpicLoot Progression Fix, which already contains the camera,
 
 Epic Loot and StarLevelSystem are optional. Without Epic Loot the Epic Loot features simply stay off.
 
-Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimmer Combat Particle Effects**, **TrophyAssister**, **Spearfishing**, **Epic Loot Add-ons** and **DropMoreLoot** mods. None of them is needed. If one is installed, Potato Tweaks leaves that feature to it and writes a warning in the log; remove it to use Potato Tweaks' version. When switching, Potato Tweaks copies the old mod's settings (and TrophyAssister's pity counts) on first launch if their files are still in the config folder.
+Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimmer Combat Particle Effects**, **TrophyAssister**, **Spearfishing**, **Epic Loot Add-ons**, **DropMoreLoot**, **EssenceForAll** and **ComfortHelper** mods. None of them is needed. If one is installed, Potato Tweaks leaves that feature to it and writes a warning in the log; remove it to use Potato Tweaks' version. When switching, Potato Tweaks copies the old mod's settings (and TrophyAssister's pity counts) on first launch if their files are still in the config folder.
 
 ## Installation
 
@@ -135,12 +137,13 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 | | Sacrifice tab also lists trophies (on) and shardstones (off) from those chests. | Player |
 | **21 - Epic Loot enchantments** | Damage enchantments can stack; Double and Triple Shot cost normal eitr or stamina; Double Magic Shot doubles the summon limit; shardstones ignore effect clashes; Lucky Loot works on birds. | Server |
 | | Lucky Loot message (and where it shows); eitr cost in tooltips. | Player |
-| **22 - Loot and items** | Drop multipliers for creatures, resources and pickables (1 = normal; trophies only if turned on), with lists of items to never or only multiply. Item weight and stack size multipliers (1 = normal), auto-pickup range (2 m), items float in water. | Server |
+| **22 - Loot and items** | Drop multipliers for creatures, resources and pickables (1 = normal; trophies only if turned on), with lists of items to never or only multiply. Item weight and stack size multipliers (1 = normal), auto-pickup range (2 m), items float in water. Essence for everyone (on): essences always drop, one per player nearby; the player range (200 m) and which items count. | Server |
 | **23 - Inventory rows** | Haldor's two extra rows unlock after the Elder (1,000 coins) and Bonemass (2,000) instead of Moder and the Queen. He also sells a third row after Yagluth for 3,000 (price and boss adjustable). Each is bought once per character. | Server |
 | **24 - Sleeping** | Share of players needed to skip the night (50%); who counts besides players in bed (any emote, sitting only, or beds only); players in bed needed first (1). 100% and beds only = the game's normal. | Server |
 | **25 - Item stands** | Which items are allowed (all, items with a stand model, or the game's normal); which stands; whether players can adjust items, and the largest move (2 m) and size (5x); default adjustments per item; simple models for items that look wrong. | Server |
 | | Hide stands holding an item; items closer to the wall. | Player |
 | **26 - Wisplight** | Upgrade levels (5; 1 = the game's normal); extra clearing per level (5 m); wisps, silver and eitr per upgrade (5, 10, 0), rising with the level like the game's upgrade costs. | Server |
+| **27 - Comfort** | Comfort tab (and its name), check marks in every tab, comfort in piece descriptions, message when resting (every 10 minutes at most, 4 pieces). | Player |
 
 Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`.
 
@@ -152,4 +155,4 @@ If a Valheim update changes the game code a feature relies on, that feature swit
 
 ## Credits
 
-Camera zoom, dropped-item lifetime, ship/cart removal, attack cancelling, the Epic Loot bounty and enchantment fixes, the game bug fixes and most quality-of-life features come from **EpicLoot Progression Fix** by the EpicLoot Progression Fix contributors, used under the MIT License. The double dragon bed comes from **Double Dragon Bed** by Hansenbansen and spearfishing from **Spearfishing** by karkkant, both used under the MIT License. The item stands come from **Item Stand All Items** by JereKuusela, which is in the public domain. The Epic Loot enchanting table and enchantment add-ons were written for Potato Tweaks to replace DigiTeam's Epic Loot Add-ons, and the loot and item settings to replace TastyChickenLegs' DropMoreLoot. Tombstone retrieval, the skill settings, the visual effect sliders and combat effects dimmer, trophy pity, the station, fermenter, range and map settings, the death marker button, the sleep vote, boat health, the status effect list (an idea from RandyKnapp's Minimal Status Effects) sneak speed (an idea from blacks7ar's SNEAKer) and Wisplight upgrades (an idea from Digitalroot's Better Wisps) were written for Potato Tweaks. See `LICENSE`.
+Camera zoom, dropped-item lifetime, ship/cart removal, attack cancelling, the Epic Loot bounty and enchantment fixes, the game bug fixes and most quality-of-life features come from **EpicLoot Progression Fix** by the EpicLoot Progression Fix contributors, used under the MIT License. The double dragon bed comes from **Double Dragon Bed** by Hansenbansen and spearfishing from **Spearfishing** by karkkant, both used under the MIT License. The item stands come from **Item Stand All Items** by JereKuusela, which is in the public domain. Essence for everyone and the comfort helper come from **EssenceForAll** and **ComfortHelper** by Koen-H, used under the MIT License. The Epic Loot enchanting table and enchantment add-ons were written for Potato Tweaks to replace DigiTeam's Epic Loot Add-ons, and the loot and item settings to replace TastyChickenLegs' DropMoreLoot. Tombstone retrieval, the skill settings, the visual effect sliders and combat effects dimmer, trophy pity, the station, fermenter, range and map settings, the death marker button, the sleep vote, boat health, the status effect list (an idea from RandyKnapp's Minimal Status Effects) sneak speed (an idea from blacks7ar's SNEAKer) and Wisplight upgrades (an idea from Digitalroot's Better Wisps) were written for Potato Tweaks. See `LICENSE`.

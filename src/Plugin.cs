@@ -30,12 +30,14 @@ namespace PotatoTweaks
     [BepInDependency(ItemStands.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(Wisplight.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(QuickStackSlots.QuickStackId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(EssenceForAll.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
+    [BepInDependency(ComfortHelper.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInIncompatibility("valheim.epiclootprogressionfix")]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.Minor)]
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.7";
+        public const string Version = "1.5.8";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -79,7 +81,12 @@ namespace PotatoTweaks
         internal static ConfigEntry<float> ChestMaterialsRange;
         internal static ConfigEntry<float> LootCreatures, LootResources, LootPickables, ItemWeight, PickupRangeSetting;
         internal static ConfigEntry<bool> LootTrophies, ItemsFloat;
-        internal static ConfigEntry<string> LootNever, LootOnly;
+        internal static ConfigEntry<string> LootNever, LootOnly, EssenceItems;
+        internal static ConfigEntry<bool> EssenceForEveryone;
+        internal static ConfigEntry<float> EssencePlayerRange, ComfortMessageCooldown;
+        internal static ConfigEntry<bool> ComfortTab, ComfortChecksEverywhere, ComfortHoverInfo, ComfortRestingMessage;
+        internal static ConfigEntry<string> ComfortTabName;
+        internal static ConfigEntry<int> ComfortSuggestions;
         internal static ConfigEntry<int> ItemStackSize;
         internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventorySlotsVisibility, DeathMarkerButton;
         internal static ConfigEntry<int> RowsThirdPrice;
@@ -356,6 +363,12 @@ namespace PotatoTweaks
                 Synced("Meters around a player that items are picked up automatically. 2 = the game's normal.", new AcceptableValueRange<float>(1f, 10f)));
             ItemsFloat = Config.Bind(loot, "Items float in water", false,
                 Synced("Every dropped item floats instead of sinking. Applies to items dropped from now on."));
+            EssenceForEveryone = Config.Bind(loot, "Essence for everyone", true,
+                Synced("Thunderblood and Frostfire essence always drop from the creatures that carry them, one for each player who was nearby when the creature appeared (stars still add the game's extra). The creature drop multiplier doesn't apply to them."));
+            EssenceItems = Config.Bind(loot, "Essence items", "OrbThunderBlood, OrbFrostFire",
+                Synced("Item prefab names, separated by commas, that Essence for everyone applies to. The log lists which creatures carry them as the game starts."));
+            EssencePlayerRange = Config.Bind(loot, "Essence player range", 200f,
+                Synced("Players within this many meters of a creature when it appears each get one essence. 0 = every player in the world.", new AcceptableValueRange<float>(0f, 1000f)));
             if (!before.ContainsKey(loot + "|Creature drops")) ConfigText.ImportDropMoreLoot(Config);
 
             const string rows = "23 - Inventory rows";
@@ -396,6 +409,20 @@ namespace PotatoTweaks
                 "Hides the stand itself while it holds an item, so only the item shows. itemstand_hide sets this per stand for everyone. Personal.");
             ItemStandCloser = Config.Bind(stands, "Items closer to the wall", false,
                 "Items sit against the stand instead of slightly in front of it. Personal.");
+
+            const string comfort = "27 - Comfort";
+            ComfortTab = Config.Bind(comfort, "Comfort tab", true,
+                "A Comfort tab in the build menu with every comfort piece, one category per comfort group (only the best piece of a group within 10 m counts). Check marks show what is nearby: green counts, grey is outdone by a better piece of its group. Read at startup. Personal.");
+            ComfortTabName = Config.Bind(comfort, "Tab name", "Comfort", "Name of the Comfort tab. Read at startup. Personal.");
+            ComfortChecksEverywhere = Config.Bind(comfort, "Check marks in every tab", false, "Also show the check marks on comfort pieces in the other build menu tabs. Personal.");
+            ComfortHoverInfo = Config.Bind(comfort, "Comfort in piece descriptions", true,
+                "Comfort pieces say in their build menu description what they are worth and what they would add where you stand. Personal.");
+            ComfortRestingMessage = Config.Bind(comfort, "Message when resting", true,
+                "When you start resting, a message shows your comfort and the pieces you know that would raise it most. /comfort in chat lists them all any time. Personal.");
+            ComfortMessageCooldown = Config.Bind(comfort, "Message cooldown", 600f,
+                new ConfigDescription("Seconds before the resting message shows again. Personal.", new AcceptableValueRange<float>(0f, 3600f)));
+            ComfortSuggestions = Config.Bind(comfort, "Pieces in the message", 4,
+                new ConfigDescription("Pieces listed in the resting message (/comfort lists all). Personal.", new AcceptableValueRange<int>(1, 20)));
 
             const string wisp = "26 - Wisplight";
             WispLevels = Config.Bind(wisp, "Upgrade levels", 5,
@@ -482,6 +509,16 @@ namespace PotatoTweaks
                 ItemStands.Initialize();
                 foreach (var type in ItemStands.Patches) Patch(type);
                 foreach (var command in ItemStands.Commands()) CommandManager.Instance.AddConsoleCommand(command);
+            });
+            EnableUnlessInstalled(ComfortHelper.OriginalModId, "ComfortHelper", "comfort helper", () =>
+            {
+                foreach (var type in ComfortHelper.Patches) Patch(type);
+                ComfortHelper.RegisterCommand();
+            });
+            EnableUnlessInstalled(EssenceForAll.OriginalModId, "EssenceForAll", "essence for everyone", () =>
+            {
+                EssenceForAll.Initialize();
+                foreach (var type in EssenceForAll.Patches) Patch(type);
             });
             EnableUnlessInstalled(LootAndItems.OriginalModId, "DropMoreLoot", "loot and item settings", () =>
             {

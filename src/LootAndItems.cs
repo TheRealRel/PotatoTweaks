@@ -44,10 +44,11 @@ namespace PotatoTweaks
         }
 
         // Only items are multiplied (a drop list can also spawn creatures), and never trophies unless asked, the
-        // never-multiplied list, or items outside the only-these list when it is set.
+        // never-multiplied list, items outside the only-these list when it is set, or essences while Essence for
+        // everyone gives one per player.
         internal static bool Multiplies(GameObject prefab)
         {
-            if (!prefab) return false;
+            if (!prefab || EssenceForAll.IsEssence(prefab)) return false;
             var item = prefab.GetComponent<ItemDrop>();
             if (!item) return false;
             string name = prefab.name;
