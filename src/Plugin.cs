@@ -225,8 +225,8 @@ namespace PotatoTweaks
                 Synced("Your tamed animals walking through farm crops and planted bushes don't trample them. Wild animals and attacks still do damage."));
             QolSwimSpeed = Config.Bind(qol, "Swim skill raises swim speed", true,
                 Synced("Swimming speed rises with the Swim skill the way running speed rises with Run: up to +25% at level 100."));
-            QolSneakSpeed = Config.Bind(qol, "Sneak skill raises sneak speed", 50f,
-                Synced("Percent faster sneaking at Sneak level 100, rising with the skill: 50 = 2 m/s becomes 3 m/s (jogging is 4). Not while over-encumbered. 0 = off, the game's normal.",
+            QolSneakSpeed = Config.Bind(qol, "Sneak skill raises sneak speed", 100f,
+                Synced("Percent faster sneaking at Sneak level 100, rising with the skill: 100 = 2 m/s becomes 4 m/s, as fast as jogging but quiet; 50 = 3 m/s. Not while over-encumbered. 0 = off, the game's normal.",
                     new AcceptableValueRange<float>(0f, 150f)));
 
             const string smelters = "12 - Smelters and kilns", fermenters = "13 - Fermenters", craftingStations = "14 - Crafting stations",

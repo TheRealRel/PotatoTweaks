@@ -386,7 +386,7 @@ namespace PotatoTweaks
 
     // ------------------------------------------------------------------ sneak speed
     // Sneaking is a fixed slow walk. With the Sneak skill it gets faster, up to the set percentage at level 100
-    // (+50%: 2 m/s becomes 3 m/s, still slower than jogging). Not while over-encumbered, which uses the same slow speed.
+    // (+100%: 2 m/s becomes 4 m/s, jogging speed but quiet). Not while over-encumbered, which uses the same slow speed.
     // The idea is from blacks7ar's SNEAKer; written from scratch.
     [HarmonyPatch(typeof(Character), "UpdateWalking")]
     internal static class SneakSpeed

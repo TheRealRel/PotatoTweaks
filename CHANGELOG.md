@@ -5,7 +5,7 @@
 - **Sleeping** (section 24, server): the night is skipped once half the players are in bed or emoting (sitting, or standing still after any emote), with at least one in bed. Only they sleep through it; everyone else keeps playing. Until then, everyone sees how many more are needed.
 - **Status effect list** (section 11, personal, on): status effects show as a compact list under the minimap, one per line with name and time left. Fits any screen size; while sailing, the wind and speed indicators move aside if needed.
 - **Item stands** (section 25, server): any item goes on item stands. Look at a stand and use `itemstand_scale`, `itemstand_rotation`, `itemstand_offset` or `itemstand_hide` in the F5 console to adjust it. Replaces Item Stand All Items; stands adjusted with it keep their adjustments.
-- **Sneak speed** (section 11, server): sneaking gets faster with the Sneak skill, up to +50% at level 100 (still slower than jogging). Not while over-encumbered.
+- **Sneak speed** (section 11, server): sneaking gets faster with the Sneak skill, up to jogging speed (2 m/s to 4 m/s) at level 100. Not while over-encumbered.
 - 1.5.x players can play together. The server needs 1.5.3 for the sleep vote, item stand settings and sneak speed.
 
 ## 1.5.2
