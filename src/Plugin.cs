@@ -35,7 +35,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.6";
+        public const string Version = "1.5.7";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -307,7 +307,7 @@ namespace PotatoTweaks
             TrophyChanceMultiplier = Config.Bind(trophies, "Chance multiplier", 1f,
                 Synced("Multiplies the normal trophy chance before pity. 1 = the game's normal.", new AcceptableValueRange<float>(0f, 10f)));
             TrophyOnlyMine = Config.Bind(trophies, "Only count my kills", true,
-                Synced("Only your kills add pity: your last hit (burning and poison after your hit count), or your tames and summons following you."));
+                Synced("Kills count for the player who made them: the last hit (burning and poison after a hit count), or their tames and summons. This works in multiplayer even when the creature is run by another player's game. On: kills with no player behind them (other creatures, falls, traps) count for no one. Off: they count for the player whose game runs the creature."));
             TrophyOnlyUncollected = Config.Bind(trophies, "Only uncollected trophies", false,
                 Synced("Pity and the chance multiplier only apply to trophies this character has never picked up."));
             TrophyShowChances = Config.Bind(trophies, "Show chances in Trophies tab", true, "Each trophy shows its next drop chance and dry kills. Personal.");

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.7
+- **Trophy pity in multiplayer**: a kill now counts for the player who made it (or whose tames or summons made it), even when the creature is run by another player's game. Before, only the game running the creature rolled pity, so many kills didn't count. That game now rolls the trophy with the killer's dry kills, and the killer's game counts the kill.
+- "Only count my kills" off no longer counts other players' kills for you; they count for them. Kills with no player behind them count for the player whose game runs the creature.
+- Players on 1.5.6 or older can still play with 1.5.7; their kills just get the plain roll when someone else's game runs the creature.
+
 ## 1.5.6
 - **Fix**: with a status effect that has no timer (shelter, warmth), the HUD stopped updating: door and other hover prompts didn't show, and the build health bar stayed on screen. Fixed.
 - **Status effect icons** are back in the game's own place beside the minimap, as icons with their timers and no names. New setting in section 11, "Hide status effect names" (on); switch it off to see the names again. The icon size, timer size and gap settings are gone.

@@ -13,7 +13,7 @@ namespace PotatoTweaks
 {
     // Every kill of a creature that drops no trophy makes its next trophy more likely ("pity"); the count resets when the
     // trophy drops. The counts are per character and kept in BepInEx/config/potato.tweaks.trophies.txt. The roll happens on
-    // the game that runs the creature when it dies, as in the game, so a kill counts on your game when it's yours.
+    // the game that runs the creature when it dies, as in the game, with the killer's pity; the kill counts for the killer.
     // The Trophies tab shows each trophy's next chance, and can show trophies you haven't collected yet in their places.
     internal static class Trophies
     {
@@ -29,7 +29,7 @@ namespace PotatoTweaks
         private static bool loaded;
         private static Dictionary<string, List<KeyValuePair<string, float>>> sourcesByTrophy;
 
-        internal static readonly Type[] Patches = { typeof(Roll), typeof(TrophyTab) };
+        internal static readonly Type[] Patches = { typeof(Roll), typeof(TrophyTab), typeof(PublishOnSpawn), typeof(PublishOnTrophy), typeof(RegisterRpc) };
 
         private static string CharacterKey()
         {
@@ -123,16 +123,154 @@ namespace PotatoTweaks
 
         private static bool Collected(string trophy) => Player.m_localPlayer && Player.m_localPlayer.GetTrophies().Contains(trophy);
 
-        // Whether the kill counts for this game's character: its last hit, or its tames and summons following it.
-        private static bool Mine(Character dead)
+        // ---------------------------------------------------------------- whose kill it is
+        // A creature is run by one player's game, and only that game rolls its drops, so the kill is often someone
+        // else's. Each player's game publishes its dry kills (and, with "Only uncollected trophies", its collected
+        // trophies) on its player, so the game running the creature rolls the trophy with the killer's pity, through
+        // the game's usual drops. It then tells the killer's game, which counts the kill. A killer whose game doesn't
+        // publish (an older version) gets the plain roll, and the kill counts for no one.
+        private const string PublishKey = "PotatoTweaks.TrophyPity", ResultRpc = "PotatoTweaks_TrophyKill";
+        private static string published;
+
+        internal sealed class Killer
         {
-            if (!Plugin.TrophyOnlyMine.Value) return true;
-            var player = Player.m_localPlayer;
+            internal bool Local;
+            internal long Peer;
+            internal Dictionary<string, int> Dry;
+            internal HashSet<string> Collected;
+        }
+
+        // The player who gets the kill: the last hit (burning and poison after a hit count), or the player whose tames
+        // and summons made it.
+        internal static Player KillerOf(Character dead)
+        {
             var attacker = LastHit(dead)?.GetAttacker();
-            if (!player || !attacker) return false;
-            if (attacker == player) return true;
+            if (!attacker) return null;
+            if (attacker is Player player) return player;
             var ai = attacker.GetBaseAI() as MonsterAI;
-            return ai && ai.GetFollowTarget() == player.gameObject;
+            var followed = ai ? ai.GetFollowTarget() : null;
+            return followed ? followed.GetComponent<Player>() : null;
+        }
+
+        // Who the kill counts for: this game's character, another player's (with their published pity), or no one.
+        // A kill with no player behind it counts for this game's character only with "Only count my kills" off.
+        private static Killer Find(Character dead)
+        {
+            var player = KillerOf(dead);
+            var local = Player.m_localPlayer;
+            if (player && player == local) return new Killer { Local = true };
+            if (!player) return Plugin.TrophyOnlyMine.Value || !local ? null : new Killer { Local = true };
+            var zdo = player.GetComponent<ZNetView>()?.GetZDO();
+            string data = zdo?.GetString(PublishKey, "") ?? "";
+            if (data.Length == 0 || zdo.GetOwner() == 0L) return null;
+            return Parse(data, zdo.GetOwner());
+        }
+
+        internal static Killer Parse(string data, long peer)
+        {
+            var killer = new Killer { Peer = peer, Dry = new Dictionary<string, int>(), Collected = new HashSet<string>() };
+            var parts = data.Split('|');
+            if (parts.Length > 1)
+                foreach (var entry in parts[1].Split(','))
+                {
+                    var pair = entry.Split('=');
+                    if (pair.Length == 2 && int.TryParse(pair[1], out int count)) killer.Dry[pair[0]] = count;
+                }
+            if (parts.Length > 2)
+                foreach (var trophy in parts[2].Split(','))
+                    if (trophy.Length > 0) killer.Collected.Add(trophy);
+            return killer;
+        }
+
+        internal static string Format(Dictionary<string, int> dry, IEnumerable<string> collected) =>
+            "1|" + string.Join(",", dry.Where(entry => entry.Value > 0).Select(entry => entry.Key + "=" + entry.Value)) + "|" + string.Join(",", collected);
+
+        // This game's dry kills (and collected trophies, when only uncollected ones get pity) on its player.
+        internal static void Publish()
+        {
+            var player = Player.m_localPlayer;
+            var zdo = player ? player.GetComponent<ZNetView>()?.GetZDO() : null;
+            string character = CharacterKey();
+            if (zdo == null || character == null) return;
+            Load();
+            ImportFromTrophyAssister(character);
+            string data = Format(Set(Dry, character), Plugin.TrophyOnlyUncollected.Value ? player.GetTrophies() : new List<string>());
+            if (data == published && zdo.GetString(PublishKey, "") == data) return;
+            published = data;
+            zdo.Set(PublishKey, data);
+        }
+
+        [HarmonyPatch(typeof(Player), nameof(Player.OnSpawned))]
+        internal static class PublishOnSpawn
+        {
+            private static void Postfix(Player __instance)
+            {
+                if (__instance != Player.m_localPlayer) return;
+                published = null;
+                Publish();
+            }
+        }
+
+        [HarmonyPatch(typeof(Player), "AddTrophy")]
+        internal static class PublishOnTrophy
+        {
+            private static void Postfix(Player __instance)
+            {
+                if (__instance == Player.m_localPlayer && Plugin.TrophyOnlyUncollected.Value) Publish();
+            }
+        }
+
+        // ZRoutedRpc is created anew for every world session, so the handler is registered as each game starts.
+        [HarmonyPatch(typeof(Game), "Start")]
+        internal static class RegisterRpc
+        {
+            private static void Postfix() => ZRoutedRpc.instance?.Register<ZPackage>(ResultRpc, OnResult);
+        }
+
+        // The game running the creature rolled our kill.
+        private static void OnResult(long sender, ZPackage package)
+        {
+            try
+            {
+                string creature = package.ReadString();
+                int stars = package.ReadInt();
+                bool pity = package.ReadBool(), dropped = package.ReadBool();
+                float baseChance = package.ReadSingle();
+                string character = CharacterKey();
+                if (character == null || string.IsNullOrEmpty(creature)) return;
+                Load();
+                ImportFromTrophyAssister(character);
+                Record(character, creature, stars, pity, dropped, baseChance);
+            }
+            catch (Exception e) { Plugin.Log.LogWarning("Trophy kill from another player's game: " + e.Message); }
+        }
+
+        // Counts a kill for this game's character: its dry kills go up, or reset when a trophy dropped.
+        private static void Record(string character, string creature, int stars, bool pity, bool dropped, float baseChance)
+        {
+            Set(Killed, character).Add(creature);
+            if (pity)
+            {
+                var dryKills = Set(Dry, character);
+                if (dropped)
+                {
+                    dryKills.Remove(creature);
+                    if (Plugin.TrophyNotify.Value) Player.m_localPlayer?.Message(MessageHud.MessageType.TopLeft, "Trophy dropped!");
+                }
+                else
+                {
+                    int add = 1 + Mathf.Max(0, stars) * Mathf.Max(0, Plugin.TrophyExtraKillsPerStar.Value);
+                    dryKills.TryGetValue(creature, out int count);
+                    dryKills[creature] = count + add;
+                    if (Plugin.TrophyShowProgress.Value)
+                    {
+                        float chance = Boosted(baseChance, count + add);
+                        Player.m_localPlayer?.Message(MessageHud.MessageType.TopLeft, $"No trophy: {count + add} dry kills, next {chance * 100f:0.#}%");
+                    }
+                }
+            }
+            Save();
+            Publish();
         }
 
         [HarmonyPatch(typeof(CharacterDrop), nameof(CharacterDrop.GenerateDropList))]
@@ -141,6 +279,7 @@ namespace PotatoTweaks
             private sealed class State
             {
                 internal string Creature, Character;
+                internal long Peer;
                 internal List<KeyValuePair<CharacterDrop.Drop, float>> Changed;
             }
 
@@ -148,18 +287,26 @@ namespace PotatoTweaks
             {
                 __state = null;
                 var dead = __instance.GetComponent<Character>();
-                if (!dead || dead.IsPlayer() || !Mine(dead)) return;
-                string character = CharacterKey();
-                if (character == null) return;
-                Load();
-                ImportFromTrophyAssister(character);
+                if (!dead || dead.IsPlayer()) return;
+                var killer = Find(dead);
+                if (killer == null) return;
+                string character = null;
+                Dictionary<string, int> dryKills = killer.Dry;
+                if (killer.Local)
+                {
+                    character = CharacterKey();
+                    if (character == null) return;
+                    Load();
+                    ImportFromTrophyAssister(character);
+                    dryKills = Set(Dry, character);
+                }
                 string creature = Utils.GetPrefabName(dead.gameObject);
-                int dry = Set(Dry, character).TryGetValue(creature, out int count) ? count : 0;
-                __state = new State { Creature = creature, Character = character, Changed = new List<KeyValuePair<CharacterDrop.Drop, float>>() };
+                int dry = dryKills.TryGetValue(creature, out int count) ? count : 0;
+                __state = new State { Creature = creature, Character = character, Peer = killer.Peer, Changed = new List<KeyValuePair<CharacterDrop.Drop, float>>() };
                 foreach (var drop in __instance.m_drops)
                 {
                     if (drop == null || !IsTrophy(drop.m_prefab)) continue;
-                    if (Plugin.TrophyOnlyUncollected.Value && Collected(drop.m_prefab.name)) continue;
+                    if (Plugin.TrophyOnlyUncollected.Value && (killer.Local ? Collected(drop.m_prefab.name) : killer.Collected.Contains(drop.m_prefab.name))) continue;
                     __state.Changed.Add(new KeyValuePair<CharacterDrop.Drop, float>(drop, drop.m_chance));
                     drop.m_chance = Boosted(drop.m_chance, dry);
                 }
@@ -174,29 +321,24 @@ namespace PotatoTweaks
             private static void Postfix(CharacterDrop __instance, List<KeyValuePair<GameObject, int>> __result, State __state)
             {
                 if (__state?.Changed == null) return;
-                Set(Killed, __state.Character).Add(__state.Creature);
-                if (__state.Changed.Count == 0) { Save(); return; }
-                var dryKills = Set(Dry, __state.Character);
-                bool dropped = __result != null && __result.Any(entry => IsTrophy(entry.Key));
-                if (dropped)
+                var dead = __instance.GetComponent<Character>();
+                int stars = dead ? Mathf.Max(0, dead.GetLevel() - 1) : 0;
+                bool pity = __state.Changed.Count > 0;
+                bool dropped = pity && __result != null && __result.Any(entry => IsTrophy(entry.Key));
+                float baseChance = pity ? __state.Changed[0].Value : 0f;
+                if (__state.Character != null)
                 {
-                    dryKills.Remove(__state.Creature);
-                    if (Plugin.TrophyNotify.Value) Player.m_localPlayer?.Message(MessageHud.MessageType.TopLeft, "Trophy dropped!");
+                    Record(__state.Character, __state.Creature, stars, pity, dropped, baseChance);
+                    return;
                 }
-                else
-                {
-                    var dead = __instance.GetComponent<Character>();
-                    int stars = dead ? Mathf.Max(0, dead.GetLevel() - 1) : 0;
-                    int add = 1 + stars * Mathf.Max(0, Plugin.TrophyExtraKillsPerStar.Value);
-                    dryKills.TryGetValue(__state.Creature, out int count);
-                    dryKills[__state.Creature] = count + add;
-                    if (Plugin.TrophyShowProgress.Value)
-                    {
-                        float chance = Boosted(__state.Changed[0].Value, count + add);
-                        Player.m_localPlayer?.Message(MessageHud.MessageType.TopLeft, $"No trophy: {count + add} dry kills, next {chance * 100f:0.#}%");
-                    }
-                }
-                Save();
+                if (ZRoutedRpc.instance == null || __state.Peer == 0L) return;
+                var package = new ZPackage();
+                package.Write(__state.Creature);
+                package.Write(stars);
+                package.Write(pity);
+                package.Write(dropped);
+                package.Write(baseChance);
+                ZRoutedRpc.instance.InvokeRoutedRPC(__state.Peer, ResultRpc, package);
             }
         }
 
