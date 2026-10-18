@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.6
+- **Fix**: with a status effect that has no timer (shelter, warmth), the HUD stopped updating: door and other hover prompts didn't show, and the build health bar stayed on screen. Fixed.
+- **Status effect icons** are back in the game's own place beside the minimap, as icons with their timers and no names. New setting in section 11, "Hide status effect names" (on); switch it off to see the names again. The icon size, timer size and gap settings are gone.
+- 1.5.x players can play together.
+
 ## 1.5.5
 - **Sorting fix**: with Quick Stack - Store - Sort - Trash - Restock, sorting, quick stacking and storing no longer move items in or out of Equipment and Quick Slots' slots (Z, V, B and the equipment slots).
 - Potato Tweaks now reliably notices the original Item Stand All Items or Better Wisps if installed, and keeps its own version off.
