@@ -35,7 +35,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.5";
+        public const string Version = "1.5.6";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -84,11 +84,11 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventorySlotsVisibility, DeathMarkerButton;
         internal static ConfigEntry<int> RowsThirdPrice;
         internal static ConfigEntry<string> RowsThirdBoss;
-        internal static ConfigEntry<int> SleepShare, SleepInBed, StatusEffectTextSize;
-        internal static ConfigEntry<bool> StatusEffectListEnabled;
+        internal static ConfigEntry<int> SleepShare, SleepInBed;
+        internal static ConfigEntry<bool> StatusEffectNamesHidden;
         internal static ConfigEntry<float> QolSneakSpeed, WispRangePerLevel;
         internal static ConfigEntry<int> WispLevels, WispWispsPerLevel, WispSilverPerLevel, WispEitrPerLevel;
-        internal static ConfigEntry<float> StatusEffectIconSize, StatusEffectSpacing, ItemStandMaxOffset, ItemStandMaxScale;
+        internal static ConfigEntry<float> ItemStandMaxOffset, ItemStandMaxScale;
         internal static ConfigEntry<ItemStandItems> ItemStandMode;
         internal static ConfigEntry<string> ItemStandIds, ItemStandTransformations;
         internal static ConfigEntry<bool> ItemStandAdjust, ItemStandLegacy, ItemStandHide, ItemStandCloser;
@@ -217,14 +217,8 @@ namespace PotatoTweaks
                 "When a quick slot uses V, auto-pickup moves to ] (right bracket), so pressing V on an empty quick slot can't switch auto-pickup off. Read at startup. Personal.");
             InventorySlotsVisibility = Config.Bind(qol, "Inventory Slots Visibility", true,
                 "No inventory slot stays hidden: when a window covers equipment, quick, quiver, backpack, chest or inventory-row slots, or pushes them past the screen edge, that window moves just enough to show them, at any screen size from 16:9 to 32:9 and any GUI scale. It moves back when no longer in the way, and each move is noted once in the log. Only looks again when the layout changes. Personal.");
-            StatusEffectListEnabled = Config.Bind(qol, "Status effect list", true,
-                "Status effects show as bigger icons in rows under the minimap, each with its time left under it, instead of a row of small icons with names beside it. Fits the minimap at any screen size and GUI scale; top-right corner in worlds without a map. While sailing, the wind and speed indicators move aside if they would be covered. Personal.");
-            StatusEffectIconSize = Config.Bind(qol, "Status icon size", 48f,
-                new ConfigDescription("Size of the status effect icons under the minimap. Personal.", new AcceptableValueRange<float>(16f, 96f)));
-            StatusEffectTextSize = Config.Bind(qol, "Status timer text size", 18,
-                new ConfigDescription("Size of the time left shown under each status effect icon. Personal.", new AcceptableValueRange<int>(10, 40)));
-            StatusEffectSpacing = Config.Bind(qol, "Status icon gap", 8f,
-                new ConfigDescription("Space between the status effect icons. Personal.", new AcceptableValueRange<float>(0f, 40f)));
+            StatusEffectNamesHidden = Config.Bind(qol, "Hide status effect names", true,
+                "Status effect icons stay where the game puts them, beside the minimap, but without their names (which get cut short). The time left, or the comfort level while resting, still shows on each icon. Personal.");
             QolTamedCrops = Config.Bind(qol, "Tamed animals spare crops", true,
                 Synced("Your tamed animals walking through farm crops and planted bushes don't trample them. Wild animals and attacks still do damage."));
             QolSwimSpeed = Config.Bind(qol, "Swim skill raises swim speed", true,

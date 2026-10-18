@@ -1,6 +1,6 @@
 {
     "name": "PotatoTweaks",
-    "version_number": "1.5.5",
+    "version_number": "1.5.6",
     "website_url": "https://github.com/TheRealRel/PotatoTweaks",
     "description": "QoL and fixes for Valheim servers: camera zoom, longer item drops, tombstone retrieval, skill loss/XP, attack cancel, Epic Loot bounty, enchantment and enchanting-table add-ons, spearfishing, smelter and fermenter tweaks, and more.",
     "dependencies": [
