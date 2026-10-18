@@ -1,8 +1,12 @@
 # Changelog
 
+## 1.5.5
+- **Sorting fix**: with Quick Stack - Store - Sort - Trash - Restock, sorting, quick stacking and storing no longer move items in or out of Equipment and Quick Slots' slots (Z, V, B and the equipment slots).
+- Potato Tweaks now reliably notices the original Item Stand All Items or Better Wisps if installed, and keeps its own version off.
+- 1.5.x players can play together.
+
 ## 1.5.4
 - **Status effect icons**: no more names, which got cut short. Status effects now show as bigger icons in rows under the minimap, each with its time left under it. New settings: icon size (48), timer text size (18) and gap between icons (8).
-- **Sorting fix**: with Quick Stack - Store - Sort - Trash - Restock, sorting, quick stacking and storing no longer move items in or out of Equipment and Quick Slots' slots (Z, V, B and the equipment slots).
 - 1.5.x players can play together.
 
 ## 1.5.3

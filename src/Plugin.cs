@@ -35,7 +35,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.4";
+        public const string Version = "1.5.5";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
