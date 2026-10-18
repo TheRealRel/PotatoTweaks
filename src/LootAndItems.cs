@@ -203,7 +203,8 @@ namespace PotatoTweaks
         {
             private static void Prefix(ItemDrop __instance)
             {
-                if (!Plugin.ItemsFloat.Value || __instance.GetComponent<Floating>() || !__instance.GetComponent<Rigidbody>()) return;
+                // Not for copies the game makes only to show (an item stand's model, a build preview).
+                if (!Plugin.ItemsFloat.Value || ZNetView.m_forceDisableInit || __instance.GetComponent<Floating>() || !__instance.GetComponent<Rigidbody>()) return;
                 if (__instance.m_itemData?.m_shared?.m_name == "fireballattack") return;
                 __instance.gameObject.AddComponent<Floating>().m_waterLevelOffset = 0.5f;
             }

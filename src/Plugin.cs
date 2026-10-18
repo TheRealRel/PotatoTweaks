@@ -83,7 +83,10 @@ namespace PotatoTweaks
         internal static ConfigEntry<string> RowsThirdBoss;
         internal static ConfigEntry<int> SleepShare, SleepInBed, StatusEffectTextSize;
         internal static ConfigEntry<bool> StatusEffectListEnabled;
-        internal static ConfigEntry<float> StatusEffectIconSize, StatusEffectSpacing;
+        internal static ConfigEntry<float> StatusEffectIconSize, StatusEffectSpacing, ItemStandMaxOffset, ItemStandMaxScale;
+        internal static ConfigEntry<ItemStandItems> ItemStandMode;
+        internal static ConfigEntry<string> ItemStandIds, ItemStandTransformations;
+        internal static ConfigEntry<bool> ItemStandAdjust, ItemStandLegacy, ItemStandHide, ItemStandCloser;
         internal static ConfigEntry<SleepVotes> SleepVoteMode;
 
         internal static Harmony HarmonyInstance;
@@ -372,6 +375,26 @@ namespace PotatoTweaks
             SleepInBed = Config.Bind(sleep, "Players in bed needed", 1,
                 Synced("At least this many players must be in an actual bed before emotes count.", new AcceptableValueRange<int>(1, 10)));
 
+            const string stands = "25 - Item stands";
+            ItemStandMode = Config.Bind(stands, "Items allowed", ItemStandItems.All,
+                Synced("Which items go on item stands: All = any item; Compatible = only items that have a stand model; Vanilla = the game's normal."));
+            ItemStandIds = Config.Bind(stands, "Stands", "itemstand,itemstandh,Placeable_HardRock",
+                Synced("Which item stands this applies to, by prefab name, separated by commas: itemstand (wall), itemstandh (horizontal), Placeable_HardRock (pet rock)."));
+            ItemStandAdjust = Config.Bind(stands, "Adjustments", true,
+                Synced("Players can resize, turn and move the item on a stand with the itemstand_scale, itemstand_rotation and itemstand_offset console commands (outside other players' wards), and the default adjustments below apply. Off: items sit as placed. Many adjusted stands can cost some performance."));
+            ItemStandMaxOffset = Config.Bind(stands, "Largest offset", 2f,
+                Synced("Meters an item can be moved from its place with itemstand_offset. 0 = no limit.", new AcceptableValueRange<float>(0f, 20f)));
+            ItemStandMaxScale = Config.Bind(stands, "Largest size", 5f,
+                Synced("Times its normal size an item can be made with itemstand_scale. 0 = no limit.", new AcceptableValueRange<float>(0f, 50f)));
+            ItemStandTransformations = Config.Bind(stands, "Default adjustments", "WolfFang,0,-0.254",
+                Synced("Adjustments for every stand holding an item, separated by |: id,distance,offset_x,offset_y,angle_1,angle_2,angle_3,scale_1,scale_2,scale_3. Example: Wood,0,0,0,0,0,0,2,2,2 shows wood twice as big."));
+            ItemStandLegacy = Config.Bind(stands, "Simple models", false,
+                Synced("Uses the item's first model part only. Try this if items look wrong on stands; some items then can't go on stands or show only part of their model."));
+            ItemStandHide = Config.Bind(stands, "Hide stands holding an item", false,
+                "Hides the stand itself while it holds an item, so only the item shows. itemstand_hide sets this per stand for everyone. Personal.");
+            ItemStandCloser = Config.Bind(stands, "Items closer to the wall", false,
+                "Items sit against the stand instead of slightly in front of it. Personal.");
+
             if (epicLoot)
             {
                 const string table = "20 - Epic Loot enchanting table", enchantments = "21 - Epic Loot enchantments";
@@ -435,6 +458,12 @@ namespace PotatoTweaks
             });
             EnableUnlessInstalled(Trophies.OriginalModId, "TrophyAssister", "trophy pity", () => { foreach (var type in Trophies.Patches) Patch(type); });
             EnableUnlessInstalled(Spearfishing.OriginalModId, "Spearfishing", "spearfishing", () => Patch(typeof(Spearfishing)));
+            EnableUnlessInstalled(ItemStands.OriginalModId, "Item Stand All Items", "item stand settings", () =>
+            {
+                ItemStands.Initialize();
+                foreach (var type in ItemStands.Patches) Patch(type);
+                foreach (var command in ItemStands.Commands()) CommandManager.Instance.AddConsoleCommand(command);
+            });
             EnableUnlessInstalled(LootAndItems.OriginalModId, "DropMoreLoot", "loot and item settings", () =>
             {
                 LootAndItems.Initialize();
