@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.5.8
-- **Recycling** (section 28, server, on): with a crafting station open, Ctrl + right-click an item in your inventory to take it apart at the station it's made at and get half of its materials back, upgrades included (at least one of the main material). Items made by hand are recycled with just the inventory open. The tooltip shows what you'd get. Enchanted items warn first that the enchantment is lost; items on your hotbar ask first (personal setting). Equipped items, food and potions can't be recycled.
+- **Recycling** (section 28, server, on): with a crafting station open, Ctrl + right-click an item in your inventory to take it apart at the station it's made at and get half of its materials back, upgrades included (at least one of the main material). Items made by hand are recycled with just the inventory open. The tooltip shows what you'd get, and a "Ctrl + Right click: Recycle" hint joins the game's key hints at the bottom of the screen while a station is open. Enchanted items warn first that the enchantment is lost; items on your hotbar ask first (personal setting). Equipped items, food and potions can't be recycled.
 - 1.5.x players can play together. Each player's game does its own recycling, with the server's settings.
 
 ## 1.5.7

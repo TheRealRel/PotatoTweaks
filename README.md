@@ -47,7 +47,7 @@ All of these start at the game's normal values, except cart and boat health and 
 | **Skill loss and XP** | How much of each skill is lost on death (0 = nothing, 1 = normal) and an XP multiplier per skill (up to 10). | Server |
 | **Loot and items** | Multipliers for creature, resource and pickable drops (trophies only if you want); item weight; stack size; auto-pickup range; items that float in water. Weight and stack size apply to every copy of an item, crafted, carried or dropped. | Server |
 | **Essence for everyone** | Thunderblood and Frostfire essence always drop from the creatures that carry them, one for each player who was nearby when the creature appeared. | Server |
-| **Recycling** | With a crafting station open, Ctrl + right-click an item in your inventory to take it apart at the station it's made at and get half its materials back (upgrades included). The tooltip shows what you'd get. Enchanted items and hotbar items ask first. | Server (key, hotbar prompt: Player) |
+| **Recycling** | With a crafting station open, Ctrl + right-click an item in your inventory to take it apart at the station it's made at and get half its materials back (upgrades included). The tooltip shows what you'd get, and a key hint shows at the bottom of the screen. Enchanted items and hotbar items ask first. | Server (key, hotbar prompt: Player) |
 | **Smelters, fermenters and stations** | Smelter, kiln and furnace capacity, speed, fuel use and output; fermenter speed and output; crafting station build range. | Server |
 | **Carts and boats** | Carts and boats get more health the higher their builder's Crafting skill: carts up to +400%, boats up to +100%. | Server |
 | **Map** | How far around you the map is revealed as you explore. | Server |

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using TMPro;
 using UnityEngine;
 
 namespace PotatoTweaks
@@ -15,7 +16,7 @@ namespace PotatoTweaks
     // Each player's own game does it, with the server's settings.
     internal static class Recycling
     {
-        internal static readonly Type[] Patches = { typeof(RightClick), typeof(Tooltip) };
+        internal static readonly Type[] Patches = { typeof(RightClick), typeof(Tooltip), typeof(KeyHint) };
 
         // Set when Epic Loot is installed; otherwise any Epic Loot data on the item counts as enchanted.
         internal static Func<ItemDrop.ItemData, bool> Enchanted = item =>
@@ -179,6 +180,49 @@ namespace PotatoTweaks
                 __result += plan.Problem != null
                     ? $"\n\n<color=#999999>Recycle here: {plan.Problem}</color>"
                     : $"\n\n<color=orange>{KeyName()} + right-click: recycle{(plan.Batch > 1 ? " " + plan.Batch : "")} for {Describe(plan)}</color>";
+            }
+        }
+
+        // A hint with the game's other inventory hints at the bottom of the screen, while a crafting station is open.
+        [HarmonyPatch(typeof(KeyHints), "UpdateHints")]
+        internal static class KeyHint
+        {
+            private const string Name = "PotatoTweaks_Recycle";
+            private static GameObject hint;
+            private static bool failed;
+
+            private static void Postfix(KeyHints __instance)
+            {
+                if (failed) return;
+                if (!hint && !Create(__instance)) return;
+                var player = Player.m_localPlayer;
+                bool show = Plugin.RecycleEnabled.Value && player && InventoryGui.IsVisible() && !InventoryGui.instance.IsContainerOpen() &&
+                    player.GetCurrentCraftingStation() && __instance.m_inventoryHints.activeSelf;
+                if (hint.activeSelf != show) hint.SetActive(show);
+            }
+
+            // A copy of one of the game's keyboard hints (a key box and its text).
+            private static bool Create(KeyHints hints)
+            {
+                var keyboard = hints.m_inventoryHints ? hints.m_inventoryHints.GetComponent<UIInputHint>()?.m_mouseKeyboardHint : null;
+                Transform source = null;
+                if (keyboard)
+                    foreach (Transform child in keyboard.transform)
+                        if (child.Find("key_bkg/Key") && child.Find("Text")) { source = child; break; }
+                if (!source)
+                {
+                    failed = true;
+                    Plugin.Log.LogWarning("Recycling: the inventory key hints changed; the recycle hint stays off (the item tooltips still show it).");
+                    return false;
+                }
+                hint = UnityEngine.Object.Instantiate(source.gameObject, source.parent, false);
+                hint.name = Name;
+                foreach (var localize in hint.GetComponentsInChildren<Localize>(true)) UnityEngine.Object.Destroy(localize);
+                hint.transform.Find("key_bkg/Key").GetComponent<TMP_Text>().text = KeyName() + " + Right click";
+                hint.transform.Find("Text").GetComponent<TMP_Text>().text = "Recycle";
+                hint.transform.SetAsLastSibling();
+                hint.SetActive(false);
+                return true;
             }
         }
     }
