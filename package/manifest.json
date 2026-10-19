@@ -2,7 +2,7 @@
     "name": "PotatoTweaks",
     "version_number": "1.5.10",
     "website_url": "https://github.com/TheRealRel/PotatoTweaks",
-    "description": "QoL and fixes for Valheim servers: sleep vote, trophy pity, inventory slot visibility, upgrade glow slider, item stands, Wisplight upgrades, death marker cleanup, essence for everyone, comfort helper, tombstone retrieval, loot settings and more.",
+    "description": "Set out ANY crafted food on the Serving Tray, modded or vanilla! Plus QoL and fixes for Valheim servers: sleep vote, trophy pity, recycling, item stands, Wisplight upgrades, essence for everyone, comfort helper, tombstone retrieval and more.",
     "dependencies": [
         "denikson-BepInExPack_Valheim-5.4.2351",
         "ValheimModding-Jotunn-2.30.2"

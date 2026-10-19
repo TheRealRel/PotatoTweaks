@@ -2,6 +2,8 @@
 
 **These tweaks are for my Potato Server.** It consolidates, fixes and adds things I wanted.
 
+> 🍲 **New: every crafted food on the Serving Tray.** The game only lets you set out its own dishes and feasts. Potato Tweaks makes **every crafted food placeable**, from vanilla and from any food mod (OdinHorse, Wizardry and more): set it out on a table, and anyone can walk up and eat it, just like the game's own dishes. It works with food mods automatically, no setup needed.
+
 > 📜 **Updating?** See the **Changelog** tab to determine if you need to update or not.
 
 🛠️ Source code and bug reports: [github.com/TheRealRel/PotatoTweaks](https://github.com/TheRealRel/PotatoTweaks)
