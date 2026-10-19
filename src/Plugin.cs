@@ -92,8 +92,6 @@ namespace PotatoTweaks
         internal static ConfigEntry<float> RecycleShare;
         internal static ConfigEntry<UnityEngine.KeyCode> RecycleKey;
         internal static ConfigEntry<bool> TrayEnabled;
-        internal static ConfigEntry<int> TrayServings;
-        internal static ConfigEntry<float> TrayDishSize;
         internal static ConfigEntry<int> ItemStackSize;
         internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventorySlotsVisibility, DeathMarkerButton;
         internal static ConfigEntry<int> RowsThirdPrice;
@@ -452,11 +450,7 @@ namespace PotatoTweaks
 
             const string tray = "29 - Serving tray";
             TrayEnabled = Config.Bind(tray, "Every crafted food", true,
-                Synced("The serving tray can set out every crafted food that has no place on it yet, from the game and from other mods. Raw food and food cooked on the cooking station are left out. Takes effect on the next world load."));
-            TrayServings = Config.Bind(tray, "Servings", 5,
-                Synced("How many of the food one tray takes, and how many servings it gives. Takes effect on the next game start.", new AcceptableValueRange<int>(1, 50)));
-            TrayDishSize = Config.Bind(tray, "Dish size", 1f,
-                new ConfigDescription("Size of the dishes on the tray, compared to the feast portions they replace. Personal; takes effect on the next game start.", new AcceptableValueRange<float>(0.25f, 3f)));
+                Synced("The serving tray can set out every crafted food that has no place on it yet, from the game and from other mods, like the game's own dishes: one item, eaten and gone. Raw food and food cooked on the cooking station are left out. Takes effect on the next game start."));
 
             const string wisp = "26 - Wisplight";
             WispLevels = Config.Bind(wisp, "Upgrade levels", 5,

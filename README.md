@@ -49,7 +49,7 @@ All of these start at the game's normal values, except windmill speed, cart and 
 | **Essence for everyone** | Thunderblood and Frostfire essence always drop from the creatures that carry them, one for each player who was nearby when the creature appeared. | Server |
 | **Recycling** | With a crafting station open, Ctrl + right-click an item in your inventory to take it apart at the station it's made at and get half its materials back (upgrades included). The tooltip shows what you'd get, and a key hint shows at the bottom of the screen. Enchanted items and hotbar items ask first. | Server (key, hotbar prompt: Player) |
 | **Smelters, fermenters and stations** | Smelter, kiln and furnace capacity, speed, fuel use and output; windmills mill twice as fast (adjustable, with capacity, output and a minimum wind); fermenter speed and output; crafting station build range. | Server |
-| **Serving tray** | The serving tray can set out every crafted food that has no place on it yet, from the game and from mods like OdinHorse and Wizardry. A tray takes 5 of the food and gives 5 servings, showing the dish until it's eaten. Raw food and food from the cooking station are left out. | Server (dish size: Player) |
+| **Serving tray** | The serving tray can set out every crafted food that has no place on it yet, from the game and from mods like OdinHorse and Wizardry. Like the game's own dishes, each is one item, eaten and gone. Raw food and food from the cooking station are left out. | Server |
 | **Carts and boats** | Carts and boats get more health the higher their builder's Crafting skill: carts up to +400%, boats up to +100%. | Server |
 | **Map** | How far around you the map is revealed as you explore. | Server |
 | **Inventory rows** | Haldor's two inventory rows unlock after the Elder and Bonemass instead of Moder and the Queen, and he sells a third, Roomier pockets, after Yagluth for 3,000 coins. Each is bought once per character. | Server |
@@ -148,8 +148,7 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 | **27 - Comfort** | Comfort tab (and its name), check marks in every tab, comfort in piece descriptions, message when resting (every 10 minutes at most, 4 pieces). | Player |
 | **28 - Recycling** | On; materials returned (50%); upgrades count (on). | Server |
 | | Recycle key (Left Ctrl); confirm hotbar items (on). | Player |
-| **29 - Serving tray** | Every crafted food (on); servings per tray (5). Takes effect on the next game start. | Server |
-| | Dish size (1 = the size of the feast portion it replaces). | Player |
+| **29 - Serving tray** | Every crafted food (on). Takes effect on the next game start. | Server |
 
 Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`.
 

@@ -1,9 +1,9 @@
 # Changelog
 
 ## 1.5.10
-- **Serving tray** (section 29, server, on): the serving tray can now set out every crafted food that has no place on it yet, vanilla dishes and mod foods alike (OdinHorse, Wizardry and others). Each gets its own tray piece built from a feast: it takes 5 of the food and gives 5 servings, and shows the dish until the last serving is eaten. Raw food and food from the cooking station are left out. Servings per tray and dish size are adjustable.
+- **Serving tray** (section 29, server, on): the serving tray can now set out every crafted food that has no place on it yet, vanilla dishes and mod foods alike (OdinHorse, Wizardry and others). Like the game's own dishes, each is one item placed as is, eaten and gone. Raw food and food from the cooking station are left out. Feasts are unchanged.
 - **Windmills** (section 12, server): windmills now mill twice as fast. New settings for windmill speed, flour capacity, output, and a minimum wind so they never stop completely (off by default).
-- 1.5.x players can play together. Everyone needs 1.5.10 to see the new tray pieces others place.
+- 1.5.x players can play together. Everyone needs 1.5.10 to place the new foods.
 
 ## 1.5.9
 - **Quiver back on after death**: with Better Archery and Equipment and Quick Slots, the quiver you wore when you died is put back on when you recover your own grave, so its arrows return to its three slots instead of filling the Z, V and B quick slots. Part of "Tombstone items back in their slots" (section 11).
