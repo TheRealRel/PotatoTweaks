@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.5.10
-- **Serving tray** (section 29, server, on): the serving tray can now set out every crafted food that has no place on it yet, vanilla dishes and mod foods alike (OdinHorse, Wizardry and others). Like the game's own dishes, each is one item placed as is, eaten and gone. Raw food and food from the cooking station are left out. Feasts are unchanged.
+- **Serving tray** (section 29, server, on): the serving tray can now set out every crafted food that has no place on it yet, vanilla dishes and mod foods alike (OdinHorse, Wizardry and others). Like the game's own dishes, each is one item placed as is, eaten and gone. Raw food and food from the cooking station are left out. Feasts are unchanged. If the food tab would go past the build menu's 90 slots, the rest go on a "More food" tab.
 - **Windmills** (section 12, server): windmills now mill twice as fast. New settings for windmill speed, flour capacity, output, and a minimum wind so they never stop completely (off by default).
 - 1.5.x players can play together. Everyone needs 1.5.10 to place the new foods.
 

@@ -16,7 +16,7 @@ namespace PotatoTweaks
     // Every player has Potato Tweaks, so every game adds the same foods.
     internal static class ServingTray
     {
-        private const string TableName = "_FeasterPieceTable";
+        private const string TableName = "_FeasterPieceTable", OverflowTab = "More food";
         internal static readonly Type[] Patches = { typeof(SceneReady), typeof(ItemsReady), typeof(LateFoods) };
 
         private static ObjectDB builtFor;
@@ -108,18 +108,30 @@ namespace PotatoTweaks
                 .GroupBy(item => item.gameObject.name).Select(group => group.First())
                 .OrderBy(item => item.gameObject.name, StringComparer.Ordinal)
                 .ToList();
+            // The build menu shows at most 90 pieces a tab (15 by 6); foods past that go on a second tab.
+            var category = template.GetComponent<Piece>().m_category;
+            int inTab = table.m_pieces.Count(piece => piece && piece.GetComponent<Piece>() && piece.GetComponent<Piece>().m_category == category);
             var added = new List<string>();
+            int overflow = 0;
             foreach (var food in foods)
             {
                 try
                 {
                     if (!MakePlaceable(template, food)) continue;
+                    var piece = food.GetComponent<Piece>();
+                    if (piece.m_category == category && inTab >= PieceTable.m_gridWidth * PieceTable.m_gridHeight)
+                    {
+                        piece.m_category = Jotunn.Managers.PieceManager.Instance.AddPieceCategory(OverflowTab);
+                        overflow++;
+                    }
+                    else if (piece.m_category == category) inTab++;
                     table.m_pieces.Add(food.gameObject);
                     added.Add(food.gameObject.name);
                 }
                 catch (Exception e) { Plugin.Log.LogWarning($"Serving tray: couldn't add {food.gameObject.name}: {e.Message}"); }
             }
-            if (added.Count > 0) Plugin.Log.LogInfo($"Serving tray: added {added.Count} foods (like {template.name}): {string.Join(", ", added)}");
+            if (added.Count > 0) Plugin.Log.LogInfo($"Serving tray: added {added.Count} foods (like {template.name}" +
+                (overflow > 0 ? $", {overflow} on the \"{OverflowTab}\" tab" : "") + $"): {string.Join(", ", added)}");
         }
 
         // Gives the food the piece parts the game's dishes have: a Piece (what the tray shows and charges: the food
