@@ -823,8 +823,9 @@ namespace PotatoTweaks
     }
 
     // ------------------------------------------------------------------ smelters, kilns and furnaces
-    // For smelter-type stations (smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel, windmill and modded
-    // ones built the same way), as they load: ore capacity, fuel capacity, speed and fuel per product. Output multiplies
+    // For smelter-type stations (smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel and modded ones built
+    // the same way), as they load: ore capacity, fuel capacity, speed and fuel per product. Windmills (smelters driven by a
+    // Windmill) get their own speed (2 by default), capacity, output and least wind power instead. Output multiplies
     // what each product gives, on the game that runs the station; a fraction is a chance of one more. Stations listed under
     // "Excluded stations" keep the game's values.
     [HarmonyPatch(typeof(Smelter), "Awake")]
@@ -845,6 +846,12 @@ namespace PotatoTweaks
         private static void Prefix(Smelter __instance)
         {
             if (Excluded(__instance)) return;
+            if (__instance.m_windmill)
+            {
+                __instance.m_maxOre = Scale(__instance.m_maxOre, Plugin.WindmillCapacity.Value);
+                __instance.m_secPerProduct /= Mathf.Max(0.1f, Plugin.WindmillSpeed.Value);
+                return;
+            }
             __instance.m_maxOre = Scale(__instance.m_maxOre, Plugin.SmelterOreCapacity.Value);
             __instance.m_maxFuel = Scale(__instance.m_maxFuel, Plugin.SmelterFuelCapacity.Value);
             __instance.m_fuelPerProduct = Scale(__instance.m_fuelPerProduct, Plugin.SmelterFuelPerProduct.Value);
@@ -859,7 +866,7 @@ namespace PotatoTweaks
 
             private static void Prefix(Smelter __instance, string ore, ref int stack)
             {
-                float factor = Plugin.SmelterOutput.Value;
+                float factor = __instance.m_windmill ? Plugin.WindmillOutput.Value : Plugin.SmelterOutput.Value;
                 if (extra || stack <= 0 || Mathf.Approximately(factor, 1f) || Excluded(__instance)) return;
                 float wanted = stack * Mathf.Max(1f, factor);
                 int total = Mathf.FloorToInt(wanted) + (UnityEngine.Random.value < wanted - Mathf.Floor(wanted) ? 1 : 0);
@@ -878,6 +885,21 @@ namespace PotatoTweaks
 
             private static readonly Action<Smelter, string, int> SpawnMore =
                 AccessTools.MethodDelegate<Action<Smelter, string, int>>(AccessTools.Method(typeof(Smelter), "Spawn"));
+        }
+
+        // A windmill's power follows the wind; this sets the least it runs at. Cover over the sails still counts.
+        [HarmonyPatch(typeof(Windmill), nameof(Windmill.GetPowerOutput))]
+        internal static class WindPower
+        {
+            private static readonly AccessTools.FieldRef<Windmill, float> Cover = AccessTools.FieldRefAccess<Windmill, float>("m_cover");
+
+            private static void Postfix(Windmill __instance, ref float __result)
+            {
+                float least = Mathf.Clamp01(Plugin.WindmillMinWind.Value);
+                if (least <= 0f) return;
+                float floor = (1f - Cover(__instance)) * least;
+                if (__result < floor) __result = floor;
+            }
         }
     }
 

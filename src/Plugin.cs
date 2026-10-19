@@ -37,7 +37,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.9";
+        public const string Version = "1.5.10";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -74,6 +74,7 @@ namespace PotatoTweaks
             QolGraveSlots, QolAutoPickupKey, QolTamedCrops, QolSwimSpeed;
         internal static ConfigEntry<float> QolAttackerRange, QolTreeDust;
         internal static ConfigEntry<string> SmelterExcluded;
+        internal static ConfigEntry<float> WindmillSpeed, WindmillCapacity, WindmillOutput, WindmillMinWind;
         internal static ConfigEntry<float> SmelterOreCapacity, SmelterFuelCapacity, SmelterFuelPerProduct, SmelterOutput, SmelterSpeed, FermenterSpeed, FermenterOutput, StationRange, MapRevealRadius,
             CartHealthBonus, BoatHealthBonus;
         internal static ConfigEntry<bool> FishSpears, FishHarpoons, FishBows, FishCrossbows;
@@ -90,6 +91,9 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> RecycleEnabled, RecycleUpgrades, RecycleConfirmHotbar;
         internal static ConfigEntry<float> RecycleShare;
         internal static ConfigEntry<UnityEngine.KeyCode> RecycleKey;
+        internal static ConfigEntry<bool> TrayEnabled;
+        internal static ConfigEntry<int> TrayServings;
+        internal static ConfigEntry<float> TrayDishSize;
         internal static ConfigEntry<int> ItemStackSize;
         internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventorySlotsVisibility, DeathMarkerButton;
         internal static ConfigEntry<int> RowsThirdPrice;
@@ -240,7 +244,7 @@ namespace PotatoTweaks
             const string smelters = "12 - Smelters and kilns", fermenters = "13 - Fermenters", craftingStations = "14 - Crafting stations",
                 vehicles = "15 - Carts and boats", map = "16 - Map";
             SmelterOreCapacity = Config.Bind(smelters, "Ore capacity", 1f,
-                Synced("Multiplies how much ore (or wood, flax, barley, sap...) smelter-type stations hold: smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel, windmill. 1 = the game's normal, 2 = twice as much. Applies as stations load.",
+                Synced("Multiplies how much ore (or wood, flax, sap...) smelter-type stations hold: smelter, blast furnace, charcoal kiln, eitr refinery, spinning wheel. Windmills have their own settings below. 1 = the game's normal, 2 = twice as much. Applies as stations load.",
                     new AcceptableValueRange<float>(0.5f, 10f)));
             SmelterFuelCapacity = Config.Bind(smelters, "Fuel capacity", 1f,
                 Synced("Multiplies how much fuel (coal, wood) these stations hold. 1 = the game's normal. Applies as stations load.", new AcceptableValueRange<float>(0.5f, 10f)));
@@ -251,8 +255,16 @@ namespace PotatoTweaks
                     new AcceptableValueRange<float>(0.1f, 5f)));
             SmelterOutput = Config.Bind(smelters, "Output", 1f,
                 Synced("Multiplies what each product gives: 2 = two bars per ore, 1.5 = a 50% chance of a second one. 1 = the game's normal.", new AcceptableValueRange<float>(1f, 10f)));
+            WindmillSpeed = Config.Bind(smelters, "Windmill speed", 2f,
+                Synced("Speeds up windmills grinding barley into flour: 2 = half the time. 1 = the game's normal. Applies as windmills load.", new AcceptableValueRange<float>(0.5f, 10f)));
+            WindmillCapacity = Config.Bind(smelters, "Windmill capacity", 1f,
+                Synced("Multiplies how much barley a windmill holds. 1 = the game's normal. Applies as windmills load.", new AcceptableValueRange<float>(0.5f, 10f)));
+            WindmillOutput = Config.Bind(smelters, "Windmill output", 1f,
+                Synced("Multiplies the flour each barley gives: 1.5 = a 50% chance of a second one. 1 = the game's normal.", new AcceptableValueRange<float>(1f, 10f)));
+            WindmillMinWind = Config.Bind(smelters, "Windmill minimum wind", 0f,
+                Synced("The least power a windmill runs at, however calm the wind: 0.5 = never below half speed. Cover over the sails still slows it. 0 = the game's normal.", new AcceptableValueRange<float>(0f, 1f)));
             SmelterExcluded = Config.Bind(smelters, "Excluded stations", "",
-                Synced("Stations these settings leave alone, by prefab name, separated by commas: smelter, blastfurnace, charcoal_kiln, eitrrefinery, piece_spinningwheel, windmill (or a modded station's prefab name)."));
+                Synced("Stations these settings leave alone, by prefab name, separated by commas: smelter, blastfurnace, charcoal_kiln, eitrrefinery, piece_spinningwheel, windmill (or a modded station's prefab name). A windmill listed here ignores the windmill settings too."));
             FermenterSpeed = Config.Bind(fermenters, "Speed", 1f,
                 Synced("Speeds up fermenting: 2 = half the time. 1 = the game's normal. Applies as fermenters load.", new AcceptableValueRange<float>(0.5f, 10f)));
             FermenterOutput = Config.Bind(fermenters, "Output", 1f,
@@ -438,6 +450,14 @@ namespace PotatoTweaks
             RecycleConfirmHotbar = Config.Bind(recycling, "Confirm hotbar items", true,
                 "Ask before recycling an item on your hotbar. Enchanted items always ask. Personal.");
 
+            const string tray = "29 - Serving tray";
+            TrayEnabled = Config.Bind(tray, "Every crafted food", true,
+                Synced("The serving tray can set out every crafted food that has no place on it yet, from the game and from other mods. Raw food and food cooked on the cooking station are left out. Takes effect on the next world load."));
+            TrayServings = Config.Bind(tray, "Servings", 5,
+                Synced("How many of the food one tray takes, and how many servings it gives. Takes effect on the next game start.", new AcceptableValueRange<int>(1, 50)));
+            TrayDishSize = Config.Bind(tray, "Dish size", 1f,
+                new ConfigDescription("Size of the dishes on the tray, compared to the feast portions they replace. Personal; takes effect on the next game start.", new AcceptableValueRange<float>(0.25f, 3f)));
+
             const string wisp = "26 - Wisplight";
             WispLevels = Config.Bind(wisp, "Upgrade levels", 5,
                 Synced("Highest level the Wisplight can be upgraded to at the workbench. Level 1 is the game's own; 1 = not upgradeable, the game's normal.", new AcceptableValueRange<int>(1, 10)));
@@ -502,7 +522,7 @@ namespace PotatoTweaks
             foreach (var type in SleepVote.Patches) Patch(type);
             Patch(typeof(InventorySlotsVisibility));
             Patch(typeof(StatusEffectList));
-            foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings), typeof(SmelterSettings.Output),
+            foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings), typeof(SmelterSettings.Output), typeof(SmelterSettings.WindPower),
                 typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal), typeof(DeathMarkers) })
                 Patch(type);
             Run("Auto-pickup key", AutoPickupKey.Initialize);
@@ -525,6 +545,7 @@ namespace PotatoTweaks
                 foreach (var command in ItemStands.Commands()) CommandManager.Instance.AddConsoleCommand(command);
             });
             foreach (var type in Recycling.Patches) Patch(type);
+            foreach (var type in ServingTray.Patches) Patch(type);
             EnableUnlessInstalled(ComfortHelper.OriginalModId, "ComfortHelper", "comfort helper", () =>
             {
                 foreach (var type in ComfortHelper.Patches) Patch(type);

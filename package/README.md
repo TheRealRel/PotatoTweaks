@@ -40,7 +40,7 @@ Every feature can be switched off on its own. **Server** means the server's sett
 
 ### World and economy
 
-All of these start at the game's normal values, except cart and boat health and the inventory rows.
+All of these start at the game's normal values, except windmill speed, cart and boat health, the inventory rows and the serving tray.
 
 | Feature | What it does | Set by |
 |---|---|---|
@@ -48,7 +48,8 @@ All of these start at the game's normal values, except cart and boat health and 
 | **Loot and items** | Multipliers for creature, resource and pickable drops (trophies only if you want); item weight; stack size; auto-pickup range; items that float in water. Weight and stack size apply to every copy of an item, crafted, carried or dropped. | Server |
 | **Essence for everyone** | Thunderblood and Frostfire essence always drop from the creatures that carry them, one for each player who was nearby when the creature appeared. | Server |
 | **Recycling** | With a crafting station open, Ctrl + right-click an item in your inventory to take it apart at the station it's made at and get half its materials back (upgrades included). The tooltip shows what you'd get, and a key hint shows at the bottom of the screen. Enchanted items and hotbar items ask first. | Server (key, hotbar prompt: Player) |
-| **Smelters, fermenters and stations** | Smelter, kiln and furnace capacity, speed, fuel use and output; fermenter speed and output; crafting station build range. | Server |
+| **Smelters, fermenters and stations** | Smelter, kiln and furnace capacity, speed, fuel use and output; windmills mill twice as fast (adjustable, with capacity, output and a minimum wind); fermenter speed and output; crafting station build range. | Server |
+| **Serving tray** | The serving tray can set out every crafted food that has no place on it yet, from the game and from mods like OdinHorse and Wizardry. A tray takes 5 of the food and gives 5 servings, showing the dish until it's eaten. Raw food and food from the cooking station are left out. | Server (dish size: Player) |
 | **Carts and boats** | Carts and boats get more health the higher their builder's Crafting skill: carts up to +400%, boats up to +100%. | Server |
 | **Map** | How far around you the map is revealed as you explore. | Server |
 | **Inventory rows** | Haldor's two inventory rows unlock after the Elder and Bonemass instead of Moder and the Queen, and he sells a third, Roomier pockets, after Yagluth for 3,000 coins. Each is bought once per character. | Server |
@@ -123,7 +124,7 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 | | Epic Loot skips re-reading unchanged chests (faster). | Player |
 | **11 - Quality of life** | No auto-equip on pickup; hammer menu updates live; health bars with build tools and through mist and trees in a fight (enemies attacking you within 15 m always show); taming progress from afar; tombstone items back in their slots (and the Better Archery quiver back on); auto-pickup moves off V when a quick slot uses it; Inventory Slots Visibility; status effect icons without names. | Player |
 | | Tamed animals don't trample crops; Swim skill raises swim speed; Sneak skill raises sneak speed (+100% at level 100, adjustable). | Server |
-| **12 - Smelters and kilns** | Multipliers (1 = normal) for ore capacity, fuel capacity, speed, fuel used per bar and output, plus stations to leave alone. | Server |
+| **12 - Smelters and kilns** | Multipliers (1 = normal) for ore capacity, fuel capacity, speed, fuel used per bar and output, plus stations to leave alone. Windmills: speed (2 = half the time), capacity and output (1 = normal), and a minimum wind (0 = off) so they never stop completely. | Server |
 | **13 - Fermenters** | Speed and output multipliers (1 = normal). | Server |
 | **14 - Crafting stations** | Build range multiplier (1 = normal). | Server |
 | **15 - Carts and boats** | Extra health from the builder's Crafting skill: carts up to +400%, boats up to +100% at skill 100. 0 = off. | Server |
@@ -147,6 +148,8 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 | **27 - Comfort** | Comfort tab (and its name), check marks in every tab, comfort in piece descriptions, message when resting (every 10 minutes at most, 4 pieces). | Player |
 | **28 - Recycling** | On; materials returned (50%); upgrades count (on). | Server |
 | | Recycle key (Left Ctrl); confirm hotbar items (on). | Player |
+| **29 - Serving tray** | Every crafted food (on); servings per tray (5). Takes effect on the next game start. | Server |
+| | Dish size (1 = the size of the feast portion it replaces). | Player |
 
 Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`.
 
