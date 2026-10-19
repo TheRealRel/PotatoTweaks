@@ -121,7 +121,7 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 | | Small health bar over bounty targets. | Player |
 | **10 - Bug fixes** | Fixes for game bugs and Epic Loot enchantments. Restart after changing; keep them the same everywhere. | Every game alike |
 | | Epic Loot skips re-reading unchanged chests (faster). | Player |
-| **11 - Quality of life** | No auto-equip on pickup; hammer menu updates live; health bars with build tools and through mist and trees in a fight (enemies attacking you within 15 m always show); taming progress from afar; tombstone items back in their slots; auto-pickup moves off V when a quick slot uses it; Inventory Slots Visibility; status effect icons without names. | Player |
+| **11 - Quality of life** | No auto-equip on pickup; hammer menu updates live; health bars with build tools and through mist and trees in a fight (enemies attacking you within 15 m always show); taming progress from afar; tombstone items back in their slots (and the Better Archery quiver back on); auto-pickup moves off V when a quick slot uses it; Inventory Slots Visibility; status effect icons without names. | Player |
 | | Tamed animals don't trample crops; Swim skill raises swim speed; Sneak skill raises sneak speed (+100% at level 100, adjustable). | Server |
 | **12 - Smelters and kilns** | Multipliers (1 = normal) for ore capacity, fuel capacity, speed, fuel used per bar and output, plus stations to leave alone. | Server |
 | **13 - Fermenters** | Speed and output multipliers (1 = normal). | Server |

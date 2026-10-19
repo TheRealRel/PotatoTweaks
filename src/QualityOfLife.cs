@@ -26,7 +26,7 @@ namespace PotatoTweaks
         };
 
         internal static readonly Type[] GravePatches =
-            { typeof(GraveSlotRecovery.RecordRows), typeof(GraveSlotRecovery.AutomaticPickup), typeof(GraveSlotRecovery.TakeAll) };
+            { typeof(GraveSlotRecovery.RecordRows), typeof(GraveSlotRecovery.AutomaticPickup), typeof(GraveSlotRecovery.TakeAll), typeof(GraveSlotRecovery.RememberQuiver) };
 
         internal static readonly AccessTools.FieldRef<Character, ZNetView> CharacterView = AccessTools.FieldRefAccess<Character, ZNetView>("m_nview");
         internal static readonly AccessTools.FieldRef<Player, int> InteractMask = AccessTools.FieldRefAccess<Player, int>("m_interactMask");
@@ -495,9 +495,102 @@ namespace PotatoTweaks
         {
             private static void Postfix(long ownerUID, ZNetView ___m_nview)
             {
-                if (VisibleRows != null && ___m_nview != null && ___m_nview.IsValid() && Game.instance && ownerUID == Game.instance.GetPlayerProfile().GetPlayerID())
-                    ___m_nview.GetZDO().Set(GraveRows, VisibleRows());
+                if (___m_nview == null || !___m_nview.IsValid() || !Game.instance || ownerUID != Game.instance.GetPlayerProfile().GetPlayerID()) return;
+                if (VisibleRows != null) ___m_nview.GetZDO().Set(GraveRows, VisibleRows());
+                if (quiverAtDeath != null) ___m_nview.GetZDO().Set(GraveQuiver, quiverAtDeath);
+                quiverAtDeath = null;
             }
+        }
+
+        // ------------------------------------------------------------------ the Better Archery quiver
+        // Dying takes the quiver off, so its three ammo slots close and the arrows from them land wherever there is room
+        // (often the Z, V and B quick slots). The quiver worn at death is put back on first when you recover your own
+        // grave, so its arrows return to its slots with everything else.
+        private const string GraveQuiver = "PotatoTweaks.GraveQuiver";
+        private static string quiverAtDeath;
+        private static Func<bool> quiverWorn;
+        private static Func<ItemDrop.ItemData, bool> isSlotItem;
+        private static Func<ItemDrop.ItemData, string> slotName;
+        private static bool quiverLooked;
+
+        private static bool QuiverReady()
+        {
+            if (quiverLooked) return quiverWorn != null;
+            quiverLooked = true;
+            try
+            {
+                if (!Chainloader.PluginInfos.TryGetValue("ishid4.mods.betterarchery", out var archery)) return false;
+                var assembly = archery.Instance.GetType().Assembly;
+                var slots = assembly.GetType("Common.CustomSlotCreator");
+                var worn = AccessTools.Method(archery.Instance.GetType(), "IsQuiverEquipped");
+                var isItem = slots == null ? null : AccessTools.Method(slots, "IsCustomSlotItem", new[] { typeof(ItemDrop.ItemData) });
+                var name = slots == null ? null : AccessTools.Method(slots, "GetCustomSlotName", new[] { typeof(ItemDrop.ItemData) });
+                if (worn == null || isItem == null || name == null)
+                {
+                    Plugin.Log.LogWarning("Better Archery's quiver changed; the quiver isn't put back on when recovering a grave.");
+                    return false;
+                }
+                isSlotItem = AccessTools.MethodDelegate<Func<ItemDrop.ItemData, bool>>(isItem);
+                slotName = AccessTools.MethodDelegate<Func<ItemDrop.ItemData, string>>(name);
+                quiverWorn = AccessTools.MethodDelegate<Func<bool>>(worn);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Plugin.Log.LogWarning("Couldn't read Better Archery's quiver: " + e.Message);
+                return false;
+            }
+        }
+
+        private static bool IsQuiver(ItemDrop.ItemData item) => item != null && isSlotItem(item) && slotName(item) == "quiver";
+
+        [HarmonyPatch(typeof(Player), nameof(Player.CreateTombStone))]
+        internal static class RememberQuiver
+        {
+            private static void Prefix(Player __instance)
+            {
+                quiverAtDeath = null;
+                if (__instance != Player.m_localPlayer || !Plugin.QolGraveSlots.Value || !QuiverReady()) return;
+                try
+                {
+                    if (!quiverWorn()) return;
+                    var quiver = __instance.GetInventory().GetEquippedItems().FirstOrDefault(IsQuiver);
+                    if (quiver != null) quiverAtDeath = $"{quiver.m_gridPos.x},{quiver.m_gridPos.y},{quiver.m_shared.m_name}";
+                }
+                catch (Exception e) { Plugin.Log.LogWarning("Couldn't note the quiver at death: " + e.Message); }
+            }
+        }
+
+        // Moves the quiver from the grave to where it was and puts it on, before anything else comes back.
+        private static void WearQuiverAgain(Container container, ZDO record)
+        {
+            string saved = record.GetString(GraveQuiver, "");
+            if (saved.Length == 0 || !QuiverReady()) return;
+            var parts = saved.Split(new[] { ',' }, 3);
+            if (parts.Length != 3 || !int.TryParse(parts[0], out int x) || !int.TryParse(parts[1], out int y)) return;
+            var player = Player.m_localPlayer;
+            var grave = container.GetInventory();
+            var quiver = grave.GetAllItems().FirstOrDefault(item => item.m_shared.m_name == parts[2] && IsQuiver(item) &&
+                item.m_gridPos.x == x && item.m_gridPos.y == y) ?? grave.GetAllItems().FirstOrDefault(item => item.m_shared.m_name == parts[2] && IsQuiver(item));
+            record.Set(GraveQuiver, "");
+            if (quiver == null || quiverWorn()) return;
+            var inventory = player.GetInventory();
+            var cell = new Vector2i(x, y);
+            if (x < 0 || y < 0 || x >= inventory.GetWidth() || y >= inventory.GetHeight() || inventory.GetItemAt(x, y) != null || !Fits(cell, quiver))
+            {
+                cell = new Vector2i(-1, -1);
+                for (int row = 0; row < inventory.GetHeight() && cell.x < 0; row++)
+                    for (int column = 0; column < inventory.GetWidth(); column++)
+                        if (inventory.GetItemAt(column, row) == null && SlotAt?.Invoke(new Vector2i(column, row)) == null) { cell = new Vector2i(column, row); break; }
+                if (cell.x < 0) return;
+            }
+            if (!grave.RemoveItem(quiver)) return;
+            if (!inventory.AddItem(quiver, cell))
+            {
+                grave.AddItem(quiver);
+                return;
+            }
+            player.EquipItem(quiver, false);
         }
 
         [HarmonyPatch(typeof(Container), "RPC_TakeAllResponse")]
@@ -525,6 +618,7 @@ namespace PotatoTweaks
             try
             {
                 var record = grave.GetComponent<ZNetView>().GetZDO();
+                WearQuiverAgain(container, record);
                 int deathRows = record.GetInt(GraveRows), bought = VisibleRows != null && deathRows > 0 ? VisibleRows() - deathRows : 0;
                 if (bought > 0) Lower(container.GetInventory(), deathRows, bought);
                 if (!MakeRoom(container))
