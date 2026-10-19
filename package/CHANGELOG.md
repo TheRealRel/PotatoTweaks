@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.8
+- **Recycling** (section 28, server, on): with a crafting station open, Ctrl + right-click an item in your inventory to take it apart at the station it's made at and get half of its materials back, upgrades included (at least one of the main material). Items made by hand are recycled with just the inventory open. The tooltip shows what you'd get. Enchanted items warn first that the enchantment is lost; items on your hotbar ask first (personal setting). Equipped items, food and potions can't be recycled.
+- 1.5.x players can play together. Each player's game does its own recycling, with the server's settings.
+
 ## 1.5.7
 - **Trophy pity in multiplayer**: a kill now counts for the player who made it (or whose tames or summons made it), even when the creature is run by another player's game. Before, only the game running the creature rolled pity, so many kills didn't count. That game now rolls the trophy with the killer's dry kills, and the killer's game counts the kill.
 - "Only count my kills" off no longer counts other players' kills for you; they count for them. Kills with no player behind them count for the player whose game runs the creature.

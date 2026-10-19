@@ -47,6 +47,7 @@ All of these start at the game's normal values, except cart and boat health and 
 | **Skill loss and XP** | How much of each skill is lost on death (0 = nothing, 1 = normal) and an XP multiplier per skill (up to 10). | Server |
 | **Loot and items** | Multipliers for creature, resource and pickable drops (trophies only if you want); item weight; stack size; auto-pickup range; items that float in water. Weight and stack size apply to every copy of an item, crafted, carried or dropped. | Server |
 | **Essence for everyone** | Thunderblood and Frostfire essence always drop from the creatures that carry them, one for each player who was nearby when the creature appeared. | Server |
+| **Recycling** | With a crafting station open, Ctrl + right-click an item in your inventory to take it apart at the station it's made at and get half its materials back (upgrades included). The tooltip shows what you'd get. Enchanted items and hotbar items ask first. | Server (key, hotbar prompt: Player) |
 | **Smelters, fermenters and stations** | Smelter, kiln and furnace capacity, speed, fuel use and output; fermenter speed and output; crafting station build range. | Server |
 | **Carts and boats** | Carts and boats get more health the higher their builder's Crafting skill: carts up to +400%, boats up to +100%. | Server |
 | **Map** | How far around you the map is revealed as you explore. | Server |
@@ -144,6 +145,8 @@ Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimm
 | | Hide stands holding an item; items closer to the wall. | Player |
 | **26 - Wisplight** | Upgrade levels (5; 1 = the game's normal); extra clearing per level (5 m); wisps, silver and eitr per upgrade (5, 10, 0), rising with the level like the game's upgrade costs. | Server |
 | **27 - Comfort** | Comfort tab (and its name), check marks in every tab, comfort in piece descriptions, message when resting (every 10 minutes at most, 4 pieces). | Player |
+| **28 - Recycling** | On; materials returned (50%); upgrades count (on). | Server |
+| | Recycle key (Left Ctrl); confirm hotbar items (on). | Player |
 
 Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`.
 

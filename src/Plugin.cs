@@ -37,7 +37,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.7";
+        public const string Version = "1.5.8";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -87,6 +87,9 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> ComfortTab, ComfortChecksEverywhere, ComfortHoverInfo, ComfortRestingMessage;
         internal static ConfigEntry<string> ComfortTabName;
         internal static ConfigEntry<int> ComfortSuggestions;
+        internal static ConfigEntry<bool> RecycleEnabled, RecycleUpgrades, RecycleConfirmHotbar;
+        internal static ConfigEntry<float> RecycleShare;
+        internal static ConfigEntry<UnityEngine.KeyCode> RecycleKey;
         internal static ConfigEntry<int> ItemStackSize;
         internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventorySlotsVisibility, DeathMarkerButton;
         internal static ConfigEntry<int> RowsThirdPrice;
@@ -424,6 +427,17 @@ namespace PotatoTweaks
             ComfortSuggestions = Config.Bind(comfort, "Pieces in the message", 4,
                 new ConfigDescription("Pieces listed in the resting message (/comfort lists all). Personal.", new AcceptableValueRange<int>(1, 20)));
 
+            const string recycling = "28 - Recycling";
+            RecycleEnabled = Config.Bind(recycling, "Recycling", true,
+                Synced("With a crafting station open, Ctrl + right-click an item in your inventory to take it apart at the station it is made at and get back part of its materials. Items made by hand are recycled with just the inventory open."));
+            RecycleShare = Config.Bind(recycling, "Materials returned", 50f,
+                Synced("Percent of the materials given back, rounded down (at least one of the main material).", new AcceptableValueRange<float>(0f, 100f)));
+            RecycleUpgrades = Config.Bind(recycling, "Count upgrades", true,
+                Synced("Upgrades count toward what's given back. The idols and other materials only the Forge of Potential uses aren't returned."));
+            RecycleKey = Config.Bind(recycling, "Recycle key", UnityEngine.KeyCode.LeftControl, "Hold this and right-click an item to recycle it. Personal.");
+            RecycleConfirmHotbar = Config.Bind(recycling, "Confirm hotbar items", true,
+                "Ask before recycling an item on your hotbar. Enchanted items always ask. Personal.");
+
             const string wisp = "26 - Wisplight";
             WispLevels = Config.Bind(wisp, "Upgrade levels", 5,
                 Synced("Highest level the Wisplight can be upgraded to at the workbench. Level 1 is the game's own; 1 = not upgradeable, the game's normal.", new AcceptableValueRange<int>(1, 10)));
@@ -510,6 +524,7 @@ namespace PotatoTweaks
                 foreach (var type in ItemStands.Patches) Patch(type);
                 foreach (var command in ItemStands.Commands()) CommandManager.Instance.AddConsoleCommand(command);
             });
+            foreach (var type in Recycling.Patches) Patch(type);
             EnableUnlessInstalled(ComfortHelper.OriginalModId, "ComfortHelper", "comfort helper", () =>
             {
                 foreach (var type in ComfortHelper.Patches) Patch(type);

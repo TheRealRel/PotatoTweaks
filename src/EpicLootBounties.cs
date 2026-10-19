@@ -32,6 +32,7 @@ namespace PotatoTweaks
         // Called only when Epic Loot is loaded, so nothing here touches Epic Loot's types otherwise.
         internal static void Enable(Action<Type> patch, Action<string, Action> run)
         {
+            Recycling.Enchanted = item => item != null && item.IsMagic();
             patch(typeof(TripleShotCancel));
             patch(typeof(BountyCompletion));
             patch(typeof(ExistingBountyCompletion));
