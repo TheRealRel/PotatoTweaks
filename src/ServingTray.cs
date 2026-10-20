@@ -17,7 +17,10 @@ namespace PotatoTweaks
     internal static class ServingTray
     {
         private const string TableName = "_FeasterPieceTable", OverflowTab = "More food";
-        internal static readonly Type[] Patches = { typeof(SceneReady), typeof(ItemsReady), typeof(LateFoods) };
+        internal static readonly Type[] Patches = { typeof(SceneReady), typeof(ItemsReady), typeof(LateFoods), typeof(PlacedLook), typeof(EatPrompt) };
+
+        // The foods this made placeable.
+        private static readonly HashSet<string> Ours = new HashSet<string>();
 
         private static ObjectDB builtFor;
         private static ZNetScene builtIn;
@@ -92,8 +95,9 @@ namespace PotatoTweaks
                 var feast = piece.GetComponentInChildren<Feast>(true);
                 var food = item ? item : feast ? feast.m_foodItem : null;
                 if (food) covered.Add(food.m_itemData.m_shared.m_name);
-                // One of the game's dishes: a food item that is placed as is.
-                if (!template && item && IsFood(item) && piece.GetComponent<Piece>() && piece.GetComponent<WearNTear>() && !feast)
+                // One of the game's dishes: a food item that is placed as is (preferably a steaming one).
+                if (item && IsFood(item) && piece.GetComponent<Piece>() && piece.GetComponent<WearNTear>() && !feast &&
+                    (!template || (!template.GetComponent<ItemDrop>().m_pieceEnableObj && item.m_pieceEnableObj)))
                     template = piece;
             }
             if (!template)
@@ -152,12 +156,81 @@ namespace PotatoTweaks
             piece.m_name = shared.m_name;
             piece.m_description = shared.m_description;
             if (shared.m_icons != null && shared.m_icons.Length > 0) piece.m_icon = shared.m_icons[0];
+            // Steam over the dish once it's set out, copied from the game's dish and raised to the top of the food.
+            var steam = template.GetComponent<ItemDrop>().m_pieceEnableObj;
+            if (!food.m_pieceEnableObj && steam)
+            {
+                var copy = UnityEngine.Object.Instantiate(steam, prefab.transform, false);
+                copy.name = "PotatoTweaks_Steam";
+                copy.SetActive(false);
+                var top = Top(template, steam);
+                var own = Top(prefab, copy);
+                if (top.HasValue && own.HasValue)
+                {
+                    float above = steam.transform.localPosition.y - top.Value.y;
+                    copy.transform.localPosition = new Vector3(own.Value.x, own.Value.y + above, own.Value.z);
+                }
+                food.m_pieceEnableObj = copy;
+            }
+            Ours.Add(prefab.name);
             var first = template.GetComponent<Piece>().m_resources?.FirstOrDefault();
             piece.m_resources = new[]
             {
                 new Piece.Requirement { m_resItem = food, m_amount = 1, m_amountPerLevel = 0, m_recover = first?.m_recover ?? true },
             };
             return true;
+        }
+
+        // The top centre of an object's meshes, in its own space (leaving out one part, like the steam).
+        private static Vector3? Top(GameObject root, GameObject leaveOut)
+        {
+            Bounds? total = null;
+            foreach (var filter in root.GetComponentsInChildren<MeshFilter>(true))
+            {
+                if (!filter.sharedMesh || (leaveOut && filter.transform.IsChildOf(leaveOut.transform))) continue;
+                var local = filter.sharedMesh.bounds;
+                var matrix = root.transform.worldToLocalMatrix * filter.transform.localToWorldMatrix;
+                for (int corner = 0; corner < 8; corner++)
+                {
+                    var sign = new Vector3((corner & 1) == 0 ? -1 : 1, (corner & 2) == 0 ? -1 : 1, (corner & 4) == 0 ? -1 : 1);
+                    var point = matrix.MultiplyPoint3x4(local.center + Vector3.Scale(local.extents, sign));
+                    if (total.HasValue) { var grown = total.Value; grown.Encapsulate(point); total = grown; }
+                    else total = new Bounds(point, Vector3.zero);
+                }
+            }
+            return total.HasValue ? new Vector3(total.Value.center.x, total.Value.max.y, total.Value.center.z) : (Vector3?)null;
+        }
+
+        // Set out, the dish loses the sparkles a dropped item has, as the game's dishes do.
+        [HarmonyPatch(typeof(ItemDrop), nameof(ItemDrop.MakePiece))]
+        internal static class PlacedLook
+        {
+            private static void Postfix(ItemDrop __instance)
+            {
+                if (!__instance || __instance.m_pieceDisabledObj || !Ours.Contains(Utils.GetPrefabName(__instance.gameObject))) return;
+                foreach (var particles in __instance.GetComponentsInChildren<ParticleSystem>(true))
+                {
+                    var at = particles.gameObject;
+                    if (at == __instance.gameObject || (__instance.m_pieceEnableObj && at.transform.IsChildOf(__instance.m_pieceEnableObj.transform))) continue;
+                    if (at.GetComponent<MeshFilter>()) continue;
+                    at.SetActive(false);
+                }
+            }
+        }
+
+        // Epic Loot replaces every item's hover text with "Pick up", even on a dish that's set out (pressing it still
+        // eats). This puts the game's eat or drink prompt back on set-out dishes, the game's own included.
+        [HarmonyPatch(typeof(ItemDrop), nameof(ItemDrop.GetHoverText))]
+        internal static class EatPrompt
+        {
+            [HarmonyPriority(Priority.Last)]
+            private static void Postfix(ItemDrop __instance, ref string __result)
+            {
+                var shared = __instance ? __instance.m_itemData?.m_shared : null;
+                if (shared == null || shared.m_itemType != ItemDrop.ItemData.ItemType.Consumable || !__instance.IsPiece()) return;
+                __result = Localization.instance.Localize(shared.m_name + "\n[<color=yellow><b>$KEY_Use</b></color>] " +
+                    (shared.m_isDrink ? "$item_drink" : "$item_eat"));
+            }
         }
 
         // Copies a component's settings. Anything pointing into the dish's own model (its worn and broken looks, for
