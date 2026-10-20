@@ -21,9 +21,8 @@ namespace PotatoHammer
     [NetworkCompatibility(CompatibilityLevel.NotEnforced, VersionStrictness.None)]
     public class Plugin : BaseUnityPlugin
     {
-        public const string Id = "potato.hammer", Version = "1.0.0";
+        public const string Id = "potato.hammer", Version = "1.0.1";
         private const string TabsSection = "2 - Tabs";
-        private const int TabSize = PieceTable.m_gridWidth * PieceTable.m_gridHeight;
 
         internal static ManualLogSource Log;
         private static Plugin instance;
@@ -32,6 +31,7 @@ namespace PotatoHammer
         private static readonly Dictionary<string, ConfigEntry<string>> TabNames = new Dictionary<string, ConfigEntry<string>>();
         // Each piece's own tab, from before it was first moved, so switching a mod off puts its pieces back.
         private static readonly Dictionary<Piece, Piece.PieceCategory> Original = new Dictionary<Piece, Piece.PieceCategory>();
+        private static readonly Dictionary<Piece, Piece.UsageTagFlags> OriginalUsage = new Dictionary<Piece, Piece.UsageTagFlags>();
         private static string lastSummary;
 
         private void Awake()
@@ -79,14 +79,52 @@ namespace PotatoHammer
             if (key.Length == 0) key = Clean(mod.GUID);
             if (!TabNames.TryGetValue(key, out var entry))
             {
-                entry = instance.Config.Bind(TabsSection, key, key,
+                entry = instance.Config.Bind(TabsSection, key, Spaced(key),
                     $"Tab for {mod.Name}'s hammer pieces ({mod.GUID}). Mods with the same tab name share it; empty = leave its pieces where the mod put them.");
                 TabNames[key] = entry;
             }
             var skip = leaveAlone.Value.Split(',').Select(part => part.Trim()).Where(part => part.Length > 0);
             if (skip.Any(part => part.Equals(key, StringComparison.OrdinalIgnoreCase) || part.Equals(mod.GUID, StringComparison.OrdinalIgnoreCase))) return null;
             string tab = entry.Value.Trim();
+            // Left at the mod's own name (the first version's default): shown with spaces, "Boat Additions".
+            if (tab == key) tab = Spaced(key);
             return tab.Length > 0 ? tab : null;
+        }
+
+        // "BoatAdditions" -> "Boat Additions"; names that already have spaces stay as they are.
+        private static string Spaced(string name)
+        {
+            if (name.Contains(" ")) return name;
+            var text = new System.Text.StringBuilder();
+            for (int i = 0; i < name.Length; i++)
+            {
+                char c = name[i];
+                if (c == '_' || c == '-') { text.Append(' '); continue; }
+                if (i > 0 && char.IsUpper(c) && (char.IsLower(name[i - 1]) || (i + 1 < name.Length && char.IsLower(name[i + 1]) && char.IsUpper(name[i - 1]))))
+                    text.Append(' ');
+                text.Append(c);
+            }
+            return text.ToString().Trim();
+        }
+
+        // A build menu tab Jotunn lists. If another mod already made a category with that name, Jotunn reuses it
+        // without listing it, so the tab gets a name of its own that looks the same (an invisible character added).
+        private static Piece.PieceCategory Category(string tab)
+        {
+            var category = PieceManager.Instance.AddPieceCategory(tab);
+            if (Listed(tab)) return category;
+            var own = PieceManager.Instance.AddPieceCategory(tab + "\u200B");
+            return Listed(tab + "\u200B") ? own : category;
+        }
+
+        private static bool Listed(string name)
+        {
+            try
+            {
+                var names = Traverse.Create(PieceManager.Instance).Field("PieceCategories").GetValue() as Dictionary<string, Piece.PieceCategory>;
+                return names == null || names.ContainsKey(name);
+            }
+            catch (Exception) { return true; }
         }
 
         private static Dictionary<string, string> Extras()
@@ -112,7 +150,6 @@ namespace PotatoHammer
             }
             catch (Exception) { }
             var extras = Extras();
-            var counts = new Dictionary<string, int>();
             var summary = new SortedDictionary<string, int>();
             var unknown = new List<string>();
             foreach (var prefab in table.m_pieces)
@@ -120,6 +157,7 @@ namespace PotatoHammer
                 var piece = prefab ? prefab.GetComponent<Piece>() : null;
                 if (!piece) continue;
                 if (!Original.TryGetValue(piece, out var own)) Original[piece] = own = piece.m_category;
+                if (!OriginalUsage.TryGetValue(piece, out var ownUsage)) OriginalUsage[piece] = ownUsage = piece.m_usage;
                 string tab = null;
                 if (sortOn.Value)
                 {
@@ -134,15 +172,17 @@ namespace PotatoHammer
                 if (tab == null)
                 {
                     piece.m_category = own;
+                    piece.m_usage = ownUsage;
                     continue;
                 }
-                // The build menu shows 90 pieces a tab; a mod with more gets "Name 2", "Name 3"...
-                counts.TryGetValue(tab, out int count);
-                counts[tab] = count + 1;
-                string shown = count < TabSize ? tab : $"{tab} {count / TabSize + 1}";
-                piece.m_category = PieceManager.Instance.AddPieceCategory(shown);
-                summary.TryGetValue(shown, out int inTab);
-                summary[shown] = inTab + 1;
+                // The build menu's categories list a piece under every tag it carries. Mods tag their pieces with the
+                // game's categories (Walls, Building...) and with tags of their own, and mods built on the same piece
+                // library all give their own tag the same number, so their pieces showed up under each other's names
+                // (CollectorSeries, BoatAdditions, SimpleElevators). A moved piece keeps only its mod's tab.
+                piece.m_category = Category(tab);
+                piece.m_usage = 0;
+                summary.TryGetValue(tab, out int inTab);
+                summary[tab] = inTab + 1;
             }
             string text = summary.Count == 0 ? "no mod pieces moved" : string.Join(", ", summary.Select(pair => $"{pair.Key} ({pair.Value})"));
             if (text != lastSummary)
