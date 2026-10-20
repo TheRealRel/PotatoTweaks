@@ -97,7 +97,7 @@ namespace PotatoTweaks
                 if (food) covered.Add(food.m_itemData.m_shared.m_name);
                 // One of the game's dishes: a food item that is placed as is (preferably a steaming one).
                 if (item && IsFood(item) && piece.GetComponent<Piece>() && piece.GetComponent<WearNTear>() && !feast &&
-                    (!template || (!template.GetComponent<ItemDrop>().m_pieceEnableObj && item.m_pieceEnableObj)))
+                    (!template || (!SteamOf(template) && SteamOf(piece))))
                     template = piece;
             }
             if (!template)
@@ -134,7 +134,7 @@ namespace PotatoTweaks
                 }
                 catch (Exception e) { Plugin.Log.LogWarning($"Serving tray: couldn't add {food.gameObject.name}: {e.Message}"); }
             }
-            if (added.Count > 0) Plugin.Log.LogInfo($"Serving tray: added {added.Count} foods (like {template.name}" +
+            if (added.Count > 0) Plugin.Log.LogInfo($"Serving tray: added {added.Count} foods (like {template.name}, steam {(SteamOf(template) ? SteamOf(template).name : "none")}" +
                 (overflow > 0 ? $", {overflow} on the \"{OverflowTab}\" tab" : "") + $"): {string.Join(", ", added)}");
         }
 
@@ -157,8 +157,10 @@ namespace PotatoTweaks
             piece.m_description = shared.m_description;
             if (shared.m_icons != null && shared.m_icons.Length > 0) piece.m_icon = shared.m_icons[0];
             // Steam over the dish once it's set out, copied from the game's dish and raised to the top of the food.
-            var steam = template.GetComponent<ItemDrop>().m_pieceEnableObj;
-            if (!food.m_pieceEnableObj && steam)
+            var steam = SteamOf(template);
+            var model = prefab.transform.Find("attach");
+            bool ownSteam = model && model.GetComponentInChildren<ParticleSystem>(true);
+            if (!food.m_pieceEnableObj && steam && !ownSteam)
             {
                 var copy = UnityEngine.Object.Instantiate(steam, prefab.transform, false);
                 copy.name = "PotatoTweaks_Steam";
@@ -181,6 +183,15 @@ namespace PotatoTweaks
             return true;
         }
 
+        // The game's steam part on a dish (fx_FoodSteam...), never its sparkles.
+        private static GameObject SteamOf(GameObject dish)
+        {
+            foreach (Transform child in dish.transform)
+                if (child.name.StartsWith("fx_FoodSteam", StringComparison.OrdinalIgnoreCase)) return child.gameObject;
+            var enabled = dish.GetComponent<ItemDrop>().m_pieceEnableObj;
+            return enabled && enabled.name.IndexOf("parkle", StringComparison.OrdinalIgnoreCase) < 0 ? enabled : null;
+        }
+
         // The top centre of an object's meshes, in its own space (leaving out one part, like the steam).
         private static Vector3? Top(GameObject root, GameObject leaveOut)
         {
@@ -201,19 +212,31 @@ namespace PotatoTweaks
             return total.HasValue ? new Vector3(total.Value.center.x, total.Value.max.y, total.Value.center.z) : (Vector3?)null;
         }
 
-        // Set out, the dish loses the sparkles a dropped item has, as the game's dishes do.
+        // Set out, the dish loses the sparkles a dropped item has, as the game's dishes do. The game keeps them on a
+        // part of their own (fx_ItemSparkles) that it switches off; food mods put them on the item itself, so they're
+        // stopped and hidden there instead.
         [HarmonyPatch(typeof(ItemDrop), nameof(ItemDrop.MakePiece))]
         internal static class PlacedLook
         {
             private static void Postfix(ItemDrop __instance)
             {
                 if (!__instance || __instance.m_pieceDisabledObj || !Ours.Contains(Utils.GetPrefabName(__instance.gameObject))) return;
+                var steam = __instance.m_pieceEnableObj ? __instance.m_pieceEnableObj.transform : null;
                 foreach (var particles in __instance.GetComponentsInChildren<ParticleSystem>(true))
                 {
-                    var at = particles.gameObject;
-                    if (at == __instance.gameObject || (__instance.m_pieceEnableObj && at.transform.IsChildOf(__instance.m_pieceEnableObj.transform))) continue;
-                    if (at.GetComponent<MeshFilter>()) continue;
-                    at.SetActive(false);
+                    if (steam && particles.transform.IsChildOf(steam)) continue;
+                    // The dish's own smoke or steam, part of its model, stays.
+                    var model = __instance.transform.Find("attach");
+                    if (model && particles.transform.IsChildOf(model)) continue;
+                    if (particles.gameObject == __instance.gameObject)
+                    {
+                        var emission = particles.emission;
+                        emission.enabled = false;
+                        particles.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
+                        var renderer = particles.GetComponent<ParticleSystemRenderer>();
+                        if (renderer) renderer.enabled = false;
+                    }
+                    else if (!particles.GetComponent<MeshFilter>()) particles.gameObject.SetActive(false);
                 }
             }
         }

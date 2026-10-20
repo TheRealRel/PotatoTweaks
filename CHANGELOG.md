@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.12
+- **Serving tray fix**: set-out mod foods (OdinHorse, Wizardry and others) still sparkled like a dropped item, because food mods put the sparkles on the item itself rather than on a separate part like the game's dishes. They're now switched off once the food is set out. Dishes with their own smoke or steam (like Wizardry's soups) keep it and don't get a second one.
+- 1.5.x players can play together.
+
 ## 1.5.11
 - **Serving tray**: set-out foods now steam like the game's own dishes instead of sparkling like a dropped item.
 - **Fix**: with Epic Loot, set-out dishes (the game's own too) said "Pick up" instead of "Eat" or "Drink". Pressing it already ate the dish; now the prompt says so.
