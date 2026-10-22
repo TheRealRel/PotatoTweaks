@@ -8,6 +8,8 @@
 
 🛠️ Source code and bug reports: [github.com/TheRealRel/PotatoTweaks](https://github.com/TheRealRel/PotatoTweaks)
 
+💬 Questions: Discord [relanebeis](https://discord.com/users/373574370267889674)
+
 💰 **Trader sell prices:** what the Potato Server's traders pay for every item, materials to Epic Loot gear: [open the searchable list](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/sell-prices.csv "A table of every item the Potato Server's traders buy and the coins they pay. Type in the search box to find an item.")
 
 🗂️ Running **Traders Extended** on your own server? [Download the same prices as a ready-made file](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/common.sell.csv "common.sell.csv for the Traders Extended mod: use the download button at the top right, put the file in BepInEx/config/shudnal.TradersExtended/ on your server and restart. Every trader then buys items at these prices; items from mods you don't have are skipped.") and put it in `BepInEx/config/shudnal.TradersExtended/` on your server.
@@ -163,3 +165,7 @@ If a Valheim update changes the game code a feature relies on, that feature swit
 ## Credits
 
 Camera zoom, dropped-item lifetime, ship/cart removal, attack cancelling, the Epic Loot bounty and enchantment fixes, the game bug fixes and most quality-of-life features come from **EpicLoot Progression Fix** by the EpicLoot Progression Fix contributors, used under the MIT License. The double dragon bed comes from **Double Dragon Bed** by Hansenbansen and spearfishing from **Spearfishing** by karkkant, both used under the MIT License. The item stands come from **Item Stand All Items** by JereKuusela, which is in the public domain. Essence for everyone and the comfort helper come from **EssenceForAll** and **ComfortHelper** by Koen-H, used under the MIT License. The Epic Loot enchanting table and enchantment add-ons were written for Potato Tweaks to replace DigiTeam's Epic Loot Add-ons, and the loot and item settings to replace TastyChickenLegs' DropMoreLoot. Tombstone retrieval, the skill settings, the visual effect sliders and combat effects dimmer, trophy pity, the station, fermenter, range and map settings, the death marker button, the sleep vote, boat health, the status effect list (an idea from RandyKnapp's Minimal Status Effects) sneak speed (an idea from blacks7ar's SNEAKer) and Wisplight upgrades (an idea from Digitalroot's Better Wisps) were written for Potato Tweaks. See `LICENSE`.
+
+## License
+
+Potato Tweaks' own code is under the MIT License too: use it, change it and share it freely. The icon is © TheRealRel under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): free to share and adapt with credit, but not for commercial use. See `LICENSE`.

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.13
+- The mod page links the author's Discord for questions (bug reports stay on GitHub) and has a License section: the code is MIT, free to use, change and share; the icon is CC BY-NC 4.0.
+
 ## 1.5.12
 - **Serving tray fix**: set-out mod foods (OdinHorse, Wizardry and others) still sparkled like a dropped item, because food mods put the sparkles on the item itself rather than on a separate part like the game's dishes. They're now switched off once the food is set out. Dishes with their own smoke or steam (like Wizardry's soups) keep it and don't get a second one.
 - 1.5.x players can play together.
