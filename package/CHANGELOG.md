@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.5.14
+- **Chest names** (section 30, server, on): look at a chest and press Ctrl + N to name it. Everyone sees the name in place of the chest's kind. Private chests can only be named by their owner.
+- **Chest contents** (section 30, personal, on): looking at a chest shows a row of small item icons with counts under its name, the biggest stacks first, up to 8 (the rest show as +N more). Icon size and count can be changed. Private chests show theirs only to their owner, and a ward hides them from anyone it doesn't allow.
+- **Doors close themselves** (section 31, server, on): a door you open shuts on its own after 5 seconds, once nobody is standing in the doorway. Only doors players built; doors that need a key are left alone.
+- **Station timers** (section 32, personal, on): looking at a working smelter, kiln, furnace, spinning wheel, windmill, fermenter or cooking station shows the time left: the next item and everything queued, how long the fuel lasts (and whether it runs out first), when mead is ready, and when food is done or burns.
+- Chest counts follow the hover text's font, so they switch along with Potato Runes.
+- 1.5.x players can play together. Everyone needs 1.5.14 to name chests and for doors to close.
+
 ## 1.5.13
 - The mod page links the author's Discord for questions (bug reports stay on GitHub) and has a License section: the code is MIT, free to use, change and share; the icon is CC BY-NC 4.0.
 

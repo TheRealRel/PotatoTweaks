@@ -1,8 +1,8 @@
 {
     "name": "PotatoTweaks",
-    "version_number": "1.5.13",
+    "version_number": "1.5.14",
     "website_url": "https://github.com/TheRealRel/PotatoTweaks",
-    "description": "Set out ANY crafted food on the Serving Tray, modded or vanilla! Plus QoL and fixes for Valheim servers: sleep vote, trophy pity, recycling, item stands, Wisplight upgrades, essence for everyone, comfort helper, tombstone retrieval and more.",
+    "description": "Name chests and see what's inside, doors that close themselves, station timers, any crafted food on the Serving Tray. Plus QoL and fixes for Valheim servers: sleep vote, trophy pity, recycling, item stands, Wisplight upgrades and more.",
     "dependencies": [
         "denikson-BepInExPack_Valheim-5.4.2351",
         "ValheimModding-Jotunn-2.30.2"
