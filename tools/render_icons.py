@@ -80,6 +80,28 @@ WOOD = rgb(150, 98, 55); WOOD_D = rgb(105, 66, 36); WOOD_L = rgb(185, 128, 75)
 IRON = rgb(105, 105, 112); IRON_D = rgb(70, 70, 78); BRONZE = rgb(176, 120, 60)
 STONE = rgb(120, 118, 122); GOLD = rgb(230, 175, 60); LEATHER = rgb(140, 92, 52)
 
+def from_glb(path):
+    # A Meshy model: its own texture, sampled at each pixel's UV.
+    scene = trimesh.load(path, force="scene")
+    parts = []
+    for geom in scene.dump():
+        tex = getattr(getattr(geom.visual, "material", None), "baseColorTexture", None)
+        uv = getattr(geom.visual, "uv", None)
+        if tex is None or uv is None:
+            col = np.array(getattr(getattr(geom.visual, "material", None), "baseColorFactor", [200, 200, 200, 255])[:3]) / 255.0
+            parts.append((geom, flat(col, 0.05))); continue
+        img = np.asarray(tex.convert("RGB"), float) / 255.0
+        h, w = img.shape[:2]
+        fuv = uv[geom.faces]                      # (faces, 3, 2)
+        def m(p, n, t, b, img=img, fuv=fuv, h=h, w=w):
+            st = (fuv[t] * b[..., None]).sum(1)
+            x = np.clip((st[:, 0] % 1) * (w - 1), 0, w - 1).astype(int)
+            y = np.clip((1 - st[:, 1] % 1) * (h - 1), 0, h - 1).astype(int)
+            return img[y, x]
+        m.textured = True
+        parts.append((geom, m))
+    return parts
+
 # ---------- shapes ----------
 
 def box(size, at=(0, 0, 0)):
@@ -116,8 +138,9 @@ def rot(m, axis, deg, about=(0, 0, 0)):
 # ---------- renderer ----------
 
 def render(parts, yaw=35, pitch=25, fov=28, light=(-0.5, 0.8, 0.6)):
-    tris, mats, mids = [], [], []
+    tris, mats, mids, starts = [], [], [], []
     for i, (mesh, mat) in enumerate(parts):
+        starts.append(sum(len(t) for t in tris))
         tris.append(mesh.triangles); mids.append(np.full(len(mesh.faces), i)); mats.append(mat)
     T = np.concatenate(tris); M = np.concatenate(mids)
     centre = (T.reshape(-1, 3).max(0) + T.reshape(-1, 3).min(0)) / 2
@@ -168,7 +191,7 @@ def render(parts, yaw=35, pitch=25, fov=28, light=(-0.5, 0.8, 0.6)):
         if not mask.any(): continue
         tt = tid[mask]; b = bary[mask]
         P = (T[tt] * b[..., None]).sum(1); n = nrm[tt]
-        col = mat(P, n)
+        col = mat(P, n, tt - starts[i], b) if getattr(mat, "textured", False) else mat(P, n)
         if mat not in GLOW:
             lam = np.clip(n @ L, 0, 1)
             col = col * (0.42 + 0.78 * lam)[:, None]
@@ -339,6 +362,11 @@ ICONS = {"chest": chest, "door": door, "smelter": smelter, "map": map_, "house":
          "pouch": pouch, "fire": fire, "mirror": mirror, "hammer": hammer, "gem": gem, "coins": coins}
 
 if __name__ == "__main__":
+    # A Meshy model: python3 -I tools/render_icons.py OUT --glb model.glb NAME YAW PITCH
+    if len(sys.argv) > 2 and sys.argv[2] == "--glb":
+        path, name = sys.argv[3], sys.argv[4]
+        yaw = float(sys.argv[5]) if len(sys.argv) > 5 else 35; pitch = float(sys.argv[6]) if len(sys.argv) > 6 else 25
+        render(from_glb(path), yaw=yaw, pitch=pitch).save(os.path.join(sys.argv[1], f"icon-{name}.png")); sys.exit()
     out = sys.argv[1]; names = sys.argv[2:] or list(ICONS)
     os.makedirs(out, exist_ok=True)
     done = []
