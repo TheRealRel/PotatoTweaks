@@ -1,8 +1,8 @@
 # Changelog
 
 ## 1.5.15
-- **Works with Epic Loot 0.15.0.** Bounty loot (the main target's extra copy of each enchanted drop, and its guaranteed enchanted item) works with Epic Loot's new loot rolls. Older Epic Loot versions keep working too.
-- Epic Loot 0.15.0 now fixes Riches, Fire Rate, +Ranged Skills, Noise, armor wear with Indestructible, Bountiful Harvest and Quick Draw itself, and skips unchanged chests when loading. With 0.15.0, Potato Tweaks leaves those to Epic Loot; applying both would have counted Fire Rate and +Ranged Skills twice. With older Epic Loot, Potato Tweaks' fixes still apply.
+- **Epic Loot bounties**: a bounty's main target drops its extra enchanted items and its guaranteed enchanted item again with the latest Epic Loot.
+- **Epic Loot fixes**: Epic Loot now fixes Riches, Fire Rate, +Ranged Skills, Noise, Indestructible armor, Bountiful Harvest, Quick Draw and chest loading itself, so Potato Tweaks leaves those to it. Fire Rate and +Ranged Skills no longer count twice.
 - 1.5.x players can play together.
 
 ## 1.5.14

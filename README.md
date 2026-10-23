@@ -2,7 +2,7 @@ Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for th
 
 ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-chest.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-door.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-smelter.png)
 
-**New in 1.5.14: chests, doors and station timers.** Name a chest by looking at it and pressing Ctrl + N, and everyone sees the name. Looking at a chest also shows a row of small icons with what's inside. Doors you open close themselves a few seconds later, once the doorway is clear. Smelters, kilns, furnaces, spinning wheels, windmills, fermenters and cooking stations show how long until the next item, until everything is done, and until the fuel runs out.
+**Chests, doors and station timers.** Name a chest by looking at it and pressing Ctrl + N, and everyone sees the name. Looking at a chest also shows a row of small icons with what's inside. Doors you open close themselves a few seconds later, once the doorway is clear. Smelters, kilns, furnaces, spinning wheels, windmills, fermenters and cooking stations show how long until the next item, until everything is done, and until the fuel runs out.
 
 ![A named chest and its contents on hover](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/chest.jpg)
 
