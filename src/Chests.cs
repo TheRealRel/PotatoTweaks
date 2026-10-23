@@ -130,7 +130,9 @@ namespace PotatoTweaks
         }
 
         // A row of small icons under the hover text, built once and reused.
+        // Runs last, so the hover text is final (other mods, like Potato Runes, may still change it) before it's measured.
         [HarmonyPatch(typeof(Hud), "UpdateCrosshair")]
+        [HarmonyPriority(Priority.Last)]
         internal static class ContentsRow
         {
             private const float Gap = 3f;
@@ -176,12 +178,18 @@ namespace PotatoTweaks
                 int most = Plugin.ChestIconCount.Value;
                 Build(hud.m_hoverName, size, most);
 
-                // Keep the labels in the hover text's font, in case another mod changes it (like Potato Runes).
-                if (more.font != hud.m_hoverName.font)
+                // Keep the labels in the font the hover text is drawn in, in case another mod changes it (Potato Runes
+                // does it with a font tag, so read the font of the text's first letter).
+                hud.m_hoverName.ForceMeshUpdate();
+                var drawn = hud.m_hoverName.textInfo;
+                var font = drawn.characterCount > 0 && drawn.characterInfo[0].fontAsset ? drawn.characterInfo[0].fontAsset : hud.m_hoverName.font;
+                var look = font == hud.m_hoverName.font ? hud.m_hoverName.fontSharedMaterial : drawn.characterInfo[0].material;
+                if (!look || look.mainTexture != font.atlasTexture) look = font.material;
+                if (more.font != font || more.fontSharedMaterial != look)
                     foreach (var label in counts.Append(more))
                     {
-                        label.font = hud.m_hoverName.font;
-                        label.fontSharedMaterial = hud.m_hoverName.fontSharedMaterial;
+                        label.font = font;
+                        label.fontSharedMaterial = look;
                         label.ForceMeshUpdate(true, true);
                     }
 
@@ -202,7 +210,6 @@ namespace PotatoTweaks
                 }
 
                 // Just under the hover text, lined up with its left edge.
-                hud.m_hoverName.ForceMeshUpdate();
                 var bounds = hud.m_hoverName.textBounds;
                 row.localPosition = new Vector3(bounds.min.x, bounds.min.y - 4f, 0f);
                 row.gameObject.SetActive(true);
