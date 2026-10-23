@@ -56,8 +56,12 @@ namespace PotatoTweaks
             patch(typeof(LuckyBirds));
             patch(typeof(LuckyBirds.Drops));
             patch(typeof(EitrTooltip));
-            patch(typeof(FasterChestLoading));
-            patch(typeof(FasterChestLoading.Loaded));
+            // Epic Loot 0.15.0 skips unchanged chests itself.
+            if (!EpicLootFeatures.EpicLootHasFixes)
+            {
+                patch(typeof(FasterChestLoading));
+                patch(typeof(FasterChestLoading.Loaded));
+            }
             patch(typeof(EnchantLooks.Effects));
             patch(typeof(EnchantLooks.Textures));
             EnchantLooks.Watch();

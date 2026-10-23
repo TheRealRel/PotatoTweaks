@@ -29,6 +29,10 @@ namespace PotatoTweaks
 
         internal static ManualLogSource Log => Plugin.Log;
 
+        // Epic Loot 0.15.0 took in several fixes Potato Tweaks made (from EpicLoot Progression Fix); those stay off there.
+        internal static bool EpicLootHasFixes =>
+            Chainloader.PluginInfos.TryGetValue(EpicLootId, out var info) && info.Metadata.Version >= new System.Version(0, 15, 0);
+
         // Called only when Epic Loot is loaded, so nothing here touches Epic Loot's types otherwise.
         internal static void Enable(Action<Type> patch, Action<string, Action> run)
         {
@@ -585,11 +589,25 @@ namespace PotatoTweaks
     {
         private sealed class Reward { internal bool HasEquipment; }
         private static readonly int CorpseKey = "PotatoTweaks.BountyLoot".GetStableHashCode();
+        // Epic Loot 0.15.0 spawns equipment into a private "loot output" (a list of spawned objects or of items) and gives
+        // creature loot an extra "allow bonus rolls" switch; 0.14.13 used a plain object list. Both are handled.
+        private static readonly MethodInfo SpawnNormalItem = AccessTools.Method(typeof(LootRoller), "SpawnNormalItem");
+        private static readonly bool OutputObject = SpawnNormalItem != null && SpawnNormalItem.GetParameters().Length == 5;
+        private static readonly Type OutputType = OutputObject ? SpawnNormalItem.GetParameters()[4].ParameterType : null;
+        private static readonly FieldInfo OutputObjects = OutputType != null ? AccessTools.Field(OutputType, "Objects") : null;
+        private static readonly MethodInfo NewObjectOutput = OutputType != null ? AccessTools.Method(OutputType, "ForObjects") : null;
         private static readonly MethodInfo RollLoot = AccessTools.Method(typeof(LootRoller), nameof(LootRoller.RollLootTableAndSpawnObjects),
             new[] { typeof(List<LootTable>), typeof(int), typeof(string), typeof(Vector3) });
-        private static readonly Action<LootDrop, string, Vector3, float, bool, List<GameObject>> SpawnEquipment =
-            AccessTools.MethodDelegate<Action<LootDrop, string, Vector3, float, bool, List<GameObject>>>(
-                AccessTools.Method(typeof(LootRoller), "SpawnNormalItem"));
+        private static readonly MethodInfo RollLootWithBonus = AccessTools.Method(typeof(LootRoller), nameof(LootRoller.RollLootTableAndSpawnObjects),
+            new[] { typeof(List<LootTable>), typeof(int), typeof(string), typeof(Vector3), typeof(bool) });
+
+        // The spawned objects an output holds: the list itself (0.14.13) or its Objects (0.15.0; null when it holds items).
+        private static List<GameObject> Spawned(object output) => OutputObject ? OutputObjects?.GetValue(output) as List<GameObject> : output as List<GameObject>;
+
+        private static void SpawnEquipment(LootDrop lootDrop, string objectName, Vector3 dropPoint, float luckFactor, object output) =>
+            SpawnNormalItem.Invoke(null, OutputObject
+                ? new[] { lootDrop, objectName, dropPoint, luckFactor, output }
+                : new[] { lootDrop, objectName, dropPoint, luckFactor, true, output });
         [ThreadStatic] private static Reward current;
         [ThreadStatic] private static bool bonus;
         [ThreadStatic] private static bool guaranteeing;
@@ -605,10 +623,12 @@ namespace PotatoTweaks
             harmony.Patch(AccessTools.Method(typeof(Ragdoll_Setup_Patch), nameof(Ragdoll_Setup_Patch.Postfix)), postfix: Hook(nameof(RememberCorpse)));
             harmony.Patch(AccessTools.Method(typeof(Ragdoll_SpawnLoot_Patch), nameof(Ragdoll_SpawnLoot_Patch.Postfix)),
                 prefix: Hook(nameof(BeginCorpse)), finalizer: Hook(nameof(EndDeath)));
-            harmony.Patch(AccessTools.Method(typeof(LootRoller), "SpawnNormalItem"),
-                prefix: Hook(nameof(BeforeEquipment)), postfix: Hook(nameof(DoubleEquipment)));
+            if (SpawnNormalItem == null || (OutputObject && (OutputObjects == null || NewObjectOutput == null)))
+                throw new InvalidOperationException("Epic Loot's equipment spawning changed.");
+            harmony.Patch(SpawnNormalItem, prefix: Hook(nameof(BeforeEquipment)), postfix: Hook(nameof(DoubleEquipment)));
             var helper = typeof(LootRoller).Assembly.GetType("EpicLoot.EpicLootDropsHelper", true);
-            harmony.Patch(AccessTools.Method(helper, "OnCharacterDeath", new[] { typeof(string), typeof(int), typeof(Vector3) }),
+            var withBonus = AccessTools.Method(helper, "OnCharacterDeath", new[] { typeof(string), typeof(int), typeof(Vector3), typeof(bool) });
+            harmony.Patch(withBonus ?? AccessTools.Method(helper, "OnCharacterDeath", new[] { typeof(string), typeof(int), typeof(Vector3) }),
                 transpiler: Hook(nameof(GuaranteeTranspiler)));
         }
 
@@ -644,11 +664,13 @@ namespace PotatoTweaks
         private static bool Enchanted(GameObject item) => item && item.TryGetComponent<ItemDrop>(out var drop) &&
             global::EpicLoot.EpicLoot.IsAllowedMagicItemType(drop.m_itemData) && drop.m_itemData.IsMagic();
 
-        private static void BeforeEquipment(List<GameObject> results, out int __state) => __state = results?.Count ?? 0;
+        // The output is the method's last argument in both versions.
+        private static void BeforeEquipment(object[] __args, out int __state) => __state = Spawned(__args[__args.Length - 1])?.Count ?? 0;
 
-        private static void DoubleEquipment(LootDrop lootDrop, string objectName, Vector3 dropPoint, float luckFactor,
-            bool initializeObject, List<GameObject> results, int __state)
+        private static void DoubleEquipment(LootDrop lootDrop, string objectName, Vector3 dropPoint, float luckFactor, object[] __args, int __state)
         {
+            var output = __args[__args.Length - 1];
+            var results = Spawned(output);
             if (current == null || bonus || results == null || !results.Skip(__state).Any(Enchanted)) return;
             current.HasEquipment = true;
             if (guaranteeing) return;
@@ -656,7 +678,7 @@ namespace PotatoTweaks
             try
             {
                 for (int copy = 0; copy < Plugin.BountyExtraCopies.Value; copy++)
-                    SpawnEquipment(lootDrop, objectName, dropPoint, luckFactor, initializeObject, results);
+                    SpawnEquipment(lootDrop, objectName, dropPoint, luckFactor, output);
             }
             finally { bonus = false; }
         }
@@ -664,11 +686,20 @@ namespace PotatoTweaks
         private static IEnumerable<CodeInstruction> GuaranteeTranspiler(IEnumerable<CodeInstruction> instructions)
         {
             var code = instructions.ToList();
-            var matches = code.Where(x => x.Calls(RollLoot)).ToList();
+            var roll = RollLootWithBonus ?? RollLoot;
+            var matches = code.Where(x => x.Calls(roll)).ToList();
             if (matches.Count != 1) throw new InvalidOperationException("Epic Loot's creature loot entry point changed; expected one loot roll.");
             matches[0].opcode = OpCodes.Call;
-            matches[0].operand = AccessTools.Method(typeof(BountyLoot), nameof(RollCreatureLoot));
+            matches[0].operand = AccessTools.Method(typeof(BountyLoot), RollLootWithBonus != null ? nameof(RollCreatureLootWithBonus) : nameof(RollCreatureLoot));
             return code;
+        }
+
+        private static List<GameObject> RollCreatureLootWithBonus(List<LootTable> tables, int level, string creatureName, Vector3 dropPoint, bool allowBonusRolls)
+        {
+            var result = (List<GameObject>)RollLootWithBonus.Invoke(null, new object[] { tables, level, creatureName, dropPoint, allowBonusRolls });
+            try { EnsureEquipment(tables, level, creatureName, dropPoint, result); }
+            catch (Exception e) { EpicLootFeatures.Log.LogError($"Bounty creature {creatureName}'s guaranteed enchanted item failed: {e.Message}"); }
+            return result;
         }
 
         private static List<GameObject> RollCreatureLoot(List<LootTable> tables, int level, string creatureName, Vector3 dropPoint)
@@ -708,7 +739,10 @@ namespace PotatoTweaks
             guaranteeing = true;
             try
             {
-                SpawnEquipment(equipment, creatureName, dropPoint, luck, true, results);
+                // 0.15.0 spawns into its own output object; its objects then join the creature's loot.
+                var output = OutputObject ? NewObjectOutput.Invoke(null, null) : results;
+                SpawnEquipment(equipment, creatureName, dropPoint, luck, output);
+                if (OutputObject && Spawned(output) is List<GameObject> spawned) results.AddRange(spawned);
                 if (!current.HasEquipment) EpicLootFeatures.Log.LogWarning($"Bounty creature {creatureName} did not produce its guaranteed enchanted item.");
             }
             finally { guaranteeing = false; }

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.15
+- **Works with Epic Loot 0.15.0.** Bounty loot (the main target's extra copy of each enchanted drop, and its guaranteed enchanted item) works with Epic Loot's new loot rolls. Older Epic Loot versions keep working too.
+- Epic Loot 0.15.0 now fixes Riches, Fire Rate, +Ranged Skills, Noise, armor wear with Indestructible, Bountiful Harvest and Quick Draw itself, and skips unchanged chests when loading. With 0.15.0, Potato Tweaks leaves those to Epic Loot; applying both would have counted Fire Rate and +Ranged Skills twice. With older Epic Loot, Potato Tweaks' fixes still apply.
+- 1.5.x players can play together.
+
 ## 1.5.14
 - **Chest names** (section 30, server, on): look at a chest and press Ctrl + N to name it. Everyone sees the name in place of the chest's kind. Private chests can only be named by their owner.
 - **Chest contents** (section 30, personal, on): looking at a chest shows a row of small item icons with counts under its name, the biggest stacks first, up to 8 (the rest show as +N more). Icon size and count can be changed. Private chests show theirs only to their owner, and a ward hides them from anyone it doesn't allow.

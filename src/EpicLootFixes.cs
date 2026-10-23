@@ -20,12 +20,17 @@ namespace PotatoTweaks
     {
         internal static void Enable(Action<Type> patch, Action<string, Action> run)
         {
-            foreach (var type in new[] { typeof(RichesRoll), typeof(RichesTotal), typeof(FireRate), typeof(RangedSkills), typeof(ArmorDurabilityProtection),
-                typeof(BrokenIndestructibleItems), typeof(RepairedIndestructibleItems), typeof(CrossbowReload), typeof(NearGroundJumps) })
-                patch(type);
-            run("Noise fix", NoiseReduction.Initialize);
+            // Epic Loot 0.15.0 fixes Riches, Fire Rate, +Ranged Skills, Noise, armor wear with Indestructible, Bountiful
+            // Harvest and Quick Draw itself, the same way; applying these on top would count Fire Rate and +Ranged Skills twice.
+            bool fixedUpstream = EpicLootFeatures.EpicLootHasFixes;
+            if (fixedUpstream)
+                Plugin.Log.LogInfo("Epic Loot fixes Riches, Fire Rate, +Ranged Skills, Noise, Indestructible armor, Bountiful Harvest and Quick Draw itself; Potato Tweaks leaves those to it.");
+            var always = new[] { typeof(BrokenIndestructibleItems), typeof(RepairedIndestructibleItems), typeof(NearGroundJumps) };
+            var upstream = new[] { typeof(RichesRoll), typeof(RichesTotal), typeof(FireRate), typeof(RangedSkills), typeof(ArmorDurabilityProtection), typeof(CrossbowReload) };
+            foreach (var type in fixedUpstream ? always : always.Concat(upstream)) patch(type);
+            if (!fixedUpstream) run("Noise fix", NoiseReduction.Initialize);
             run("Meads Cooldown fix", MeadCooldown.Initialize);
-            run("Bountiful Harvest fix", BountifulHarvestPicks.Initialize);
+            if (!fixedUpstream) run("Bountiful Harvest fix", BountifulHarvestPicks.Initialize);
         }
 
         internal static readonly AccessTools.FieldRef<Character, ZNetView> CharacterView = AccessTools.FieldRefAccess<Character, ZNetView>("m_nview");
