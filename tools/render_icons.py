@@ -6,7 +6,7 @@ import numpy as np
 import trimesh
 from PIL import Image
 
-R, OUT_PX = 320, 80          # render size, final size
+R, OUT_PX, UP = 320, 40, 2    # render size, pixel-art size, blow-up (40 px art shown at 80 px, like PotatoFarmer's)
 OUTLINE = np.array([38, 24, 14]) / 255.0
 
 # ---------- noise and materials ----------
@@ -207,7 +207,65 @@ def render(parts, yaw=35, pitch=25, fov=28, light=(-0.5, 0.8, 0.6)):
     pad = np.pad(solid, 1)
     edge = ~solid & (pad[:-2, 1:-1] | pad[2:, 1:-1] | pad[1:-1, :-2] | pad[1:-1, 2:])
     out[edge, :3] = OUTLINE; out[edge, 3] = 1
-    return Image.fromarray((np.clip(out, 0, 1) * 255).astype(np.uint8), "RGBA")
+    return Image.fromarray((np.clip(out, 0, 1) * 255).astype(np.uint8), "RGBA").resize((OUT_PX * UP, OUT_PX * UP), Image.NEAREST)
+
+def render_dense(path, yaw=35, pitch=25, fov=28, light=(-0.5, 0.8, 0.6), splat=2):
+    # Meshy models have millions of tiny triangles: each one is drawn as a dot of its own colour (its texture at the
+    # triangle's centre), nearest dot wins. At icon size the dots join up into a solid surface.
+    scene = trimesh.load(path, force="scene")
+    cents, cols, nrms = [], [], []
+    for geom in scene.dump():
+        tri = geom.triangles
+        n = np.cross(tri[:, 1] - tri[:, 0], tri[:, 2] - tri[:, 0]); n /= np.linalg.norm(n, axis=1)[:, None] + 1e-12
+        mat = getattr(geom.visual, "material", None)
+        tex = getattr(mat, "baseColorTexture", None); uv = getattr(geom.visual, "uv", None)
+        if tex is not None and uv is not None:
+            img = np.asarray(tex.convert("RGB"), float) / 255.0; h, w = img.shape[:2]
+            st = uv[geom.faces].mean(1)
+            c = img[np.clip(((1 - st[:, 1] % 1) * (h - 1)).astype(int), 0, h - 1), np.clip(((st[:, 0] % 1) * (w - 1)).astype(int), 0, w - 1)]
+        else:
+            c = np.tile(np.array(getattr(mat, "baseColorFactor", [200, 200, 200, 255])[:3], float) / 255.0, (len(tri), 1))
+        f = getattr(mat, "baseColorFactor", None)
+        if f is not None and tex is not None: c = c * (np.array(f[:3], float) / 255.0 if max(f[:3]) > 1 else np.array(f[:3], float))
+        cents.append(tri.mean(1)); cols.append(c); nrms.append(n)
+    C = np.concatenate(cents); COL = np.concatenate(cols); N_ = np.concatenate(nrms)
+    centre = (C.max(0) + C.min(0)) / 2
+    rad = np.linalg.norm(C - centre, axis=1).max()
+    y, p = math.radians(yaw), math.radians(pitch)
+    fwd = -np.array([math.sin(y) * math.cos(p), math.sin(p), math.cos(y) * math.cos(p)])
+    eye = centre - fwd * rad / math.sin(math.radians(fov / 2)) * 1.02
+    right = np.cross(fwd, [0, 1, 0]); right /= np.linalg.norm(right); up = np.cross(right, fwd)
+    rel = C - eye
+    cx, cy, cz = rel @ right, rel @ up, rel @ fwd
+    u, v = cx / cz, cy / cz
+    f = R * 0.94 / max(u.max() - u.min(), v.max() - v.min())
+    mu, mv = (u.max() + u.min()) / 2, (v.max() + v.min()) / 2
+    sx = (R / 2 + (u - mu) * f).astype(int); sy = (R / 2 - (v - mv) * f).astype(int)
+    facing = (N_ * rel).sum(1) > 0; N_[facing] *= -1
+    L = np.array(light, float); L /= np.linalg.norm(L)
+    shade = np.clip(COL * (0.58 + 0.8 * np.clip(N_ @ L, 0, 1))[:, None], 0, 1)   # Meshy textures run dark; lifted to sit with the Farmer icons
+    img = np.zeros((R, R, 3)); depth = np.full((R, R), np.inf); alpha = np.zeros((R, R))
+    order = np.argsort(-cz)                         # far first, so near dots are written last and win
+    for dx in range(splat):
+        for dy in range(splat):
+            xs, ys = np.clip(sx[order] + dx, 0, R - 1), np.clip(sy[order] + dy, 0, R - 1)
+            z = cz[order]
+            better = z < depth[ys, xs]
+            img[ys[better], xs[better]] = shade[order][better]; depth[ys[better], xs[better]] = z[better]
+            alpha[ys[better], xs[better]] = 1
+    return finish_px(img, alpha)
+
+def finish_px(img, alpha):
+    k = R // OUT_PX
+    a = alpha.reshape(OUT_PX, k, OUT_PX, k).mean((1, 3))
+    c = (img * alpha[..., None]).reshape(OUT_PX, k, OUT_PX, k, 3).sum((1, 3)) / np.maximum(a * k * k, 1e-6)[..., None]
+    solid = a > 0.45
+    out = np.zeros((OUT_PX, OUT_PX, 4))
+    out[solid, :3] = c[solid]; out[solid, 3] = 1
+    pad = np.pad(solid, 1)
+    edge = ~solid & (pad[:-2, 1:-1] | pad[2:, 1:-1] | pad[1:-1, :-2] | pad[1:-1, 2:])
+    out[edge, :3] = OUTLINE; out[edge, 3] = 1
+    return Image.fromarray((np.clip(out, 0, 1) * 255).astype(np.uint8), "RGBA").resize((OUT_PX * UP, OUT_PX * UP), Image.NEAREST)
 
 # ---------- the icons ----------
 
@@ -366,7 +424,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 2 and sys.argv[2] == "--glb":
         path, name = sys.argv[3], sys.argv[4]
         yaw = float(sys.argv[5]) if len(sys.argv) > 5 else 35; pitch = float(sys.argv[6]) if len(sys.argv) > 6 else 25
-        render(from_glb(path), yaw=yaw, pitch=pitch).save(os.path.join(sys.argv[1], f"icon-{name}.png")); sys.exit()
+        render_dense(path, yaw=yaw, pitch=pitch).save(os.path.join(sys.argv[1], f"icon-{name}.png")); sys.exit()
     out = sys.argv[1]; names = sys.argv[2:] or list(ICONS)
     os.makedirs(out, exist_ok=True)
     done = []
