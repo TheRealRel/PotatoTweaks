@@ -37,7 +37,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.13";
+        public const string Version = "1.5.14";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -92,6 +92,10 @@ namespace PotatoTweaks
         internal static ConfigEntry<float> RecycleShare;
         internal static ConfigEntry<UnityEngine.KeyCode> RecycleKey;
         internal static ConfigEntry<bool> TrayEnabled;
+        internal static ConfigEntry<bool> ChestNamesEnabled, ChestContentsEnabled, DoorsCloseEnabled, StationTimersEnabled;
+        internal static ConfigEntry<KeyboardShortcut> ChestNameKey;
+        internal static ConfigEntry<int> ChestIconSize, ChestIconCount;
+        internal static ConfigEntry<float> DoorsCloseSeconds;
         internal static ConfigEntry<int> ItemStackSize;
         internal static ConfigEntry<bool> RowsEarlier, RowsThird, InventorySlotsVisibility, DeathMarkerButton;
         internal static ConfigEntry<int> RowsThirdPrice;
@@ -452,6 +456,28 @@ namespace PotatoTweaks
             TrayEnabled = Config.Bind(tray, "Every crafted food", true,
                 Synced("The serving tray can set out every crafted food that has no place on it yet, from the game and from other mods, like the game's own dishes: one item, eaten and gone. Raw food and food cooked on the cooking station are left out. Takes effect on the next game start."));
 
+            const string chests = "30 - Chests";
+            ChestNamesEnabled = Config.Bind(chests, "Chest names", true,
+                Synced("Name a chest by looking at it and pressing the name key. Everyone sees the name in place of the chest's kind. A private chest can only be named by its owner."));
+            ChestNameKey = Config.Bind(chests, "Name key", new KeyboardShortcut(UnityEngine.KeyCode.N, UnityEngine.KeyCode.LeftControl),
+                "Look at a chest and press this to name it. Leave the name empty to clear it. Personal.");
+            ChestContentsEnabled = Config.Bind(chests, "Show contents", true,
+                "Show a row of small item icons with counts under a chest's name when you look at it. Private chests show theirs only to their owner. Personal.");
+            ChestIconSize = Config.Bind(chests, "Icon size", 24,
+                new ConfigDescription("Size of the content icons in pixels. The inventory's own are about 64. Personal.", new AcceptableValueRange<int>(16, 48)));
+            ChestIconCount = Config.Bind(chests, "Most icons", 8,
+                new ConfigDescription("Most items shown, the biggest stacks first; the rest show as +N more. Personal.", new AcceptableValueRange<int>(1, 16)));
+
+            const string doors = "31 - Doors";
+            DoorsCloseEnabled = Config.Bind(doors, "Doors close themselves", true,
+                Synced("A door you open shuts on its own after a few seconds, once nobody is standing in the doorway. Only doors players built; doors that need a key are left alone."));
+            DoorsCloseSeconds = Config.Bind(doors, "Seconds open", 5f,
+                Synced("How long a door stays open before it closes.", new AcceptableValueRange<float>(1f, 60f)));
+
+            const string timers = "32 - Station timers";
+            StationTimersEnabled = Config.Bind(timers, "Show timers", true,
+                "Show the time left when you look at a working smelter, kiln, furnace, spinning wheel, windmill, fermenter or cooking station. Personal.");
+
             const string wisp = "26 - Wisplight";
             WispLevels = Config.Bind(wisp, "Upgrade levels", 5,
                 Synced("Highest level the Wisplight can be upgraded to at the workbench. Level 1 is the game's own; 1 = not upgradeable, the game's normal.", new AcceptableValueRange<int>(1, 10)));
@@ -540,6 +566,9 @@ namespace PotatoTweaks
             });
             foreach (var type in Recycling.Patches) Patch(type);
             foreach (var type in ServingTray.Patches) Patch(type);
+            foreach (var type in Chests.Patches) Patch(type);
+            foreach (var type in AutoDoors.Patches) Patch(type);
+            foreach (var type in StationTimers.Patches) Patch(type);
             EnableUnlessInstalled(ComfortHelper.OriginalModId, "ComfortHelper", "comfort helper", () =>
             {
                 foreach (var type in ComfortHelper.Patches) Patch(type);
@@ -615,7 +644,12 @@ namespace PotatoTweaks
             catch (Exception e) { Log.LogError($"{type.Name} is disabled: {e.GetBaseException().Message}"); }
         }
 
-        private void Update() => TombRetrieval.Update();
+        private void Update()
+        {
+            TombRetrieval.Update();
+            try { Chests.Update(); } catch (Exception e) { Log.LogError($"Chest names: {e.GetBaseException().Message}"); }
+            try { AutoDoors.Update(); } catch (Exception e) { Log.LogError($"Doors closing: {e.GetBaseException().Message}"); }
+        }
 
         private void OnDestroy() => harmony?.UnpatchSelf();
     }
