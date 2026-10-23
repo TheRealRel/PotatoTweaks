@@ -1,171 +1,77 @@
-# 🥔 Potato Tweaks
+Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for the Potato Server. It goes on the server and in every player's game. Every feature can be switched off on its own. Server settings come from the server and are the same for everyone; personal settings are each player's own.
 
-**These tweaks are for my Potato Server.** It consolidates, fixes and adds things I wanted.
+**New in 1.5.14: chests, doors and station timers.** Name a chest by looking at it and pressing Ctrl + N, and everyone sees the name. Looking at a chest also shows a row of small icons with what's inside. Doors you open close themselves a few seconds later, once the doorway is clear. Smelters, kilns, furnaces, spinning wheels, windmills, fermenters and cooking stations show how long until the next item, until everything is done, and until the fuel runs out.
 
-> 🍲 **New: every crafted food on the Serving Tray.** The game only lets you set out its own dishes and feasts. Potato Tweaks makes **every crafted food placeable**, from vanilla and from any food mod (OdinHorse, Wizardry and more): set it out on a table, and anyone can walk up and eat it, just like the game's own dishes. It works with food mods automatically, no setup needed.
+![A chest's name and contents on hover](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/chest.jpg)
 
-> 📜 **Updating?** See the **Changelog** tab to determine if you need to update or not.
+**Getting around.** The camera zooms out farther: 12 m on land instead of 8, and 24 m on a ship. Dropped items last 3 hours of world time instead of 1, so loot dropped before a night's sleep is still there. Holding Ctrl and using the hammer's remove button takes apart a raft, karve, longship, drakkar or cart, refunding every material and dropping its cargo in crates. Type `retrievetomb` in the F5 console (or `/retrievetomb` in chat) to bring your own tombstones to you. A button by the skull on the large map clears every death marker at once.
 
-🛠️ Source code and bug reports: [github.com/TheRealRel/PotatoTweaks](https://github.com/TheRealRel/PotatoTweaks)
+**Around the base.** Every crafted food can be set out with the serving tray, from the game and from food mods like OdinHorse and Wizardry, and eaten like the game's own dishes. Any item goes on an item stand, and the `itemstand_scale`, `itemstand_rotation` and `itemstand_offset` console commands resize, turn or move it. A Comfort tab in the build menu lists every comfort piece, ticks what's nearby and says what each would add. The night is skipped once half the players are in bed or sitting, with at least one in bed. The Wisplight can be upgraded at the workbench up to level 5, clearing more mist at each level.
 
-💬 Questions: Discord [relanebeis](https://discord.com/users/373574370267889674)
+**Crafting and stations.** With a crafting station open, Ctrl + right-click an item to take it apart for half its materials, upgrades included. Smelters, kilns and furnaces have settings for capacity, speed, fuel and output, windmills mill twice as fast, and fermenters have speed and output settings. Carts and boats get more health the higher their builder's Crafting skill.
 
-💰 **Trader sell prices:** what the Potato Server's traders pay for every item, materials to Epic Loot gear: [open the searchable list](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/sell-prices.csv "A table of every item the Potato Server's traders buy and the coins they pay. Type in the search box to find an item.")
+**Fighting and hunting.** Press block during a swing's windup or recovery to cancel it and raise your guard at once. Every kill without a trophy makes the next one from that creature more likely, until it drops; the Trophies tab shows the chances and, without spoilers, what you haven't collected. Spears, arrows and bolts catch fish, and a harpoon pulls them straight into your inventory. Thunderblood and Frostfire essence drop for every player who was nearby.
 
-🗂️ Running **Traders Extended** on your own server? [Download the same prices as a ready-made file](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/common.sell.csv "common.sell.csv for the Traders Extended mod: use the download button at the top right, put the file in BepInEx/config/shudnal.TradersExtended/ on your server and restart. Every trader then buys items at these prices; items from mods you don't have are skipped.") and put it in `BepInEx/config/shudnal.TradersExtended/` on your server.
+**Skills, loot and inventory.** Skill loss on death and XP per skill are set by the server. Drops from creatures, resources and pickables, item weight, stack size and auto-pickup range all have multipliers. Haldor's extra inventory rows unlock after the Elder and Bonemass, and he sells a third after Yagluth. The Swim and Sneak skills raise swim and sneak speed, and tamed animals don't trample crops.
 
----
+**Small comforts.** Tombstone items go back to the slots they came from, walking over a weapon no longer equips it, the hammer menu updates live, and health bars show while you hold the hammer and through mist and trees in a fight. Inventory windows move aside when mods' extra slots would end up behind them or off screen, at any resolution. Status effect icons drop their cut-off names. Each half of the dragon bed is its own bed, so two players can sleep side by side.
 
-## Features
+**Looks.** Sliders for the glow on over-upgraded gear, the dust from felling trees and the particles that cover creatures in a fight. With Epic Loot, the Glowing aura, enchantment effects and legendary textures can be hidden. These only change what you see.
 
-Every feature can be switched off on its own. **Server** means the server's settings apply to everyone (players can't change them); **Player** means each player chooses for themselves.
+**Game fixes.** Fast second bow shots no longer vanish, swings from a ship's deck hit what's on the deck, a broken fuling shaman shield stops blocking arrows, plants keep growing after a lag spike, buried ore veins keep their support, and overdue berry bushes regrow when someone comes near. With Quick Stack - Store - Sort - Trash - Restock, sorting and storing leave Equipment and Quick Slots' slots alone.
 
-### Playing
+**With Epic Loot.** Bounties complete when the main target dies, spread out across the map, and the target gets a small health bar and always drops at least one enchanted item. Riches, Fire Rate, Noise, +Ranged Skills, Meads Cooldown, Indestructible, Bountiful Harvest, Quick Draw and Air Jump work as described. The enchanting table takes its materials from chests within 50 m, damage enchantments can roll together, and Lucky Loot works on birds. Without Epic Loot these stay off.
 
-| Feature | What it does | Set by |
+**Trader prices.** The Potato Server's traders pay [these prices](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/sell-prices.csv) for every item. Running Traders Extended on your own server? [The same prices as a ready-made file](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/common.sell.csv) go in `BepInEx/config/shudnal.TradersExtended/`.
+
+## Settings
+
+In `BepInEx/config/potato.tweaks.cfg`, or in game with Configuration Manager (F1). Server settings say *[Synced with Server]*: set them on the server, and every player gets them on joining. Values in brackets are the defaults.
+
+| Section | What you can set | Set by |
 |---|---|---|
-| **Farther camera zoom** | Zoom out to 12 m on land (game: 8 m) and 24 m on a ship. | Player |
-| **Dropped items last 3 hours** | Dropped items last 3 hours of world time instead of 1, so loot dropped before a night's sleep survives it. Items in a base, near a player, in tar or part of a build still never disappear. | Server |
-| **Take apart ships and carts** | Hold **Ctrl** and use the hammer's remove button (middle mouse) on a raft, karve, longship, drakkar or cart. Every material is refunded and cargo drops in crates. Normal rules still apply: workbench in range, no ward or no-build zone, nobody aboard a raft. | Server |
-| **Tombstone retrieval** | Type `retrievetomb` (or `gettomb`) in the F5 console, or `/retrievetomb` in chat, to bring your own tombstones to where you stand. They stay put after the move. | Server |
-| **Cancel an attack into a block** | Press block during a swing's windup or recovery to drop the attack and raise your guard at once. A hit the swing hasn't reached never lands; stamina already spent stays spent; you can't attack faster this way. | Server |
-| **Spearfishing** | Throw a spear or shoot an arrow or bolt at a fish in the water to catch it: it floats up to be picked up. A harpoon pulls it straight into your inventory. Modded spears, bows and crossbows work too. | Server |
-| **Double dragon bed** | Each half of the dragon bed is its own bed: two players can claim it, sleep side by side and respawn on their own half. Blankets roll over the sleepers. | Server and every player alike (blankets: Player) |
-| **Trophy pity** | Every kill without a trophy makes that creature's next trophy more likely, until it drops. In multiplayer each kill counts for the player who made it, even when the creature is run by another player's game. The Trophies tab shows each trophy's next chance and, spoiler-free, the trophies you haven't collected yet. | Server (Trophies tab: Player) |
-| **Quality of life** | Tombstone items go back to the slots they had when you died; no auto-equip when walking over weapons and tools; the hammer menu updates live; health bars show while holding the hammer and stay visible through mist, trees and buildings in a fight; taming progress shows from health-bar range; with Equipment & Quick Slots, V no longer switches auto-pickup off by accident. | Player |
-| **Inventory Slots Visibility** | No inventory slot stays hidden. When mods add slots (equipment, quick slots, quiver, backpack, extra rows) and a window ends up over them or past the screen edge, that window moves just enough to show them, at any resolution from 16:9 to 32:9 ultrawide and any GUI scale, and moves back when no longer in the way. Lightweight: it only checks when the inventory's layout changes. Each move is noted once in the log. | Player |
-| **Wisplight upgrades** | The Wisplight can be upgraded at the workbench up to level 5; each level clears more mist around its wisp (about 10 m at level 1, the game's own, up to about 30 m at level 5). Upgrades cost wisps and silver. Everyone sees the same clearing, wisp torches are left alone, and Epic Loot's wisp range enchantment still adds on top. | Server |
-| **Item stands** | Any item goes on item stands, not only trophies and gear, and keeps its quality and enchantments. Look at a stand and use `itemstand_scale`, `itemstand_rotation` or `itemstand_offset` in the F5 console to resize, turn or move the item (within limits, not in other players' wards); `itemstand_hide` hides the stand itself. | Server (hiding, closer to the wall: Player) |
-| **Status effect icons** | Status effect icons stay where the game puts them, beside the minimap, without their names (which get cut short). The time left, or the comfort level while resting, still shows on each icon. Can be switched off. | Player |
-| **Remove death markers** | A button by the skull icon on the large map removes every death marker at once (click twice to confirm). Your own pins and other icons stay. | Player |
-| **Farming, swimming and sneaking** | Tamed animals don't trample crops; the Swim skill raises swim speed (up to +25%); the Sneak skill raises sneak speed (up to jogging speed at level 100, but quiet). | Server |
-| **Sleeping** | The night is skipped once half the players are in bed or emoting (sitting, or standing still after any emote), with at least one in bed. Only they sleep through it; everyone else keeps playing. Until then, everyone sees how many more are needed. | Server |
-| **Comfort helper** | A Comfort tab in the build menu lists every comfort piece by group (only the best of each group within 10 m counts), with check marks on what's nearby. Comfort pieces say what they'd add where you stand, a message when you start resting names the best pieces to add, and `/comfort` in chat lists them all. | Player |
+| 1 - Camera | Zoom on land (1.5x, 12 m) and on a ship (24 m) | Personal |
+| 2 - Dropped items | How long they last (3 hours) | Server |
+| 3 - Ship and cart removal | On or off | Server |
+| 4 - Tombstone retrieval | On or off, time between uses (10 s) | Server |
+| 5 - Skill loss on death | Loss per skill (1 = the game's normal) | Server |
+| 6 - Skill XP | XP per skill (1 = normal, up to 10) | Server |
+| 7 - Visual effects | Upgrade glow, tree dust, combat particles; Epic Loot looks | Personal |
+| 8 - Attack cancel | On or off | Server |
+| 9 - Epic Loot bounties | Main kill only, spacing (300 m), extra copies (1), scaling | Server; health bar personal |
+| 10 - Bug fixes | Game and Epic Loot fixes (restart after changing) | Every game alike |
+| 11 - Quality of life | Each comfort above, swim and sneak speed, crops | Personal; speeds and crops server |
+| 12 - Smelters and kilns | Capacity, speed, fuel, output, stations left alone; windmills (2x speed) | Server |
+| 13 - Fermenters | Speed and output (1 = normal) | Server |
+| 14 - Crafting stations | Build range (1 = normal) | Server |
+| 15 - Carts and boats | Health from Crafting skill (carts +400%, boats +100%) | Server |
+| 16 - Map | Reveal radius (1 = normal); death marker button | Server; button personal |
+| 17 - Double dragon bed | On or off (restart after changing); blankets | Every game alike; blankets personal |
+| 18 - Trophies | Pity growth (+10%, rare +20%), guarantees, star bonus | Server; Trophies tab personal |
+| 19 - Spearfishing | Spears, harpoons, bows, crossbows | Server |
+| 20 - Epic Loot enchanting table | Chests within 50 m, double output per item | Server; Sacrifice tab lists personal |
+| 21 - Epic Loot enchantments | Stacking, shot costs, shard clashes, Lucky Loot on birds | Server; messages personal |
+| 22 - Loot and items | Drop multipliers, weight, stack size, pickup range (2 m), floating, essences | Server |
+| 23 - Inventory rows | Bosses and prices (1,000, 2,000, 3,000 coins) | Server |
+| 24 - Sleeping | Share of players (50%), who counts, players in bed (1) | Server |
+| 25 - Item stands | Allowed items and stands, adjust limits (2 m, 5x) | Server; hiding personal |
+| 26 - Wisplight | Levels (5), clearing per level (5 m), costs | Server |
+| 27 - Comfort | Tab, check marks, descriptions, resting message | Personal |
+| 28 - Recycling | Materials back (50%), upgrades count | Server; key (Left Ctrl) personal |
+| 29 - Serving tray | Every crafted food (next game start) | Server |
+| 30 - Chests | Chest names | Server |
+| | Name key (Ctrl + N), show contents, icon size (24 px), most icons (8) | Personal |
+| 31 - Doors | Doors close themselves, seconds open (5) | Server |
+| 32 - Station timers | Show timers | Personal |
 
-### World and economy
+Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`. If a Valheim update breaks something a feature relies on, that feature switches itself off and writes why in the BepInEx log; the rest keep working.
 
-All of these start at the game's normal values, except windmill speed, cart and boat health, the inventory rows and the serving tray.
+**Replacing other mods.** Potato Tweaks covers Tomb Retriever, SkillLoss, Double Dragon Bed, Dimmer Combat Particle Effects, TrophyAssister, Spearfishing, Epic Loot Add-ons, DropMoreLoot, EssenceForAll and ComfortHelper. If one of them is installed, Potato Tweaks leaves that feature to it and says so in the log. When you switch, their old settings (and TrophyAssister's pity counts) are copied over on first launch. It won't load next to EpicLoot Progression Fix, which it already contains.
 
-| Feature | What it does | Set by |
-|---|---|---|
-| **Skill loss and XP** | How much of each skill is lost on death (0 = nothing, 1 = normal) and an XP multiplier per skill (up to 10). | Server |
-| **Loot and items** | Multipliers for creature, resource and pickable drops (trophies only if you want); item weight; stack size; auto-pickup range; items that float in water. Weight and stack size apply to every copy of an item, crafted, carried or dropped. | Server |
-| **Essence for everyone** | Thunderblood and Frostfire essence always drop from the creatures that carry them, one for each player who was nearby when the creature appeared. | Server |
-| **Recycling** | With a crafting station open, Ctrl + right-click an item in your inventory to take it apart at the station it's made at and get half its materials back (upgrades included). The tooltip shows what you'd get, and a key hint shows at the bottom of the screen. Enchanted items and hotbar items ask first. | Server (key, hotbar prompt: Player) |
-| **Smelters, fermenters and stations** | Smelter, kiln and furnace capacity, speed, fuel use and output; windmills mill twice as fast (adjustable, with capacity, output and a minimum wind); fermenter speed and output; crafting station build range. | Server |
-| **Serving tray** | The serving tray can set out every crafted food that has no place on it yet, from the game and from mods like OdinHorse and Wizardry. Like the game's own dishes, each is one item, eaten and gone. Raw food and food from the cooking station are left out. | Server |
-| **Carts and boats** | Carts and boats get more health the higher their builder's Crafting skill: carts up to +400%, boats up to +100%. | Server |
-| **Map** | How far around you the map is revealed as you explore. | Server |
-| **Inventory rows** | Haldor's two inventory rows unlock after the Elder and Bonemass instead of Moder and the Queen, and he sells a third, Roomier pockets, after Yagluth for 3,000 coins. Each is bought once per character. | Server |
+**Credits.** Camera zoom, dropped items, ship and cart removal, attack cancelling, the Epic Loot bounty and enchantment fixes, the game fixes and most of the small comforts come from EpicLoot Progression Fix by its contributors (MIT). The double dragon bed comes from Double Dragon Bed by Hansenbansen and spearfishing from Spearfishing by karkkant (both MIT). Item stands come from Item Stand All Items by JereKuusela (public domain). Essence for everyone and the comfort helper come from EssenceForAll and ComfortHelper by Koen-H (MIT). The rest was written for Potato Tweaks, some of it on ideas from RandyKnapp's Minimal Status Effects, blacks7ar's SNEAKer and Digitalroot's Better Wisps.
 
-### Looks
+Bug reports go to [GitHub Issues](https://github.com/TheRealRel/PotatoTweaks/issues), where the source lives too. Questions are welcome on Discord: [relanebeis](https://discord.com/users/373574370267889674). The Changelog tab says whether everyone needs to update.
 
-| Feature | What it does | Set by |
-|---|---|---|
-| **Visual effects** | Sliders for the glow on gear upgraded past its max level, the dust from felling trees, and the particles that cover creatures in a fight (fainter, darker or smaller, so you can see attacks coming). With Epic Loot: hide the Glowing aura, all enchantment effects or legendary textures. Only changes what you see. | Player |
+Needs [BepInExPack Valheim](https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/) and [Jötunn](https://thunderstore.io/c/valheim/p/ValheimModding/Jotunn/). Epic Loot and StarLevelSystem are optional. Players without Potato Tweaks can't join a server that has it.
 
-### Fixes
-
-| Feature | What it does | Set by |
-|---|---|---|
-| **Game bug fixes** | Fast second bow shots no longer vanish; swings from a ship's deck hit what's on the deck; a broken fuling shaman shield stops blocking arrows; plants no longer stop growing after a lag spike; long buried ore veins keep their support; overdue berry bushes regrow as soon as someone is near. | Every game alike (restart after changing) |
-| **Sorting with Equipment & Quick Slots** | With Quick Stack - Store - Sort - Trash - Restock installed, sorting, quick stacking and storing no longer move items in or out of Equipment and Quick Slots' slots (Z, V, B and the equipment slots). Restock can still top up quick slots. | Automatic |
-
-### Epic Loot
-
-*Only with Epic Loot installed; without it these simply stay off.*
-
-| Feature | What it does | Set by |
-|---|---|---|
-| **Bounty fixes** | Bounties complete when the main target dies (minions optional); new bounties spread out instead of piling onto the same spots; targets that stood still while the ground's pathing loaded now come at you; the main target drops one extra copy of each enchanted item and always at least one; targets get a small overhead health bar. With StarLevelSystem, targets keep their extra health after reloading and scale with stars like normal creatures. | Server (health bar: Player) |
-| **Enchantment fixes** | Riches gives treasure at its stated chance; Fire Rate speeds up bows, crossbows and staffs; Noise reduces noise by its percentage; +Ranged Skills raises Bows and Crossbows; Meads Cooldown works with Instant Mead; Indestructible armor stops wearing down; Bountiful Harvest works on other players' plants; Quick Draw no longer slows crossbow reloads; Air Jump isn't wasted just above the ground. | Every game alike (restart after changing) |
-| **Enchanting table** | Takes its costs from built chests within 50 m that you can open, and the Sacrifice tab can list trophies and shardstones from them (checkboxes in the tab). The double-output chance is rolled per sacrificed item instead of all or nothing. | Server (chest lists: Player) |
-| **Enchantments and shards** | Damage enchantments can roll together on one weapon; Double Magic Shot and Triple Shot cost the normal eitr or stamina, and Double Magic Shot doubles a summoning staff's limit; shardstones can be socketed even when their effect clashes with one the item has; Lucky Loot works on birds. | Server |
-| **Messages and tooltips** | A message when Lucky Loot triggers near you; enchanted staffs show their eitr cost; Epic Loot no longer goes through every chest's items each second when nothing changed. | Player |
-
-## Requirements
-
-- BepInExPack Valheim
-- Jotunn
-
-Install on the **server and every player's game**. Players without the mod can't join a server that has it.
-
-Not compatible with EpicLoot Progression Fix, which already contains the camera, dropped-item, ship and cart, attack-cancel, bounty and bug-fix features. Potato Tweaks will not load next to it.
-
-Epic Loot and StarLevelSystem are optional. Without Epic Loot the Epic Loot features simply stay off.
-
-Can replace the **Tomb Retriever**, **SkillLoss**, **Double Dragon Bed**, **Dimmer Combat Particle Effects**, **TrophyAssister**, **Spearfishing**, **Epic Loot Add-ons**, **DropMoreLoot**, **EssenceForAll** and **ComfortHelper** mods. None of them is needed. If one is installed, Potato Tweaks leaves that feature to it and writes a warning in the log; remove it to use Potato Tweaks' version. When switching, Potato Tweaks copies the old mod's settings (and TrophyAssister's pity counts) on first launch if their files are still in the config folder.
-
-## Installation
-
-**r2modman / Thunderstore Mod Manager / Gale**
-- Install Potato Tweaks from the mod list. Jotunn and BepInEx are installed with it.
-
-**Manual**
-1. Install BepInExPack Valheim and Jotunn.
-2. Copy `plugins/PotatoTweaks.dll` from the download into `BepInEx/plugins/PotatoTweaks/`.
-
-**Dedicated server**
-- Copy `PotatoTweaks.dll` into the server's `BepInEx/plugins/PotatoTweaks/` and restart the server.
-
-## Configuration
-
-`BepInEx/config/potato.tweaks.cfg`, created on first launch. Also editable in game with a configuration manager (F1). Server settings are marked *[Synced with Server]*: set them in the server's file, and every player gets them on joining.
-
-| Section | Settings | Set by |
-|---|---|---|
-| **1 - Camera** | How far the camera zooms out: on land (1.5 = 12 m, game: 8 m) and on a ship (24 m). | Player |
-| **2 - Dropped items** | How long dropped items last: 3 hours of world time (game: 1). | Server |
-| **3 - Ship and cart removal** | Ctrl + hammer remove takes apart ships and carts, refunding everything. | Server |
-| **4 - Tombstone retrieval** | The `retrievetomb` command, with 10 seconds between uses. | Server |
-| **5 - Skill loss on death** | How much of each skill you lose on death: 0 = none, 1 = the game's normal. *Other skills* covers modded skills. | Server |
-| **6 - Skill XP** | XP multiplier per skill: 1 = normal, up to 10. | Server |
-| **7 - Visual effects** | Strength of the glow on over-upgraded gear (0–2); amount of tree-felling dust (0–1); combat effects dimmer: how faint, dark and small fight particles are, and which ones. With Epic Loot: hide the Glowing aura, all enchantment effects, or legendary textures. | Player |
-| **8 - Attack cancel** | Block during a swing to cancel it. | Server |
-| **9 - Epic Loot bounties** | Bounties complete on the main kill; new bounties spread out (300 m apart); 1 extra enchanted copy per drop; at least one enchanted item; with StarLevelSystem, targets scale like normal creatures. | Server |
-| | Small health bar over bounty targets. | Player |
-| **10 - Bug fixes** | Fixes for game bugs and Epic Loot enchantments. Restart after changing; keep them the same everywhere. | Every game alike |
-| | Epic Loot skips re-reading unchanged chests (faster). | Player |
-| **11 - Quality of life** | No auto-equip on pickup; hammer menu updates live; health bars with build tools and through mist and trees in a fight (enemies attacking you within 15 m always show); taming progress from afar; tombstone items back in their slots (and the Better Archery quiver back on); auto-pickup moves off V when a quick slot uses it; Inventory Slots Visibility; status effect icons without names. | Player |
-| | Tamed animals don't trample crops; Swim skill raises swim speed; Sneak skill raises sneak speed (+100% at level 100, adjustable). | Server |
-| **12 - Smelters and kilns** | Multipliers (1 = normal) for ore capacity, fuel capacity, speed, fuel used per bar and output, plus stations to leave alone. Windmills: speed (2 = half the time), capacity and output (1 = normal), and a minimum wind (0 = off) so they never stop completely. | Server |
-| **13 - Fermenters** | Speed and output multipliers (1 = normal). | Server |
-| **14 - Crafting stations** | Build range multiplier (1 = normal). | Server |
-| **15 - Carts and boats** | Extra health from the builder's Crafting skill: carts up to +400%, boats up to +100% at skill 100. 0 = off. | Server |
-| **16 - Map** | How far around you the map is revealed (1 = normal, 100 m). | Server |
-| | Remove death markers button on the large map (on). | Player |
-| **17 - Double dragon bed** | Two players can each claim half of the dragon bed. Restart after changing; keep it the same everywhere. | Every game alike |
-| | Blankets roll over sleepers. | Player |
-| **18 - Trophies** | Pity: each kill without a trophy raises that creature's next trophy chance (+10%, or +20% for rare trophies), until it drops. Optional: flat growth instead, a guaranteed drop after X kills, extra pity for starred creatures, a chance multiplier, only your own kills, only trophies you don't have yet. | Server |
-| | Trophies tab: show chances and missing trophies (spoiler-free), hide chosen trophies, messages on drop or dry kill. | Player |
-| **19 - Spearfishing** | Which weapons catch fish: spears, harpoons, bows, crossbows. | Server |
-| **20 - Epic Loot enchanting table** | The table takes materials from chests within 50 m; double output is rolled per item. | Server |
-| | Sacrifice tab also lists trophies (on) and shardstones (off) from those chests. | Player |
-| **21 - Epic Loot enchantments** | Damage enchantments can stack; Double and Triple Shot cost normal eitr or stamina; Double Magic Shot doubles the summon limit; shardstones ignore effect clashes; Lucky Loot works on birds. | Server |
-| | Lucky Loot message (and where it shows); eitr cost in tooltips. | Player |
-| **22 - Loot and items** | Drop multipliers for creatures, resources and pickables (1 = normal; trophies only if turned on), with lists of items to never or only multiply. Item weight and stack size multipliers (1 = normal), auto-pickup range (2 m), items float in water. Essence for everyone (on): essences always drop, one per player nearby; the player range (200 m) and which items count. | Server |
-| **23 - Inventory rows** | Haldor's two extra rows unlock after the Elder (1,000 coins) and Bonemass (2,000) instead of Moder and the Queen. He also sells a third row after Yagluth for 3,000 (price and boss adjustable). Each is bought once per character. | Server |
-| **24 - Sleeping** | Share of players needed to skip the night (50%); who counts besides players in bed (any emote, sitting only, or beds only); players in bed needed first (1). 100% and beds only = the game's normal. | Server |
-| **25 - Item stands** | Which items are allowed (all, items with a stand model, or the game's normal); which stands; whether players can adjust items, and the largest move (2 m) and size (5x); default adjustments per item; simple models for items that look wrong. | Server |
-| | Hide stands holding an item; items closer to the wall. | Player |
-| **26 - Wisplight** | Upgrade levels (5; 1 = the game's normal); extra clearing per level (5 m); wisps, silver and eitr per upgrade (5, 10, 0), rising with the level like the game's upgrade costs. | Server |
-| **27 - Comfort** | Comfort tab (and its name), check marks in every tab, comfort in piece descriptions, message when resting (every 10 minutes at most, 4 pieces). | Player |
-| **28 - Recycling** | On; materials returned (50%); upgrades count (on). | Server |
-| | Recycle key (Left Ctrl); confirm hotbar items (on). | Player |
-| **29 - Serving tray** | Every crafted food (on). Takes effect on the next game start. | Server |
-
-Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`.
-
-The skill settings start at the game's normal values: normal death loss and 1× XP for every skill. Change them on the server; players always use the server's values.
-
-**Only if you are switching from the SkillLoss mod:** on first launch, Potato Tweaks copies your old values from `Mirfin.SkillLoss.cfg` when that file is in the config folder. Without that file nothing is copied and the normal values are used.
-
-If a Valheim update changes the game code a feature relies on, that feature switches itself off and writes the reason to the BepInEx log. The other features keep working.
-
-## Credits
-
-Camera zoom, dropped-item lifetime, ship/cart removal, attack cancelling, the Epic Loot bounty and enchantment fixes, the game bug fixes and most quality-of-life features come from **EpicLoot Progression Fix** by the EpicLoot Progression Fix contributors, used under the MIT License. The double dragon bed comes from **Double Dragon Bed** by Hansenbansen and spearfishing from **Spearfishing** by karkkant, both used under the MIT License. The item stands come from **Item Stand All Items** by JereKuusela, which is in the public domain. Essence for everyone and the comfort helper come from **EssenceForAll** and **ComfortHelper** by Koen-H, used under the MIT License. The Epic Loot enchanting table and enchantment add-ons were written for Potato Tweaks to replace DigiTeam's Epic Loot Add-ons, and the loot and item settings to replace TastyChickenLegs' DropMoreLoot. Tombstone retrieval, the skill settings, the visual effect sliders and combat effects dimmer, trophy pity, the station, fermenter, range and map settings, the death marker button, the sleep vote, boat health, the status effect list (an idea from RandyKnapp's Minimal Status Effects) sneak speed (an idea from blacks7ar's SNEAKer) and Wisplight upgrades (an idea from Digitalroot's Better Wisps) were written for Potato Tweaks. See `LICENSE`.
-
-## License
-
-Potato Tweaks' own code is under the MIT License too: use it, change it and share it freely. The icon is © TheRealRel under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): free to share and adapt with credit, but not for commercial use. See `LICENSE`.
+The code is under the MIT License: use it, change it and share it freely. The icon and screenshots are © TheRealRel under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): free to share and adapt with credit, but not for commercial use. See LICENSE.
