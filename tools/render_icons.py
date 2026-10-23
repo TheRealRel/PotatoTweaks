@@ -209,12 +209,44 @@ def render(parts, yaw=35, pitch=25, fov=28, light=(-0.5, 0.8, 0.6)):
     out[edge, :3] = OUTLINE; out[edge, 3] = 1
     return Image.fromarray((np.clip(out, 0, 1) * 255).astype(np.uint8), "RGBA").resize((OUT_PX * UP, OUT_PX * UP), Image.NEAREST)
 
+def load_models(path):
+    # A .glb, or the game-ready .mesh files of a Potato mod (comma separated, each with its <name>_d.png beside it).
+    if not path.endswith(".mesh"): return trimesh.load(path, force="scene").dump()
+    import struct
+    from trimesh.visual import TextureVisuals
+    from trimesh.visual.material import PBRMaterial
+    out = []
+    for one in path.split(","):
+        raw = open(one, "rb").read()
+        nv, ni = struct.unpack("<ii", raw[4:12]); o = 12
+        pos = np.frombuffer(raw, "<f4", nv * 3, o).reshape(-1, 3); o += nv * 12
+        o += nv * 12                                               # normals: recomputed per face
+        uv = np.frombuffer(raw, "<f4", nv * 2, o).reshape(-1, 2); o += nv * 8
+        idx = np.frombuffer(raw, "<i4", ni, o).reshape(-1, 3)
+        tex = Image.open(one[:-5] + "_d.png")
+        out.append(trimesh.Trimesh(pos.astype(float), idx, process=False,
+                                   visual=TextureVisuals(uv=uv.astype(float), material=PBRMaterial(baseColorTexture=tex))))
+    return out
+
+def render_lowpoly(path, lift=1.65, **view):
+    # A game-ready model with few, large triangles: drawn triangle by triangle with its texture. The textures of the
+    # Potato pieces are made darker for the game's lighting (about 1.65x brighter in game), so they're lifted back.
+    parts = []
+    for geom in load_models(path):
+        img = np.clip(np.asarray(geom.visual.material.baseColorTexture.convert("RGB"), float) / 255.0 * lift, 0, 1)
+        h, w = img.shape[:2]; fuv = geom.visual.uv[geom.faces]
+        def m(p, n, t, b, img=img, fuv=fuv, h=h, w=w):
+            st = (fuv[t] * b[..., None]).sum(1)
+            return img[np.clip(((1 - st[:, 1] % 1) * (h - 1)).astype(int), 0, h - 1), np.clip(((st[:, 0] % 1) * (w - 1)).astype(int), 0, w - 1)]
+        m.textured = True
+        parts.append((geom, m))
+    return render(parts, **view)
+
 def render_dense(path, yaw=35, pitch=25, fov=28, light=(-0.5, 0.8, 0.6), splat=2):
     # Meshy models have millions of tiny triangles: each one is drawn as a dot of its own colour (its texture at the
     # triangle's centre), nearest dot wins. At icon size the dots join up into a solid surface.
-    scene = trimesh.load(path, force="scene")
     cents, cols, nrms = [], [], []
-    for geom in scene.dump():
+    for geom in load_models(path):
         tri = geom.triangles
         n = np.cross(tri[:, 1] - tri[:, 0], tri[:, 2] - tri[:, 0]); n /= np.linalg.norm(n, axis=1)[:, None] + 1e-12
         mat = getattr(geom.visual, "material", None)
@@ -424,7 +456,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 2 and sys.argv[2] == "--glb":
         path, name = sys.argv[3], sys.argv[4]
         yaw = float(sys.argv[5]) if len(sys.argv) > 5 else 35; pitch = float(sys.argv[6]) if len(sys.argv) > 6 else 25
-        render_dense(path, yaw=yaw, pitch=pitch).save(os.path.join(sys.argv[1], f"icon-{name}.png")); sys.exit()
+        (render_lowpoly(path, yaw=yaw, pitch=pitch) if path.endswith(".mesh") else render_dense(path, yaw=yaw, pitch=pitch)).save(os.path.join(sys.argv[1], f"icon-{name}.png")); sys.exit()
     out = sys.argv[1]; names = sys.argv[2:] or list(ICONS)
     os.makedirs(out, exist_ok=True)
     done = []
