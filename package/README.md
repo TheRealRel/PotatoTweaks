@@ -1,32 +1,112 @@
 Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for the Potato Server. It goes on the server and in every player's game. Every feature can be switched off on its own. Server settings come from the server and are the same for everyone; personal settings are each player's own.
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-chest.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-door.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-smelter.png)
+## Around the base
 
-**Chests, doors and station timers.** Name a chest by looking at it and pressing Ctrl + N, and everyone sees the name. Looking at a chest also shows a row of small icons with what's inside. Doors you open close themselves a few seconds later, once the doorway is clear. Smelters, kilns, furnaces, spinning wheels, windmills, fermenters and cooking stations show how long until the next item, until everything is done, and until the fuel runs out.
+![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-chest.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-door.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-house.png)
+
+**Chests.** Look at a chest and press Ctrl + N to name it, and everyone sees the name. Looking at a chest also shows a row of small icons of what's inside, so you can find things without opening every box.
 
 ![A named chest and its contents on hover](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/chest.jpg)
 
+**Doors.** Doors you open close themselves 5 seconds later, once the doorway is clear.
+
+**Serving tray.** Every crafted food can be set out on the serving tray, from the game and from food mods like OdinHorse and Wizardry, and eaten from it like the game's own dishes.
+
+**Item stands.** Any item goes on an item stand. The `itemstand_scale`, `itemstand_rotation` and `itemstand_offset` console commands resize, turn or move what's on it.
+
+**Comfort tab.** A tab in the build menu lists every comfort piece, ticks the ones already near you and says how much each would add.
+
+**Sleeping.** The night is skipped once half the players are in bed or sitting, as long as at least one is in bed. Each half of the dragon bed is its own bed, so two players can sleep side by side.
+
+**Wisplight.** Upgrade it at the workbench up to level 5. Each level clears more mist around you.
+
+## Crafting and stations
+
+![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-anvil.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-smelter.png)
+
+**Station timers.** Smelters, kilns, furnaces, spinning wheels, windmills, fermenters and cooking stations show three timers when you look at them:
+
+- until the next item is done
+- until everything inside is done
+- until the fuel runs out
+
 ![A smelter's timers on hover](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/smelter.jpg)
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-map.png) **Getting around.** The camera zooms out farther: 12 m on land instead of 8, and 24 m on a ship. Dropped items last 3 hours of world time instead of 1, so loot dropped before a night's sleep is still there. Holding Ctrl and using the hammer's remove button takes apart a raft, karve, longship, drakkar or cart, refunding every material and dropping its cargo in crates. Type `retrievetomb` in the F5 console (or `/retrievetomb` in chat) to bring your own tombstones to you. A button by the skull on the large map clears every death marker at once.
+**Recycling.** With a crafting station open, Ctrl + right-click an item to take it apart. You get half its materials back, upgrades included.
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-house.png) **Around the base.** Every crafted food can be set out with the serving tray, from the game and from food mods like OdinHorse and Wizardry, and eaten like the game's own dishes. Any item goes on an item stand, and the `itemstand_scale`, `itemstand_rotation` and `itemstand_offset` console commands resize, turn or move it. A Comfort tab in the build menu lists every comfort piece, ticks what's nearby and says what each would add. The night is skipped once half the players are in bed or sitting, with at least one in bed. The Wisplight can be upgraded at the workbench up to level 5, clearing more mist at each level.
+**Station settings.** Smelters, kilns and furnaces have settings for capacity, speed, fuel and output. Windmills mill twice as fast, fermenters have speed and output settings, and the server can widen crafting stations' build range.
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-anvil.png) **Crafting and stations.** With a crafting station open, Ctrl + right-click an item to take it apart for half its materials, upgrades included. Smelters, kilns and furnaces have settings for capacity, speed, fuel and output, windmills mill twice as fast, and fermenters have speed and output settings. Carts and boats get more health the higher their builder's Crafting skill.
+**Carts and boats.** They get more health the higher their builder's Crafting skill: up to +400% for carts and +100% for boats at Crafting 100.
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-shield.png) **Fighting and hunting.** Press block during a swing's windup or recovery to cancel it and raise your guard at once. Every kill without a trophy makes the next one from that creature more likely, until it drops; the Trophies tab shows the chances and, without spoilers, what you haven't collected. Spears, arrows and bolts catch fish, and a harpoon pulls them straight into your inventory. Thunderblood and Frostfire essence drop for every player who was nearby.
+## Getting around
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-pouch.png) **Skills, loot and inventory.** Skill loss on death and XP per skill are set by the server. Drops from creatures, resources and pickables, item weight, stack size and auto-pickup range all have multipliers. Haldor's extra inventory rows unlock after the Elder and Bonemass, and he sells a third after Yagluth. The Swim and Sneak skills raise swim and sneak speed, and tamed animals don't trample crops.
+![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-map.png)
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-fire.png) **Small comforts.** Tombstone items go back to the slots they came from, walking over a weapon no longer equips it, the hammer menu updates live, and health bars show while you hold the hammer and through mist and trees in a fight. Inventory windows move aside when mods' extra slots would end up behind them or off screen, at any resolution. Status effect icons drop their cut-off names. Each half of the dragon bed is its own bed, so two players can sleep side by side.
+**Camera.** Zooms out farther: 12 m on land instead of 8, and 24 m on a ship.
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-mirror.png) **Looks.** Sliders for the glow on over-upgraded gear, the dust from felling trees and the particles that cover creatures in a fight. With Epic Loot, the Glowing aura, enchantment effects and legendary textures can be hidden. These only change what you see.
+**Dropped items.** They last 3 hours of world time instead of 1, so loot dropped before a night's sleep is still there.
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-hammer.png) **Game fixes.** Fast second bow shots no longer vanish, swings from a ship's deck hit what's on the deck, a broken fuling shaman shield stops blocking arrows, plants keep growing after a lag spike, buried ore veins keep their support, and overdue berry bushes regrow when someone comes near. With Quick Stack - Store - Sort - Trash - Restock, sorting and storing leave Equipment and Quick Slots' slots alone.
+**Taking apart ships and carts.** Hold Ctrl and use the hammer's remove button on a raft, karve, longship, drakkar or cart. Every material is refunded, and its cargo drops in crates.
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-gem.png) **With Epic Loot.** Bounties complete when the main target dies, spread out across the map, and the target gets a small health bar and always drops at least one enchanted item. Riches, Fire Rate, Noise, +Ranged Skills, Meads Cooldown, Indestructible, Bountiful Harvest, Quick Draw and Air Jump work as described. The enchanting table takes its materials from chests within 50 m, damage enchantments can roll together, and Lucky Loot works on birds. Without Epic Loot these stay off.
+**Tombstones.** Type `retrievetomb` in the F5 console (or `/retrievetomb` in chat) to bring your own tombstones to you. Their items go back to the slots they came from.
 
-![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-coins.png) **Trader prices.** The Potato Server's traders pay [these prices](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/sell-prices.csv) for every item. Running Traders Extended on your own server? [The same prices as a ready-made file](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/common.sell.csv) go in `BepInEx/config/shudnal.TradersExtended/`.
+**Map.** A button by the skull on the large map clears every death marker at once, and the server can widen how far around you the map is revealed.
+
+## Fighting and hunting
+
+![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-shield.png)
+
+**Attack cancel.** Press block during a swing's windup or recovery to cancel it and raise your guard at once.
+
+**Trophies.** Every kill without a trophy makes the next one from that creature more likely, until it drops. The Trophies tab shows the chances and, without spoilers, which trophies you haven't collected.
+
+**Spearfishing.** Spears, arrows and bolts catch fish, and a harpoon pulls them straight into your inventory.
+
+**Shared essences.** Thunderblood and Frostfire essence drop for every player who was nearby.
+
+## Skills, loot and trading
+
+![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-pouch.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-coins.png)
+
+**Skills.** The server sets how much skill you lose on death and how fast each skill gains XP. The Swim and Sneak skills also raise your swimming and sneaking speed.
+
+**Loot and items.** Multipliers for drops from creatures, resources and pickables, and for item weight, stack size and auto-pickup range.
+
+**Inventory rows.** Haldor sells extra inventory rows for 1,000, 2,000 and 3,000 coins: the first after the Elder, the second after Bonemass, the third after Yagluth.
+
+**Trader prices.** The Potato Server's traders pay [these prices](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/sell-prices.csv) for every item. Running Traders Extended on your own server? [The same prices as a ready-made file](https://github.com/TheRealRel/PotatoTweaks/blob/main/docs/common.sell.csv) go in `BepInEx/config/shudnal.TradersExtended/`.
+
+## Comforts, looks and fixes
+
+![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-fire.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-mirror.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-hammer.png)
+
+**Small comforts.** Walking over a weapon no longer equips it, the hammer menu updates live, and health bars show while you hold the hammer and through mist and trees in a fight. Inventory windows move aside when mods' extra slots would end up behind them or off screen, at any resolution. Status effect icons drop their cut-off names, and tamed animals don't trample crops.
+
+**Looks.** Sliders for the glow on over-upgraded gear, the dust from felling trees and the particles that cover creatures in a fight. These only change what you see.
+
+**Game fixes.**
+
+- Fast second bow shots no longer vanish.
+- Swings from a ship's deck hit what's on the deck.
+- A broken fuling shaman shield stops blocking arrows.
+- Plants keep growing after a lag spike.
+- Buried ore veins keep their support.
+- Overdue berry bushes regrow when someone comes near.
+- With Quick Stack - Store - Sort - Trash - Restock, sorting and storing leave Equipment and Quick Slots' slots alone.
+
+## With Epic Loot
+
+![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-gem.png)
+
+These switch on only when Epic Loot is installed.
+
+**Bounties.** They complete when the main target dies and spread out across the map. The target gets a small health bar and always drops at least one enchanted item.
+
+**Enchantments.** Riches, Fire Rate, Noise, +Ranged Skills, Meads Cooldown, Indestructible, Bountiful Harvest, Quick Draw and Air Jump work as described. Damage enchantments can roll together, and Lucky Loot works on birds.
+
+**Enchanting table.** It takes its materials from chests within 50 m.
+
+**Looks.** The Glowing aura, enchantment effects and legendary textures can be hidden.
 
 ## Settings
 
