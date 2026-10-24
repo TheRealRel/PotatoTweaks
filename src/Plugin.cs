@@ -581,6 +581,7 @@ namespace PotatoTweaks
             foreach (var type in StationTimers.Patches) Patch(type);
             Patch(typeof(RiddenHorse.HoldsBack));
             Run("Better Archery's crouch draw sits out on a mount", () => MountedBowDraw.Enable(harmony));
+            Patch(typeof(MountedBowDraw.AimArc));
             EnableUnlessInstalled(SmokeThrough.OriginalModId, "Smoke Collision", "smoke passing through", () => { foreach (var type in SmokeThrough.Patches) Patch(type); });
             EnableUnlessInstalled(ComfortHelper.OriginalModId, "ComfortHelper", "comfort helper", () =>
             {
