@@ -20,11 +20,35 @@ namespace PotatoTweaks
         {
             typeof(BowRelease), typeof(QueuedBowRelease), typeof(ShipDeckMelee), typeof(ShamanShield),
             typeof(PlantGrowthChecks), typeof(FirstPlantGrowthCheck), typeof(OreSupport), typeof(PickableRegrowth),
+            typeof(MountedCameraRoll),
         };
 
         internal static readonly AccessTools.FieldRef<Character, bool> AttackHold = AccessTools.FieldRefAccess<Character, bool>("m_attackHold");
         internal static readonly AccessTools.FieldRef<Character, bool> Blocking = AccessTools.FieldRefAccess<Character, bool>("m_blocking");
         internal static readonly AccessTools.FieldRef<Humanoid, Attack> CurrentAttack = AccessTools.FieldRefAccess<Humanoid, Attack>("m_currentAttack");
+    }
+
+    // ------------------------------------------------------------------ mounted camera roll
+    // While you're attached to something, the camera takes its "up" from your character's body, so it leans with a
+    // rocking ship. On a mount that goes wrong: a riding attack that tips the rider over (the Odin Horse's lance and
+    // bow swings) rolls the camera onto its side. On a mount the camera takes its up from the saddle instead, so it
+    // still follows the animal on a slope but not the rider's swings. Ships work as before.
+    [HarmonyPatch(typeof(GameCamera), "ApplyCameraTilt")]
+    internal static class MountedCameraRoll
+    {
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) =>
+            Transpilers.CallInstead(instructions, x => x.Calls(AccessTools.Method(typeof(Character), nameof(Character.GetVisual))),
+                AccessTools.Method(typeof(MountedCameraRoll), nameof(UpFrom)), 1, "Valheim's camera tilt changed.");
+
+        private static GameObject UpFrom(Character character)
+        {
+            if (character is Player player && player.IsRiding() && !player.IsAttachedToShip())
+            {
+                var saddle = player.GetAttachPoint();
+                if (saddle) return saddle.gameObject;
+            }
+            return character.GetVisual();
+        }
     }
 
     // ------------------------------------------------------------------ bow release
