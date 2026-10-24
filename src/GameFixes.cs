@@ -42,7 +42,7 @@ namespace PotatoTweaks
 
         private static GameObject UpFrom(Character character)
         {
-            if (character is Player player && player.IsRiding() && !player.IsAttachedToShip())
+            if (character is Player player && player.IsAttached() && !player.IsAttachedToShip())
             {
                 var saddle = player.GetAttachPoint();
                 if (saddle) return saddle.gameObject;
