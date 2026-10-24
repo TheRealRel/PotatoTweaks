@@ -71,6 +71,7 @@ namespace PotatoTweaks
         internal static ConfigEntry<int> BountyExtraCopies;
         internal static ConfigEntry<bool> GameFixesEnabled, EpicLootFixesEnabled, TidyConfigs;
         internal static ConfigEntry<string> SmokeThroughPieces;
+        internal static ConfigEntry<float> RiddenHorseFightsBelow;
         internal static ConfigEntry<bool> QolNoAutoEquip, QolLiveBuildMenu, QolBuildToolHealthBars, QolCombatHealthBars, QolTamingHover,
             QolGraveSlots, QolAutoPickupKey, QolTamedCrops, QolSwimSpeed;
         internal static ConfigEntry<float> QolAttackerRange, QolTreeDust;
@@ -488,6 +489,10 @@ namespace PotatoTweaks
             SmokeThroughPieces = Config.Bind("33 - Smoke", "Passes through", "darkwood_decowall,iron_floor_1x1,iron_floor_2x2,iron_grate,iron_wall_1x1,iron_wall_2x2,wood_stair,wood_stepladder",
                 Synced("Pieces that smoke drifts up through, and that don't count as covering a fire below them: object ids separated by commas (cage floors and walls, the iron gate, the darkwood divider, stairs and ladders by default). Empty = the game's normal."));
 
+            RiddenHorseFightsBelow = Config.Bind("34 - Riding", "Ridden horse fights back below health", 0.5f,
+                Synced("While someone rides an Odin Horse, it only rears to attack on its own once its health is at or below this share (0.5 = half). Otherwise it rears at anything nearby whenever it can, throwing the rider around. 1 = always, like before; 0 = never.",
+                    new AcceptableValueRange<float>(0f, 1f)));
+
             const string wisp = "26 - Wisplight";
             WispLevels = Config.Bind(wisp, "Upgrade levels", 5,
                 Synced("Highest level the Wisplight can be upgraded to at the workbench. Level 1 is the game's own; 1 = not upgradeable, the game's normal.", new AcceptableValueRange<int>(1, 10)));
@@ -579,6 +584,7 @@ namespace PotatoTweaks
             foreach (var type in Chests.Patches) Patch(type);
             foreach (var type in AutoDoors.Patches) Patch(type);
             foreach (var type in StationTimers.Patches) Patch(type);
+            Patch(typeof(RiddenHorse.HoldsBack));
             EnableUnlessInstalled(SmokeThrough.OriginalModId, "Smoke Collision", "smoke passing through", () => { foreach (var type in SmokeThrough.Patches) Patch(type); });
             EnableUnlessInstalled(ComfortHelper.OriginalModId, "ComfortHelper", "comfort helper", () =>
             {
