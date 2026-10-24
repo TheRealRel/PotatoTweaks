@@ -37,7 +37,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.15";
+        public const string Version = "1.5.16";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -69,7 +69,7 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> BountyMainKillOnly, BountySpreadOut, BountyGuaranteedItem, BountyNormalScaling, BountyHealthBar;
         internal static ConfigEntry<float> BountySpacing;
         internal static ConfigEntry<int> BountyExtraCopies;
-        internal static ConfigEntry<bool> GameFixesEnabled, EpicLootFixesEnabled;
+        internal static ConfigEntry<bool> GameFixesEnabled, EpicLootFixesEnabled, TidyConfigs;
         internal static ConfigEntry<bool> QolNoAutoEquip, QolLiveBuildMenu, QolBuildToolHealthBars, QolCombatHealthBars, QolTamingHover,
             QolGraveSlots, QolAutoPickupKey, QolTamedCrops, QolSwimSpeed;
         internal static ConfigEntry<float> QolAttackerRange, QolTreeDust;
@@ -189,6 +189,9 @@ namespace PotatoTweaks
 
             GameFixesEnabled = Config.Bind("10 - Bug fixes", "Game bug fixes", true,
                 "Fixes for bugs in Valheim: dropped fast bow shots, swings stopped by the deck of the ship you stand on, broken fuling shaman shields still blocking, plants that stop growing, buried ore veins losing support, berry bushes slow to regrow. Takes effect after a restart; keep it the same on the server and every player's game.");
+            TidyConfigs = Config.Bind("10 - Bug fixes", "Tidy other mods config files", true,
+                "At startup, fixes small things in other mods' config files that make them warn on every launch, without changing what they do: tabs in LetMeTameYou's tame list comments, and berry bushes listed twice in StarLevelSystem's location resets. Personal.");
+            if (TidyConfigs.Value) ConfigTidy.Run();
             if (epicLoot)
                 EpicLootFixesEnabled = Config.Bind("10 - Bug fixes", "Epic Loot enchantment fixes", true,
                     "Fixes for Epic Loot enchantments: Riches, Fire Rate, Noise, +Ranged Skills, Meads Cooldown, Indestructible, Bountiful Harvest, Quick Draw crossbow reload and Air Jump near the ground. Takes effect after a restart; keep it the same on the server and every player's game.");
