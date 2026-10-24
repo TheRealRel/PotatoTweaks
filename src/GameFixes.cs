@@ -20,7 +20,7 @@ namespace PotatoTweaks
         {
             typeof(BowRelease), typeof(QueuedBowRelease), typeof(ShipDeckMelee), typeof(ShamanShield),
             typeof(PlantGrowthChecks), typeof(FirstPlantGrowthCheck), typeof(OreSupport), typeof(PickableRegrowth),
-            typeof(MountedCameraRoll),
+            typeof(MountedCameraRoll.EyeLevel), typeof(MountedCameraRoll.TrueUp),
         };
 
         internal static readonly AccessTools.FieldRef<Character, bool> AttackHold = AccessTools.FieldRefAccess<Character, bool>("m_attackHold");
@@ -29,25 +29,48 @@ namespace PotatoTweaks
     }
 
     // ------------------------------------------------------------------ mounted camera roll
-    // While you're attached to something, the camera takes its "up" from your character's body, so it leans with a
-    // rocking ship. On a mount that goes wrong: a riding attack that tips the rider over (the Odin Horse's lance and
-    // bow swings) rolls the camera onto its side. On a mount the camera takes its up from the saddle instead, so it
-    // still follows the animal on a slope but not the rider's swings. Ships work as before.
-    [HarmonyPatch(typeof(GameCamera), "ApplyCameraTilt")]
+    // The camera points the way your character's eye points. The game levels the eye every frame, but riding mods tip
+    // the rider over during attacks after that (the Odin Horse's lance and bow swings), and the eye tips with the
+    // rider, rolling the camera onto its side. While attached to anything but a ship, the eye is levelled again just
+    // before the camera reads it, and the camera's tilt uses true up instead of the rider's body. Ships work as before.
     internal static class MountedCameraRoll
     {
-        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) =>
-            Transpilers.CallInstead(instructions, x => x.Calls(AccessTools.Method(typeof(Character), nameof(Character.GetVisual))),
-                AccessTools.Method(typeof(MountedCameraRoll), nameof(UpFrom)), 1, "Valheim's camera tilt changed.");
+        private static readonly Action<Player> LevelEye =
+            AccessTools.MethodDelegate<Action<Player>>(AccessTools.Method(typeof(Player), "UpdateEyeRotation"));
+        private static GameObject level;
 
-        private static GameObject UpFrom(Character character)
+        private static bool Mounted(Player player) => player && player.IsAttached() && !player.IsAttachedToShip();
+
+        [HarmonyPatch(typeof(GameCamera), "UpdateCamera")]
+        internal static class EyeLevel
         {
-            if (character is Player player && player.IsAttached() && !player.IsAttachedToShip())
+            private static void Prefix()
             {
-                var saddle = player.GetAttachPoint();
-                if (saddle) return saddle.gameObject;
+                var player = Player.m_localPlayer;
+                if (Mounted(player)) LevelEye(player);
             }
-            return character.GetVisual();
+        }
+
+        [HarmonyPatch(typeof(GameCamera), "ApplyCameraTilt")]
+        internal static class TrueUp
+        {
+            private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) =>
+                Transpilers.CallInstead(instructions, x => x.Calls(AccessTools.Method(typeof(Character), nameof(Character.GetVisual))),
+                    AccessTools.Method(typeof(TrueUp), nameof(UpFrom)), 1, "Valheim's camera tilt changed.");
+
+            private static GameObject UpFrom(Character character)
+            {
+                if (character is Player player && Mounted(player))
+                {
+                    if (!level)
+                    {
+                        level = new GameObject("PotatoTweaks_Level");
+                        UnityEngine.Object.DontDestroyOnLoad(level);
+                    }
+                    return level;
+                }
+                return character.GetVisual();
+            }
         }
     }
 
