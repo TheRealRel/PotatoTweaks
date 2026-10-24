@@ -89,7 +89,6 @@ Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for th
 **Game fixes.**
 
 - Fast second bow shots no longer vanish.
-- Attacking from a mount no longer rolls the camera onto its side.
 - Swings from a ship's deck hit what's on the deck.
 - A broken fuling shaman shield stops blocking arrows.
 - Plants keep growing after a lag spike.

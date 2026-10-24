@@ -189,7 +189,7 @@ namespace PotatoTweaks
                 Synced("Pressing block during an attack's windup or recovery abandons the attack and raises the guard at once, so you can parry mid-swing. A hit the swing hasn't reached never lands; stamina already paid and a hit already dealt stay. Cancelling never lets you attack faster."));
 
             GameFixesEnabled = Config.Bind("10 - Bug fixes", "Game bug fixes", true,
-                "Fixes for bugs in Valheim: dropped fast bow shots, the camera rolling over when you attack from a mount, swings stopped by the deck of the ship you stand on, broken fuling shaman shields still blocking, plants that stop growing, buried ore veins losing support, berry bushes slow to regrow. Takes effect after a restart; keep it the same on the server and every player's game.");
+                "Fixes for bugs in Valheim: dropped fast bow shots, swings stopped by the deck of the ship you stand on, broken fuling shaman shields still blocking, plants that stop growing, buried ore veins losing support, berry bushes slow to regrow. Takes effect after a restart; keep it the same on the server and every player's game.");
             TidyConfigs = Config.Bind("10 - Bug fixes", "Tidy other mods config files", true,
                 "At startup, fixes small things in other mods' config files that make them warn on every launch, without changing what they do: tabs in LetMeTameYou's tame list comments, and berry bushes listed twice in StarLevelSystem's location resets. Personal.");
             if (TidyConfigs.Value) ConfigTidy.Run();
@@ -579,9 +579,6 @@ namespace PotatoTweaks
             foreach (var type in Chests.Patches) Patch(type);
             foreach (var type in AutoDoors.Patches) Patch(type);
             foreach (var type in StationTimers.Patches) Patch(type);
-            Patch(typeof(RiddenHorse.HoldsBack));
-            Patch(typeof(MountIcon.OwnIcon));
-            Run("Better Archery's body turn leaves a mounted rider to the riding mod", () => MountedBowSpine.Enable(harmony));
             EnableUnlessInstalled(SmokeThrough.OriginalModId, "Smoke Collision", "smoke passing through", () => { foreach (var type in SmokeThrough.Patches) Patch(type); });
             EnableUnlessInstalled(ComfortHelper.OriginalModId, "ComfortHelper", "comfort helper", () =>
             {

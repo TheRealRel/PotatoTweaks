@@ -20,58 +20,11 @@ namespace PotatoTweaks
         {
             typeof(BowRelease), typeof(QueuedBowRelease), typeof(ShipDeckMelee), typeof(ShamanShield),
             typeof(PlantGrowthChecks), typeof(FirstPlantGrowthCheck), typeof(OreSupport), typeof(PickableRegrowth),
-            typeof(MountedCameraRoll.EyeLevel), typeof(MountedCameraRoll.TrueUp),
         };
 
         internal static readonly AccessTools.FieldRef<Character, bool> AttackHold = AccessTools.FieldRefAccess<Character, bool>("m_attackHold");
         internal static readonly AccessTools.FieldRef<Character, bool> Blocking = AccessTools.FieldRefAccess<Character, bool>("m_blocking");
         internal static readonly AccessTools.FieldRef<Humanoid, Attack> CurrentAttack = AccessTools.FieldRefAccess<Humanoid, Attack>("m_currentAttack");
-    }
-
-    // ------------------------------------------------------------------ mounted camera roll
-    // The camera points the way your character's eye points. The game levels the eye every frame, but riding mods tip
-    // the rider over during attacks after that (the Odin Horse's lance and bow swings), and the eye tips with the
-    // rider, rolling the camera onto its side. While attached to anything but a ship, the eye is levelled again just
-    // before the camera reads it, and the camera's tilt uses true up instead of the rider's body. Ships work as before.
-    internal static class MountedCameraRoll
-    {
-        private static readonly Action<Player> LevelEye =
-            AccessTools.MethodDelegate<Action<Player>>(AccessTools.Method(typeof(Player), "UpdateEyeRotation"));
-        private static GameObject level;
-
-        private static bool Mounted(Player player) => player && player.IsAttached() && !player.IsAttachedToShip();
-
-        [HarmonyPatch(typeof(GameCamera), "UpdateCamera")]
-        internal static class EyeLevel
-        {
-            private static void Prefix()
-            {
-                var player = Player.m_localPlayer;
-                if (Mounted(player)) LevelEye(player);
-            }
-        }
-
-        [HarmonyPatch(typeof(GameCamera), "ApplyCameraTilt")]
-        internal static class TrueUp
-        {
-            private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) =>
-                Transpilers.CallInstead(instructions, x => x.Calls(AccessTools.Method(typeof(Character), nameof(Character.GetVisual))),
-                    AccessTools.Method(typeof(TrueUp), nameof(UpFrom)), 1, "Valheim's camera tilt changed.");
-
-            private static GameObject UpFrom(Character character)
-            {
-                if (character is Player player && Mounted(player))
-                {
-                    if (!level)
-                    {
-                        level = new GameObject("PotatoTweaks_Level");
-                        UnityEngine.Object.DontDestroyOnLoad(level);
-                    }
-                    return level;
-                }
-                return character.GetVisual();
-            }
-        }
     }
 
     // ------------------------------------------------------------------ bow release
