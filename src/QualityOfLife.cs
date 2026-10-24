@@ -932,7 +932,7 @@ namespace PotatoTweaks
     }
 
     // ------------------------------------------------------------------ map reveal radius
-    // Multiplies how far around you the map is revealed as you explore (game: 100 m).
+    // Multiplies how far around you the map is revealed as you explore (game: 100 m), farther while sailing.
     [HarmonyPatch(typeof(Minimap), "UpdateExplore")]
     internal static class MapReveal
     {
@@ -940,6 +940,23 @@ namespace PotatoTweaks
             Transpilers.CallInstead(instructions, x => x.LoadsField(AccessTools.Field(typeof(Minimap), nameof(Minimap.m_exploreRadius))),
                 AccessTools.Method(typeof(MapReveal), nameof(Radius)), 1, "Valheim's map explore radius changed.");
 
-        private static float Radius(Minimap map) => map.m_exploreRadius * Mathf.Max(0.1f, Plugin.MapRevealRadius.Value);
+        private static readonly List<Player> nearby = new List<Player>();
+
+        // On a ship someone is steering (you or anyone within 20 m), the map reveals much farther, since the sea has
+        // little to see up close. From BiggerBoatMapExploreRadius by nearbear (MIT).
+        private static float Radius(Minimap map)
+        {
+            float radius = map.m_exploreRadius * Mathf.Max(0.1f, Plugin.MapRevealRadius.Value);
+            float sailing = Plugin.MapSailingRadius.Value;
+            var player = Player.m_localPlayer;
+            if (sailing > radius && player)
+            {
+                nearby.Clear();
+                Player.GetPlayersInRange(player.transform.position, 20f, nearby);
+                foreach (var p in nearby)
+                    if (p && p.GetControlledShip() != null) return sailing;
+            }
+            return radius;
+        }
     }
 }

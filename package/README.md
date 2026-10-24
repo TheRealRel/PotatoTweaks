@@ -20,6 +20,8 @@ Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for th
 
 **Wisplight.** Upgrade it at the workbench up to level 5. Each level clears more mist around you.
 
+**Smoke.** Smoke drifts up through cage floors and walls, iron gates, the darkwood divider, stairs and ladders instead of pooling under them, and a fire under one of them no longer counts as covered. The list of pieces is a setting.
+
 ## Crafting and stations
 
 ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-anvil.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-smelter.png)
@@ -50,7 +52,7 @@ Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for th
 
 **Tombstones.** Type `retrievetomb` in the F5 console (or `/retrievetomb` in chat) to bring your own tombstones to you. Their items go back to the slots they came from.
 
-**Map.** A button by the skull on the large map clears every death marker at once, and the server can widen how far around you the map is revealed.
+**Map.** A button by the skull on the large map clears every death marker at once. While you or someone within 20 m is steering a ship, the map reveals 500 m around you instead of 100 m, and the server can widen the normal radius too.
 
 ## Fighting and hunting
 
@@ -123,13 +125,13 @@ In `BepInEx/config/potato.tweaks.cfg`, or in game with Configuration Manager (F1
 | 7 - Visual effects | Upgrade glow, tree dust, combat particles; Epic Loot looks | Personal |
 | 8 - Attack cancel | On or off | Server |
 | 9 - Epic Loot bounties | Main kill only, spacing (300 m), extra copies (1), scaling | Server; health bar personal |
-| 10 - Bug fixes | Game and Epic Loot fixes (restart after changing) | Every game alike |
+| 10 - Bug fixes | Game and Epic Loot fixes (restart after changing); tidying other mods' config files | Every game alike; tidying personal |
 | 11 - Quality of life | Each comfort above, swim and sneak speed, crops | Personal; speeds and crops server |
 | 12 - Smelters and kilns | Capacity, speed, fuel, output, stations left alone; windmills (2x speed) | Server |
 | 13 - Fermenters | Speed and output (1 = normal) | Server |
 | 14 - Crafting stations | Build range (1 = normal) | Server |
 | 15 - Carts and boats | Health from Crafting skill (carts +400%, boats +100%) | Server |
-| 16 - Map | Reveal radius (1 = normal); death marker button | Server; button personal |
+| 16 - Map | Reveal radius (1 = normal), while sailing (500 m); death marker button | Server; button personal |
 | 17 - Double dragon bed | On or off (restart after changing); blankets | Every game alike; blankets personal |
 | 18 - Trophies | Pity growth (+10%, rare +20%), guarantees, star bonus | Server; Trophies tab personal |
 | 19 - Spearfishing | Spears, harpoons, bows, crossbows | Server |
@@ -147,12 +149,13 @@ In `BepInEx/config/potato.tweaks.cfg`, or in game with Configuration Manager (F1
 | | Name key (Ctrl + N), show contents, icon size (24 px), most icons (8) | Personal |
 | 31 - Doors | Doors close themselves, seconds open (5) | Server |
 | 32 - Station timers | Show timers | Personal |
+| 33 - Smoke | Pieces smoke passes through | Server |
 
 Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`. If a Valheim update breaks something a feature relies on, that feature switches itself off and writes why in the BepInEx log; the rest keep working.
 
-**Replacing other mods.** Potato Tweaks covers Tomb Retriever, SkillLoss, Double Dragon Bed, Dimmer Combat Particle Effects, TrophyAssister, Spearfishing, Epic Loot Add-ons, DropMoreLoot, EssenceForAll and ComfortHelper. If one of them is installed, Potato Tweaks leaves that feature to it and says so in the log. When you switch, their old settings (and TrophyAssister's pity counts) are copied over on first launch. It won't load next to EpicLoot Progression Fix, which it already contains.
+**Replacing other mods.** Potato Tweaks covers Tomb Retriever, SkillLoss, Double Dragon Bed, Dimmer Combat Particle Effects, TrophyAssister, Spearfishing, Epic Loot Add-ons, DropMoreLoot, EssenceForAll, ComfortHelper, Smoke Collision and BiggerBoatMapExploreRadius. If one of them is installed, Potato Tweaks leaves that feature to it and says so in the log. When you switch, their old settings (and TrophyAssister's pity counts) are copied over on first launch. It won't load next to EpicLoot Progression Fix, which it already contains.
 
-**Credits.** Camera zoom, dropped items, ship and cart removal, attack cancelling, the Epic Loot bounty and enchantment fixes, the game fixes and most of the small comforts come from EpicLoot Progression Fix by its contributors (MIT). The double dragon bed comes from Double Dragon Bed by Hansenbansen and spearfishing from Spearfishing by karkkant (both MIT). Item stands come from Item Stand All Items by JereKuusela (public domain). Essence for everyone and the comfort helper come from EssenceForAll and ComfortHelper by Koen-H (MIT). The rest was written for Potato Tweaks, some of it on ideas from RandyKnapp's Minimal Status Effects, blacks7ar's SNEAKer and Digitalroot's Better Wisps.
+**Credits.** Camera zoom, dropped items, ship and cart removal, attack cancelling, the Epic Loot bounty and enchantment fixes, the game fixes and most of the small comforts come from EpicLoot Progression Fix by its contributors (MIT). The double dragon bed comes from Double Dragon Bed by Hansenbansen and spearfishing from Spearfishing by karkkant (both MIT). Item stands and smoke passing through come from Item Stand All Items and Smoke Collision by JereKuusela (public domain). The bigger map reveal while sailing comes from BiggerBoatMapExploreRadius by nearbear (MIT). Essence for everyone and the comfort helper come from EssenceForAll and ComfortHelper by Koen-H (MIT). The rest was written for Potato Tweaks, some of it on ideas from RandyKnapp's Minimal Status Effects, blacks7ar's SNEAKer and Digitalroot's Better Wisps.
 
 Bug reports go to [GitHub Issues](https://github.com/TheRealRel/PotatoTweaks/issues), where the source lives too. Questions are welcome on Discord: [relanebeis](https://discord.com/users/373574370267889674). The Changelog tab says whether everyone needs to update.
 

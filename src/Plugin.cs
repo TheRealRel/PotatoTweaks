@@ -70,13 +70,14 @@ namespace PotatoTweaks
         internal static ConfigEntry<float> BountySpacing;
         internal static ConfigEntry<int> BountyExtraCopies;
         internal static ConfigEntry<bool> GameFixesEnabled, EpicLootFixesEnabled, TidyConfigs;
+        internal static ConfigEntry<string> SmokeThroughPieces;
         internal static ConfigEntry<bool> QolNoAutoEquip, QolLiveBuildMenu, QolBuildToolHealthBars, QolCombatHealthBars, QolTamingHover,
             QolGraveSlots, QolAutoPickupKey, QolTamedCrops, QolSwimSpeed;
         internal static ConfigEntry<float> QolAttackerRange, QolTreeDust;
         internal static ConfigEntry<string> SmelterExcluded;
         internal static ConfigEntry<float> WindmillSpeed, WindmillCapacity, WindmillOutput, WindmillMinWind;
         internal static ConfigEntry<float> SmelterOreCapacity, SmelterFuelCapacity, SmelterFuelPerProduct, SmelterOutput, SmelterSpeed, FermenterSpeed, FermenterOutput, StationRange, MapRevealRadius,
-            CartHealthBonus, BoatHealthBonus;
+            CartHealthBonus, BoatHealthBonus, MapSailingRadius;
         internal static ConfigEntry<bool> FishSpears, FishHarpoons, FishBows, FishCrossbows;
         internal static ConfigEntry<bool> ChestMaterialsEnabled, SacrificePerItem, DamageStacking, ShotNormalCost, ShotSummonLimit, ShardsIgnoreClashes, LuckyLootBirds;
         internal static ConfigEntry<float> ChestMaterialsRange;
@@ -279,6 +280,9 @@ namespace PotatoTweaks
                     new AcceptableValueRange<float>(1f, 5f)));
             MapRevealRadius = Config.Bind(map, "Reveal radius", 1f,
                 Synced("Multiplies how far around you the map is revealed as you explore (game: 100 m). 1 = the game's normal; 1.5 = 150 m.", new AcceptableValueRange<float>(1f, 5f)));
+            MapSailingRadius = Config.Bind(map, "Reveal radius while sailing", 500f,
+                Synced("How far around you (metres) the map is revealed while you or someone within 20 m is steering a ship. The sea has little to see up close, so charting coasts goes much faster. 0 = the normal radius.",
+                    new AcceptableValueRange<float>(0f, 1000f)));
             DeathMarkerButton = Config.Bind(map, "Remove death markers button", true,
                 "Adds a button by the skull icon on the large map that removes all death markers (click twice to confirm). Your own pins stay. Personal.");
             CartHealthBonus = Config.Bind(vehicles, "Cart health from Crafting skill", 4f,
@@ -481,6 +485,9 @@ namespace PotatoTweaks
             StationTimersEnabled = Config.Bind(timers, "Show timers", true,
                 "Show the time left when you look at a working smelter, kiln, furnace, spinning wheel, windmill, fermenter or cooking station. Personal.");
 
+            SmokeThroughPieces = Config.Bind("33 - Smoke", "Passes through", "darkwood_decowall,iron_floor_1x1,iron_floor_2x2,iron_grate,iron_wall_1x1,iron_wall_2x2,wood_stair,wood_stepladder",
+                Synced("Pieces that smoke drifts up through, and that don't count as covering a fire below them: object ids separated by commas (cage floors and walls, the iron gate, the darkwood divider, stairs and ladders by default). Empty = the game's normal."));
+
             const string wisp = "26 - Wisplight";
             WispLevels = Config.Bind(wisp, "Upgrade levels", 5,
                 Synced("Highest level the Wisplight can be upgraded to at the workbench. Level 1 is the game's own; 1 = not upgradeable, the game's normal.", new AcceptableValueRange<int>(1, 10)));
@@ -572,6 +579,7 @@ namespace PotatoTweaks
             foreach (var type in Chests.Patches) Patch(type);
             foreach (var type in AutoDoors.Patches) Patch(type);
             foreach (var type in StationTimers.Patches) Patch(type);
+            EnableUnlessInstalled(SmokeThrough.OriginalModId, "Smoke Collision", "smoke passing through", () => { foreach (var type in SmokeThrough.Patches) Patch(type); });
             EnableUnlessInstalled(ComfortHelper.OriginalModId, "ComfortHelper", "comfort helper", () =>
             {
                 foreach (var type in ComfortHelper.Patches) Patch(type);
