@@ -580,6 +580,7 @@ namespace PotatoTweaks
             foreach (var type in AutoDoors.Patches) Patch(type);
             foreach (var type in StationTimers.Patches) Patch(type);
             Patch(typeof(RiddenHorse.HoldsBack));
+            Run("Better Archery's body turn leaves a mounted rider to the riding mod", () => MountedBowSpine.Enable(harmony));
             EnableUnlessInstalled(SmokeThrough.OriginalModId, "Smoke Collision", "smoke passing through", () => { foreach (var type in SmokeThrough.Patches) Patch(type); });
             EnableUnlessInstalled(ComfortHelper.OriginalModId, "ComfortHelper", "comfort helper", () =>
             {
