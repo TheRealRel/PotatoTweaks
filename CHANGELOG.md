@@ -1,10 +1,8 @@
 # Changelog
 
-## 1.5.17
+## 1.5.16
 - **Blast furnace takes all ores** (section 12, server, on): the blast furnace also smelts everything the regular smelter does, ores and scraps alike. Idea from Blast Furnace Takes All by TastyChickenLegs and Tueman; with that mod installed, Potato Tweaks leaves it to it.
 - **Craftable chain** (section 14, server, on): Chain can be made at the forge from 2 Iron. Idea from Chain Manager by Digitalroot; with that mod installed, Potato Tweaks doesn't add a second recipe.
-
-## 1.5.16
 - **Smoke** (section 33, server, on): smoke drifts up through cage floors and walls, iron gates, the darkwood divider, stairs and ladders, and a fire under them no longer counts as covered. From Smoke Collision by JereKuusela; with that mod installed, Potato Tweaks leaves smoke to it.
 - **Map reveal while sailing** (section 16, server, 500 m): while you or someone within 20 m is steering a ship, the map reveals 500 m around you. From BiggerBoatMapExploreRadius by nearbear.
 - **Tidy other mods config files** (section 10, personal, on): stops LetMeTameYou and StarLevelSystem warning on every launch (tabs in the tame list's comments, berry bushes listed in two reset groups). Nothing they do changes.
