@@ -37,7 +37,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.16";
+        public const string Version = "1.5.17";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -75,6 +75,7 @@ namespace PotatoTweaks
             QolGraveSlots, QolAutoPickupKey, QolTamedCrops, QolSwimSpeed;
         internal static ConfigEntry<float> QolAttackerRange, QolTreeDust;
         internal static ConfigEntry<string> SmelterExcluded;
+        internal static ConfigEntry<bool> BlastFurnaceTakesAll, CraftableChain;
         internal static ConfigEntry<float> WindmillSpeed, WindmillCapacity, WindmillOutput, WindmillMinWind;
         internal static ConfigEntry<float> SmelterOreCapacity, SmelterFuelCapacity, SmelterFuelPerProduct, SmelterOutput, SmelterSpeed, FermenterSpeed, FermenterOutput, StationRange, MapRevealRadius,
             CartHealthBonus, BoatHealthBonus, MapSailingRadius;
@@ -271,6 +272,8 @@ namespace PotatoTweaks
                 Synced("The least power a windmill runs at, however calm the wind: 0.5 = never below half speed. Cover over the sails still slows it. 0 = the game's normal.", new AcceptableValueRange<float>(0f, 1f)));
             SmelterExcluded = Config.Bind(smelters, "Excluded stations", "",
                 Synced("Stations these settings leave alone, by prefab name, separated by commas: smelter, blastfurnace, charcoal_kiln, eitrrefinery, piece_spinningwheel, windmill (or a modded station's prefab name). A windmill listed here ignores the windmill settings too."));
+            BlastFurnaceTakesAll = Config.Bind(smelters, "Blast furnace takes all ores", true,
+                Synced("The blast furnace also smelts everything the regular smelter does: copper, tin, iron and silver ore and the scraps. Applies as blast furnaces load. Idea from Blast Furnace Takes All by TastyChickenLegs and Tueman."));
             FermenterSpeed = Config.Bind(fermenters, "Speed", 1f,
                 Synced("Speeds up fermenting: 2 = half the time. 1 = the game's normal. Applies as fermenters load.", new AcceptableValueRange<float>(0.5f, 10f)));
             FermenterOutput = Config.Bind(fermenters, "Output", 1f,
@@ -278,6 +281,8 @@ namespace PotatoTweaks
             StationRange = Config.Bind(craftingStations, "Build range", 1f,
                 Synced("Multiplies the build range around workbenches, forges and other crafting stations, extension bonuses included. 1 = the game's normal; 1.5 = half again as far.",
                     new AcceptableValueRange<float>(1f, 5f)));
+            CraftableChain = Config.Bind(craftingStations, "Craftable chain", true,
+                Synced("Chain can be made at the forge from 2 Iron, one per craft. Off: chains only drop, as in the game. Changes take effect right away. Idea from Chain Manager by Digitalroot."));
             MapRevealRadius = Config.Bind(map, "Reveal radius", 1f,
                 Synced("Multiplies how far around you the map is revealed as you explore (game: 100 m). 1 = the game's normal; 1.5 = 150 m.", new AcceptableValueRange<float>(1f, 5f)));
             MapSailingRadius = Config.Bind(map, "Reveal radius while sailing", 500f,
@@ -579,6 +584,8 @@ namespace PotatoTweaks
             foreach (var type in Chests.Patches) Patch(type);
             foreach (var type in AutoDoors.Patches) Patch(type);
             foreach (var type in StationTimers.Patches) Patch(type);
+            EnableUnlessInstalled(Forging.BlastFurnaceModId, "Blast Furnace Takes All", "blast furnace taking all ores", () => Patch(typeof(Forging.BlastFurnaceTakesAll)));
+            EnableUnlessInstalled(Forging.ChainModId, "Chain Manager", "craftable chain", Forging.AddChainRecipe);
             EnableUnlessInstalled(SmokeThrough.OriginalModId, "Smoke Collision", "smoke passing through", () => { foreach (var type in SmokeThrough.Patches) Patch(type); });
             EnableUnlessInstalled(ComfortHelper.OriginalModId, "ComfortHelper", "comfort helper", () =>
             {

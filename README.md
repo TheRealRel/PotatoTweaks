@@ -36,7 +36,7 @@ Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for th
 
 **Recycling.** With a crafting station open, Ctrl + right-click an item to take it apart. You get half its materials back, upgrades included.
 
-**Station settings.** Smelters, kilns and furnaces have settings for capacity, speed, fuel and output. Windmills mill twice as fast, fermenters have speed and output settings, and the server can widen crafting stations' build range.
+**Station settings.** Smelters, kilns and furnaces have settings for capacity, speed, fuel and output. Windmills mill twice as fast, fermenters have speed and output settings, and the server can widen crafting stations' build range. The blast furnace also takes every ore and scrap the smelter does, and Chain can be made at the forge from 2 Iron.
 
 **Carts and boats.** They get more health the higher their builder's Crafting skill: up to +400% for carts and +100% for boats at Crafting 100.
 
@@ -127,9 +127,9 @@ In `BepInEx/config/potato.tweaks.cfg`, or in game with Configuration Manager (F1
 | 9 - Epic Loot bounties | Main kill only, spacing (300 m), extra copies (1), scaling | Server; health bar personal |
 | 10 - Bug fixes | Game and Epic Loot fixes (restart after changing); tidying other mods' config files | Every game alike; tidying personal |
 | 11 - Quality of life | Each comfort above, swim and sneak speed, crops | Personal; speeds and crops server |
-| 12 - Smelters and kilns | Capacity, speed, fuel, output, stations left alone; windmills (2x speed) | Server |
+| 12 - Smelters and kilns | Capacity, speed, fuel, output, stations left alone; windmills (2x speed); blast furnace takes all ores | Server |
 | 13 - Fermenters | Speed and output (1 = normal) | Server |
-| 14 - Crafting stations | Build range (1 = normal) | Server |
+| 14 - Crafting stations | Build range (1 = normal); craftable chain | Server |
 | 15 - Carts and boats | Health from Crafting skill (carts +400%, boats +100%) | Server |
 | 16 - Map | Reveal radius (1 = normal), while sailing (500 m); death marker button | Server; button personal |
 | 17 - Double dragon bed | On or off (restart after changing); blankets | Every game alike; blankets personal |
