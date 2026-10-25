@@ -134,27 +134,29 @@ namespace PotatoTweaks
                 }
                 catch (Exception e) { Plugin.Log.LogWarning($"Serving tray: couldn't add {food.gameObject.name}: {e.Message}"); }
             }
-            // Foods another mod already put on the tray, placed as is like the game's dishes, get the same steam if
-            // they have none (Ours is left alone: their sparkles are that mod's business).
-            var steamed = new List<string>();
-            foreach (var piece in table.m_pieces.ToList())
-            {
-                var item = piece ? piece.GetComponent<ItemDrop>() : null;
-                if (!item || piece == template || added.Contains(piece.name) || !IsFood(item) || !piece.GetComponent<Piece>() || !piece.GetComponent<WearNTear>()) continue;
-                if (piece.GetComponentInChildren<Feast>(true) || item.m_pieceEnableObj) continue;
-                try { if (AddSteam(template, item)) steamed.Add(piece.name); }
-                catch (Exception e) { Plugin.Log.LogWarning($"Serving tray: couldn't add steam to {piece.name}: {e.Message}"); }
-            }
-            if (steamed.Count > 0) Plugin.Log.LogInfo($"Serving tray: steam added to {steamed.Count} foods already on the tray: {string.Join(", ", steamed)}");
             if (added.Count > 0) Plugin.Log.LogInfo($"Serving tray: added {added.Count} foods (like {template.name}, steam {(SteamOf(template) ? SteamOf(template).name : "none")}" +
                 (overflow > 0 ? $", {overflow} on the \"{OverflowTab}\" tab" : "") + $"): {string.Join(", ", added)}");
         }
 
-        // Steam over the dish once it's set out, copied from the game's dish and raised to the top of the food. Skipped
-        // when the food already has something it switches on when set out, or its own smoke or steam in its model.
-        private static bool AddSteam(GameObject template, ItemDrop food)
+        // Gives the food the piece parts the game's dishes have: a Piece (what the tray shows and charges: the food
+        // itself) and a WearNTear, which the item keeps switched off until it's placed. Settings come from the game's dish.
+        private static bool MakePlaceable(GameObject template, ItemDrop food)
         {
             var prefab = food.gameObject;
+            if (!prefab.GetComponent<ZNetView>() || !prefab.GetComponentInChildren<Collider>(true)) return false;
+            var piece = prefab.GetComponent<Piece>();
+            if (!piece)
+            {
+                piece = prefab.AddComponent<Piece>();
+                CopyFields(template.GetComponent<Piece>(), piece, template.transform);
+            }
+            if (!prefab.GetComponent<WearNTear>())
+                CopyFields(template.GetComponent<WearNTear>(), prefab.AddComponent<WearNTear>(), template.transform);
+            var shared = food.m_itemData.m_shared;
+            piece.m_name = shared.m_name;
+            piece.m_description = shared.m_description;
+            if (shared.m_icons != null && shared.m_icons.Length > 0) piece.m_icon = shared.m_icons[0];
+            // Steam over the dish once it's set out, copied from the game's dish and raised to the top of the food.
             var steam = SteamOf(template);
             var model = prefab.transform.Find("attach");
             bool ownSteam = model && model.GetComponentInChildren<ParticleSystem>(true);
@@ -179,28 +181,6 @@ namespace PotatoTweaks
                 }
                 food.m_pieceEnableObj = copy;
             }
-            return food.m_pieceEnableObj;
-        }
-
-        // Gives the food the piece parts the game's dishes have: a Piece (what the tray shows and charges: the food
-        // itself) and a WearNTear, which the item keeps switched off until it's placed. Settings come from the game's dish.
-        private static bool MakePlaceable(GameObject template, ItemDrop food)
-        {
-            var prefab = food.gameObject;
-            if (!prefab.GetComponent<ZNetView>() || !prefab.GetComponentInChildren<Collider>(true)) return false;
-            var piece = prefab.GetComponent<Piece>();
-            if (!piece)
-            {
-                piece = prefab.AddComponent<Piece>();
-                CopyFields(template.GetComponent<Piece>(), piece, template.transform);
-            }
-            if (!prefab.GetComponent<WearNTear>())
-                CopyFields(template.GetComponent<WearNTear>(), prefab.AddComponent<WearNTear>(), template.transform);
-            var shared = food.m_itemData.m_shared;
-            piece.m_name = shared.m_name;
-            piece.m_description = shared.m_description;
-            if (shared.m_icons != null && shared.m_icons.Length > 0) piece.m_icon = shared.m_icons[0];
-            AddSteam(template, food);
             Ours.Add(prefab.name);
             var first = template.GetComponent<Piece>().m_resources?.FirstOrDefault();
             piece.m_resources = new[]
