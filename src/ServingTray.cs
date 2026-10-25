@@ -162,9 +162,16 @@ namespace PotatoTweaks
             bool ownSteam = model && model.GetComponentInChildren<ParticleSystem>(true);
             if (!food.m_pieceEnableObj && steam && !ownSteam)
             {
-                var copy = UnityEngine.Object.Instantiate(steam, prefab.transform, false);
+                // Copy first, then attach: the food's prefab is a loaded asset, and Unity refuses Instantiate with an
+                // asset as the parent (it logs "Cannot instantiate objects with a parent which is persistent" and leaves
+                // the copy loose in the scene, so the set-out food had no steam). The source is switched off for the
+                // copy so nothing in it wakes up loose in the scene.
+                bool wasOn = steam.activeSelf;
+                steam.SetActive(false);
+                var copy = UnityEngine.Object.Instantiate(steam);
+                steam.SetActive(wasOn);
                 copy.name = "PotatoTweaks_Steam";
-                copy.SetActive(false);
+                copy.transform.SetParent(prefab.transform, false);
                 var top = Top(template, steam);
                 var own = Top(prefab, copy);
                 if (top.HasValue && own.HasValue)
