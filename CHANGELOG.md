@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.5.16
+- **Smoke** (section 33, server, on): smoke drifts up through cage floors and walls, iron gates, the darkwood divider, stairs and ladders, and a fire under them no longer counts as covered. From Smoke Collision by JereKuusela; with that mod installed, Potato Tweaks leaves smoke to it.
+- **Map reveal while sailing** (section 16, server, 500 m): while you or someone within 20 m is steering a ship, the map reveals 500 m around you. From BiggerBoatMapExploreRadius by nearbear.
+- **Tidy other mods config files** (section 10, personal, on): stops LetMeTameYou and StarLevelSystem warning on every launch (tabs in the tame list's comments, berry bushes listed in two reset groups). Nothing they do changes.
+- **Riding moved to PotatoRider:** the riding fixes (no camera roll when attacking from the saddle, a ridden Odin Horse no longer rears, the right mount picture, no Better Archery flicker while mounted) now live in the new client-side mod PotatoRider, along with key steering, calling your mount and more.
+- **Serving tray:** foods from other mods no longer get steam from Potato Tweaks when set out. It went on cold foods too (jerky, candy, cake), and the way it was attached put 9 red "Cannot instantiate objects with a parent which is persistent" lines in every startup log. Foods whose own mod gives them steam keep it, and set-out foods still lose the sparkles of a dropped item.
+- A clearer mod page, with features grouped into sections, and cleaner page icons.
+- 1.5.x players can play together.
+
 ## 1.5.15
 - **Epic Loot bounties**: a bounty's main target drops its extra enchanted items and its guaranteed enchanted item again with the latest Epic Loot.
 - **Epic Loot fixes**: Epic Loot now fixes Riches, Fire Rate, +Ranged Skills, Noise, Indestructible armor, Bountiful Harvest, Quick Draw and chest loading itself, so Potato Tweaks leaves those to it. Fire Rate and +Ranged Skills no longer count twice.
