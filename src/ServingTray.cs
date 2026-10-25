@@ -95,9 +95,8 @@ namespace PotatoTweaks
                 var feast = piece.GetComponentInChildren<Feast>(true);
                 var food = item ? item : feast ? feast.m_foodItem : null;
                 if (food) covered.Add(food.m_itemData.m_shared.m_name);
-                // One of the game's dishes: a food item that is placed as is (preferably a steaming one).
-                if (item && IsFood(item) && piece.GetComponent<Piece>() && piece.GetComponent<WearNTear>() && !feast &&
-                    (!template || (!SteamOf(template) && SteamOf(piece))))
+                // One of the game's dishes: a food item that is placed as is.
+                if (!template && item && IsFood(item) && piece.GetComponent<Piece>() && piece.GetComponent<WearNTear>() && !feast)
                     template = piece;
             }
             if (!template)
@@ -134,7 +133,7 @@ namespace PotatoTweaks
                 }
                 catch (Exception e) { Plugin.Log.LogWarning($"Serving tray: couldn't add {food.gameObject.name}: {e.Message}"); }
             }
-            if (added.Count > 0) Plugin.Log.LogInfo($"Serving tray: added {added.Count} foods (like {template.name}, steam {(SteamOf(template) ? SteamOf(template).name : "none")}" +
+            if (added.Count > 0) Plugin.Log.LogInfo($"Serving tray: added {added.Count} foods (like {template.name}" +
                 (overflow > 0 ? $", {overflow} on the \"{OverflowTab}\" tab" : "") + $"): {string.Join(", ", added)}");
         }
 
@@ -156,31 +155,6 @@ namespace PotatoTweaks
             piece.m_name = shared.m_name;
             piece.m_description = shared.m_description;
             if (shared.m_icons != null && shared.m_icons.Length > 0) piece.m_icon = shared.m_icons[0];
-            // Steam over the dish once it's set out, copied from the game's dish and raised to the top of the food.
-            var steam = SteamOf(template);
-            var model = prefab.transform.Find("attach");
-            bool ownSteam = model && model.GetComponentInChildren<ParticleSystem>(true);
-            if (!food.m_pieceEnableObj && steam && !ownSteam)
-            {
-                // Copy first, then attach: the food's prefab is a loaded asset, and Unity refuses Instantiate with an
-                // asset as the parent (it logs "Cannot instantiate objects with a parent which is persistent" and leaves
-                // the copy loose in the scene, so the set-out food had no steam). The source is switched off for the
-                // copy so nothing in it wakes up loose in the scene.
-                bool wasOn = steam.activeSelf;
-                steam.SetActive(false);
-                var copy = UnityEngine.Object.Instantiate(steam);
-                steam.SetActive(wasOn);
-                copy.name = "PotatoTweaks_Steam";
-                copy.transform.SetParent(prefab.transform, false);
-                var top = Top(template, steam);
-                var own = Top(prefab, copy);
-                if (top.HasValue && own.HasValue)
-                {
-                    float above = steam.transform.localPosition.y - top.Value.y;
-                    copy.transform.localPosition = new Vector3(own.Value.x, own.Value.y + above, own.Value.z);
-                }
-                food.m_pieceEnableObj = copy;
-            }
             Ours.Add(prefab.name);
             var first = template.GetComponent<Piece>().m_resources?.FirstOrDefault();
             piece.m_resources = new[]
@@ -188,35 +162,6 @@ namespace PotatoTweaks
                 new Piece.Requirement { m_resItem = food, m_amount = 1, m_amountPerLevel = 0, m_recover = first?.m_recover ?? true },
             };
             return true;
-        }
-
-        // The game's steam part on a dish (fx_FoodSteam...), never its sparkles.
-        private static GameObject SteamOf(GameObject dish)
-        {
-            foreach (Transform child in dish.transform)
-                if (child.name.StartsWith("fx_FoodSteam", StringComparison.OrdinalIgnoreCase)) return child.gameObject;
-            var enabled = dish.GetComponent<ItemDrop>().m_pieceEnableObj;
-            return enabled && enabled.name.IndexOf("parkle", StringComparison.OrdinalIgnoreCase) < 0 ? enabled : null;
-        }
-
-        // The top centre of an object's meshes, in its own space (leaving out one part, like the steam).
-        private static Vector3? Top(GameObject root, GameObject leaveOut)
-        {
-            Bounds? total = null;
-            foreach (var filter in root.GetComponentsInChildren<MeshFilter>(true))
-            {
-                if (!filter.sharedMesh || (leaveOut && filter.transform.IsChildOf(leaveOut.transform))) continue;
-                var local = filter.sharedMesh.bounds;
-                var matrix = root.transform.worldToLocalMatrix * filter.transform.localToWorldMatrix;
-                for (int corner = 0; corner < 8; corner++)
-                {
-                    var sign = new Vector3((corner & 1) == 0 ? -1 : 1, (corner & 2) == 0 ? -1 : 1, (corner & 4) == 0 ? -1 : 1);
-                    var point = matrix.MultiplyPoint3x4(local.center + Vector3.Scale(local.extents, sign));
-                    if (total.HasValue) { var grown = total.Value; grown.Encapsulate(point); total = grown; }
-                    else total = new Bounds(point, Vector3.zero);
-                }
-            }
-            return total.HasValue ? new Vector3(total.Value.center.x, total.Value.max.y, total.Value.center.z) : (Vector3?)null;
         }
 
         // Set out, the dish loses the sparkles a dropped item has, as the game's dishes do. The game keeps them on a
