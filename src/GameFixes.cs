@@ -18,9 +18,65 @@ namespace PotatoTweaks
     {
         internal static readonly Type[] Patches =
         {
-            typeof(ShipDeckMelee), typeof(ShamanShield),
+            typeof(ShipDeckMelee), typeof(ShamanShield), typeof(ModDigEffects),
             typeof(PlantGrowthChecks), typeof(FirstPlantGrowthCheck), typeof(OreSupport), typeof(PickableRegrowth),
         };
+    }
+
+    // ------------------------------------------------------------------ other mods' dig effects
+    // A dig (a TerrainOp prefab, like the pickaxe's crater) is sent between games by name and looked up in ObjectDB's
+    // m_terrainOps on each game. A mod that spawns its own dig from a projectile but never lists it there gets
+    // "Failed to deserialize TerrainOp settings for prefab hash ..., cancelling TerrainOp" and the ground never changes
+    // (Warfare 1.9.5's mining arrow and bolt, digg_pickaxearrow_TW and digg_pickaxebolt_TW). When a lookup misses, find the
+    // dig among the projectiles and items' hit effects, list it, and let the dig go ahead. Nothing runs unless one is missing.
+    [HarmonyPatch(typeof(ObjectDB), nameof(ObjectDB.TryGetTerrainOp), new[] { typeof(int), typeof(TerrainOp) }, new[] { ArgumentType.Normal, ArgumentType.Out })]
+    internal static class ModDigEffects
+    {
+        private static int scannedItems = -1, scannedPrefabs = -1;
+
+        private static void Postfix(ObjectDB __instance, int hash, ref TerrainOp prefab, ref bool __result)
+        {
+            if (__result) return;
+            var scene = ZNetScene.instance;
+            int items = __instance.m_items.Count, prefabs = scene ? scene.m_prefabs.Count : 0;
+            if (items == scannedItems && prefabs == scannedPrefabs) return;
+            scannedItems = items;
+            scannedPrefabs = prefabs;
+            var found = new List<string>();
+            foreach (var go in __instance.m_items)
+            {
+                var shared = go ? go.GetComponent<ItemDrop>()?.m_itemData?.m_shared : null;
+                if (shared == null) continue;
+                Add(__instance, shared.m_attack?.m_spawnOnHit, found);
+                Add(__instance, shared.m_secondaryAttack?.m_spawnOnHit, found);
+                FromProjectile(__instance, shared.m_attack?.m_attackProjectile, found);
+                FromProjectile(__instance, shared.m_secondaryAttack?.m_attackProjectile, found);
+            }
+            if (scene)
+                foreach (var go in scene.m_prefabs) FromProjectile(__instance, go, found);
+            if (found.Count > 0) Plugin.Log.LogInfo($"Listed dig effects other mods left out, so they dig: {string.Join(", ", found)}");
+            __result = __instance.m_terrainOpsByHash.TryGetValue(hash, out prefab);
+        }
+
+        private static void FromProjectile(ObjectDB db, GameObject go, List<string> found)
+        {
+            var projectile = go ? go.GetComponent<Projectile>() : null;
+            if (!projectile) return;
+            Add(db, projectile.m_spawnOnHit, found);
+            if (projectile.m_spawnOnHitEffects?.m_effectPrefabs != null)
+                foreach (var effect in projectile.m_spawnOnHitEffects.m_effectPrefabs) Add(db, effect?.m_prefab, found);
+        }
+
+        private static void Add(ObjectDB db, GameObject go, List<string> found)
+        {
+            var op = go ? go.GetComponent<TerrainOp>() : null;
+            if (!op) return;
+            int key = go.name.GetStableHashCode();
+            if (db.m_terrainOpsByHash.ContainsKey(key)) return;
+            db.m_terrainOps.Add(op);
+            db.m_terrainOpsByHash[key] = op;
+            found.Add(go.name);
+        }
     }
 
     // ------------------------------------------------------------------ fighting on a ship's deck

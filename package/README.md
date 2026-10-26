@@ -90,6 +90,7 @@ Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for th
 - A broken fuling shaman shield stops blocking arrows.
 - Plants keep growing after a lag spike.
 - Buried ore veins keep their support.
+- Mining arrows and bolts from other mods (Warfare's) dig the ground.
 - Overdue berry bushes regrow when someone comes near.
 - With Quick Stack - Store - Sort - Trash - Restock, sorting and storing leave Equipment and Quick Slots' slots alone.
 
