@@ -1,6 +1,6 @@
 // Potato Tweaks - fixes for Epic Loot bounties. Only used when Epic Loot is installed.
-// Adapted from EpicLoot Progression Fix 0.1.281 (bounty-*.cs, creature-loot-scope.cs, star-level-system.cs,
-// queued-bow-cancellation.cs), MIT License, Copyright (c) 2026 EpicLoot Progression Fix contributors. See LICENSE.
+// Adapted from EpicLoot Progression Fix 0.1.281 (bounty-*.cs, creature-loot-scope.cs, star-level-system.cs), MIT License,
+// Copyright (c) 2026 EpicLoot Progression Fix contributors. See LICENSE.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,7 +37,6 @@ namespace PotatoTweaks
         internal static void Enable(Action<Type> patch, Action<string, Action> run)
         {
             Recycling.Enchanted = item => item != null && item.IsMagic();
-            patch(typeof(TripleShotCancel));
             patch(typeof(BountyCompletion));
             patch(typeof(ExistingBountyCompletion));
             patch(typeof(BountyObjectiveText));
@@ -47,14 +46,6 @@ namespace PotatoTweaks
             run("Bounty loot", BountyLoot.Initialize);
             if (Chainloader.PluginInfos.ContainsKey(StarLevelSystemId)) run("Bounty strength with StarLevelSystem", BountyTargetStrength.Initialize);
         }
-    }
-
-    // Epic Loot's Triple Shot runs its own prefix on the attack's hit; an attack abandoned by blocking must not fire a volley.
-    [HarmonyPatch(typeof(MultiShot), nameof(MultiShot.Attack_OnAttackTrigger_Prefix))]
-    internal static class TripleShotCancel
-    {
-        [HarmonyPriority(Priority.First)]
-        private static bool Prefix(Attack __0) => !AttackCancel.IsCancelled(__0);
     }
 
     // The bounty data Epic Loot saves on a bounty's creatures, under the names of BountyTargetComponent's internal constants.

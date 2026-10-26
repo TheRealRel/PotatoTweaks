@@ -58,8 +58,6 @@ Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for th
 
 ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-shield.png)
 
-**Attack cancel.** Press block during a swing's windup or recovery to cancel it and raise your guard at once.
-
 **Trophies.** Every kill without a trophy makes the next one from that creature more likely, until it drops. The Trophies tab shows the chances and, without spoilers, which trophies you haven't collected.
 
 **Spearfishing.** Spears, arrows and bolts catch fish, and a harpoon pulls them straight into your inventory.
@@ -88,7 +86,6 @@ Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for th
 
 **Game fixes.**
 
-- Fast second bow shots no longer vanish.
 - Swings from a ship's deck hit what's on the deck.
 - A broken fuling shaman shield stops blocking arrows.
 - Plants keep growing after a lag spike.
@@ -123,7 +120,6 @@ In `BepInEx/config/potato.tweaks.cfg`, or in game with Configuration Manager (F1
 | 5 - Skill loss on death | Loss per skill (1 = the game's normal) | Server |
 | 6 - Skill XP | XP per skill (1 = normal, up to 10) | Server |
 | 7 - Visual effects | Upgrade glow, tree dust, combat particles; Epic Loot looks | Personal |
-| 8 - Attack cancel | On or off | Server |
 | 9 - Epic Loot bounties | Main kill only, spacing (300 m), extra copies (1), scaling | Server; health bar personal |
 | 10 - Bug fixes | Game and Epic Loot fixes (restart after changing); tidying other mods' config files | Every game alike; tidying personal |
 | 11 - Quality of life | Each comfort above, swim and sneak speed, crops | Personal; speeds and crops server |
@@ -155,7 +151,7 @@ Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.troph
 
 **Replacing other mods.** Potato Tweaks covers Tomb Retriever, SkillLoss, Double Dragon Bed, Dimmer Combat Particle Effects, TrophyAssister, Spearfishing, Epic Loot Add-ons, DropMoreLoot, EssenceForAll, ComfortHelper, Smoke Collision and BiggerBoatMapExploreRadius. If one of them is installed, Potato Tweaks leaves that feature to it and says so in the log. When you switch, their old settings (and TrophyAssister's pity counts) are copied over on first launch. It won't load next to EpicLoot Progression Fix, which it already contains.
 
-**Credits.** Camera zoom, dropped items, ship and cart removal, attack cancelling, the Epic Loot bounty and enchantment fixes, the game fixes and most of the small comforts come from EpicLoot Progression Fix by its contributors (MIT). The double dragon bed comes from Double Dragon Bed by Hansenbansen and spearfishing from Spearfishing by karkkant (both MIT). Item stands and smoke passing through come from Item Stand All Items and Smoke Collision by JereKuusela (public domain). The bigger map reveal while sailing comes from BiggerBoatMapExploreRadius by nearbear (MIT). Essence for everyone and the comfort helper come from EssenceForAll and ComfortHelper by Koen-H (MIT). The rest was written for Potato Tweaks, some of it on ideas from RandyKnapp's Minimal Status Effects, blacks7ar's SNEAKer and Digitalroot's Better Wisps.
+**Credits.** Camera zoom, dropped items, ship and cart removal, the Epic Loot bounty and enchantment fixes, the game fixes and most of the small comforts come from EpicLoot Progression Fix by its contributors (MIT). The double dragon bed comes from Double Dragon Bed by Hansenbansen and spearfishing from Spearfishing by karkkant (both MIT). Item stands and smoke passing through come from Item Stand All Items and Smoke Collision by JereKuusela (public domain). The bigger map reveal while sailing comes from BiggerBoatMapExploreRadius by nearbear (MIT). Essence for everyone and the comfort helper come from EssenceForAll and ComfortHelper by Koen-H (MIT). The rest was written for Potato Tweaks, some of it on ideas from RandyKnapp's Minimal Status Effects, blacks7ar's SNEAKer and Digitalroot's Better Wisps.
 
 Bug reports go to [GitHub Issues](https://github.com/TheRealRel/PotatoTweaks/issues), where the source lives too. Questions are welcome on Discord: [relanebeis](https://discord.com/users/373574370267889674). The Changelog tab says whether everyone needs to update.
 

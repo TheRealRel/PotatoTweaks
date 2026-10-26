@@ -1,6 +1,6 @@
 // Potato Tweaks - fixes for bugs in Valheim itself.
-// Adapted from EpicLoot Progression Fix 0.1.281 (bow-release.cs, queued-bow-cancellation.cs, ship-deck-melee.cs,
-// shaman-shield.cs, plant-growth-checks.cs, ore-support.cs, pickable-regrowth.cs), MIT License,
+// Adapted from EpicLoot Progression Fix 0.1.281 (ship-deck-melee.cs, shaman-shield.cs, plant-growth-checks.cs,
+// ore-support.cs, pickable-regrowth.cs), MIT License,
 // Copyright (c) 2026 EpicLoot Progression Fix contributors. See LICENSE.
 using System;
 using System.Collections;
@@ -18,127 +18,9 @@ namespace PotatoTweaks
     {
         internal static readonly Type[] Patches =
         {
-            typeof(BowRelease), typeof(QueuedBowRelease), typeof(ShipDeckMelee), typeof(ShamanShield),
+            typeof(ShipDeckMelee), typeof(ShamanShield),
             typeof(PlantGrowthChecks), typeof(FirstPlantGrowthCheck), typeof(OreSupport), typeof(PickableRegrowth),
         };
-
-        internal static readonly AccessTools.FieldRef<Character, bool> AttackHold = AccessTools.FieldRefAccess<Character, bool>("m_attackHold");
-        internal static readonly AccessTools.FieldRef<Character, bool> Blocking = AccessTools.FieldRefAccess<Character, bool>("m_blocking");
-        internal static readonly AccessTools.FieldRef<Humanoid, Attack> CurrentAttack = AccessTools.FieldRefAccess<Humanoid, Attack>("m_currentAttack");
-    }
-
-    // ------------------------------------------------------------------ bow release
-    // A bow fires again only once the previous shot's animation ends, about 0.8 seconds after the shot, but the next draw
-    // and its crosshair fill from the moment the button goes down. From Bows skill 85, or lower with Quick Draw or a Bows
-    // skill bonus, the draw is full before then, and the game drops a release in that time: no arrow, no ammunition used and
-    // no message. Keep such an arrow drawn until the bow can fire and loose it then, as the game already keeps a melee click
-    // made during an attack. A release refused for another reason, such as a dodge or no stamina, is dropped as before.
-    [HarmonyPatch(typeof(Player), "UpdateAttackBowDraw")]
-    internal static class BowRelease
-    {
-        private const float MaxWait = 1f;
-        private static readonly AccessTools.FieldRef<Humanoid, float> DrawTime = AccessTools.FieldRefAccess<Humanoid, float>("m_attackDrawTime");
-        private static float releaseBy = -1f;
-
-        private struct DrawState
-        {
-            internal bool AttackHeld;
-            internal bool QueuedRelease;
-            internal Attack PreviousAttack;
-        }
-
-        private static void Prefix(Player __instance, out DrawState __state)
-        {
-            __state = new DrawState { AttackHeld = GameFixes.AttackHold(__instance) };
-            if (__instance != Player.m_localPlayer) return;
-            if (DrawTime(__instance) <= 0f)
-            {
-                releaseBy = -1f;
-                return;
-            }
-            bool heldBack = releaseBy >= 0f;
-            if (!heldBack && __state.AttackHeld) return;
-            // An attack abandoned by raising the guard holds a release back for as long as it delays the next attack.
-            if ((__instance.InAttack() || Time.time < AttackCancel.AttackAllowedAt) && (!heldBack || Time.time < releaseBy))
-            {
-                if (!heldBack) releaseBy = Time.time + MaxWait;
-                GameFixes.AttackHold(__instance) = true;
-                return;
-            }
-            releaseBy = -1f;
-            GameFixes.AttackHold(__instance) = false;
-            __state.QueuedRelease = heldBack;
-            __state.PreviousAttack = GameFixes.CurrentAttack(__instance);
-        }
-
-        private static void Postfix(Player __instance, DrawState __state)
-        {
-            GameFixes.AttackHold(__instance) = __state.AttackHeld;
-            if (!__state.QueuedRelease) return;
-            var attack = GameFixes.CurrentAttack(__instance);
-            if (attack != null && attack != __state.PreviousAttack && attack.GetWeapon()?.m_shared.m_skillType == Skills.SkillType.Bows)
-                QueuedBowRelease.Track(__instance, attack);
-        }
-    }
-
-    // A release held back above fires a little late; blocking, switching weapons or dying before it fires cancels it, so it
-    // spends no arrow and launches nothing.
-    [HarmonyPatch]
-    internal static class QueuedBowRelease
-    {
-        private static Player queuedPlayer;
-        private static Attack queuedAttack;
-
-        internal static void Track(Player player, Attack attack)
-        {
-            queuedPlayer = player;
-            queuedAttack = attack;
-        }
-
-        internal static void Forget(Attack attack)
-        {
-            if (attack == queuedAttack) Clear();
-        }
-
-        private static void Clear()
-        {
-            queuedPlayer = null;
-            queuedAttack = null;
-        }
-
-        private static void Check()
-        {
-            if (queuedAttack == null) return;
-            if (queuedPlayer && queuedPlayer == Player.m_localPlayer && !queuedPlayer.IsDead() &&
-                GameFixes.CurrentAttack(queuedPlayer) == queuedAttack && queuedPlayer.GetCurrentWeapon() == queuedAttack.GetWeapon() &&
-                !GameFixes.Blocking(queuedPlayer)) return;
-            CancelPending();
-        }
-
-        private static void CancelPending()
-        {
-            if (queuedAttack == null) return;
-            AttackCancel.MarkCancelled(queuedAttack);
-            queuedAttack.Abort();
-            queuedAttack.Stop();
-            Clear();
-        }
-
-        // Called from the attack-cancel hook on Attack.OnAttackTrigger, before the attack's hit or shot.
-        internal static void BeforeTrigger(Attack attack)
-        {
-            Check();
-            if (attack == queuedAttack) Clear();
-        }
-
-        [HarmonyPatch(typeof(ZNet), "Shutdown"), HarmonyPrefix]
-        private static void Leaving() => CancelPending();
-
-        [HarmonyPatch(typeof(Player), nameof(Player.SetControls)), HarmonyPostfix]
-        private static void ControlsUpdated(Player __instance)
-        {
-            if (__instance == queuedPlayer || queuedPlayer != Player.m_localPlayer) Check();
-        }
     }
 
     // ------------------------------------------------------------------ fighting on a ship's deck

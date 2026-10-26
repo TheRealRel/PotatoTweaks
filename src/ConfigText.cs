@@ -49,6 +49,21 @@ namespace PotatoTweaks
             config.Save();
         }
 
+        // A setting that moved to another mod: once that mod's settings file has it (it copies the old value itself), drop the
+        // old line from this file. Until then it stays, so the other mod can still read it whichever loads first.
+        internal static void DropMoved(ConfigFile config, string otherFile, string otherSection, string oldSection, string oldKey)
+        {
+            try
+            {
+                string other = Path.Combine(Paths.ConfigPath, otherFile);
+                if (!File.Exists(other) || !File.ReadAllText(other).Contains(otherSection)) return;
+                if (AccessTools.Property(typeof(ConfigFile), "OrphanedEntries")?.GetValue(config) is Dictionary<ConfigDefinition, string> orphans &&
+                    orphans.Remove(new ConfigDefinition(oldSection, oldKey)))
+                    config.Save();
+            }
+            catch (Exception e) { Plugin.Log.LogWarning($"Couldn't tidy the moved setting {oldSection} / {oldKey}: {e.Message}"); }
+        }
+
         internal static void CopyBool(ConfigFile config, string otherFile, string section, string key, ConfigEntry<bool> entry)
         {
             var other = Read(Path.Combine(Paths.ConfigPath, otherFile));

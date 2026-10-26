@@ -65,7 +65,6 @@ namespace PotatoTweaks
         internal static ConfigEntry<bool> DroppedItemsEnabled, ShipRemovalEnabled, TombEnabled;
         internal static ConfigEntry<float> DroppedItemLifetimeHours;
         internal static ConfigEntry<int> TombCooldownSeconds;
-        internal static ConfigEntry<bool> AttackCancelEnabled;
         internal static ConfigEntry<bool> BountyMainKillOnly, BountySpreadOut, BountyGuaranteedItem, BountyNormalScaling, BountyHealthBar;
         internal static ConfigEntry<float> BountySpacing;
         internal static ConfigEntry<int> BountyExtraCopies;
@@ -186,11 +185,12 @@ namespace PotatoTweaks
             ConfigText.CarryOver(Config, before, "7 - Upgrade glow", "Glow strength", GlowStrength);
             if (!Chainloader.PluginInfos.ContainsKey(DimmerModId) && !before.ContainsKey(visual + "|Combat effects opacity"))
                 ConfigText.ImportDimmer(Config);
-            AttackCancelEnabled = Config.Bind("8 - Attack cancel", "Enabled", true,
-                Synced("Pressing block during an attack's windup or recovery abandons the attack and raises the guard at once, so you can parry mid-swing. A hit the swing hasn't reached never lands; stamina already paid and a hit already dealt stay. Cancelling never lets you attack faster."));
+            // Attack cancel moved to PotatoFighter in 1.5.17. PotatoFighter copies the old choice on its first start; once its
+            // settings file has it, the old line here is dropped.
+            ConfigText.DropMoved(Config, "potato.fighter.cfg", "[3 - Attack cancel]", "8 - Attack cancel", "Enabled");
 
             GameFixesEnabled = Config.Bind("10 - Bug fixes", "Game bug fixes", true,
-                "Fixes for bugs in Valheim: dropped fast bow shots, swings stopped by the deck of the ship you stand on, broken fuling shaman shields still blocking, plants that stop growing, buried ore veins losing support, berry bushes slow to regrow. Takes effect after a restart; keep it the same on the server and every player's game.");
+                "Fixes for bugs in Valheim: swings stopped by the deck of the ship you stand on, broken fuling shaman shields still blocking, plants that stop growing, buried ore veins losing support, berry bushes slow to regrow. Takes effect after a restart; keep it the same on the server and every player's game.");
             TidyConfigs = Config.Bind("10 - Bug fixes", "Tidy other mods config files", true,
                 "At startup, fixes small things in other mods' config files that make them warn on every launch, without changing what they do: tabs in LetMeTameYou's tame list comments, and berry bushes listed twice in StarLevelSystem's location resets. Personal.");
             if (TidyConfigs.Value) ConfigTidy.Run();
@@ -548,8 +548,6 @@ namespace PotatoTweaks
             Patch(typeof(ShipAndCartRemoval));
             Patch(typeof(UpgradeGlow));
             Patch(typeof(UpgradeGlow.KeepOriginals));
-            foreach (var type in new[] { typeof(AttackCancel.SkipCancelled), typeof(AttackCancel.Register), typeof(AttackCancel.Controls), typeof(AttackCancel.Waiting) })
-                Patch(type);
             if (GameFixesEnabled.Value)
                 foreach (var type in GameFixes.Patches) Patch(type);
             foreach (var type in QualityOfLife.Patches) Patch(type);
