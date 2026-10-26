@@ -116,39 +116,17 @@ In `BepInEx/config/potato.tweaks.cfg`, or in game with Configuration Manager (F1
 
 | Section | What you can set | Set by |
 |---|---|---|
-| 1 - Camera | Zoom on land (1.5x, 12 m) and on a ship (24 m) | Personal |
-| 2 - Dropped items | How long they last (3 hours) | Server |
-| 3 - Ship and cart removal | On or off | Server |
-| 4 - Tombstone retrieval | On or off, time between uses (10 s) | Server |
-| 5 - Skill loss on death | Loss per skill (1 = the game's normal) | Server |
-| 6 - Skill XP | XP per skill (1 = normal, up to 10) | Server |
-| 7 - Visual effects | Upgrade glow, tree dust, combat particles; Epic Loot looks | Personal |
-| 9 - Epic Loot bounties | Main kill only, spacing (300 m), extra copies (1), scaling | Server; health bar personal |
-| 10 - Bug fixes | Game and Epic Loot fixes (restart after changing); tidying other mods' config files | Every game alike; tidying personal |
-| 11 - Quality of life | Each comfort above, swim and sneak speed, crops | Personal; speeds and crops server |
-| 12 - Smelters and kilns | Capacity, speed, fuel, output, stations left alone; windmills (2x speed); blast furnace takes all ores | Server |
-| 13 - Fermenters | Speed and output (1 = normal) | Server |
-| 14 - Crafting stations | Build range (1 = normal); craftable chain | Server |
-| 15 - Carts and boats | Health from Crafting skill (carts +400%, boats +100%) | Server |
-| 16 - Map | Reveal radius (1 = normal), while sailing (500 m); death marker button | Server; button personal |
-| 17 - Double dragon bed | On or off (restart after changing); blankets | Every game alike; blankets personal |
-| 18 - Trophies | Pity growth (+10%, rare +20%), guarantees, star bonus | Server; Trophies tab personal |
-| 19 - Spearfishing | Spears, harpoons, bows, crossbows | Server |
-| 20 - Epic Loot enchanting table | Chests within 50 m, double output per item | Server; Sacrifice tab lists personal |
-| 21 - Epic Loot enchantments | Stacking, shot costs, shard clashes, Lucky Loot on birds | Server; messages personal |
-| 22 - Loot and items | Drop multipliers, weight, stack size, pickup range (2 m), floating, essences | Server |
-| 23 - Inventory rows | Bosses and prices (1,000, 2,000, 3,000 coins) | Server |
-| 24 - Sleeping | Share of players (50%), who counts, players in bed (1) | Server |
-| 25 - Item stands | Allowed items and stands, adjust limits (2 m, 5x) | Server; hiding personal |
-| 26 - Wisplight | Levels (5), clearing per level (5 m), costs | Server |
-| 27 - Comfort | Tab, check marks, descriptions, resting message | Personal |
-| 28 - Recycling | Materials back (50%), upgrades count | Server; key (Left Ctrl) personal |
-| 29 - Serving tray | Every crafted food (next game start) | Server |
-| 30 - Chests | Chest names | Server |
-| | Name key (Ctrl + N), show contents, icon size (24 px), most icons (8) | Personal |
-| 31 - Doors | Doors close themselves, seconds open (5) | Server |
-| 32 - Station timers | Show timers | Personal |
-| 33 - Smoke | Pieces smoke passes through | Server |
+| 1 - General | Game fixes (restart after changing); camera zoom on land (1.5x, 12 m) and on a ship (24 m); tombstone retrieval (10 s between uses); taking apart ships and carts; sleeping (50% of players, 1 in bed); map reveal (500 m while sailing) and death marker button; cart and boat health from Crafting skill; swim and sneak speed; tamed animals spare crops | Server; camera, marker button and tidying other mods' config files personal |
+| 2 - Visual effects | Upgrade glow, tree dust, combat particles; Epic Loot looks | Personal |
+| 3 - Interface | Chest names (Ctrl + N), contents, icon size (24 px) and count (8); station timers; Comfort tab and resting message; health bars, taming info, hammer menu, status effect names | Personal; chest names server |
+| 4 - Items and loot | Drop multipliers, weight, stack size, pickup range (2 m), floating, essences; dropped items last 3 hours; recycling (50% back, key Left Ctrl); inventory rows from Haldor (1,000, 2,000, 3,000 coins); spearfishing; no auto-equip on pickup | Server; recycle key and auto-equip personal |
+| 5 - Trophies | Pity growth (+10%, rare +20%), guarantees, star bonus | Server; Trophies tab personal |
+| 6 - Skill loss on death | Loss per skill (1 = the game's normal) | Server |
+| 7 - Skill XP | XP per skill (1 = normal, up to 10) | Server |
+| 8 - Stations and building | Smelters and kilns (capacity, speed, fuel, output), windmills (2x speed), blast furnace takes all ores; fermenters; crafting station build range and craftable chain; serving tray (next game start); Wisplight levels (5); doors close themselves (5 s); smoke; double dragon bed (restart after changing); item stands (2 m, 5x) | Server; bed blankets and hiding stands personal |
+| 9 - Epic Loot | Bounties (main kill only, spacing 300 m, extra copies 1, scaling); enchanting table chests (50 m); enchantment stacking, shot costs, shard clashes, Lucky Loot on birds; Epic Loot fixes (restart after changing) | Server; health bar, Sacrifice lists and messages personal |
+
+Settings sharing a section start with what they belong to ("Smelter speed", "Chest icon size"), so they sit together. Coming from an earlier Potato Tweaks, your settings move to their new places on the first start.
 
 Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.trophies.txt`. If a Valheim update breaks something a feature relies on, that feature switches itself off and writes why in the BepInEx log; the rest keep working.
 

@@ -1,8 +1,9 @@
 # Changelog
 
 ## 1.5.17
+- **Settings in 9 sections instead of 32.** Related settings share a section and start with what they belong to ("Smelter speed", "Chest icon size"), so Configuration Manager is quicker to look through. Your settings, and the server's, move to their new places on the first start.
 - **Attack cancel moved to [PotatoFighter](https://thunderstore.io/c/valheim/p/Potato_Tweaks/PotatoFighter/),** together with the fix for fast bow shots that vanished and the Triple Shot fix that goes with it. Your settings for them carry over the first time PotatoFighter starts.
-- **Mining arrows dig:** Warfare's mining arrow and bolt now dig the ground when they hit, instead of leaving a red error line in the log on every hit. Part of the game fixes (section 10).
+- **Mining arrows dig:** Warfare's mining arrow and bolt now dig the ground when they hit, instead of leaving a red error line in the log on every hit. Part of the game fixes.
 - Works with Epic Loot 0.15.2. Its new tooltips show the eitr cost of enchanted staffs themselves, so "Eitr cost in tooltips" only does something with older Epic Loot versions, and the red "EitrTooltip is disabled" line at startup is gone.
 
 ## 1.5.16

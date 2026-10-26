@@ -32,6 +32,8 @@ namespace PotatoTweaks
             return values;
         }
 
+        internal static void SetValue(ConfigEntryBase entry, string value) => Set(entry, value);
+
         private static void Set(ConfigEntryBase entry, string value)
         {
             try { entry.BoxedValue = TomlTypeConverter.ConvertToValue(value, entry.SettingType); }

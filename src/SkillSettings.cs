@@ -17,8 +17,8 @@ namespace PotatoTweaks
         private static readonly Dictionary<Skills.SkillType, ConfigEntry<float>> Loss = new Dictionary<Skills.SkillType, ConfigEntry<float>>();
         private static readonly Dictionary<Skills.SkillType, ConfigEntry<float>> Xp = new Dictionary<Skills.SkillType, ConfigEntry<float>>();
 
-        private const string LossSection = "5 - Skill loss on death";
-        private const string XpSection = "6 - Skill XP";
+        private const string LossSection = "6 - Skill loss on death";   // "5 - Skill loss on death" before 1.5.17 (ConfigLayout)
+        private const string XpSection = "7 - Skill XP";               // "6 - Skill XP" before 1.5.17
 
         // Every built-in skill, read from the game itself, so a skill added by a future update is listed automatically.
         private static IEnumerable<Skills.SkillType> VanillaSkills() =>
@@ -30,13 +30,14 @@ namespace PotatoTweaks
 
         internal static void Bind(ConfigFile config, Func<string, AcceptableValueBase, ConfigDescription> synced)
         {
-            bool fresh = !File.Exists(config.ConfigFilePath) || !File.ReadAllText(config.ConfigFilePath).Contains("[" + LossSection + "]");
+            string text = File.Exists(config.ConfigFilePath) ? File.ReadAllText(config.ConfigFilePath) : "";
+            bool fresh = !text.Contains("[" + LossSection + "]") && !text.Contains("[5 - Skill loss on death]");
             var imported = fresh ? ReadSkillLossConfig() : null;
 
             LossEnabled = config.Bind(LossSection, "Enabled", true,
-                synced("Use the per-skill amounts below when a player dies, instead of the game's own skill loss.", null));
+                synced("Use the per-skill amounts in this section when a player dies, instead of the game's own skill loss.", null));
             XpEnabled = config.Bind(XpSection, "Enabled", true,
-                synced("Use the per-skill XP multipliers below.", null));
+                synced("Use the per-skill XP multipliers in this section.", null));
 
             foreach (var skill in VanillaSkills())
             {
