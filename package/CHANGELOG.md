@@ -1,7 +1,7 @@
 # Changelog
 
 ## 1.5.17
-- **Attack cancel moved to PotatoFighter,** together with the fix for fast bow shots that vanished and the Triple Shot fix that goes with it. Your settings for them carry over the first time PotatoFighter starts.
+- **Attack cancel moved to [PotatoFighter](https://thunderstore.io/c/valheim/p/Potato_Tweaks/PotatoFighter/),** together with the fix for fast bow shots that vanished and the Triple Shot fix that goes with it. Your settings for them carry over the first time PotatoFighter starts.
 - **Mining arrows dig:** Warfare's mining arrow and bolt now dig the ground when they hit, instead of leaving a red error line in the log on every hit. Part of the game fixes (section 10).
 - Works with Epic Loot 0.15.2. Its new tooltips show the eitr cost of enchanted staffs themselves, so "Eitr cost in tooltips" only does something with older Epic Loot versions, and the red "EitrTooltip is disabled" line at startup is gone.
 

@@ -1,5 +1,7 @@
 Potato Tweaks is a collection of Valheim tweaks, fixes and additions made for the Potato Server. It goes on the server and in every player's game. Every feature can be switched off on its own. Server settings come from the server and are the same for everyone; personal settings are each player's own.
 
+Attack cancel and the fast bow shot fix have moved to [PotatoFighter](https://thunderstore.io/c/valheim/p/Potato_Tweaks/PotatoFighter/), along with its new weapons. Install it to keep them; your settings carry over.
+
 ## Around the base
 
 ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-chest.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-door.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-house.png)
