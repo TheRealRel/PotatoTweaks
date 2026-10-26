@@ -517,30 +517,42 @@ namespace PotatoTweaks
     }
 
     // ------------------------------------------------------------------ eitr cost tooltip
-    // Epic Loot's tooltip shows the eitr cost only for Spellsword weapons, so enchanted staffs show none. Show it whenever
-    // the attack costs eitr, with Spellsword's extra cost (half the stamina cost) added.
-    [HarmonyPatch(typeof(MagicTooltip), "AddEitrUse")]
+    // Epic Loot up to 0.15.1 (its MagicTooltip) shows the eitr cost only for Spellsword weapons, so enchanted staffs show
+    // none. Show it whenever the attack costs eitr, with Spellsword's extra cost (half the stamina cost) added. Epic Loot
+    // 0.15.2 rebuilt its tooltips (TooltipRenderer) and shows this itself, so there the patch steps aside. Found by name,
+    // so Potato Tweaks builds and loads against either version.
+    [HarmonyPatch]
     internal static class EitrTooltip
     {
-        private static readonly AccessTools.FieldRef<MagicTooltip, ItemDrop.ItemData> Item = AccessTools.FieldRefAccess<MagicTooltip, ItemDrop.ItemData>("<item>P");
-        private static readonly AccessTools.FieldRef<MagicTooltip, MagicItem> Magic = AccessTools.FieldRefAccess<MagicTooltip, MagicItem>("<magicItem>P");
-        private static readonly AccessTools.FieldRef<MagicTooltip, string> Color = AccessTools.FieldRefAccess<MagicTooltip, string>("magicColor");
-        private static readonly AccessTools.FieldRef<StringBuilder> Text = AccessTools.StaticFieldRefAccess<StringBuilder>(AccessTools.Field(typeof(MagicTooltip), "text"));
+        private static readonly Type Tooltip = AccessTools.TypeByName("EpicLoot.MagicTooltip");
+        private static FieldInfo item, magic, color, text;
 
-        private static bool Prefix(MagicTooltip __instance)
+        private static bool Prepare()
+        {
+            if (Tooltip == null) return false;
+            item = AccessTools.Field(Tooltip, "<item>P");
+            magic = AccessTools.Field(Tooltip, "<magicItem>P");
+            color = AccessTools.Field(Tooltip, "magicColor");
+            text = AccessTools.Field(Tooltip, "text");
+            return item != null && magic != null && color != null && text != null && AccessTools.Method(Tooltip, "AddEitrUse") != null;
+        }
+
+        private static MethodBase TargetMethod() => AccessTools.Method(Tooltip, "AddEitrUse");
+
+        private static bool Prefix(object __instance)
         {
             if (!Plugin.EitrTooltip.Value) return true;
-            var item = Item(__instance);
-            var magic = Magic(__instance);
-            var text = Text();
-            if (item?.m_shared == null || magic == null || text == null) return true;
-            var attack = item.m_shared.m_attack;
-            bool spellsword = magic.HasEffect(MagicEffectType.SpellSword);
+            var it = item.GetValue(__instance) as ItemDrop.ItemData;
+            var mi = magic.GetValue(__instance) as MagicItem;
+            var sb = text.GetValue(text.IsStatic ? null : __instance) as StringBuilder;
+            if (it?.m_shared == null || mi == null || sb == null) return true;
+            var attack = it.m_shared.m_attack;
+            bool spellsword = mi.HasEffect(MagicEffectType.SpellSword);
             if (attack.m_attackEitr <= 0f && !spellsword) return false;
-            float eitr = (1f - magic.GetTotalEffectValue(MagicEffectType.ModifyAttackEitrUse, 0.01f)) * attack.m_attackEitr;
+            float eitr = (1f - mi.GetTotalEffectValue(MagicEffectType.ModifyAttackEitrUse, 0.01f)) * attack.m_attackEitr;
             if (spellsword) eitr += Spellsword.GetAdditionalSpellswordAttackEitr(attack.m_attackStamina);
-            bool changed = spellsword || magic.HasEffect(MagicEffectType.ModifyAttackEitrUse) || magic.HasEffect(MagicEffectType.DoubleMagicShot);
-            text.Append($"\n$item_eitruse: <color={(changed ? Color(__instance) : "orange")}>{eitr:0.#}</color>");
+            bool changed = spellsword || mi.HasEffect(MagicEffectType.ModifyAttackEitrUse) || mi.HasEffect(MagicEffectType.DoubleMagicShot);
+            sb.Append($"\n$item_eitruse: <color={(changed ? color.GetValue(__instance) as string : "orange")}>{eitr:0.#}</color>");
             return false;
         }
     }

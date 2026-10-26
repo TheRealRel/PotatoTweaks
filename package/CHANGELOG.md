@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.17
+- Works with Epic Loot 0.15.2. Its new tooltips show the eitr cost of enchanted staffs themselves, so "Eitr cost in tooltips" only does something with older Epic Loot versions, and the red "EitrTooltip is disabled" line at startup is gone.
+
 ## 1.5.16
 - **Blast furnace takes all ores** (section 12, server, on): the blast furnace also smelts everything the regular smelter does, ores and scraps alike. Idea from Blast Furnace Takes All by TastyChickenLegs and Tueman; with that mod installed, Potato Tweaks leaves it to it.
 - **Craftable chain** (section 14, server, on): Chain can be made at the forge from 2 Iron. Idea from Chain Manager by Digitalroot; with that mod installed, Potato Tweaks doesn't add a second recipe.

@@ -37,7 +37,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.16";
+        public const string Version = "1.5.17";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -534,7 +534,7 @@ namespace PotatoTweaks
                 LuckyLootPosition = Config.Bind(enchantments, "Lucky Loot message position", MessageHud.MessageType.Center,
                     "Center: a big message in the middle of the screen. TopLeft: a small line in the top left corner. Personal.");
                 EitrTooltip = Config.Bind(enchantments, "Eitr cost in tooltips", true,
-                    "Show the eitr cost of enchanted staffs and Spellsword weapons in their tooltip (Epic Loot shows it only for Spellsword). Personal.");
+                    "Show the eitr cost of enchanted staffs and Spellsword weapons in their tooltip (Epic Loot before 0.15.2 shows it only for Spellsword; 0.15.2 and later show it themselves, and then this does nothing). Personal.");
                 if (!before.ContainsKey(table + "|Materials from nearby chests")) ConfigText.ImportEpicLootAddons(Config);
             }
 
