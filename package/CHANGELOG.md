@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.18
+- The mining arrow fix's description now names Warfare 1.9.5 and older; Warfare 1.9.6 fixed its arrows and bolts itself.
+
 ## 1.5.17
 - **Settings in 9 sections instead of 32.** Related settings share a section and start with what they belong to ("Smelter speed", "Chest icon size"), so Configuration Manager is quicker to look through. Your settings, and the server's, move to their new places on the first start.
 - **Attack cancel moved to [PotatoFighter](https://thunderstore.io/c/valheim/p/Potato_Tweaks/PotatoFighter/),** together with the fix for fast bow shots that vanished and the Triple Shot fix that goes with it. Your settings for them carry over the first time PotatoFighter starts.

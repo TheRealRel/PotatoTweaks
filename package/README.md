@@ -92,7 +92,7 @@ Attack cancel and the fast bow shot fix have moved to [PotatoFighter](https://th
 - A broken fuling shaman shield stops blocking arrows.
 - Plants keep growing after a lag spike.
 - Buried ore veins keep their support.
-- Mining arrows and bolts from other mods (Warfare's) dig the ground.
+- Mining arrows and bolts from other mods (Warfare 1.9.5 and older) dig the ground.
 - Overdue berry bushes regrow when someone comes near.
 - With Quick Stack - Store - Sort - Trash - Restock, sorting and storing leave Equipment and Quick Slots' slots alone.
 

@@ -191,7 +191,7 @@ namespace PotatoTweaks
             ConfigText.DropMoved(Config, "potato.fighter.cfg", "[2 - Combat]", "8 - Attack cancel", "Enabled");
 
             GameFixesEnabled = Config.Bind("1 - General", "Game bug fixes", true,
-                "Fixes for bugs in Valheim: swings stopped by the deck of the ship you stand on, broken fuling shaman shields still blocking, plants that stop growing, buried ore veins losing support, berry bushes slow to regrow; also other mods' mining arrows and bolts that never dig (Warfare). Takes effect after a restart; keep it the same on the server and every player's game.");
+                "Fixes for bugs in Valheim: swings stopped by the deck of the ship you stand on, broken fuling shaman shields still blocking, plants that stop growing, buried ore veins losing support, berry bushes slow to regrow; also other mods' mining arrows and bolts that never dig (Warfare 1.9.5 and older). Takes effect after a restart; keep it the same on the server and every player's game.");
             TidyConfigs = Config.Bind("1 - General", "Tidy other mods config files", true,
                 "At startup, fixes small things in other mods' config files that make them warn on every launch, without changing what they do: tabs in LetMeTameYou's tame list comments, and berry bushes listed twice in StarLevelSystem's location resets. Personal.");
             if (TidyConfigs.Value) ConfigTidy.Run();
