@@ -36,7 +36,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.18";
+        public const string Version = "1.5.19";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -196,7 +196,7 @@ namespace PotatoTweaks
             if (TidyConfigs.Value) ConfigTidy.Run();
             if (epicLoot)
                 EpicLootFixesEnabled = Config.Bind("9 - Epic Loot", "Enchantment fixes", true,
-                    "Fixes for Epic Loot enchantments: Meads Cooldown, repairing broken Indestructible gear, and Air Jump near the ground. Takes effect after a restart; keep it the same on the server and every player's game.");
+                    "Fixes for Epic Loot enchantments: repairing broken Indestructible gear, and Air Jump near the ground. Takes effect after a restart; keep it the same on the server and every player's game.");
             if (epicLoot)
             {
                 BountyMainKillOnly = Config.Bind("9 - Epic Loot", "Bounty complete on main target", true,
@@ -616,7 +616,7 @@ namespace PotatoTweaks
         private void EnableEpicLoot()
         {
             EpicLootFeatures.Enable(Patch, Run);
-            if (EpicLootFixesEnabled.Value) EpicLootFixes.Enable(Patch, Run);
+            if (EpicLootFixesEnabled.Value) EpicLootFixes.Enable(Patch);
             string addons = EpicLootAddons.InstalledOriginal();
             if (addons != null)
                 Log.LogWarning($"{addons} is installed, so Potato Tweaks' Epic Loot add-ons (enchanting table chests, damage stacking, shot cost, Lucky Loot, shard clashes, hiding enchantment looks) stay off. Remove {addons} to use them.");

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.5.19
+- Works with Epic Loot 0.15.4, which fixes Meads Cooldown itself, so the Potato Tweaks fix for it is removed. This also gets rid of the red "Meads Cooldown fix is disabled" line at startup.
+
 ## 1.5.18
 - The mining arrow fix's description now names Warfare 1.9.5 and older; Warfare 1.9.6 fixed its arrows and bolts itself.
 - If chest contents on hover or inventory slot visibility ever runs into an error, it stays off only until the game restarts instead of switching itself off in your settings.

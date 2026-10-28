@@ -104,7 +104,7 @@ These switch on only when Epic Loot is installed.
 
 **Bounties.** They complete when the main target dies and spread out across the map. The target gets a small health bar and always drops at least one enchanted item.
 
-**Enchantments.** Meads Cooldown, broken Indestructible gear and Air Jump work as described. Damage enchantments can roll together, and Lucky Loot works on birds.
+**Enchantments.** Broken Indestructible gear and Air Jump work as described. Damage enchantments can roll together, and Lucky Loot works on birds.
 
 **Enchanting table.** It takes its materials from chests within 50 m.
 
