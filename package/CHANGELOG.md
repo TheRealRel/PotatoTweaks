@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.5.20
+- The status effect names moved to [PotatoRunes](https://thunderstore.io/c/valheim/p/Potato_Tweaks/PotatoRunes/), which shows them and the time left on each icon in the runic font. Its "Status effect names" setting can hide them again, as here before, or show the game's own.
+- Combat health bars: your tamed animals' names and health bars no longer show through the walls of buildings. Enemies hunting you and animals you're taming still do.
+
 ## 1.5.19
 - Works with Epic Loot 0.15.4, which fixes Meads Cooldown itself, so the Potato Tweaks fix for it is removed. This also gets rid of the red "Meads Cooldown fix is disabled" line at startup.
 

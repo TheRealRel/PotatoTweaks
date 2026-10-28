@@ -153,8 +153,9 @@ namespace PotatoTweaks
     }
 
     // ------------------------------------------------------------------ combat health bars
-    // Alerted enemies and animals being tamed (or tamed) keep their health bars through mist, trees and buildings; the
-    // ground, rock and dungeon walls still hide them. An enemy attacking you within the set range shows through anything.
+    // Alerted enemies and animals being tamed keep their health bars through mist, trees and buildings; the ground, rock
+    // and dungeon walls still hide them. Tamed animals show through mist and trees but not buildings, so a herd outside
+    // isn't seen through the walls of the house. An enemy attacking you within the set range shows through anything.
     [HarmonyPatch(typeof(EnemyHud), "UpdateHuds")]
     internal static class CombatHealthBars
     {
@@ -165,7 +166,7 @@ namespace PotatoTweaks
         private static readonly int ObstructionMask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece", "terrain", "viewblock", "vehicle");
         private static RaycastHit[] obstructionHits = new RaycastHit[32];
 
-        private static bool Obstructed(Vector3 origin, Vector3 destination)
+        private static bool Obstructed(Vector3 origin, Vector3 destination, bool buildingsHide)
         {
             var direction = destination - origin;
             int count = Physics.RaycastNonAlloc(origin, direction, obstructionHits, direction.magnitude, ObstructionMask, QueryTriggerInteraction.Ignore);
@@ -178,7 +179,8 @@ namespace PotatoTweaks
             {
                 var collider = obstructionHits[index].collider;
                 if (collider.GetComponentInParent<Heightmap>()) return true;
-                if (collider.GetComponentInParent<Piece>() || collider.GetComponentInParent<Plant>() || collider.GetComponentInParent<Pickable>()) continue;
+                if (collider.GetComponentInParent<Piece>()) { if (buildingsHide) return true; continue; }
+                if (collider.GetComponentInParent<Plant>() || collider.GetComponentInParent<Pickable>()) continue;
                 var destructible = collider.GetComponentInParent<IDestructible>();
                 if (destructible != null && (destructible.GetDestructibleType() & DestructibleType.Tree) != 0) continue;
                 return true;
@@ -202,8 +204,9 @@ namespace PotatoTweaks
                 var data = view != null ? view.GetZDO() : null;
                 bool attacking = !playerId.IsNone() && data != null && data.GetZDOID(CombatTargets.TargetKey) == playerId &&
                     Vector3.Distance(player.transform.position, character.transform.position) <= Plugin.QolAttackerRange.Value;
-                bool obstructed = !attacking && Obstructed(camera.transform.position, character.GetCenterPoint()) &&
-                    Obstructed(camera.transform.position, character.GetEyePoint());
+                bool tamed = character.IsTamed();
+                bool obstructed = !attacking && Obstructed(camera.transform.position, character.GetCenterPoint(), tamed) &&
+                    Obstructed(camera.transform.position, character.GetEyePoint(), tamed);
                 HoverTimer(entry.Value) = obstructed ? __instance.m_hoverShowDuration : 0f;
             }
         }

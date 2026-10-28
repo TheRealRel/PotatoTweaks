@@ -82,7 +82,7 @@ Attack cancel and the fast bow shot fix have moved to [PotatoFighter](https://th
 
 ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-fire.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-mirror.png) ![](https://raw.githubusercontent.com/TheRealRel/PotatoTweaks/main/docs/images/icon-hammer.png)
 
-**Small comforts.** Walking over a weapon no longer equips it, the hammer menu updates live, and health bars show while you hold the hammer and through mist and trees in a fight. Inventory windows move aside when mods' extra slots would end up behind them or off screen, at any resolution. Status effect icons drop their cut-off names, and tamed animals don't trample crops.
+**Small comforts.** Walking over a weapon no longer equips it, the hammer menu updates live, and health bars show while you hold the hammer and through mist and trees in a fight. Inventory windows move aside when mods' extra slots would end up behind them or off screen, at any resolution. Tamed animals don't trample crops.
 
 **Looks.** Sliders for the glow on over-upgraded gear, the dust from felling trees and the particles that cover creatures in a fight. These only change what you see.
 
@@ -118,7 +118,7 @@ In `BepInEx/config/potato.tweaks.cfg`, or in game with Configuration Manager (F1
 |---|---|---|
 | 1 - General | Game fixes (restart after changing); camera zoom on land (1.5x, 12 m) and on a ship (24 m); tombstone retrieval (10 s between uses); taking apart ships and carts; sleeping (50% of players, 1 in bed); map reveal (500 m while sailing) and death marker button; cart and boat health from Crafting skill; swim and sneak speed; tamed animals spare crops | Server; camera, marker button and tidying other mods' config files personal |
 | 2 - Visual effects | Upgrade glow, tree dust, combat particles; Epic Loot looks | Personal |
-| 3 - Interface | Chest names (Ctrl + N), contents, icon size (24 px) and count (8); station timers; Comfort tab and resting message; health bars, taming info, hammer menu, status effect names | Personal; chest names server |
+| 3 - Interface | Chest names (Ctrl + N), contents, icon size (24 px) and count (8); station timers; Comfort tab and resting message; health bars, taming info, hammer menu | Personal; chest names server |
 | 4 - Items and loot | Drop multipliers, weight, stack size, pickup range (2 m), floating, essences; dropped items last 3 hours; recycling (50% back, key Left Ctrl); inventory rows from Haldor (1,000, 2,000, 3,000 coins); spearfishing; no auto-equip on pickup | Server; recycle key and auto-equip personal |
 | 5 - Trophies | Pity growth (+10%, rare +20%), guarantees, star bonus | Server; Trophies tab personal |
 | 6 - Skill loss on death | Loss per skill (1 = the game's normal) | Server |
@@ -132,7 +132,7 @@ Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.troph
 
 **Replacing other mods.** Potato Tweaks covers Tomb Retriever, SkillLoss, Double Dragon Bed, Dimmer Combat Particle Effects, TrophyAssister, Spearfishing, Epic Loot Add-ons, DropMoreLoot, EssenceForAll, ComfortHelper, Smoke Collision and BiggerBoatMapExploreRadius. If one of them is installed, Potato Tweaks leaves that feature to it and says so in the log. When you switch, their old settings (and TrophyAssister's pity counts) are copied over on first launch. It won't load next to EpicLoot Progression Fix, which it already contains.
 
-**Credits.** Camera zoom, dropped items, ship and cart removal, the Epic Loot bounty and enchantment fixes, the game fixes and most of the small comforts come from EpicLoot Progression Fix by its contributors (MIT). The double dragon bed comes from Double Dragon Bed by Hansenbansen and spearfishing from Spearfishing by karkkant (both MIT). Item stands and smoke passing through come from Item Stand All Items and Smoke Collision by JereKuusela (public domain). The bigger map reveal while sailing comes from BiggerBoatMapExploreRadius by nearbear (MIT). Essence for everyone and the comfort helper come from EssenceForAll and ComfortHelper by Koen-H (MIT). The rest was written for Potato Tweaks, some of it on ideas from RandyKnapp's Minimal Status Effects, blacks7ar's SNEAKer and Digitalroot's Better Wisps.
+**Credits.** Camera zoom, dropped items, ship and cart removal, the Epic Loot bounty and enchantment fixes, the game fixes and most of the small comforts come from EpicLoot Progression Fix by its contributors (MIT). The double dragon bed comes from Double Dragon Bed by Hansenbansen and spearfishing from Spearfishing by karkkant (both MIT). Item stands and smoke passing through come from Item Stand All Items and Smoke Collision by JereKuusela (public domain). The bigger map reveal while sailing comes from BiggerBoatMapExploreRadius by nearbear (MIT). Essence for everyone and the comfort helper come from EssenceForAll and ComfortHelper by Koen-H (MIT). The rest was written for Potato Tweaks, some of it on ideas from blacks7ar's SNEAKer and Digitalroot's Better Wisps.
 
 Bug reports go to [GitHub Issues](https://github.com/TheRealRel/PotatoTweaks/issues), where the source lives too. Questions are welcome on Discord: [relanebeis](https://discord.com/users/373574370267889674). The Changelog tab says whether everyone needs to update.
 

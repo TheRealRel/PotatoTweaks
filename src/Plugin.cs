@@ -36,7 +36,7 @@ namespace PotatoTweaks
     public sealed class Plugin : BaseUnityPlugin
     {
         public const string Id = "potato.tweaks";
-        public const string Version = "1.5.19";
+        public const string Version = "1.5.20";
         private const string TombRetrieverId = "ryan.tombretriever";
         private const string SkillLossId = "Mirfin.SkillLoss";
 
@@ -101,7 +101,6 @@ namespace PotatoTweaks
         internal static ConfigEntry<int> RowsThirdPrice;
         internal static ConfigEntry<string> RowsThirdBoss;
         internal static ConfigEntry<int> SleepShare, SleepInBed;
-        internal static ConfigEntry<bool> StatusEffectNamesHidden;
         internal static ConfigEntry<float> QolSneakSpeed, WispRangePerLevel;
         internal static ConfigEntry<int> WispLevels, WispWispsPerLevel, WispSilverPerLevel, WispEitrPerLevel;
         internal static ConfigEntry<float> ItemStandMaxOffset, ItemStandMaxScale;
@@ -220,7 +219,7 @@ namespace PotatoTweaks
             QolBuildToolHealthBars = Config.Bind("3 - Interface", "Health bars with build tools", true,
                 "Creature health bars still show while you hold the hammer, hoe or cultivator. Personal.");
             QolCombatHealthBars = Config.Bind("3 - Interface", "Combat health bars", true,
-                "Alerted enemies and animals being tamed (or tamed) keep their health bars through mist, trees and buildings; the ground and rock still hide them. Personal.");
+                "Alerted enemies and animals being tamed keep their health bars through mist, trees and buildings; the ground and rock still hide them. Tamed animals show through mist and trees, but not buildings. Personal.");
             QolAttackerRange = Config.Bind("3 - Interface", "Attacker health bar range", 15f,
                 new ConfigDescription("An enemy attacking you within this many meters shows its health bar through anything. Personal.", new AcceptableValueRange<float>(0f, 100f)));
             QolTamingHover = Config.Bind("3 - Interface", "Taming info at range", true,
@@ -231,8 +230,6 @@ namespace PotatoTweaks
                 "When a quick slot uses V, auto-pickup moves to ] (right bracket), so pressing V on an empty quick slot can't switch auto-pickup off. Read at startup. Personal.");
             InventorySlotsVisibility = Config.Bind("3 - Interface", "Inventory slot visibility", true,
                 "No inventory slot stays hidden: when a window covers equipment, quick, quiver, backpack, chest or inventory-row slots, or pushes them past the screen edge, that window moves just enough to show them, at any screen size from 16:9 to 32:9 and any GUI scale. It moves back when no longer in the way, and each move is noted once in the log. Only looks again when the layout changes. Personal.");
-            StatusEffectNamesHidden = Config.Bind("3 - Interface", "Hide status effect names", true,
-                "Status effect icons stay where the game puts them, beside the minimap, but without their names (which get cut short). The time left, or the comfort level while resting, still shows on each icon. Personal.");
             QolTamedCrops = Config.Bind("1 - General", "Tamed animals spare crops", true,
                 Synced("Your tamed animals walking through farm crops and planted bushes don't trample them. Wild animals and attacks still do damage."));
             QolSwimSpeed = Config.Bind("1 - General", "Swim skill raises swim speed", true,
@@ -530,7 +527,6 @@ namespace PotatoTweaks
             Patch(typeof(InventoryRows));
             foreach (var type in SleepVote.Patches) Patch(type);
             Patch(typeof(InventorySlotsVisibility));
-            Patch(typeof(StatusEffectList));
             foreach (var type in new[] { typeof(TreeDust), typeof(TreeDust.Impact), typeof(TreeDust.Created), typeof(SmelterSettings), typeof(SmelterSettings.Output), typeof(SmelterSettings.WindPower),
                 typeof(FermenterSettings), typeof(StationRange), typeof(MapReveal), typeof(DeathMarkers) })
                 Patch(type);
