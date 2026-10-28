@@ -4,6 +4,8 @@
 - The mining arrow fix's description now names Warfare 1.9.5 and older; Warfare 1.9.6 fixed its arrows and bolts itself.
 - If chest contents on hover or inventory slot visibility ever runs into an error, it stays off only until the game restarts instead of switching itself off in your settings.
 - The enchanting table's chest search keeps a shorter list of chests during long sessions.
+- Removed the Epic Loot fixes that Epic Loot 0.15 now makes itself (Riches, Fire Rate, +Ranged Skills, Noise, Bountiful Harvest, Quick Draw, armor wear with Indestructible), with the Faster chest loading and Eitr cost in tooltips settings. Meads Cooldown, broken Indestructible gear and Air Jump keep their fixes.
+- Removed StarLevelSystem support (trophy pity on its loot tables, bounty strength, its berry bush config tidy) and the Bounty normal star scaling setting. Old lines for the removed settings are tidied out of the config.
 
 ## 1.5.17
 - **Settings in 9 sections instead of 32.** Related settings share a section and start with what they belong to ("Smelter speed", "Chest icon size"), so Configuration Manager is quicker to look through. Your settings, and the server's, move to their new places on the first start.

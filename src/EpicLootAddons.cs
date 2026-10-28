@@ -1,6 +1,6 @@
 // Potato Tweaks - Epic Loot add-ons: the enchanting table using nearby chests, damage enchantments that stack, normal
-// Double/Triple Shot cost, the summon limit with Double Magic Shot, Lucky Loot messages and Lucky Loot on birds, the eitr
-// cost tooltip, faster chest loading, shardstones that ignore effect clashes and hiding enchantment looks.
+// Double/Triple Shot cost, the summon limit with Double Magic Shot, Lucky Loot messages and Lucky Loot on birds,
+// shardstones that ignore effect clashes and hiding enchantment looks.
 // Written from scratch for this mod; the same features were in DigiTeam's Epic Loot Add-ons, which Potato Tweaks
 // replaces. Only used when Epic Loot is installed.
 using System;
@@ -55,13 +55,6 @@ namespace PotatoTweaks
             patch(typeof(LuckyLootMessage.Register));
             patch(typeof(LuckyBirds));
             patch(typeof(LuckyBirds.Drops));
-            patch(typeof(EitrTooltip));
-            // Epic Loot 0.15.0 skips unchanged chests itself.
-            if (!EpicLootFeatures.EpicLootHasFixes)
-            {
-                patch(typeof(FasterChestLoading));
-                patch(typeof(FasterChestLoading.Loaded));
-            }
             patch(typeof(EnchantLooks.Effects));
             patch(typeof(EnchantLooks.Textures));
             EnchantLooks.Watch();
@@ -526,79 +519,6 @@ namespace PotatoTweaks
                 for (int i = 1; i < times; i++) __result.AddRange(once);
                 multiplier = 0;
             }
-        }
-    }
-
-    // ------------------------------------------------------------------ eitr cost tooltip
-    // Epic Loot up to 0.15.1 (its MagicTooltip) shows the eitr cost only for Spellsword weapons, so enchanted staffs show
-    // none. Show it whenever the attack costs eitr, with Spellsword's extra cost (half the stamina cost) added. Epic Loot
-    // 0.15.2 rebuilt its tooltips (TooltipRenderer) and shows this itself, so there the patch steps aside. Found by name,
-    // so Potato Tweaks builds and loads against either version.
-    [HarmonyPatch]
-    internal static class EitrTooltip
-    {
-        private static readonly Type Tooltip = AccessTools.TypeByName("EpicLoot.MagicTooltip");
-        private static FieldInfo item, magic, color, text;
-
-        private static bool Prepare()
-        {
-            if (Tooltip == null) return false;
-            item = AccessTools.Field(Tooltip, "<item>P");
-            magic = AccessTools.Field(Tooltip, "<magicItem>P");
-            color = AccessTools.Field(Tooltip, "magicColor");
-            text = AccessTools.Field(Tooltip, "text");
-            return item != null && magic != null && color != null && text != null && AccessTools.Method(Tooltip, "AddEitrUse") != null;
-        }
-
-        private static MethodBase TargetMethod() => AccessTools.Method(Tooltip, "AddEitrUse");
-
-        private static bool Prefix(object __instance)
-        {
-            if (!Plugin.EitrTooltip.Value) return true;
-            var it = item.GetValue(__instance) as ItemDrop.ItemData;
-            var mi = magic.GetValue(__instance) as MagicItem;
-            var sb = text.GetValue(text.IsStatic ? null : __instance) as StringBuilder;
-            if (it?.m_shared == null || mi == null || sb == null) return true;
-            var attack = it.m_shared.m_attack;
-            bool spellsword = mi.HasEffect(MagicEffectType.SpellSword);
-            if (attack.m_attackEitr <= 0f && !spellsword) return false;
-            float eitr = (1f - mi.GetTotalEffectValue(MagicEffectType.ModifyAttackEitrUse, 0.01f)) * attack.m_attackEitr;
-            if (spellsword) eitr += Spellsword.GetAdditionalSpellswordAttackEitr(attack.m_attackStamina);
-            bool changed = spellsword || mi.HasEffect(MagicEffectType.ModifyAttackEitrUse) || mi.HasEffect(MagicEffectType.DoubleMagicShot);
-            sb.Append($"\n$item_eitruse: <color={(changed ? color.GetValue(__instance) as string : "orange")}>{eitr:0.#}</color>");
-            return false;
-        }
-    }
-
-    // ------------------------------------------------------------------ faster chest loading
-    // The game checks every loaded chest for changes once a second, and other mods load chests too; Epic Loot then goes
-    // through all of the chest's items every time, even when nothing changed. Let it run only when the chest really reloaded
-    // its items or their number changed.
-    [HarmonyPatch(typeof(Container_Load_Patch), nameof(Container_Load_Patch.Postfix))]
-    internal static class FasterChestLoading
-    {
-        private sealed class Seen { internal int Count = -1; }
-        private static readonly ConditionalWeakTable<Container, Seen> Counts = new ConditionalWeakTable<Container, Seen>();
-        [ThreadStatic] private static Container reloaded;
-
-        // Runs before Epic Loot's own postfix on the same method.
-        [HarmonyPatch(typeof(Container), "Load")]
-        internal static class Loaded
-        {
-            [HarmonyPriority(Priority.First)]
-            private static void Postfix(Container __instance, bool __result) => reloaded = __result ? __instance : null;
-        }
-
-        private static bool Prefix(Container __0)
-        {
-            if (!Plugin.FasterChestLoading.Value || !__0) return true;
-            var inventory = __0.GetInventory();
-            if (inventory == null) return true;
-            var seen = Counts.GetOrCreateValue(__0);
-            bool changed = reloaded == __0 || seen.Count != inventory.NrOfItems();
-            seen.Count = inventory.NrOfItems();
-            reloaded = null;
-            return changed;
         }
     }
 

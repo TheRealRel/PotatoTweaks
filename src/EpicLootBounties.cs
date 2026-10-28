@@ -1,5 +1,5 @@
 // Potato Tweaks - fixes for Epic Loot bounties. Only used when Epic Loot is installed.
-// Adapted from EpicLoot Progression Fix 0.1.281 (bounty-*.cs, creature-loot-scope.cs, star-level-system.cs), MIT License,
+// Adapted from EpicLoot Progression Fix 0.1.281 (bounty-*.cs, creature-loot-scope.cs), MIT License,
 // Copyright (c) 2026 EpicLoot Progression Fix contributors. See LICENSE.
 using System;
 using System.Collections;
@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
-using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using EpicLoot;
 using EpicLoot.Adventure;
@@ -25,13 +24,8 @@ namespace PotatoTweaks
     internal static class EpicLootFeatures
     {
         internal const string EpicLootId = "randyknapp.mods.epicloot";
-        internal const string StarLevelSystemId = "MidnightsFX.StarLevelSystem";
 
         internal static ManualLogSource Log => Plugin.Log;
-
-        // Epic Loot 0.15.0 took in several fixes Potato Tweaks made (from EpicLoot Progression Fix); those stay off there.
-        internal static bool EpicLootHasFixes =>
-            Chainloader.PluginInfos.TryGetValue(EpicLootId, out var info) && info.Metadata.Version >= new System.Version(0, 15, 0);
 
         // Called only when Epic Loot is loaded, so nothing here touches Epic Loot's types otherwise.
         internal static void Enable(Action<Type> patch, Action<string, Action> run)
@@ -44,7 +38,6 @@ namespace PotatoTweaks
             patch(typeof(BountyRouteRetry));
             run("Bounty placement", BountyPlacement.Initialize);
             run("Bounty loot", BountyLoot.Initialize);
-            if (Chainloader.PluginInfos.ContainsKey(StarLevelSystemId)) run("Bounty strength with StarLevelSystem", BountyTargetStrength.Initialize);
         }
     }
 
@@ -737,83 +730,6 @@ namespace PotatoTweaks
                 if (!current.HasEquipment) EpicLootFeatures.Log.LogWarning($"Bounty creature {creatureName} did not produce its guaranteed enchanted item.");
             }
             finally { guaranteeing = false; }
-        }
-    }
-
-    // ------------------------------------------------------------------ strength with StarLevelSystem
-    // Epic Loot gives a bounty's creatures more health as they spawn, through StarLevelSystem: three times for a gold
-    // bounty's target, twice for an iron one's and one and a half times for adds. StarLevelSystem kept that only in the
-    // stats the spawning game worked out, so a creature lost it once reloaded or handed to another player. Epic Loot also
-    // marks the target a boss (for its boss health bar), and StarLevelSystem then scaled it as a boss: +2% damage per star
-    // instead of +20%, boss modifiers and, once reloaded, less health per star. Give the bonus back from the bounty the
-    // creature carries, and let StarLevelSystem scale the target as the ordinary creature it is. The boss health bar stays.
-    internal static class BountyTargetStrength
-    {
-        private static readonly Func<BountyInfo, bool, float> HealthModifier =
-            AccessTools.MethodDelegate<Func<BountyInfo, bool, float>>(AccessTools.Method(typeof(BountyTarget), "GetMaxHealthModifier"));
-        private static readonly AccessTools.FieldRef<Character, ZNetView> CharacterView = AccessTools.FieldRefAccess<Character, ZNetView>("m_nview");
-        private static PropertyInfo baseValueModifiers;
-        private static object baseHealth;
-
-        internal static void Initialize()
-        {
-            var assembly = Chainloader.PluginInfos[EpicLootFeatures.StarLevelSystemId].Instance.GetType().Assembly;
-            var cache = assembly.GetType("StarLevelSystem.Data.CompositeLazyCache", true);
-            var entry = AccessTools.Method(cache, "GetCacheEntry", new[] { typeof(Character) })?.ReturnType;
-            baseValueModifiers = AccessTools.Property(entry, "CreatureBaseValueModifiers");
-            var attribute = assembly.GetType("StarLevelSystem.common.DataObjects+CreatureBaseAttribute");
-            baseHealth = attribute != null && Enum.IsDefined(attribute, "BaseHealth") ? Enum.Parse(attribute, "BaseHealth") : null;
-            var damage = AccessTools.Method(assembly.GetType("StarLevelSystem.modules.Damage.DamagePatches+ModifyDamagePerLevel"),
-                "DetermineDamageFactor", new[] { typeof(Character) });
-            if (entry == null || baseValueModifiers == null || baseHealth == null || damage?.ReturnType != typeof(float))
-                throw new InvalidOperationException("StarLevelSystem's creature cache or damage factor changed.");
-            var stats = assembly.GetType("StarLevelSystem.modules.CreatureSetup.CreatureStatOverrides", true);
-            var modifiers = assembly.GetType("StarLevelSystem.modules.Modifiers.CreatureModifiers");
-            var restore = AccessTools.Method(cache, "ApplyPersistedStatOverrides", new[] { typeof(ZDO), entry });
-            var scaling = new[]
-            {
-                AccessTools.Method(cache, "GetAndSetLocalCache"),
-                damage,
-                AccessTools.Method(modifiers, "SelectModifiersForCreature"),
-                AccessTools.Method(modifiers, "TryRollEvolutionModifier"),
-                AccessTools.Method(assembly.GetType("StarLevelSystem.modules.LevelSystem.LevelSelection"), "GetMaxCreatureLevel"),
-                AccessTools.Method(stats, "Apply"),
-            };
-            var setStats = AccessTools.GetDeclaredMethods(stats).SingleOrDefault(method => method.Name == "SetInEntry" &&
-                method.GetParameters().Length == 4 && method.GetParameters()[0].ParameterType == typeof(Character));
-            if (restore == null || setStats == null || scaling.Any(method => method == null || method.GetParameters().FirstOrDefault()?.ParameterType != typeof(Character)))
-                throw new InvalidOperationException("StarLevelSystem's creature stats changed.");
-            var harmony = Plugin.HarmonyInstance;
-            var self = typeof(BountyTargetStrength);
-            harmony.Patch(restore, postfix: new HarmonyMethod(self, nameof(RestoreBonus)));
-            harmony.Patch(setStats, postfix: new HarmonyMethod(self, nameof(RestoreStatBonus)));
-            foreach (var method in scaling)
-                harmony.Patch(method, prefix: new HarmonyMethod(self, nameof(AsOrdinary)), finalizer: new HarmonyMethod(self, nameof(AsBoss)));
-        }
-
-        private static void RestoreStatBonus(Character __0, object __1) => RestoreBonus(__0 ? CharacterView(__0)?.GetZDO() : null, __1);
-
-        // Like Epic Loot's, the bonus replaces the creature's base health multiplier.
-        private static void RestoreBonus(ZDO __0, object __1)
-        {
-            if (!Plugin.BountyNormalScaling.Value || __0 == null || __1 == null || !BountyCreature.TryRead(__0, out var bounty)) return;
-            if (baseValueModifiers.GetValue(__1) is IDictionary values) values[baseHealth] = HealthModifier(bounty, __0.GetBool(BountyCreature.IsAddKey));
-        }
-
-        // Epic Loot marks only a bounty's target a boss; its adds stay ordinary.
-        private static void AsOrdinary(Character __0, out bool __state)
-        {
-            __state = false;
-            if (!Plugin.BountyNormalScaling.Value || __0 == null || !__0.m_boss) return;
-            var view = CharacterView(__0);
-            var zdo = view != null ? view.GetZDO() : null;
-            __state = zdo != null && zdo.GetString(BountyCreature.IdKey).Length > 0;
-            if (__state) __0.m_boss = false;
-        }
-
-        private static void AsBoss(Character __0, bool __state)
-        {
-            if (__state) __0.m_boss = true;
         }
     }
 }

@@ -150,11 +150,9 @@ namespace PotatoTweaks
             Copy(other, fixes + "Lucky Loot", "Show Lucky Loot message", Plugin.LuckyLootMessage);
             Copy(other, fixes + "Lucky Loot", "Message position", Plugin.LuckyLootPosition);
             Copy(other, fixes + "Lucky Loot", "Lucky Loot on birds", Plugin.LuckyLootBirds);
-            Copy(other, fixes + "Performance", "Faster chest loading", Plugin.FasterChestLoading);
-            Copy(other, fixes + "Tooltips", "Show eitr cost on enchanted items", Plugin.EitrTooltip);
             if (!On("Epic Loot Fixes"))
                 Plugin.DamageStacking.Value = Plugin.ShotNormalCost.Value = Plugin.ShotSummonLimit.Value = Plugin.LuckyLootMessage.Value =
-                    Plugin.LuckyLootBirds.Value = Plugin.FasterChestLoading.Value = Plugin.EitrTooltip.Value = false;
+                    Plugin.LuckyLootBirds.Value = false;
 
             if (On("Enchant Glow Toggle"))
             {

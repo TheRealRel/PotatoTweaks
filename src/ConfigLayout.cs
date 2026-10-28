@@ -70,6 +70,12 @@ namespace PotatoTweaks
             { ("11 - Quality of life", "Tombstone items back in their slots"), ("1 - General", "Tombstone items back in their slots") },
         };
 
+        // Settings taken out in 1.5.18: Epic Loot 0.15 does the first two itself, and StarLevelSystem support was removed.
+        private static readonly HashSet<(string, string)> Removed = new HashSet<(string, string)>
+        {
+            ("9 - Epic Loot", "Faster chest loading"), ("9 - Epic Loot", "Eitr cost in tooltips"), ("9 - Epic Loot", "Bounty normal star scaling"),
+        };
+
         private static bool New(string oldSection, string oldKey, out string newSection, out string newKey)
         {
             if (Keys.TryGetValue((oldSection, oldKey), out var k)) { newSection = k.Section; newKey = k.Key; return true; }
@@ -115,12 +121,13 @@ namespace PotatoTweaks
                 int dropped = 0;
                 if (orphans != null)
                     foreach (var def in orphans.Keys.ToList())
-                        if (Sections.ContainsKey(def.Section) || Keys.ContainsKey((def.Section, def.Key)) || def.Section == "11 - Quality of life")
+                        if (Sections.ContainsKey(def.Section) || Keys.ContainsKey((def.Section, def.Key)) || def.Section == "11 - Quality of life" ||
+                            Removed.Contains((def.Section, def.Key)))
                         { orphans.Remove(def); dropped++; }
                 if (moved > 0 || dropped > 0)
                 {
                     config.Save();
-                    Plugin.Log.LogInfo($"Settings regrouped into 9 sections: {moved} values carried over to their new places, {dropped} old lines tidied away.");
+                    Plugin.Log.LogInfo($"Settings: {moved} values carried over to their new places, {dropped} old lines tidied away.");
                 }
             }
             catch (Exception e) { Plugin.Log.LogWarning($"Couldn't carry the old settings over to the new layout: {e.Message}"); }

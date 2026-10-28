@@ -19,7 +19,6 @@ namespace PotatoTweaks
     [BepInDependency(TombRetrieverId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(SkillLossId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(EpicLootFeatures.EpicLootId, BepInDependency.DependencyFlags.SoftDependency)]
-    [BepInDependency(EpicLootFeatures.StarLevelSystemId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(QualityOfLife.EquipmentAndQuickSlotsId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(DimmerModId, BepInDependency.DependencyFlags.SoftDependency)]
     [BepInDependency(DoubleBed.DoubleDragonBed.OriginalModId, BepInDependency.DependencyFlags.SoftDependency)]
@@ -57,15 +56,15 @@ namespace PotatoTweaks
         internal static ConfigEntry<int> TrophyGuarantee, TrophyExtraKillsPerStar;
         internal static ConfigEntry<string> TrophyHidden;
         internal const string DimmerModId = "wheeze.valheim.dimmercombatparticleeffects";
-        internal static ConfigEntry<bool> HideGlowing, HideEnchantEffects, HideLegendaryLooks, FasterChestLoading, ChestTrophies, ChestShardstones,
-            LuckyLootMessage, EitrTooltip;
+        internal static ConfigEntry<bool> HideGlowing, HideEnchantEffects, HideLegendaryLooks, ChestTrophies, ChestShardstones,
+            LuckyLootMessage;
         internal static ConfigEntry<MessageHud.MessageType> LuckyLootPosition;
 
         // Server-controlled settings.
         internal static ConfigEntry<bool> DroppedItemsEnabled, ShipRemovalEnabled, TombEnabled;
         internal static ConfigEntry<float> DroppedItemLifetimeHours;
         internal static ConfigEntry<int> TombCooldownSeconds;
-        internal static ConfigEntry<bool> BountyMainKillOnly, BountySpreadOut, BountyGuaranteedItem, BountyNormalScaling, BountyHealthBar;
+        internal static ConfigEntry<bool> BountyMainKillOnly, BountySpreadOut, BountyGuaranteedItem, BountyHealthBar;
         internal static ConfigEntry<float> BountySpacing;
         internal static ConfigEntry<int> BountyExtraCopies;
         internal static ConfigEntry<bool> GameFixesEnabled, EpicLootFixesEnabled, TidyConfigs;
@@ -193,14 +192,11 @@ namespace PotatoTweaks
             GameFixesEnabled = Config.Bind("1 - General", "Game bug fixes", true,
                 "Fixes for bugs in Valheim: swings stopped by the deck of the ship you stand on, broken fuling shaman shields still blocking, plants that stop growing, buried ore veins losing support, berry bushes slow to regrow; also other mods' mining arrows and bolts that never dig (Warfare 1.9.5 and older). Takes effect after a restart; keep it the same on the server and every player's game.");
             TidyConfigs = Config.Bind("1 - General", "Tidy other mods config files", true,
-                "At startup, fixes small things in other mods' config files that make them warn on every launch, without changing what they do: tabs in LetMeTameYou's tame list comments, and berry bushes listed twice in StarLevelSystem's location resets. Personal.");
+                "At startup, fixes small things in other mods' config files that make them warn on every launch, without changing what they do: tabs in LetMeTameYou's tame list comments. Personal.");
             if (TidyConfigs.Value) ConfigTidy.Run();
             if (epicLoot)
                 EpicLootFixesEnabled = Config.Bind("9 - Epic Loot", "Enchantment fixes", true,
-                    "Fixes for Epic Loot enchantments: Riches, Fire Rate, Noise, +Ranged Skills, Meads Cooldown, Indestructible, Bountiful Harvest, Quick Draw crossbow reload and Air Jump near the ground. Takes effect after a restart; keep it the same on the server and every player's game.");
-            if (epicLoot)
-                FasterChestLoading = Config.Bind("9 - Epic Loot", "Faster chest loading", true,
-                    "Epic Loot goes through every item of every loaded chest each time the game checks it for changes (once a second, more often with crafting-from-chests mods), even when nothing changed. On: it only does so when the chest's items really changed, with the same result. Personal.");
+                    "Fixes for Epic Loot enchantments: Meads Cooldown, repairing broken Indestructible gear, and Air Jump near the ground. Takes effect after a restart; keep it the same on the server and every player's game.");
             if (epicLoot)
             {
                 BountyMainKillOnly = Config.Bind("9 - Epic Loot", "Bounty complete on main target", true,
@@ -213,8 +209,6 @@ namespace PotatoTweaks
                     Synced("Each enchanted equipment drop from a bounty's main target is rolled again this many times, each copy with its own enchantments. 0 = Epic Loot's normal drops.", new AcceptableValueRange<int>(0, 5)));
                 BountyGuaranteedItem = Config.Bind("9 - Epic Loot", "Bounty guaranteed enchanted item", true,
                     Synced("A bounty's main target always drops at least one enchanted item from its own equipment loot."));
-                BountyNormalScaling = Config.Bind("9 - Epic Loot", "Bounty normal star scaling", true,
-                    Synced("With StarLevelSystem: bounty targets keep Epic Loot's extra health after reloading and scale with stars like ordinary creatures instead of bosses. Their boss health bar stays."));
                 BountyHealthBar = Config.Bind("9 - Epic Loot", "Bounty overhead health bar", true,
                     "Show a small name and health bar above bounty targets, as on ordinary creatures, besides the boss bar at the top of the screen. Personal.");
             }
@@ -515,8 +509,6 @@ namespace PotatoTweaks
                     "Show a message when the Lucky Loot shard multiplies drops near you, like \"Lucky Loot! Boar: 6x drops, +2 magic item rolls\". Personal.");
                 LuckyLootPosition = Config.Bind("9 - Epic Loot", "Lucky Loot message position", MessageHud.MessageType.Center,
                     "Center: a big message in the middle of the screen. TopLeft: a small line in the top left corner. Personal.");
-                EitrTooltip = Config.Bind("9 - Epic Loot", "Eitr cost in tooltips", true,
-                    "Show the eitr cost of enchanted staffs and Spellsword weapons in their tooltip (Epic Loot before 0.15.2 shows it only for Spellsword; 0.15.2 and later show it themselves, and then this does nothing). Personal.");
                 if (!before.ContainsKey("9 - Epic Loot|Enchanting materials from nearby chests")) ConfigText.ImportEpicLootAddons(Config);
             }
 
@@ -627,7 +619,7 @@ namespace PotatoTweaks
             if (EpicLootFixesEnabled.Value) EpicLootFixes.Enable(Patch, Run);
             string addons = EpicLootAddons.InstalledOriginal();
             if (addons != null)
-                Log.LogWarning($"{addons} is installed, so Potato Tweaks' Epic Loot add-ons (enchanting table chests, damage stacking, shot cost, Lucky Loot, shard clashes, eitr tooltip, faster chest loading, hiding enchantment looks) stay off. Remove {addons} to use them.");
+                Log.LogWarning($"{addons} is installed, so Potato Tweaks' Epic Loot add-ons (enchanting table chests, damage stacking, shot cost, Lucky Loot, shard clashes, hiding enchantment looks) stay off. Remove {addons} to use them.");
             else EpicLootAddons.Enable(Patch, Run);
         }
 

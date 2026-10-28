@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using BepInEx;
 using HarmonyLib;
 using TMPro;
@@ -282,7 +281,6 @@ namespace PotatoTweaks
                 internal string Creature, Character;
                 internal long Peer;
                 internal List<KeyValuePair<CharacterDrop.Drop, float>> Changed;
-                internal List<KeyValuePair<object, float>> SlsChanged;
             }
 
             private static void Prefix(CharacterDrop __instance, out State __state)
@@ -312,26 +310,12 @@ namespace PotatoTweaks
                     __state.Changed.Add(new KeyValuePair<CharacterDrop.Drop, float>(drop, drop.m_chance));
                     drop.m_chance = Boosted(drop.m_chance, dry);
                 }
-                // Star Level System replaces the drops of creatures listed in its LootSettings.yaml with its own table.
-                var custom = StarLevelLoot.Entries(creature);
-                if (custom == null) return;
-                __state.SlsChanged = new List<KeyValuePair<object, float>>();
-                foreach (var entry in custom)
-                {
-                    if (!StarLevelLoot.Read(entry, out object drop, out string prefab, out float chance)) continue;
-                    if (!IsTrophy(TrophyPrefab(prefab))) continue;
-                    if (Plugin.TrophyOnlyUncollected.Value && (killer.Local ? Collected(prefab) : killer.Collected.Contains(prefab))) continue;
-                    __state.SlsChanged.Add(new KeyValuePair<object, float>(drop, chance));
-                    StarLevelLoot.SetChance(drop, Boosted(chance, dry));
-                }
             }
 
             private static void Finalizer(State __state)
             {
                 if (__state?.Changed == null) return;
                 foreach (var change in __state.Changed) change.Key.m_chance = change.Value;
-                if (__state.SlsChanged != null)
-                    foreach (var change in __state.SlsChanged) StarLevelLoot.SetChance(change.Key, change.Value);
             }
 
             private static void Postfix(CharacterDrop __instance, List<KeyValuePair<GameObject, int>> __result, State __state)
@@ -339,11 +323,9 @@ namespace PotatoTweaks
                 if (__state?.Changed == null) return;
                 var dead = __instance.GetComponent<Character>();
                 int stars = dead ? Mathf.Max(0, dead.GetLevel() - 1) : 0;
-                int slsCount = __state.SlsChanged?.Count ?? 0;
-                bool pity = __state.Changed.Count + slsCount > 0;
+                bool pity = __state.Changed.Count > 0;
                 bool dropped = pity && __result != null && __result.Any(entry => IsTrophy(entry.Key));
-                // The chance shown in the message: Star Level System's table when it replaced the drops.
-                float baseChance = slsCount > 0 ? __state.SlsChanged[0].Value : __state.Changed.Count > 0 ? __state.Changed[0].Value : 0f;
+                float baseChance = pity ? __state.Changed[0].Value : 0f;
                 if (__state.Character != null)
                 {
                     Record(__state.Character, __state.Creature, stars, pity, dropped, baseChance);
@@ -358,71 +340,6 @@ namespace PotatoTweaks
                 package.Write(baseChance);
                 ZRoutedRpc.instance.InvokeRoutedRPC(__state.Peer, ResultRpc, package);
             }
-        }
-
-        private static GameObject TrophyPrefab(string name) =>
-            string.IsNullOrEmpty(name) ? null : ObjectDB.instance ? ObjectDB.instance.GetItemPrefab(name) : ZNetScene.instance ? ZNetScene.instance.GetPrefab(name) : null;
-
-        // Star Level System's own drop tables (LootSettings.yaml, CharacterSpecificLoot), reached by reflection so it
-        // stays optional. Its trophy chances get the same pity, only while the drops are rolled.
-        internal static class StarLevelLoot
-        {
-            private static bool looked;
-            private static PropertyInfo settings, characterLoot, dropOf, prefabOf, chanceOf;
-
-            private static bool Ready()
-            {
-                if (looked) return settings != null;
-                looked = true;
-                try
-                {
-                    if (!BepInEx.Bootstrap.Chainloader.PluginInfos.ContainsKey(EpicLootFeatures.StarLevelSystemId)) return false;
-                    var data = AccessTools.TypeByName("StarLevelSystem.Data.LootSystemData");
-                    var loot = AccessTools.TypeByName("StarLevelSystem.common.DataObjects+LootSettings");
-                    var entry = AccessTools.TypeByName("StarLevelSystem.common.DataObjects+ExtendedCharacterDrop");
-                    var drop = AccessTools.TypeByName("StarLevelSystem.common.DataObjects+Drop");
-                    var found = new[]
-                    {
-                        AccessTools.Property(data, "SLS_Drop_Settings"), AccessTools.Property(loot, "CharacterSpecificLoot"),
-                        AccessTools.Property(entry, "Drop"), AccessTools.Property(drop, "Prefab"), AccessTools.Property(drop, "Chance"),
-                    };
-                    if (found.Any(property => property == null))
-                    {
-                        Plugin.Log.LogWarning("Star Level System's loot tables changed; trophy pity leaves the creatures it lists alone.");
-                        return false;
-                    }
-                    settings = found[0]; characterLoot = found[1]; dropOf = found[2]; prefabOf = found[3]; chanceOf = found[4];
-                    return true;
-                }
-                catch (Exception e)
-                {
-                    Plugin.Log.LogWarning("Couldn't read Star Level System's loot tables: " + e.Message);
-                    return false;
-                }
-            }
-
-            // The drop lines Star Level System uses instead of the game's for this creature, or null.
-            internal static IEnumerable<object> Entries(string creature)
-            {
-                if (!Ready()) return null;
-                try
-                {
-                    var loot = settings.GetValue(null, null);
-                    if (loot == null || !(characterLoot.GetValue(loot, null) is System.Collections.IDictionary tables) || !tables.Contains(creature)) return null;
-                    return (tables[creature] as System.Collections.IEnumerable)?.Cast<object>().ToList();
-                }
-                catch { return null; }
-            }
-
-            internal static bool Read(object entry, out object drop, out string prefab, out float chance)
-            {
-                drop = entry != null ? dropOf.GetValue(entry, null) : null;
-                prefab = drop != null ? prefabOf.GetValue(drop, null) as string : null;
-                chance = drop != null ? (float)chanceOf.GetValue(drop, null) : 0f;
-                return drop != null && prefab != null;
-            }
-
-            internal static void SetChance(object drop, float chance) => chanceOf.SetValue(drop, chance, null);
         }
 
         // ---------------------------------------------------------------- the Trophies tab

@@ -104,7 +104,7 @@ These switch on only when Epic Loot is installed.
 
 **Bounties.** They complete when the main target dies and spread out across the map. The target gets a small health bar and always drops at least one enchanted item.
 
-**Enchantments.** Riches, Fire Rate, Noise, +Ranged Skills, Meads Cooldown, Indestructible, Bountiful Harvest, Quick Draw and Air Jump work as described. Damage enchantments can roll together, and Lucky Loot works on birds.
+**Enchantments.** Meads Cooldown, broken Indestructible gear and Air Jump work as described. Damage enchantments can roll together, and Lucky Loot works on birds.
 
 **Enchanting table.** It takes its materials from chests within 50 m.
 
@@ -124,7 +124,7 @@ In `BepInEx/config/potato.tweaks.cfg`, or in game with Configuration Manager (F1
 | 6 - Skill loss on death | Loss per skill (1 = the game's normal) | Server |
 | 7 - Skill XP | XP per skill (1 = normal, up to 10) | Server |
 | 8 - Stations and building | Smelters and kilns (capacity, speed, fuel, output), windmills (2x speed), blast furnace takes all ores; fermenters; crafting station build range and craftable chain; serving tray (next game start); Wisplight levels (5); doors close themselves (5 s); smoke; double dragon bed (restart after changing); item stands (2 m, 5x) | Server; bed blankets and hiding stands personal |
-| 9 - Epic Loot | Bounties (main kill only, spacing 300 m, extra copies 1, scaling); enchanting table chests (50 m); enchantment stacking, shot costs, shard clashes, Lucky Loot on birds; Epic Loot fixes (restart after changing) | Server; health bar, Sacrifice lists and messages personal |
+| 9 - Epic Loot | Bounties (main kill only, spacing 300 m, extra copies 1); enchanting table chests (50 m); enchantment stacking, shot costs, shard clashes, Lucky Loot on birds; Epic Loot fixes (restart after changing) | Server; health bar, Sacrifice lists and messages personal |
 
 Settings sharing a section start with what they belong to ("Smelter speed", "Chest icon size"), so they sit together. Coming from an earlier Potato Tweaks, your settings move to their new places on the first start.
 
@@ -136,6 +136,6 @@ Trophy pity counts are kept per character in `BepInEx/config/potato.tweaks.troph
 
 Bug reports go to [GitHub Issues](https://github.com/TheRealRel/PotatoTweaks/issues), where the source lives too. Questions are welcome on Discord: [relanebeis](https://discord.com/users/373574370267889674). The Changelog tab says whether everyone needs to update.
 
-Needs [BepInExPack Valheim](https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/) and [Jötunn](https://thunderstore.io/c/valheim/p/ValheimModding/Jotunn/). Epic Loot and StarLevelSystem are optional. Players without Potato Tweaks can't join a server that has it.
+Needs [BepInExPack Valheim](https://thunderstore.io/c/valheim/p/denikson/BepInExPack_Valheim/) and [Jötunn](https://thunderstore.io/c/valheim/p/ValheimModding/Jotunn/). Epic Loot is optional. Players without Potato Tweaks can't join a server that has it.
 
 The code is under the MIT License: use it, change it and share it freely. The icon and screenshots are © TheRealRel under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/): free to share and adapt with credit, but not for commercial use. See LICENSE.
