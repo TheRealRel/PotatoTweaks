@@ -76,6 +76,7 @@ namespace PotatoTweaks
     {
         private const string ProviderId = "potato.tweaks.nearbychests";
         private static readonly List<Container> Known = new List<Container>();
+        private static int pruneAt = 256;
         private static readonly List<Container> Usable = new List<Container>();
         private static int usableFrame = -1;
         private static bool listingSacrifice;
@@ -88,10 +89,22 @@ namespace PotatoTweaks
                 throw new Exception("Epic Loot refused the chest provider");
         }
 
+        // Only containers that could be built chests: not carts, ships or graves. Chests that were unloaded are dropped
+        // from the list now and then, so it doesn't grow through a long session.
         [HarmonyPatch(typeof(Container), "Awake")]
         internal static class Track
         {
-            private static void Postfix(Container __instance) => Known.Add(__instance);
+            private static void Postfix(Container __instance)
+            {
+                if (__instance.m_wagon || __instance.GetComponent<TombStone>() || __instance.GetComponentInParent<Ship>() ||
+                    !__instance.GetComponentInParent<Piece>()) return;
+                if (Known.Count >= pruneAt)
+                {
+                    Known.RemoveAll(chest => !chest);
+                    pruneAt = Math.Max(256, Known.Count * 2);
+                }
+                Known.Add(__instance);
+            }
         }
 
         // Trophies and shardstones from chests only belong in the Sacrifice tab's list, nowhere else Epic Loot lists items.

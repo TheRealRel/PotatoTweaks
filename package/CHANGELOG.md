@@ -2,6 +2,8 @@
 
 ## 1.5.18
 - The mining arrow fix's description now names Warfare 1.9.5 and older; Warfare 1.9.6 fixed its arrows and bolts itself.
+- If chest contents on hover or inventory slot visibility ever runs into an error, it stays off only until the game restarts instead of switching itself off in your settings.
+- The enchanting table's chest search keeps a shorter list of chests during long sessions.
 
 ## 1.5.17
 - **Settings in 9 sections instead of 32.** Related settings share a section and start with what they belong to ("Smelter speed", "Chest icon size"), so Configuration Manager is quicker to look through. Your settings, and the server's, move to their new places on the first start.

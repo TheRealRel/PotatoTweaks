@@ -44,10 +44,12 @@ namespace PotatoTweaks
         private static Transform canvasFor;
         private static float nextCheck;
         private static int lastFingerprint;
+        private static bool stopped;   // an error switches it off until the game restarts, not in the player's settings
 
         [HarmonyPriority(Priority.Last)]
         private static void Postfix(InventoryGui __instance)
         {
+            if (stopped) return;
             if (!InventoryGui.IsVisible() || !Plugin.InventorySlotsVisibility.Value)
             {
                 if (Touched.Count > 0) RestoreAll();
@@ -73,8 +75,9 @@ namespace PotatoTweaks
             }
             catch (Exception e)
             {
-                Plugin.Log.LogWarning($"Inventory Slots Visibility stopped: {e.Message}");
-                Plugin.InventorySlotsVisibility.Value = false;
+                Plugin.Log.LogWarning($"Inventory Slots Visibility is off until the game restarts: {e.Message}");
+                stopped = true;
+                try { RestoreAll(); } catch { Touched.Clear(); }
             }
         }
 

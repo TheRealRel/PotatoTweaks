@@ -141,15 +141,17 @@ namespace PotatoTweaks
             private static readonly List<TextMeshProUGUI> counts = new List<TextMeshProUGUI>();
             private static TextMeshProUGUI more;
             private static float builtSize;
+            private static bool broken;   // an error switches it off until the game restarts, not in the player's settings
             private static readonly Dictionary<string, KeyValuePair<ItemDrop.ItemData, int>> totals = new Dictionary<string, KeyValuePair<ItemDrop.ItemData, int>>();
 
             private static void Postfix(Hud __instance)
             {
+                if (broken) return;
                 try { Show(__instance); }
                 catch (Exception e)
                 {
-                    Plugin.Log.LogError($"Chest contents on hover is disabled: {e.GetBaseException().Message}");
-                    Plugin.ChestContentsEnabled.Value = false;
+                    Plugin.Log.LogError($"Chest contents on hover is off until the game restarts: {e.GetBaseException().Message}");
+                    broken = true;
                     if (row) row.gameObject.SetActive(false);
                 }
             }
